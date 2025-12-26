@@ -103,9 +103,9 @@ function Hero() {
         </div>
       )}
 
-      {/* Gradient Orbs */}
-      <div className="absolute top-1/4 -left-32 w-64 h-64 sm:w-96 sm:h-96 bg-[var(--safety-orange)]/10 rounded-full blur-[100px]" aria-hidden="true" />
-      <div className="absolute bottom-1/4 -right-32 w-64 h-64 sm:w-96 sm:h-96 bg-[var(--safety-orange)]/5 rounded-full blur-[100px]" aria-hidden="true" />
+      {/* Gradient Orbs - Hidden on mobile, reduced blur for performance */}
+      <div className="hidden md:block absolute top-1/4 -left-32 w-96 h-96 bg-[var(--safety-orange)]/10 rounded-full blur-[60px]" aria-hidden="true" />
+      <div className="hidden md:block absolute bottom-1/4 -right-32 w-96 h-96 bg-[var(--safety-orange)]/5 rounded-full blur-[60px]" aria-hidden="true" />
 
       {/* Content */}
       <Container className="relative z-10 pt-24 pb-16 sm:pt-32 sm:pb-24">
@@ -217,20 +217,17 @@ function Hero() {
       {/* Bottom Gradient Fade */}
       <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[var(--asphalt-dark)] to-transparent" />
 
-      {/* Scroll Indicator */}
+      {/* Scroll Indicator - Hidden on mobile for performance */}
       <motion.div
         initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1 }}
-        className="absolute bottom-8 left-1/2 -translate-x-1/2"
+        whileInView={{ opacity: 1 }}
+        viewport={{ once: false }}
+        transition={{ delay: 0.5 }}
+        className="hidden sm:block absolute bottom-8 left-1/2 -translate-x-1/2"
       >
-        <motion.div
-          animate={{ y: [0, 8, 0] }}
-          transition={{ duration: 1.5, repeat: Infinity }}
-          className="w-6 h-10 rounded-full border-2 border-[var(--steel-gray)] flex items-start justify-center p-2"
-        >
-          <motion.div className="w-1.5 h-1.5 rounded-full bg-[var(--safety-orange)]" />
-        </motion.div>
+        <div className="w-6 h-10 rounded-full border-2 border-[var(--steel-gray)] flex items-start justify-center p-2 animate-bounce">
+          <div className="w-1.5 h-1.5 rounded-full bg-[var(--safety-orange)]" />
+        </div>
       </motion.div>
     </section>
   )

@@ -12,10 +12,10 @@ export default function CTA() {
       className="py-16 sm:py-24 bg-[var(--asphalt-dark)] relative overflow-hidden"
       aria-labelledby="cta-heading"
     >
-      {/* Background Elements */}
+      {/* Background Elements - Blur elements hidden on mobile for performance */}
       <div className="absolute inset-0 bg-grid-pattern opacity-20" />
-      <div className="absolute top-0 left-1/4 w-96 h-96 bg-[var(--safety-orange)]/5 rounded-full blur-[120px]" />
-      <div className="absolute bottom-0 right-1/4 w-96 h-96 bg-[var(--safety-orange)]/5 rounded-full blur-[120px]" />
+      <div className="hidden md:block absolute top-0 left-1/4 w-96 h-96 bg-[var(--safety-orange)]/5 rounded-full blur-[60px]" />
+      <div className="hidden md:block absolute bottom-0 right-1/4 w-96 h-96 bg-[var(--safety-orange)]/5 rounded-full blur-[60px]" />
 
       <Container className="relative z-10">
         <div className="max-w-5xl mx-auto">
@@ -30,8 +30,8 @@ export default function CTA() {
             {/* Accent Border */}
             <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[var(--safety-orange)] to-transparent" />
 
-            {/* Glow Effect */}
-            <div className="absolute -top-20 -right-20 w-40 h-40 bg-[var(--safety-orange)]/10 rounded-full blur-3xl" />
+            {/* Glow Effect - Hidden on mobile */}
+            <div className="hidden sm:block absolute -top-20 -right-20 w-40 h-40 bg-[var(--safety-orange)]/10 rounded-full blur-2xl" />
 
             <div className="grid lg:grid-cols-2 gap-6 lg:gap-10 items-center">
               {/* Left Content */}

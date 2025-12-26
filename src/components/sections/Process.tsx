@@ -173,9 +173,9 @@ export default function Process() {
       className="py-16 sm:py-24 bg-[var(--asphalt-black)] relative overflow-hidden"
       aria-labelledby="process-heading"
     >
-      {/* Decorative Elements - Hidden on mobile for performance */}
-      <div className="hidden md:block absolute top-1/2 left-0 w-1/3 h-1/2 bg-[var(--safety-orange)]/5 blur-[100px] -translate-y-1/2" />
-      <div className="hidden md:block absolute top-1/2 right-0 w-1/3 h-1/2 bg-[var(--safety-orange)]/5 blur-[100px] -translate-y-1/2" />
+      {/* Decorative Elements - Hidden on mobile, reduced blur for performance */}
+      <div className="hidden md:block absolute top-1/2 left-0 w-1/3 h-1/2 bg-[var(--safety-orange)]/5 blur-[60px] -translate-y-1/2" />
+      <div className="hidden md:block absolute top-1/2 right-0 w-1/3 h-1/2 bg-[var(--safety-orange)]/5 blur-[60px] -translate-y-1/2" />
 
       <Container>
         {/* Section Header */}

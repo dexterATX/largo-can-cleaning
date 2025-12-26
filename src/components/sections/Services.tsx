@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef, useState, memo } from 'react'
+import { useEffect, useRef, useState, memo, useCallback } from 'react'
 import { motion } from 'motion/react'
 import { Home, Building2, CalendarClock, Sparkles, ArrowRight } from 'lucide-react'
 import Container from '@/components/ui/Container'
@@ -67,10 +67,10 @@ const itemVariants = {
 }
 
 // Memoized ServiceCard to prevent unnecessary re-renders when parent re-renders
-const ServiceCard = memo(function ServiceCard({ service, index }: { service: typeof services[0]; index: number }) {
+const ServiceCard = memo(function ServiceCard({ service }: { service: typeof services[0] }) {
   return (
     <article
-      className={`relative group p-6 rounded-2xl bg-gradient-card border transition-all duration-300 hover:-translate-y-1 h-full ${
+      className={`relative group p-6 rounded-2xl bg-gradient-card border transition-[transform,border-color] duration-300 hover:-translate-y-1 h-full ${
         service.popular
           ? 'border-[var(--safety-orange)]/50 hover:border-[var(--safety-orange)]'
           : 'border-[var(--steel-gray)]/30 hover:border-[var(--steel-gray)]'
@@ -128,35 +128,49 @@ const ServiceCard = memo(function ServiceCard({ service, index }: { service: typ
   )
 })
 
-function MobileCarousel() {
+// Memoized MobileCarousel to prevent re-renders
+const MobileCarousel = memo(function MobileCarousel() {
   const [width, setWidth] = useState(0)
   const carousel = useRef<HTMLDivElement>(null)
 
-  useEffect(() => {
+  // Debounced width calculation
+  const calculateWidth = useCallback(() => {
     if (carousel.current) {
       setWidth(carousel.current.scrollWidth - carousel.current.offsetWidth)
     }
   }, [])
+
+  useEffect(() => {
+    calculateWidth()
+
+    // Debounced resize handler
+    let timeoutId: ReturnType<typeof setTimeout>
+    const handleResize = () => {
+      clearTimeout(timeoutId)
+      timeoutId = setTimeout(calculateWidth, 150)
+    }
+
+    window.addEventListener('resize', handleResize, { passive: true })
+    return () => {
+      window.removeEventListener('resize', handleResize)
+      clearTimeout(timeoutId)
+    }
+  }, [calculateWidth])
 
   return (
     <div className="w-full overflow-hidden sm:hidden">
       <motion.div
         ref={carousel}
         drag="x"
-        whileDrag={{ scale: 0.98 }}
-        dragElastic={0.2}
+        dragElastic={0.1}
         dragConstraints={{ right: 0, left: -width }}
-        dragTransition={{ bounceDamping: 30 }}
-        transition={{ duration: 0.2, ease: 'easeInOut' }}
+        dragTransition={{ bounceDamping: 20, bounceStiffness: 300 }}
         className="flex will-change-transform cursor-grab active:cursor-grabbing"
       >
         {services.map((service, index) => (
-          <motion.div
-            key={index}
-            className="min-w-[85vw] p-2"
-          >
-            <ServiceCard service={service} index={index} />
-          </motion.div>
+          <div key={index} className="min-w-[85vw] p-2">
+            <ServiceCard service={service} />
+          </div>
         ))}
       </motion.div>
       <p className="text-center text-xs text-[var(--slate-gray)] mt-4">
@@ -164,7 +178,7 @@ function MobileCarousel() {
       </p>
     </div>
   )
-}
+})
 
 export default function Services() {
   return (
@@ -213,7 +227,7 @@ export default function Services() {
         >
           {services.map((service, index) => (
             <motion.div key={index} variants={itemVariants}>
-              <ServiceCard service={service} index={index} />
+              <ServiceCard service={service} />
             </motion.div>
           ))}
         </motion.div>

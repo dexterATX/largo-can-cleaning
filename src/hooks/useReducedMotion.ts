@@ -26,10 +26,14 @@ export function useReducedMotion(): boolean {
 
     mediaQuery.addEventListener('change', handleChange);
 
-    // Also listen for resize to detect orientation changes
+    // Debounced resize handler to prevent excessive re-renders
+    let timeoutId: ReturnType<typeof setTimeout>;
     const handleResize = () => {
-      const nowMobile = window.innerWidth < 768;
-      setShouldReduceMotion(mediaQuery.matches || nowMobile);
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(() => {
+        const nowMobile = window.innerWidth < 768;
+        setShouldReduceMotion(mediaQuery.matches || nowMobile);
+      }, 150);
     };
 
     window.addEventListener('resize', handleResize, { passive: true });
@@ -37,6 +41,7 @@ export function useReducedMotion(): boolean {
     return () => {
       mediaQuery.removeEventListener('change', handleChange);
       window.removeEventListener('resize', handleResize);
+      clearTimeout(timeoutId);
     };
   }, []);
 
@@ -59,9 +64,20 @@ export function useIsMobile(): boolean {
     };
 
     checkMobile();
-    window.addEventListener('resize', checkMobile, { passive: true });
 
-    return () => window.removeEventListener('resize', checkMobile);
+    // Debounced resize handler
+    let timeoutId: ReturnType<typeof setTimeout>;
+    const handleResize = () => {
+      clearTimeout(timeoutId);
+      timeoutId = setTimeout(checkMobile, 150);
+    };
+
+    window.addEventListener('resize', handleResize, { passive: true });
+
+    return () => {
+      window.removeEventListener('resize', handleResize);
+      clearTimeout(timeoutId);
+    };
   }, []);
 
   return isMobile;
