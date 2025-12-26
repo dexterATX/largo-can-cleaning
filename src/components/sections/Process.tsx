@@ -5,6 +5,7 @@ import { motion } from 'motion/react'
 import Image from 'next/image'
 import { CalendarCheck, Truck, Droplets, CheckCircle, ChevronLeft, ChevronRight } from 'lucide-react'
 import Container from '@/components/ui/Container'
+import { useIsMobile } from '@/hooks/useReducedMotion'
 import {
   Carousel,
   CarouselContent,
@@ -55,6 +56,7 @@ const stats = [
 
 function ProcessCarousel() {
   const [index, setIndex] = useState(0)
+  const isMobile = useIsMobile()
 
   return (
     <div className="relative">
@@ -65,7 +67,7 @@ function ProcessCarousel() {
               key={idx}
               className="pl-4 basis-full sm:basis-1/2 lg:basis-1/4"
             >
-              <ProcessCard step={step} index={idx} />
+              <ProcessCard step={step} index={idx} isMobile={isMobile} />
             </CarouselItem>
           ))}
         </CarouselContent>
@@ -114,32 +116,33 @@ function ProcessCarousel() {
   )
 }
 
-function ProcessCard({ step, index }: { step: typeof steps[0]; index: number }) {
+function ProcessCard({ step, index, isMobile }: { step: typeof steps[0]; index: number; isMobile: boolean }) {
   return (
     <motion.article
-      initial={{ opacity: 0, y: 20 }}
+      initial={isMobile ? { opacity: 0 } : { opacity: 0, y: 20 }}
       whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true }}
-      transition={{ duration: 0.5, delay: index * 0.1 }}
-      className="relative h-[400px] sm:h-[420px] rounded-2xl overflow-hidden group"
+      viewport={{ once: true, margin: "-50px" }}
+      transition={{ duration: isMobile ? 0.3 : 0.5, delay: isMobile ? 0 : index * 0.1 }}
+      className="relative h-[400px] sm:h-[420px] rounded-2xl overflow-hidden group will-change-transform"
     >
       {/* Background Image */}
-      <div className="absolute inset-0 transition-transform duration-500 group-hover:scale-105">
+      <div className="absolute inset-0 sm:transition-transform sm:duration-500 sm:group-hover:scale-105">
         <Image
           src={step.img}
           alt={step.title}
           fill
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
           className="object-cover object-center"
-          loading="lazy"
+          priority={index === 0}
+          loading={index === 0 ? "eager" : "lazy"}
         />
       </div>
 
       {/* Dark Overlay Gradient */}
       <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-black/30" />
 
-      {/* Step Number - Top Right */}
-      <div className="absolute top-4 right-4 w-12 h-12 rounded-full bg-[var(--steel-gray)]/80 backdrop-blur-sm flex items-center justify-center">
+      {/* Step Number - Top Right - No backdrop-blur on mobile */}
+      <div className="absolute top-4 right-4 w-12 h-12 rounded-full bg-[var(--steel-gray)]/90 md:bg-[var(--steel-gray)]/80 md:backdrop-blur-sm flex items-center justify-center">
         <span className="text-lg font-bold text-white">{step.step}</span>
       </div>
 
@@ -153,8 +156,8 @@ function ProcessCard({ step, index }: { step: typeof steps[0]; index: number }) 
         {/* Title */}
         <h3 className="text-xl font-bold text-white mb-2">{step.title}</h3>
 
-        {/* Description Box */}
-        <div className="bg-[var(--steel-gray)]/60 backdrop-blur-sm rounded-xl p-3">
+        {/* Description Box - No backdrop-blur on mobile */}
+        <div className="bg-[var(--steel-gray)]/80 md:bg-[var(--steel-gray)]/60 md:backdrop-blur-sm rounded-xl p-3">
           <p className="text-sm text-gray-300 leading-relaxed">
             {step.description}
           </p>
@@ -170,9 +173,9 @@ export default function Process() {
       className="py-16 sm:py-24 bg-[var(--asphalt-black)] relative overflow-hidden"
       aria-labelledby="process-heading"
     >
-      {/* Decorative Elements */}
-      <div className="absolute top-1/2 left-0 w-1/3 h-1/2 bg-[var(--safety-orange)]/5 blur-[150px] -translate-y-1/2" />
-      <div className="absolute top-1/2 right-0 w-1/3 h-1/2 bg-[var(--safety-orange)]/5 blur-[150px] -translate-y-1/2" />
+      {/* Decorative Elements - Hidden on mobile for performance */}
+      <div className="hidden md:block absolute top-1/2 left-0 w-1/3 h-1/2 bg-[var(--safety-orange)]/5 blur-[100px] -translate-y-1/2" />
+      <div className="hidden md:block absolute top-1/2 right-0 w-1/3 h-1/2 bg-[var(--safety-orange)]/5 blur-[100px] -translate-y-1/2" />
 
       <Container>
         {/* Section Header */}
