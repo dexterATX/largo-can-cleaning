@@ -92,3 +92,26 @@
   z-index: -1;
   border-radius: 12px;
 }
+
+/* Mobile optimizations */
+@media (max-width: 768px) {
+  .masonry-item-wrapper {
+    /* Reduce will-change on mobile to save memory */
+    will-change: transform, opacity;
+  }
+
+  /* Simplify shadows on mobile */
+  .masonry-item-wrapper > .masonry-item-img {
+    box-shadow: 0px 4px 15px -5px rgba(0, 0, 0, 0.3);
+  }
+
+  .masonry-item-wrapper:hover > .masonry-item-img {
+    box-shadow: 0px 4px 15px -5px rgba(0, 0, 0, 0.3);
+  }
+
+  /* Always show overlay on mobile (no hover) */
+  .masonry-item-overlay {
+    opacity: 1;
+    background: linear-gradient(to top, rgba(0, 0, 0, 0.7) 0%, rgba(0, 0, 0, 0) 100%);
+  }
+}

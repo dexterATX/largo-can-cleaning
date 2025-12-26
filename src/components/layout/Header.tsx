@@ -71,10 +71,21 @@ export default function Header() {
     }
   }, [isMenuOpen])
 
-  // Scroll detection
+  // Scroll detection with throttling for mobile performance
   useEffect(() => {
+    let ticking = false
+    let lastScrollY = 0
+
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 20)
+      lastScrollY = window.scrollY
+
+      if (!ticking) {
+        window.requestAnimationFrame(() => {
+          setIsScrolled(lastScrollY > 20)
+          ticking = false
+        })
+        ticking = true
+      }
     }
 
     window.addEventListener('scroll', handleScroll, { passive: true })
@@ -149,7 +160,7 @@ export default function Header() {
         'fixed top-0 left-0 right-0 z-50',
         'transition-all duration-300',
         isScrolled
-          ? 'bg-[var(--asphalt-dark)]/95 backdrop-blur-md shadow-lg border-b border-[var(--steel-gray)]/20'
+          ? 'bg-[var(--asphalt-dark)]/98 md:bg-[var(--asphalt-dark)]/95 md:backdrop-blur-md shadow-lg border-b border-[var(--steel-gray)]/20'
           : 'bg-transparent'
       )}
     >

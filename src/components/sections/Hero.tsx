@@ -5,12 +5,13 @@ import { motion, useScroll, useTransform } from 'framer-motion'
 import { ArrowRight, Sparkles, Shield, Droplets, CheckCircle2 } from 'lucide-react'
 import Container from '@/components/ui/Container'
 import Button from '@/components/ui/Button'
+import { useReducedMotion, useIsMobile } from '@/hooks/useReducedMotion'
 
 // Animated water droplet particle component - memoized to prevent unnecessary re-renders
 const WaterParticle = memo(function WaterParticle({ delay, x, size }: { delay: number; x: number; size: number }) {
   return (
     <motion.div
-      className="absolute rounded-full bg-[var(--safety-orange)]/20"
+      className="absolute rounded-full bg-[var(--safety-orange)]/20 will-change-transform"
       style={{
         width: size,
         height: size,
@@ -32,17 +33,32 @@ const WaterParticle = memo(function WaterParticle({ delay, x, size }: { delay: n
   )
 })
 
-// Generate particles array
-const particles = Array.from({ length: 20 }, (_, i) => ({
+// Generate particles arrays - full for desktop, reduced for mobile
+const desktopParticles = Array.from({ length: 20 }, (_, i) => ({
   id: i,
   delay: Math.random() * 3,
   x: Math.random() * 100,
   size: 4 + Math.random() * 8,
 }))
 
+const mobileParticles = Array.from({ length: 6 }, (_, i) => ({
+  id: i,
+  delay: Math.random() * 2,
+  x: Math.random() * 100,
+  size: 4 + Math.random() * 6,
+}))
+
 function Hero() {
   const containerRef = useRef<HTMLDivElement>(null)
   const [isMounted, setIsMounted] = useState(false)
+  const shouldReduceMotion = useReducedMotion()
+  const isMobile = useIsMobile()
+
+  // Select particles based on device - fewer particles on mobile for performance
+  const particles = useMemo(() => {
+    if (shouldReduceMotion) return [] // No particles if reduced motion preferred
+    return isMobile ? mobileParticles : desktopParticles
+  }, [shouldReduceMotion, isMobile])
 
   // Memoize heroFeatures to prevent recreation on each render
   const heroFeatures = useMemo(() => [
@@ -56,8 +72,9 @@ function Hero() {
     offset: ['start start', 'end start'],
   })
 
-  const y = useTransform(scrollYProgress, [0, 1], ['0%', '30%'])
-  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0])
+  // Disable parallax on mobile for better performance
+  const y = useTransform(scrollYProgress, [0, 1], isMobile ? ['0%', '0%'] : ['0%', '30%'])
+  const opacity = useTransform(scrollYProgress, [0, 0.5], isMobile ? [1, 1] : [1, 0])
 
   useEffect(() => {
     setIsMounted(true)

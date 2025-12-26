@@ -135,34 +135,28 @@ export default function Testimonials() {
         </p>
       </div>
 
-      {/* 3D Marquee Container */}
-      <div className="relative flex h-[450px] sm:h-96 w-full flex-row items-center justify-center gap-4 overflow-hidden [perspective:300px]">
-        {/* Mobile: 3 columns, larger */}
-        <div
-          className="flex sm:hidden flex-row items-center gap-2 scale-90 origin-center"
-          style={{
-            transform:
-              'translateX(0px) translateY(0px) translateZ(-50px) rotateX(15deg) rotateY(-8deg) rotateZ(15deg)',
-          }}
-        >
-          <Marquee pauseOnHover vertical className="[--duration:20s]">
+      {/* Marquee Container - No 3D transforms on mobile for performance */}
+      <div className="relative flex h-[450px] sm:h-96 w-full flex-row items-center justify-center gap-4 overflow-hidden sm:[perspective:300px]">
+        {/* Mobile: 3 columns, no 3D transforms for better performance */}
+        <div className="flex sm:hidden flex-row items-center gap-2 scale-90 origin-center">
+          <Marquee pauseOnHover vertical className="[--duration:25s]">
             {[reviews[0], reviews[3], reviews[6]].map((review) => (
               <ReviewCard key={review.name} {...review} />
             ))}
           </Marquee>
-          <Marquee reverse pauseOnHover vertical className="[--duration:20s]">
+          <Marquee reverse pauseOnHover vertical className="[--duration:25s]">
             {[reviews[1], reviews[4], reviews[7]].map((review) => (
               <ReviewCard key={review.name} {...review} />
             ))}
           </Marquee>
-          <Marquee pauseOnHover vertical className="[--duration:20s]">
+          <Marquee pauseOnHover vertical className="[--duration:25s]">
             {[reviews[2], reviews[5]].map((review) => (
               <ReviewCard key={review.name} {...review} />
             ))}
           </Marquee>
         </div>
 
-        {/* Desktop: 4 columns */}
+        {/* Desktop: 4 columns with 3D transforms */}
         <div
           className="hidden sm:flex flex-row items-center gap-4"
           style={{

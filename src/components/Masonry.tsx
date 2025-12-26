@@ -2,6 +2,7 @@
 
 import { useEffect, useLayoutEffect, useMemo, useRef, useState, memo, useCallback } from 'react'
 import { gsap } from 'gsap'
+import { useIsMobile } from '@/hooks/useReducedMotion'
 import './Masonry.css'
 
 interface MasonryItem {
@@ -95,6 +96,13 @@ const Masonry = ({
   colorShiftOnHover = false,
   onItemClick
 }: MasonryProps) => {
+  const isMobile = useIsMobile()
+
+  // Disable blur on mobile for better performance
+  const shouldBlur = blurToFocus && !isMobile
+  // Reduce stagger on mobile for faster perceived loading
+  const mobileStagger = isMobile ? stagger * 0.5 : stagger
+
   const columns = useMedia(
     ['(min-width:1500px)', '(min-width:1000px)', '(min-width:600px)', '(min-width:400px)'],
     [4, 3, 2, 2],
@@ -186,16 +194,16 @@ const Masonry = ({
           y: initialPos.y,
           width: item.w,
           height: item.h,
-          ...(blurToFocus && { filter: 'blur(10px)' })
+          ...(shouldBlur && { filter: 'blur(10px)' })
         }
 
         gsap.fromTo(selector, initialState, {
           opacity: 1,
           ...animationProps,
-          ...(blurToFocus && { filter: 'blur(0px)' }),
-          duration: 0.8,
+          ...(shouldBlur && { filter: 'blur(0px)' }),
+          duration: isMobile ? 0.5 : 0.8,
           ease: 'power3.out',
-          delay: index * stagger
+          delay: index * mobileStagger
         })
       } else {
         gsap.to(selector, {
@@ -216,7 +224,7 @@ const Masonry = ({
       })
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [grid, imagesReady, stagger, animateFrom, blurToFocus, duration, ease])
+  }, [grid, imagesReady, mobileStagger, animateFrom, shouldBlur, duration, ease, isMobile])
 
   // Memoized event handlers to prevent recreation on each render
   const handleMouseEnter = useCallback((e: React.MouseEvent, item: GridItem) => {

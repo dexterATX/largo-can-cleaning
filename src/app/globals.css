@@ -307,6 +307,72 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* ============================================
+   Mobile Performance Optimizations
+   ============================================ */
+
+/* CSS Containment for better rendering performance */
+section {
+  contain: layout style;
+}
+
+/* Optimize transforms on mobile */
+@media (max-width: 768px) {
+  /* Disable expensive blur effects on mobile */
+  .blur-\[100px\],
+  .blur-\[150px\] {
+    filter: blur(40px);
+  }
+
+  /* Optimize backdrop-blur on mobile */
+  .backdrop-blur-md {
+    backdrop-filter: none;
+    background-color: rgba(13, 13, 13, 0.98);
+  }
+
+  /* Reduce animation complexity on mobile */
+  .animate-marquee-vertical {
+    animation-duration: calc(var(--duration) * 1.2);
+  }
+
+  /* Optimize shadow rendering */
+  .shadow-lg,
+  .shadow-xl {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  }
+
+  /* Use simpler gradients on mobile */
+  .bg-grid-pattern {
+    background-size: 80px 80px;
+  }
+
+  /* Hardware acceleration for animated elements */
+  [class*="animate-"],
+  [class*="motion-"] {
+    transform: translateZ(0);
+    will-change: transform;
+  }
+}
+
+/* Touch device optimizations */
+@media (hover: none) and (pointer: coarse) {
+  /* Disable hover effects that cause repaints */
+  .group:hover .group-hover\:scale-105 {
+    transform: none;
+  }
+
+  /* Optimize touch interactions */
+  button,
+  a {
+    touch-action: manipulation;
+  }
+
+  /* Reduce transition complexity */
+  .transition-all {
+    transition-property: opacity, transform;
+  }
+}
+
+/* ============================================
    Scrollbar Styling
    ============================================ */
 
