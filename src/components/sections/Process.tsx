@@ -1,11 +1,10 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, memo, useCallback } from 'react'
 import { motion } from 'motion/react'
 import Image from 'next/image'
 import { CalendarCheck, Truck, Droplets, CheckCircle, ChevronLeft, ChevronRight } from 'lucide-react'
 import Container from '@/components/ui/Container'
-import { useIsMobile } from '@/hooks/useReducedMotion'
 import {
   Carousel,
   CarouselContent,
@@ -54,20 +53,31 @@ const stats = [
   { value: '100%', label: 'Eco-friendly' },
 ]
 
-function ProcessCarousel() {
+const ProcessCarousel = memo(function ProcessCarousel() {
   const [index, setIndex] = useState(0)
-  const isMobile = useIsMobile()
+
+  const goToPrev = useCallback(() => {
+    setIndex(prev => Math.max(0, prev - 1))
+  }, [])
+
+  const goToNext = useCallback(() => {
+    setIndex(prev => Math.min(steps.length - 1, prev + 1))
+  }, [])
+
+  const goToIndex = useCallback((idx: number) => {
+    setIndex(idx)
+  }, [])
 
   return (
     <div className="relative">
-      <Carousel index={index} onIndexChange={setIndex}>
+      <Carousel index={index} onIndexChange={setIndex} itemsCount={steps.length}>
         <CarouselContent className="-ml-4">
           {steps.map((step, idx) => (
             <CarouselItem
               key={idx}
               className="pl-4 basis-full sm:basis-1/2 lg:basis-1/4"
             >
-              <ProcessCard step={step} index={idx} isMobile={isMobile} />
+              <ProcessCard step={step} index={idx} />
             </CarouselItem>
           ))}
         </CarouselContent>
@@ -78,9 +88,9 @@ function ProcessCarousel() {
         <button
           type="button"
           aria-label="Previous step"
-          onClick={() => setIndex(Math.max(0, index - 1))}
+          onClick={goToPrev}
           disabled={index === 0}
-          className="w-12 h-12 rounded-full bg-[var(--concrete-gray)] border border-[var(--steel-gray)]/30 flex items-center justify-center transition-all disabled:opacity-40 disabled:cursor-not-allowed hover:bg-[var(--steel-gray)] active:scale-95"
+          className="w-12 h-12 rounded-full bg-[var(--concrete-gray)] border border-[var(--steel-gray)]/30 flex items-center justify-center disabled:opacity-40 disabled:cursor-not-allowed active:scale-95"
         >
           <ChevronLeft className="w-5 h-5 text-white" />
         </button>
@@ -92,11 +102,11 @@ function ProcessCarousel() {
               key={idx}
               type="button"
               aria-label={`Go to step ${idx + 1}`}
-              onClick={() => setIndex(idx)}
-              className={`w-2.5 h-2.5 rounded-full transition-all focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-[var(--safety-orange)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--asphalt-black)] ${
+              onClick={() => goToIndex(idx)}
+              className={`h-2.5 rounded-full transition-[width,background-color] duration-150 ${
                 index === idx
                   ? 'bg-[var(--safety-orange)] w-6'
-                  : 'bg-[var(--steel-gray)]'
+                  : 'bg-[var(--steel-gray)] w-2.5'
               }`}
             />
           ))}
@@ -105,44 +115,39 @@ function ProcessCarousel() {
         <button
           type="button"
           aria-label="Next step"
-          onClick={() => setIndex(Math.min(steps.length - 1, index + 1))}
+          onClick={goToNext}
           disabled={index === steps.length - 1}
-          className="w-12 h-12 rounded-full bg-[var(--concrete-gray)] border border-[var(--steel-gray)]/30 flex items-center justify-center transition-all disabled:opacity-40 disabled:cursor-not-allowed hover:bg-[var(--steel-gray)] active:scale-95"
+          className="w-12 h-12 rounded-full bg-[var(--concrete-gray)] border border-[var(--steel-gray)]/30 flex items-center justify-center disabled:opacity-40 disabled:cursor-not-allowed active:scale-95"
         >
           <ChevronRight className="w-5 h-5 text-white" />
         </button>
       </div>
     </div>
   )
-}
+})
 
-function ProcessCard({ step, index, isMobile }: { step: typeof steps[0]; index: number; isMobile: boolean }) {
+// Memoized ProcessCard - no motion animations for snappy carousel
+const ProcessCard = memo(function ProcessCard({ step, index }: { step: typeof steps[0]; index: number }) {
   return (
-    <motion.article
-      initial={isMobile ? { opacity: 0 } : { opacity: 0, y: 20 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      viewport={{ once: true, margin: "-50px" }}
-      transition={{ duration: isMobile ? 0.3 : 0.5, delay: isMobile ? 0 : index * 0.1 }}
-      className="relative h-[400px] sm:h-[420px] rounded-2xl overflow-hidden group will-change-transform"
-    >
+    <article className="relative h-[400px] sm:h-[420px] rounded-2xl overflow-hidden group">
       {/* Background Image */}
-      <div className="absolute inset-0 sm:transition-transform sm:duration-500 sm:group-hover:scale-105">
+      <div className="absolute inset-0 sm:transition-transform sm:duration-300 sm:group-hover:scale-105">
         <Image
           src={step.img}
           alt={step.title}
           fill
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
           className="object-cover object-center"
-          priority={index === 0}
-          loading={index === 0 ? "eager" : "lazy"}
+          priority={index < 2}
+          loading={index < 2 ? "eager" : "lazy"}
         />
       </div>
 
       {/* Dark Overlay Gradient */}
       <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/50 to-black/30" />
 
-      {/* Step Number - Top Right - No backdrop-blur on mobile */}
-      <div className="absolute top-4 right-4 w-12 h-12 rounded-full bg-[var(--steel-gray)]/90 md:bg-[var(--steel-gray)]/80 md:backdrop-blur-sm flex items-center justify-center">
+      {/* Step Number - Top Right */}
+      <div className="absolute top-4 right-4 w-12 h-12 rounded-full bg-[var(--steel-gray)]/90 flex items-center justify-center">
         <span className="text-lg font-bold text-white">{step.step}</span>
       </div>
 
@@ -156,16 +161,16 @@ function ProcessCard({ step, index, isMobile }: { step: typeof steps[0]; index: 
         {/* Title */}
         <h3 className="text-xl font-bold text-white mb-2">{step.title}</h3>
 
-        {/* Description Box - No backdrop-blur on mobile */}
-        <div className="bg-[var(--steel-gray)]/80 md:bg-[var(--steel-gray)]/60 md:backdrop-blur-sm rounded-xl p-3">
+        {/* Description Box */}
+        <div className="bg-[var(--steel-gray)]/80 rounded-xl p-3">
           <p className="text-sm text-gray-300 leading-relaxed">
             {step.description}
           </p>
         </div>
       </div>
-    </motion.article>
+    </article>
   )
-}
+})
 
 export default function Process() {
   return (
