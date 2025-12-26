@@ -1,15 +1,10 @@
 'use client'
 
-import { useState, memo, useCallback } from 'react'
+import { useRef, useState, useEffect, memo } from 'react'
 import { motion } from 'motion/react'
 import Image from 'next/image'
 import { CalendarCheck, Truck, Droplets, CheckCircle, ChevronLeft, ChevronRight } from 'lucide-react'
 import Container from '@/components/ui/Container'
-import {
-  Carousel,
-  CarouselContent,
-  CarouselItem,
-} from '@/components/motion-primitives/carousel'
 
 const steps = [
   {
@@ -53,35 +48,72 @@ const stats = [
   { value: '100%', label: 'Eco-friendly' },
 ]
 
-const ProcessCarousel = memo(function ProcessCarousel() {
-  const [index, setIndex] = useState(0)
+// Pure CSS scroll-snap carousel - no React state for sliding = instant response
+function ProcessCarousel() {
+  const scrollRef = useRef<HTMLDivElement>(null)
+  const [activeIndex, setActiveIndex] = useState(0)
 
-  const goToPrev = useCallback(() => {
-    setIndex(prev => Math.max(0, prev - 1))
+  // Update active index based on scroll position
+  useEffect(() => {
+    const container = scrollRef.current
+    if (!container) return
+
+    const handleScroll = () => {
+      const scrollLeft = container.scrollLeft
+      const itemWidth = container.offsetWidth
+      const newIndex = Math.round(scrollLeft / itemWidth)
+      setActiveIndex(Math.min(newIndex, steps.length - 1))
+    }
+
+    container.addEventListener('scroll', handleScroll, { passive: true })
+    return () => container.removeEventListener('scroll', handleScroll)
   }, [])
 
-  const goToNext = useCallback(() => {
-    setIndex(prev => Math.min(steps.length - 1, prev + 1))
-  }, [])
+  // Scroll to specific index - uses native smooth scrolling
+  const scrollToIndex = (index: number) => {
+    const container = scrollRef.current
+    if (!container) return
 
-  const goToIndex = useCallback((idx: number) => {
-    setIndex(idx)
-  }, [])
+    const itemWidth = container.offsetWidth
+    container.scrollTo({
+      left: index * itemWidth,
+      behavior: 'smooth'
+    })
+  }
+
+  const goToPrev = () => {
+    if (activeIndex > 0) {
+      scrollToIndex(activeIndex - 1)
+    }
+  }
+
+  const goToNext = () => {
+    if (activeIndex < steps.length - 1) {
+      scrollToIndex(activeIndex + 1)
+    }
+  }
 
   return (
     <div className="relative">
-      <Carousel index={index} onIndexChange={setIndex} itemsCount={steps.length}>
-        <CarouselContent className="-ml-4">
-          {steps.map((step, idx) => (
-            <CarouselItem
-              key={idx}
-              className="pl-4 basis-full sm:basis-1/2 lg:basis-1/4"
-            >
-              <ProcessCard step={step} index={idx} />
-            </CarouselItem>
-          ))}
-        </CarouselContent>
-      </Carousel>
+      {/* Scroll Container - CSS scroll-snap for instant, native scrolling */}
+      <div
+        ref={scrollRef}
+        className="flex gap-4 overflow-x-auto snap-x snap-mandatory scrollbar-hide pb-4 -mx-4 px-4 sm:mx-0 sm:px-0 sm:overflow-visible sm:flex-wrap lg:flex-nowrap"
+        style={{
+          scrollbarWidth: 'none',
+          msOverflowStyle: 'none',
+          WebkitOverflowScrolling: 'touch',
+        }}
+      >
+        {steps.map((step, idx) => (
+          <div
+            key={idx}
+            className="snap-center shrink-0 w-full sm:w-[calc(50%-8px)] lg:w-[calc(25%-12px)]"
+          >
+            <ProcessCard step={step} index={idx} />
+          </div>
+        ))}
+      </div>
 
       {/* Mobile Navigation - Below Cards */}
       <div className="flex items-center justify-center gap-4 mt-6 sm:hidden">
@@ -89,7 +121,7 @@ const ProcessCarousel = memo(function ProcessCarousel() {
           type="button"
           aria-label="Previous step"
           onClick={goToPrev}
-          disabled={index === 0}
+          disabled={activeIndex === 0}
           className="w-12 h-12 rounded-full bg-[var(--concrete-gray)] border border-[var(--steel-gray)]/30 flex items-center justify-center disabled:opacity-40 disabled:cursor-not-allowed active:scale-95"
         >
           <ChevronLeft className="w-5 h-5 text-white" />
@@ -102,9 +134,9 @@ const ProcessCarousel = memo(function ProcessCarousel() {
               key={idx}
               type="button"
               aria-label={`Go to step ${idx + 1}`}
-              onClick={() => goToIndex(idx)}
+              onClick={() => scrollToIndex(idx)}
               className={`h-2.5 rounded-full transition-[width,background-color] duration-150 ${
-                index === idx
+                activeIndex === idx
                   ? 'bg-[var(--safety-orange)] w-6'
                   : 'bg-[var(--steel-gray)] w-2.5'
               }`}
@@ -116,7 +148,7 @@ const ProcessCarousel = memo(function ProcessCarousel() {
           type="button"
           aria-label="Next step"
           onClick={goToNext}
-          disabled={index === steps.length - 1}
+          disabled={activeIndex === steps.length - 1}
           className="w-12 h-12 rounded-full bg-[var(--concrete-gray)] border border-[var(--steel-gray)]/30 flex items-center justify-center disabled:opacity-40 disabled:cursor-not-allowed active:scale-95"
         >
           <ChevronRight className="w-5 h-5 text-white" />
@@ -124,14 +156,14 @@ const ProcessCarousel = memo(function ProcessCarousel() {
       </div>
     </div>
   )
-})
+}
 
-// Memoized ProcessCard - no motion animations for snappy carousel
+// Memoized ProcessCard
 const ProcessCard = memo(function ProcessCard({ step, index }: { step: typeof steps[0]; index: number }) {
   return (
-    <article className="relative h-[400px] sm:h-[420px] rounded-2xl overflow-hidden group">
+    <article className="relative h-[400px] sm:h-[420px] rounded-2xl overflow-hidden group select-none">
       {/* Background Image */}
-      <div className="absolute inset-0 sm:transition-transform sm:duration-300 sm:group-hover:scale-105">
+      <div className="absolute inset-0">
         <Image
           src={step.img}
           alt={step.title}
