@@ -293,12 +293,14 @@ h1, h2, h3, h4, h5, h6 {
   animation: shimmer 2s linear infinite;
 }
 
-.animate-marquee {
-  animation: marquee var(--duration) linear infinite;
-}
+@layer utilities {
+  .animate-marquee {
+    animation: marquee var(--duration) linear infinite;
+  }
 
-.animate-marquee-vertical {
-  animation: marquee-vertical var(--duration) linear infinite;
+  .animate-marquee-vertical {
+    animation: marquee-vertical var(--duration) linear infinite;
+  }
 }
 
 /* ============================================

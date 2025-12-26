@@ -5,7 +5,6 @@ import { motion, useScroll, useTransform } from 'framer-motion'
 import { ArrowRight, Sparkles, Shield, Droplets, CheckCircle2 } from 'lucide-react'
 import Container from '@/components/ui/Container'
 import Button from '@/components/ui/Button'
-import { useReducedMotion, useIsMobile } from '@/hooks/useReducedMotion'
 
 // Animated water droplet particle component - memoized to prevent unnecessary re-renders
 const WaterParticle = memo(function WaterParticle({ delay, x, size }: { delay: number; x: number; size: number }) {
@@ -51,14 +50,21 @@ const mobileParticles = Array.from({ length: 6 }, (_, i) => ({
 function Hero() {
   const containerRef = useRef<HTMLDivElement>(null)
   const [isMounted, setIsMounted] = useState(false)
-  const shouldReduceMotion = useReducedMotion()
-  const isMobile = useIsMobile()
+  const [isMobile, setIsMobile] = useState(false)
+
+  // Check for mobile on client side only to avoid hydration mismatch
+  useEffect(() => {
+    setIsMounted(true)
+    const checkMobile = () => setIsMobile(window.innerWidth < 768)
+    checkMobile()
+    window.addEventListener('resize', checkMobile)
+    return () => window.removeEventListener('resize', checkMobile)
+  }, [])
 
   // Select particles based on device - fewer particles on mobile for performance
   const particles = useMemo(() => {
-    if (shouldReduceMotion) return [] // No particles if reduced motion preferred
     return isMobile ? mobileParticles : desktopParticles
-  }, [shouldReduceMotion, isMobile])
+  }, [isMobile])
 
   // Memoize heroFeatures to prevent recreation on each render
   const heroFeatures = useMemo(() => [
@@ -75,10 +81,6 @@ function Hero() {
   // Disable parallax on mobile for better performance
   const y = useTransform(scrollYProgress, [0, 1], isMobile ? ['0%', '0%'] : ['0%', '30%'])
   const opacity = useTransform(scrollYProgress, [0, 0.5], isMobile ? [1, 1] : [1, 0])
-
-  useEffect(() => {
-    setIsMounted(true)
-  }, [])
 
   return (
     <section
