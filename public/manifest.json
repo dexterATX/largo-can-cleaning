@@ -1,0 +1,20 @@
+{
+  "name": "CleanCan Pro - Professional Trash Can Cleaning",
+  "short_name": "CleanCan Pro",
+  "description": "Professional trash can cleaning and sanitization service in Seminole, Florida. We eliminate 99.9% of bacteria, odors, and pests from your trash cans.",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#1a1a1a",
+  "theme_color": "#FF6B00",
+  "orientation": "portrait-primary",
+  "icons": [
+    {
+      "src": "/icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ],
+  "categories": ["business", "lifestyle"],
+  "lang": "en-US"
+}
