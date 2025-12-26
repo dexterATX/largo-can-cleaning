@@ -56,8 +56,10 @@ const reviews = [
   },
 ]
 
-const firstRow = reviews.slice(0, 4)
-const secondRow = reviews.slice(4, 8)
+const firstRow = reviews.slice(0, 2)
+const secondRow = reviews.slice(2, 4)
+const thirdRow = reviews.slice(4, 6)
+const fourthRow = reviews.slice(6, 8)
 
 function ReviewCard({
   img,
@@ -73,16 +75,16 @@ function ReviewCard({
   return (
     <figure
       className={cn(
-        'relative cursor-pointer overflow-hidden rounded-xl border p-4 w-[280px] sm:w-[320px]',
+        'relative h-full w-fit cursor-pointer overflow-hidden rounded-xl border p-4 sm:w-36',
         'border-[var(--steel-gray)]/30 bg-[var(--concrete-gray)]/50 hover:bg-[var(--concrete-gray)]'
       )}
     >
-      <div className="flex flex-row items-center gap-3">
+      <div className="flex flex-row items-center gap-2">
         <Image
           src={img}
           alt={`${name}'s review`}
-          width={40}
-          height={40}
+          width={32}
+          height={32}
           className="rounded-full"
           loading="lazy"
         />
@@ -92,17 +94,17 @@ function ReviewCard({
           </figcaption>
           <p className="text-xs font-medium text-[var(--slate-gray)]">{location}</p>
         </div>
-        <div className="flex items-center gap-0.5 ml-auto" role="img" aria-label="5 out of 5 stars">
-          {Array.from({ length: 5 }).map((_, i) => (
-            <Star
-              key={i}
-              className="w-3 h-3 text-[var(--safety-orange)] fill-[var(--safety-orange)]"
-              aria-hidden="true"
-            />
-          ))}
-        </div>
       </div>
-      <blockquote className="mt-3 text-sm text-[var(--light-gray)] leading-relaxed">{body}</blockquote>
+      <div className="flex items-center gap-0.5 mt-2" role="img" aria-label="5 out of 5 stars">
+        {Array.from({ length: 5 }).map((_, i) => (
+          <Star
+            key={i}
+            className="w-3 h-3 text-[var(--safety-orange)] fill-[var(--safety-orange)]"
+            aria-hidden="true"
+          />
+        ))}
+      </div>
+      <blockquote className="mt-2 text-sm text-[var(--light-gray)]">{body}</blockquote>
     </figure>
   )
 }
@@ -133,25 +135,42 @@ export default function Testimonials() {
         </p>
       </div>
 
-      {/* Horizontal Marquee - 3s duration */}
-      <div className="relative flex flex-col gap-4 overflow-hidden">
-        {/* First row - scrolls left */}
-        <Marquee pauseOnHover className="[--duration:30s]">
-          {firstRow.map((review) => (
-            <ReviewCard key={review.name} {...review} />
-          ))}
-        </Marquee>
+      {/* 3D Marquee */}
+      <div className="relative flex h-96 w-full flex-row items-center justify-center gap-4 overflow-hidden [perspective:300px]">
+        <div
+          className="flex flex-row items-center gap-4"
+          style={{
+            transform:
+              'translateX(-100px) translateY(0px) translateZ(-100px) rotateX(20deg) rotateY(-10deg) rotateZ(20deg)',
+          }}
+        >
+          <Marquee pauseOnHover vertical className="[--duration:20s]">
+            {firstRow.map((review) => (
+              <ReviewCard key={review.name} {...review} />
+            ))}
+          </Marquee>
+          <Marquee reverse pauseOnHover vertical className="[--duration:20s]">
+            {secondRow.map((review) => (
+              <ReviewCard key={review.name} {...review} />
+            ))}
+          </Marquee>
+          <Marquee reverse pauseOnHover vertical className="[--duration:20s]">
+            {thirdRow.map((review) => (
+              <ReviewCard key={review.name} {...review} />
+            ))}
+          </Marquee>
+          <Marquee pauseOnHover vertical className="[--duration:20s]">
+            {fourthRow.map((review) => (
+              <ReviewCard key={review.name} {...review} />
+            ))}
+          </Marquee>
+        </div>
 
-        {/* Second row - scrolls right */}
-        <Marquee reverse pauseOnHover className="[--duration:30s]">
-          {secondRow.map((review) => (
-            <ReviewCard key={review.name} {...review} />
-          ))}
-        </Marquee>
-
-        {/* Gradient overlays - left and right fade */}
-        <div className="pointer-events-none absolute inset-y-0 left-0 w-1/6 sm:w-1/4 bg-gradient-to-r from-[var(--asphalt-dark)]" />
-        <div className="pointer-events-none absolute inset-y-0 right-0 w-1/6 sm:w-1/4 bg-gradient-to-l from-[var(--asphalt-dark)]" />
+        {/* Gradient overlays */}
+        <div className="pointer-events-none absolute inset-x-0 top-0 h-1/4 bg-gradient-to-b from-[var(--asphalt-dark)]" />
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/4 bg-gradient-to-t from-[var(--asphalt-dark)]" />
+        <div className="pointer-events-none absolute inset-y-0 left-0 w-1/4 bg-gradient-to-r from-[var(--asphalt-dark)]" />
+        <div className="pointer-events-none absolute inset-y-0 right-0 w-1/4 bg-gradient-to-l from-[var(--asphalt-dark)]" />
       </div>
 
       {/* Google Reviews Badge */}
