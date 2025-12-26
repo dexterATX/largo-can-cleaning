@@ -174,10 +174,21 @@ h1, h2, h3, h4, h5, h6 {
 
 .bg-gradient-dark {
   background: linear-gradient(180deg, var(--asphalt-dark) 0%, var(--asphalt-black) 100%);
+  /* Fix gradient banding */
+  background-attachment: fixed;
 }
 
 .bg-gradient-card {
   background: linear-gradient(145deg, var(--concrete-gray) 0%, var(--asphalt-black) 100%);
+}
+
+/* Fix gradient banding on all gradients */
+[class*="bg-gradient"],
+[class*="from-"],
+[class*="via-"],
+[class*="to-"] {
+  -webkit-backface-visibility: hidden;
+  backface-visibility: hidden;
 }
 
 .glow-orange {

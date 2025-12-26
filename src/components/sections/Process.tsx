@@ -19,7 +19,7 @@ const steps = [
     title: 'Schedule Service',
     description:
       'Pick a date and time that works for you. Same-day and next-day appointments available.',
-    img: 'https://images.unsplash.com/photo-1506784983877-45594efa4cbe?q=80&w=1200&auto=format&fit=crop',
+    img: 'https://images.unsplash.com/photo-1506784983877-45594efa4cbe?q=90&w=800&auto=format&fit=crop',
   },
   {
     icon: Truck,
@@ -27,7 +27,7 @@ const steps = [
     title: 'We Arrive',
     description:
       'Our team arrives at your location with our mobile cleaning unit. No water or power hookup needed.',
-    img: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?q=80&w=1200&auto=format&fit=crop',
+    img: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?q=90&w=800&auto=format&fit=crop',
   },
   {
     icon: Droplets,
@@ -35,7 +35,7 @@ const steps = [
     title: 'Deep Clean',
     description:
       '190°F high-pressure wash eliminates 99.9% of bacteria, grease, and odors in minutes.',
-    img: 'https://images.unsplash.com/photo-1585421514284-efb74c2b69ba?q=80&w=1200&auto=format&fit=crop',
+    img: 'https://images.unsplash.com/photo-1585421514284-efb74c2b69ba?q=90&w=800&auto=format&fit=crop',
   },
   {
     icon: CheckCircle,
@@ -43,7 +43,7 @@ const steps = [
     title: 'Sparkling Results',
     description:
       'Your bins are returned clean, sanitized, and deodorized. We dispose of all wastewater...',
-    img: 'https://images.unsplash.com/photo-1584568694244-14fbdf83bd30?q=80&w=1200&auto=format&fit=crop',
+    img: 'https://images.unsplash.com/photo-1584568694244-14fbdf83bd30?q=90&w=800&auto=format&fit=crop',
   },
 ]
 

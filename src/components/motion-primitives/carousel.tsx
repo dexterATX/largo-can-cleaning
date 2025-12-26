@@ -296,8 +296,10 @@ function CarouselContent({
             }
       }
       dragMomentum={disableDrag ? undefined : false}
+      dragElastic={0.1}
       style={{
         x: disableDrag ? undefined : dragX,
+        backfaceVisibility: 'hidden',
       }}
       animate={{
         translateX: `-${index * (100 / visibleItemsCount)}%`,
@@ -305,14 +307,13 @@ function CarouselContent({
       onDragEnd={disableDrag ? undefined : onDragEnd}
       transition={
         transition || {
-          damping: 26,
-          stiffness: 300,
-          type: 'spring',
-          mass: 0.8,
+          type: 'tween',
+          ease: [0.25, 0.1, 0.25, 1],
+          duration: 0.3,
         }
       }
       className={cn(
-        'flex items-center will-change-transform',
+        'flex items-center [transform:translateZ(0)]',
         !disableDrag && 'cursor-grab active:cursor-grabbing',
         className
       )}
