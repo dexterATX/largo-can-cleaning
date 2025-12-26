@@ -2,9 +2,13 @@ FROM nginx:alpine
 
 RUN apk add --no-cache bash
 
-COPY nginx-init.conf /etc/nginx/conf.d/nginx-init.conf
-COPY nginx.conf /etc/nginx/conf.d/nginx-ssl.conf
+# Store configs in a separate location, not in conf.d
+COPY nginx-init.conf /etc/nginx/templates/nginx-init.conf
+COPY nginx.conf /etc/nginx/templates/nginx-ssl.conf
 COPY docker-entrypoint.sh /docker-entrypoint.sh
+
+# Remove default config
+RUN rm -f /etc/nginx/conf.d/default.conf
 
 RUN chmod +x /docker-entrypoint.sh
 
