@@ -3,12 +3,13 @@ import {
   Children,
   ReactNode,
   createContext,
+  useCallback,
   useContext,
   useEffect,
+  useLayoutEffect,
   useRef,
   useState,
 } from 'react';
-import { motion, Transition, useMotionValue } from 'motion/react';
 import { cn } from '@/lib/utils';
 import { ChevronLeft, ChevronRight } from 'lucide-react';
 
@@ -45,23 +46,23 @@ function CarouselProvider({
   onIndexChange,
   disableDrag = false,
 }: CarouselProviderProps) {
-  const [index, setIndex] = useState<number>(initialIndex);
+  const [index, setIndexState] = useState<number>(initialIndex);
   const [itemsCount, setItemsCount] = useState<number>(0);
 
-  const handleSetIndex = (newIndex: number) => {
-    setIndex(newIndex);
+  const setIndex = useCallback((newIndex: number) => {
+    setIndexState(newIndex);
     onIndexChange?.(newIndex);
-  };
+  }, [onIndexChange]);
 
   useEffect(() => {
-    setIndex(initialIndex);
+    setIndexState(initialIndex);
   }, [initialIndex]);
 
   return (
     <CarouselContext.Provider
       value={{
         index,
-        setIndex: handleSetIndex,
+        setIndex,
         itemsCount,
         setItemsCount,
         disableDrag,
@@ -93,12 +94,12 @@ function Carousel({
   const isControlled = externalIndex !== undefined;
   const currentIndex = isControlled ? externalIndex : internalIndex;
 
-  const handleIndexChange = (newIndex: number) => {
+  const handleIndexChange = useCallback((newIndex: number) => {
     if (!isControlled) {
       setInternalIndex(newIndex);
     }
     onIndexChange?.(newIndex);
-  };
+  }, [isControlled, onIndexChange]);
 
   return (
     <CarouselProvider
@@ -229,7 +230,7 @@ function CarouselIndicator({
 export type CarouselContentProps = {
   children: ReactNode;
   className?: string;
-  transition?: Transition;
+  transition?: { duration?: number; ease?: string };
 };
 
 function CarouselContent({
@@ -238,89 +239,104 @@ function CarouselContent({
   transition,
 }: CarouselContentProps) {
   const { index, setIndex, setItemsCount, disableDrag } = useCarousel();
-  const [visibleItemsCount, setVisibleItemsCount] = useState(1);
-  const dragX = useMotionValue(0);
   const containerRef = useRef<HTMLDivElement>(null);
   const itemsLength = Children.count(children);
 
-  useEffect(() => {
-    if (!containerRef.current) {
-      return;
-    }
+  // Track visible items based on container width - calculate once on mount/resize
+  const [visibleItems, setVisibleItems] = useState(1);
 
-    const options = {
-      root: containerRef.current,
-      threshold: 0.5,
-    };
+  // Drag state
+  const dragStartX = useRef(0);
+  const isDragging = useRef(false);
 
-    const observer = new IntersectionObserver((entries) => {
-      const visibleCount = entries.filter(
-        (entry) => entry.isIntersecting
-      ).length;
-      setVisibleItemsCount(visibleCount);
-    }, options);
+  // Calculate visible items based on actual rendered widths
+  useLayoutEffect(() => {
+    const calculateVisibleItems = () => {
+      if (!containerRef.current) return;
 
-    const childNodes = containerRef.current.children;
-    Array.from(childNodes).forEach((child) => observer.observe(child));
+      const container = containerRef.current;
+      const containerWidth = container.parentElement?.offsetWidth || container.offsetWidth;
+      const firstChild = container.children[0] as HTMLElement;
 
-    return () => observer.disconnect();
-  }, [children, setItemsCount]);
-
-  useEffect(() => {
-    if (!itemsLength) {
-      return;
-    }
-
-    setItemsCount(itemsLength);
-  }, [itemsLength, setItemsCount]);
-
-  const onDragEnd = () => {
-    const x = dragX.get();
-
-    if (x <= -10 && index < itemsLength - 1) {
-      setIndex(index + 1);
-    } else if (x >= 10 && index > 0) {
-      setIndex(index - 1);
-    }
-  };
-
-  return (
-    <motion.div
-      drag={disableDrag ? false : 'x'}
-      dragConstraints={
-        disableDrag
-          ? undefined
-          : {
-              left: 0,
-              right: 0,
-            }
-      }
-      dragMomentum={disableDrag ? undefined : false}
-      dragElastic={0.1}
-      style={{
-        x: disableDrag ? undefined : dragX,
-        backfaceVisibility: 'hidden',
-      }}
-      animate={{
-        translateX: `-${index * (100 / visibleItemsCount)}%`,
-      }}
-      onDragEnd={disableDrag ? undefined : onDragEnd}
-      transition={
-        transition || {
-          type: 'tween',
-          ease: [0.25, 0.1, 0.25, 1],
-          duration: 0.3,
+      if (firstChild) {
+        const itemWidth = firstChild.offsetWidth;
+        if (itemWidth > 0) {
+          const visible = Math.round(containerWidth / itemWidth);
+          setVisibleItems(Math.max(1, visible));
         }
       }
+    };
+
+    calculateVisibleItems();
+
+    // Recalculate on resize
+    const resizeObserver = new ResizeObserver(() => {
+      calculateVisibleItems();
+    });
+
+    if (containerRef.current?.parentElement) {
+      resizeObserver.observe(containerRef.current.parentElement);
+    }
+
+    return () => resizeObserver.disconnect();
+  }, [itemsLength]);
+
+  // Set items count
+  useEffect(() => {
+    if (itemsLength) {
+      setItemsCount(itemsLength);
+    }
+  }, [itemsLength, setItemsCount]);
+
+  // Touch/Mouse handlers for drag
+  const handleDragStart = useCallback((clientX: number) => {
+    if (disableDrag) return;
+    isDragging.current = true;
+    dragStartX.current = clientX;
+  }, [disableDrag]);
+
+  const handleDragEnd = useCallback((clientX: number) => {
+    if (!isDragging.current || disableDrag) return;
+    isDragging.current = false;
+
+    const diff = dragStartX.current - clientX;
+    const threshold = 50;
+
+    if (diff > threshold && index < itemsLength - 1) {
+      setIndex(index + 1);
+    } else if (diff < -threshold && index > 0) {
+      setIndex(index - 1);
+    }
+  }, [disableDrag, index, itemsLength, setIndex]);
+
+  // Calculate transform percentage
+  const translateX = -index * (100 / visibleItems);
+  const duration = transition?.duration ?? 0.25;
+  const ease = transition?.ease ?? 'cubic-bezier(0.4, 0, 0.2, 1)';
+
+  return (
+    <div
+      ref={containerRef}
       className={cn(
-        'flex items-center [transform:translateZ(0)]',
-        !disableDrag && 'cursor-grab active:cursor-grabbing',
+        'flex items-center',
+        !disableDrag && 'cursor-grab active:cursor-grabbing touch-pan-y',
         className
       )}
-      ref={containerRef}
+      style={{
+        transform: `translate3d(${translateX}%, 0, 0)`,
+        transition: `transform ${duration}s ${ease}`,
+        willChange: 'transform',
+      }}
+      onMouseDown={(e) => handleDragStart(e.clientX)}
+      onMouseUp={(e) => handleDragEnd(e.clientX)}
+      onMouseLeave={(e) => {
+        if (isDragging.current) handleDragEnd(e.clientX);
+      }}
+      onTouchStart={(e) => handleDragStart(e.touches[0].clientX)}
+      onTouchEnd={(e) => handleDragEnd(e.changedTouches[0].clientX)}
     >
       {children}
-    </motion.div>
+    </div>
   );
 }
 
@@ -331,14 +347,14 @@ export type CarouselItemProps = {
 
 function CarouselItem({ children, className }: CarouselItemProps) {
   return (
-    <motion.div
+    <div
       className={cn(
         'w-full min-w-0 shrink-0 grow-0 overflow-hidden',
         className
       )}
     >
       {children}
-    </motion.div>
+    </div>
   );
 }
 
