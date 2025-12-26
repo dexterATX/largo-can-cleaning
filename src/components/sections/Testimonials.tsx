@@ -56,10 +56,8 @@ const reviews = [
   },
 ]
 
-const firstRow = reviews.slice(0, 2)
-const secondRow = reviews.slice(2, 4)
-const thirdRow = reviews.slice(4, 6)
-const fourthRow = reviews.slice(6, 8)
+const firstRow = reviews.slice(0, 4)
+const secondRow = reviews.slice(4, 8)
 
 function ReviewCard({
   img,
@@ -75,16 +73,16 @@ function ReviewCard({
   return (
     <figure
       className={cn(
-        'relative h-full cursor-pointer overflow-hidden rounded-xl border p-4 w-[160px] sm:w-36',
+        'relative cursor-pointer overflow-hidden rounded-xl border p-4 w-[280px] sm:w-[320px]',
         'border-[var(--steel-gray)]/30 bg-[var(--concrete-gray)]/50 hover:bg-[var(--concrete-gray)]'
       )}
     >
-      <div className="flex flex-row items-center gap-2">
+      <div className="flex flex-row items-center gap-3">
         <Image
           src={img}
           alt={`${name}'s review`}
-          width={32}
-          height={32}
+          width={40}
+          height={40}
           className="rounded-full"
           loading="lazy"
         />
@@ -94,17 +92,17 @@ function ReviewCard({
           </figcaption>
           <p className="text-xs font-medium text-[var(--slate-gray)]">{location}</p>
         </div>
+        <div className="flex items-center gap-0.5 ml-auto" role="img" aria-label="5 out of 5 stars">
+          {Array.from({ length: 5 }).map((_, i) => (
+            <Star
+              key={i}
+              className="w-3 h-3 text-[var(--safety-orange)] fill-[var(--safety-orange)]"
+              aria-hidden="true"
+            />
+          ))}
+        </div>
       </div>
-      <div className="flex items-center gap-0.5 mt-2" role="img" aria-label="5 out of 5 stars">
-        {Array.from({ length: 5 }).map((_, i) => (
-          <Star
-            key={i}
-            className="w-3 h-3 text-[var(--safety-orange)] fill-[var(--safety-orange)]"
-            aria-hidden="true"
-          />
-        ))}
-      </div>
-      <blockquote className="mt-2 text-sm text-[var(--light-gray)]">{body}</blockquote>
+      <blockquote className="mt-3 text-sm text-[var(--light-gray)] leading-relaxed">{body}</blockquote>
     </figure>
   )
 }
@@ -112,7 +110,7 @@ function ReviewCard({
 export default function Testimonials() {
   return (
     <section
-      className="pt-16 pb-8 sm:pt-24 sm:pb-12 bg-[var(--asphalt-dark)] relative overflow-hidden"
+      className="py-16 sm:py-24 bg-[var(--asphalt-dark)] relative overflow-hidden"
       aria-labelledby="testimonials-heading"
     >
       {/* Background */}
@@ -135,66 +133,29 @@ export default function Testimonials() {
         </p>
       </div>
 
-      {/* Marquee Container - No 3D transforms on mobile for performance */}
-      <div className="relative flex h-[450px] sm:h-96 w-full flex-row items-center justify-center gap-4 overflow-hidden sm:[perspective:300px]">
-        {/* Mobile: 3 columns, no 3D transforms for better performance */}
-        <div className="flex sm:hidden flex-row items-center gap-2 scale-90 origin-center">
-          <Marquee pauseOnHover vertical className="[--duration:25s]">
-            {[reviews[0], reviews[3], reviews[6]].map((review) => (
-              <ReviewCard key={review.name} {...review} />
-            ))}
-          </Marquee>
-          <Marquee reverse pauseOnHover vertical className="[--duration:25s]">
-            {[reviews[1], reviews[4], reviews[7]].map((review) => (
-              <ReviewCard key={review.name} {...review} />
-            ))}
-          </Marquee>
-          <Marquee pauseOnHover vertical className="[--duration:25s]">
-            {[reviews[2], reviews[5]].map((review) => (
-              <ReviewCard key={review.name} {...review} />
-            ))}
-          </Marquee>
-        </div>
+      {/* Horizontal Marquee - 3s duration */}
+      <div className="relative flex flex-col gap-4 overflow-hidden">
+        {/* First row - scrolls left */}
+        <Marquee pauseOnHover className="[--duration:30s]">
+          {firstRow.map((review) => (
+            <ReviewCard key={review.name} {...review} />
+          ))}
+        </Marquee>
 
-        {/* Desktop: 4 columns with 3D transforms */}
-        <div
-          className="hidden sm:flex flex-row items-center gap-4"
-          style={{
-            transform:
-              'translateX(-100px) translateY(0px) translateZ(-100px) rotateX(20deg) rotateY(-10deg) rotateZ(20deg)',
-          }}
-        >
-          <Marquee pauseOnHover vertical className="[--duration:20s]">
-            {firstRow.map((review) => (
-              <ReviewCard key={review.name} {...review} />
-            ))}
-          </Marquee>
-          <Marquee reverse pauseOnHover vertical className="[--duration:20s]">
-            {secondRow.map((review) => (
-              <ReviewCard key={review.name} {...review} />
-            ))}
-          </Marquee>
-          <Marquee reverse pauseOnHover vertical className="[--duration:20s]">
-            {thirdRow.map((review) => (
-              <ReviewCard key={review.name} {...review} />
-            ))}
-          </Marquee>
-          <Marquee pauseOnHover vertical className="[--duration:20s]">
-            {fourthRow.map((review) => (
-              <ReviewCard key={review.name} {...review} />
-            ))}
-          </Marquee>
-        </div>
+        {/* Second row - scrolls right */}
+        <Marquee reverse pauseOnHover className="[--duration:30s]">
+          {secondRow.map((review) => (
+            <ReviewCard key={review.name} {...review} />
+          ))}
+        </Marquee>
 
-        {/* Gradient overlays */}
-        <div className="pointer-events-none absolute inset-x-0 top-0 h-1/4 bg-gradient-to-b from-[var(--asphalt-dark)]" />
-        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/4 bg-gradient-to-t from-[var(--asphalt-dark)]" />
+        {/* Gradient overlays - left and right fade */}
         <div className="pointer-events-none absolute inset-y-0 left-0 w-1/6 sm:w-1/4 bg-gradient-to-r from-[var(--asphalt-dark)]" />
         <div className="pointer-events-none absolute inset-y-0 right-0 w-1/6 sm:w-1/4 bg-gradient-to-l from-[var(--asphalt-dark)]" />
       </div>
 
       {/* Google Reviews Badge */}
-      <div className="flex justify-center mt-4">
+      <div className="flex justify-center mt-8">
         <div className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full bg-[var(--concrete-gray)]/50 border border-[var(--steel-gray)]/30">
           <div className="flex items-center gap-1">
             {Array.from({ length: 5 }).map((_, i) => (

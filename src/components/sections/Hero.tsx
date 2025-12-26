@@ -78,9 +78,9 @@ function Hero() {
     offset: ['start start', 'end start'],
   })
 
-  // Disable parallax on mobile for better performance
-  const y = useTransform(scrollYProgress, [0, 1], isMobile ? ['0%', '0%'] : ['0%', '30%'])
-  const opacity = useTransform(scrollYProgress, [0, 0.5], isMobile ? [1, 1] : [1, 0])
+  // Parallax effect - content moves up and fades as you scroll
+  const y = useTransform(scrollYProgress, [0, 1], ['0%', '30%'])
+  const opacity = useTransform(scrollYProgress, [0, 0.5], [1, 0])
 
   return (
     <section
