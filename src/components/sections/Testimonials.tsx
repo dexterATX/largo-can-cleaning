@@ -82,14 +82,17 @@ function ReviewCard({
     >
       {/* Author at top */}
       <div className="flex items-center gap-2 mb-2">
-        <Image
-          src={img}
-          alt={name}
-          width={20}
-          height={20}
-          className="rounded-full"
-          loading="lazy"
-        />
+        <div className="w-5 h-5 rounded-full bg-[var(--safety-orange)]/20 flex-shrink-0 overflow-hidden">
+          <Image
+            src={img}
+            alt={name}
+            width={20}
+            height={20}
+            className="rounded-full w-full h-full object-cover"
+            loading="eager"
+            unoptimized
+          />
+        </div>
         <div>
           <figcaption className="text-[9px] font-medium text-white leading-tight">
             {name}
@@ -149,22 +152,22 @@ export default function Testimonials() {
               'translateX(-30px) translateY(0px) translateZ(-50px) rotateX(20deg) rotateY(-10deg) rotateZ(20deg)',
           }}
         >
-          <Marquee vertical repeat={5} className="[--duration:20s] [--gap:0.75rem] !p-0">
+          <Marquee vertical repeat={3} className="[--duration:25s] [--gap:0.75rem] !p-0">
             {firstRow.map((review) => (
               <ReviewCard key={review.name} {...review} />
             ))}
           </Marquee>
-          <Marquee vertical repeat={5} className="[--duration:20s] [--gap:0.75rem] !p-0 [&>div]:![animation-direction:reverse] [&>div]:![animation-delay:-5s]">
+          <Marquee vertical repeat={3} className="[--duration:25s] [--gap:0.75rem] !p-0 [&>div]:![animation-direction:reverse] [&>div]:![animation-delay:-5s]">
             {secondRow.map((review) => (
               <ReviewCard key={review.name} {...review} />
             ))}
           </Marquee>
-          <Marquee vertical repeat={5} className="[--duration:20s] [--gap:0.75rem] !p-0 [&>div]:![animation-delay:-10s]">
+          <Marquee vertical repeat={3} className="[--duration:25s] [--gap:0.75rem] !p-0 [&>div]:![animation-delay:-10s]">
             {thirdRow.map((review) => (
               <ReviewCard key={review.name} {...review} />
             ))}
           </Marquee>
-          <Marquee vertical repeat={5} className="[--duration:20s] [--gap:0.75rem] !p-0 [&>div]:![animation-direction:reverse] [&>div]:![animation-delay:-3s]">
+          <Marquee vertical repeat={3} className="[--duration:25s] [--gap:0.75rem] !p-0 [&>div]:![animation-direction:reverse] [&>div]:![animation-delay:-3s]">
             {fourthRow.map((review) => (
               <ReviewCard key={review.name} {...review} />
             ))}

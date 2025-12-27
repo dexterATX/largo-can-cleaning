@@ -263,12 +263,9 @@ function FAQItem({ faq, index, isOpen, onToggle }: {
   onToggle: () => void
 }) {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 10 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.3, delay: index * 0.03 }}
+    <div
       className={cn(
-        'rounded-xl transition-all duration-200',
+        'rounded-xl transition-all duration-300 ease-out',
         isOpen
           ? 'bg-[var(--concrete-gray)]/50 border border-[var(--steel-gray)]/30'
           : 'bg-[var(--concrete-gray)]/20 border border-transparent hover:bg-[var(--concrete-gray)]/30'
@@ -310,7 +307,7 @@ function FAQItem({ faq, index, isOpen, onToggle }: {
             initial={{ height: 0, opacity: 0 }}
             animate={{ height: 'auto', opacity: 1 }}
             exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.2, ease: 'easeOut' }}
+            transition={{ duration: 0.25, ease: [0.25, 0.1, 0.25, 1] }}
             className="overflow-hidden"
           >
             <div className="px-4 pb-4">
@@ -321,7 +318,7 @@ function FAQItem({ faq, index, isOpen, onToggle }: {
           </motion.div>
         )}
       </AnimatePresence>
-    </motion.div>
+    </div>
   )
 }
 
@@ -358,9 +355,9 @@ export default function PricingPageContent() {
           <div className="flex flex-col items-center text-center pt-28 pb-16 sm:pt-36 sm:pb-20">
             {/* Eyebrow Badge */}
             <motion.div
-              initial={{ opacity: 0, y: 10 }}
+              initial={{ opacity: 0, y: 8 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 }}
+              transition={{ duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
               className="inline-flex items-center gap-2 px-4 py-2 mb-6 rounded-full bg-[var(--safety-orange)]/10 border border-[var(--safety-orange)]/20"
             >
               <span className="relative flex h-2 w-2">
@@ -374,9 +371,9 @@ export default function PricingPageContent() {
 
             {/* Headline */}
             <motion.h1
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 12 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.2, duration: 0.6 }}
+              transition={{ delay: 0.1, duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
               className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-[1.1] mb-5"
             >
               Transparent{' '}
@@ -385,7 +382,7 @@ export default function PricingPageContent() {
                 <motion.svg
                   initial={{ pathLength: 0, opacity: 0 }}
                   animate={{ pathLength: 1, opacity: 1 }}
-                  transition={{ duration: 0.8, delay: 0.6, ease: 'easeOut' }}
+                  transition={{ duration: 0.7, delay: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
                   className="absolute -bottom-1 left-0 w-full h-3"
                   viewBox="0 0 200 12"
                   fill="none"
@@ -399,7 +396,7 @@ export default function PricingPageContent() {
                     fill="none"
                     initial={{ pathLength: 0 }}
                     animate={{ pathLength: 1 }}
-                    transition={{ duration: 0.8, delay: 0.6, ease: 'easeOut' }}
+                    transition={{ duration: 0.7, delay: 0.4, ease: [0.25, 0.1, 0.25, 1] }}
                   />
                 </motion.svg>
               </span>
@@ -407,9 +404,9 @@ export default function PricingPageContent() {
 
             {/* Subtitle */}
             <motion.p
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3, duration: 0.6 }}
+              transition={{ delay: 0.15, duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
               className="text-base sm:text-lg md:text-xl text-[var(--slate-gray)] max-w-xl mx-auto mb-8"
             >
               No contracts. No hidden fees. Cancel anytime.
@@ -417,9 +414,9 @@ export default function PricingPageContent() {
 
             {/* Trust Indicators */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.4, duration: 0.6 }}
+              transition={{ delay: 0.2, duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
               className="flex flex-wrap items-center justify-center gap-3 mb-10"
             >
               {[
@@ -427,24 +424,21 @@ export default function PricingPageContent() {
                 { icon: Zap, label: 'Same-Day Available', color: 'var(--safety-orange)' },
                 { icon: BadgeCheck, label: 'No Contracts', color: '#3B82F6' },
               ].map((item, i) => (
-                <motion.div
+                <div
                   key={i}
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: 0.5 + i * 0.1 }}
                   className="flex items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full bg-[var(--concrete-gray)]/50 border border-[var(--steel-gray)]/30"
                 >
                   <item.icon className="w-4 h-4" style={{ color: item.color }} />
                   <span className="text-xs sm:text-sm text-[var(--light-gray)]">{item.label}</span>
-                </motion.div>
+                </div>
               ))}
             </motion.div>
 
             {/* Stats Row */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 10 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.7, duration: 0.6 }}
+              transition={{ delay: 0.3, duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
               className="flex items-center justify-center gap-6 sm:gap-10 pt-6 border-t border-[var(--steel-gray)]/20"
             >
               <div className="text-center">
@@ -483,9 +477,9 @@ export default function PricingPageContent() {
 
         {/* Mobile & Tablet: Drag Carousel */}
         <motion.div
-          initial={{ opacity: 0, y: 30 }}
+          initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.8, duration: 0.6 }}
+          transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
           className="relative z-10"
         >
           <MobileCarousel plans={plans} />
@@ -493,26 +487,21 @@ export default function PricingPageContent() {
 
         {/* Desktop: Grid */}
         <Container className="hidden lg:block relative z-10">
-          <div className="grid grid-cols-3 gap-5 max-w-4xl mx-auto">
-            {plans.map((plan, index) => (
-              <motion.div
-                key={plan.id}
-                initial={{ opacity: 0, y: 30 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ delay: 0.8 + index * 0.1, duration: 0.5 }}
-              >
-                <PlanCard plan={plan} />
-              </motion.div>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
+            className="grid grid-cols-3 gap-5 max-w-4xl mx-auto"
+          >
+            {plans.map((plan) => (
+              <PlanCard key={plan.id} plan={plan} />
             ))}
-          </div>
+          </motion.div>
         </Container>
       </section>
 
       {/* Trust & Add-ons Combined Section */}
-      <motion.section
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1.1, duration: 0.5 }}
+      <section
         className="py-8 sm:py-12 bg-gradient-to-b from-[var(--asphalt-dark)] to-[var(--asphalt-black)] relative overflow-hidden"
       >
         {/* Background accents */}
@@ -522,12 +511,7 @@ export default function PricingPageContent() {
 
         <Container className="relative z-10">
           {/* Trust Badges - Horizontal Scroll on Mobile */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 1.2, duration: 0.5 }}
-            className="mb-8"
-          >
+          <div className="mb-8">
             {/* Mobile: Scrollable badges with scroll indicator */}
             <div className="sm:hidden">
               <div className="overflow-x-auto scrollbar-none pb-2 -mx-4 px-4">
@@ -557,12 +541,8 @@ export default function PricingPageContent() {
             {/* Desktop: Centered badges */}
             <div className="hidden sm:flex items-center justify-center gap-6">
               {guarantees.map((item, index) => (
-                <motion.div
+                <div
                   key={index}
-                  initial={{ opacity: 0, y: 10 }}
-                  whileInView={{ opacity: 1, y: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.1 }}
                   className="flex items-center gap-3 px-5 py-3 rounded-xl bg-[var(--concrete-gray)]/30 border border-[var(--steel-gray)]/20"
                 >
                   <div className="w-10 h-10 rounded-lg bg-[var(--safety-orange)]/10 flex items-center justify-center">
@@ -572,10 +552,10 @@ export default function PricingPageContent() {
                     <span className="block text-sm font-semibold text-white">{item.title}</span>
                     <span className="block text-xs text-[var(--slate-gray)]">{item.desc}</span>
                   </div>
-                </motion.div>
+                </div>
               ))}
             </div>
-          </motion.div>
+          </div>
 
           {/* Divider with label */}
           <div className="flex items-center gap-4 max-w-xl mx-auto mb-6">
@@ -585,57 +565,38 @@ export default function PricingPageContent() {
           </div>
 
           {/* Add-ons - Modern Cards */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="max-w-xl mx-auto"
-          >
+          <div className="max-w-xl mx-auto">
             {/* Mobile: 2x2 Grid */}
             <div className="sm:hidden grid grid-cols-2 gap-2">
               {addOns.map((addon, index) => (
-                <motion.div
+                <div
                   key={index}
-                  initial={{ opacity: 0, scale: 0.95 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.05 }}
                   className="p-3 rounded-xl bg-[var(--concrete-gray)]/40 border border-[var(--steel-gray)]/20"
                 >
                   <p className="text-xs text-[var(--light-gray)] mb-2 line-clamp-2">{addon.name}</p>
                   <p className="text-base font-bold text-[var(--safety-orange)]">{addon.price}</p>
-                </motion.div>
+                </div>
               ))}
             </div>
 
             {/* Desktop: Horizontal list */}
             <div className="hidden sm:grid grid-cols-2 gap-3">
               {addOns.map((addon, index) => (
-                <motion.div
+                <div
                   key={index}
-                  initial={{ opacity: 0, x: -10 }}
-                  whileInView={{ opacity: 1, x: 0 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.05 }}
-                  className="flex items-center justify-between p-4 rounded-xl bg-[var(--concrete-gray)]/30 border border-[var(--steel-gray)]/20 hover:border-[var(--safety-orange)]/30 transition-colors group"
+                  className="flex items-center justify-between p-4 rounded-xl bg-[var(--concrete-gray)]/30 border border-[var(--steel-gray)]/20 hover:border-[var(--safety-orange)]/30 transition-colors duration-200 group"
                 >
                   <div className="flex items-center gap-3">
-                    <div className="w-2 h-2 rounded-full bg-[var(--safety-orange)]/50 group-hover:bg-[var(--safety-orange)] transition-colors" />
+                    <div className="w-2 h-2 rounded-full bg-[var(--safety-orange)]/50 group-hover:bg-[var(--safety-orange)] transition-colors duration-200" />
                     <span className="text-sm text-[var(--light-gray)]">{addon.name}</span>
                   </div>
                   <span className="text-sm font-bold text-[var(--safety-orange)]">{addon.price}</span>
-                </motion.div>
+                </div>
               ))}
             </div>
 
             {/* CTA for custom quote */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.3 }}
-              className="text-center mt-6"
-            >
+            <div className="text-center mt-6">
               <p className="text-xs text-[var(--slate-gray)] mb-2">Need something specific?</p>
               <a
                 href="/contact"
@@ -644,10 +605,10 @@ export default function PricingPageContent() {
                 Get a custom quote
                 <ArrowRight className="w-4 h-4" />
               </a>
-            </motion.div>
-          </motion.div>
+            </div>
+          </div>
         </Container>
-      </motion.section>
+      </section>
 
       {/* FAQ Accordion - Modern Design */}
       <section className="py-10 sm:py-16 bg-gradient-to-b from-[var(--asphalt-black)] via-[var(--asphalt-dark)] to-[var(--asphalt-black)] relative overflow-hidden">
@@ -768,27 +729,20 @@ export default function PricingPageContent() {
         <Container className="relative z-10">
           {/* Mobile CTA Card */}
           <div className="sm:hidden">
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              className="relative rounded-2xl overflow-hidden"
+            <div
+              className="relative rounded-2xl overflow-hidden border border-[var(--safety-orange)]/30 shadow-lg shadow-[var(--safety-orange)]/10"
             >
-              {/* Gradient border effect */}
-              <div className="absolute inset-0 bg-gradient-to-br from-[var(--safety-orange)]/30 via-transparent to-[var(--safety-orange)]/20 rounded-2xl" />
+              {/* Top glow bar */}
+              <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[var(--safety-orange)] to-transparent" />
 
-              <div className="relative m-[1px] p-5 rounded-2xl bg-[var(--asphalt-black)]">
+              <div className="relative p-5 rounded-2xl bg-[var(--asphalt-black)]">
                 {/* Icon row */}
                 <div className="flex items-center justify-center gap-2 mb-4">
-                  <motion.div
-                    initial={{ scale: 0 }}
-                    whileInView={{ scale: 1 }}
-                    viewport={{ once: true }}
-                    transition={{ type: 'spring', delay: 0.1 }}
+                  <div
                     className="w-12 h-12 rounded-xl bg-[var(--safety-orange)] flex items-center justify-center shadow-lg shadow-[var(--safety-orange)]/30"
                   >
                     <Sparkles className="w-6 h-6 text-white" />
-                  </motion.div>
+                  </div>
                 </div>
 
                 <h2 className="text-xl font-bold text-white text-center mb-2">
@@ -799,20 +753,24 @@ export default function PricingPageContent() {
                 </p>
 
                 {/* Trust row */}
-                <div className="flex items-center justify-center gap-4 mb-5 pb-5 border-b border-[var(--steel-gray)]/20">
-                  <div className="flex items-center gap-1.5">
-                    <Shield className="w-4 h-4 text-[var(--success)]" />
-                    <span className="text-xs text-[var(--light-gray)]">Guaranteed</span>
+                <div className="flex items-start justify-between gap-2 mb-5 pb-5 border-b border-[var(--steel-gray)]/20">
+                  <div className="flex-1 flex flex-col items-center gap-1.5">
+                    <div className="w-7 h-7 rounded-full bg-[var(--success)]/10 border border-[var(--success)]/20 flex items-center justify-center">
+                      <Shield className="w-3.5 h-3.5 text-[var(--success)]" />
+                    </div>
+                    <span className="text-[10px] text-[var(--light-gray)]">Guaranteed</span>
                   </div>
-                  <div className="w-px h-4 bg-[var(--steel-gray)]/30" />
-                  <div className="flex items-center gap-1.5">
-                    <Zap className="w-4 h-4 text-[var(--safety-orange)]" />
-                    <span className="text-xs text-[var(--light-gray)]">Same-Day</span>
+                  <div className="flex-1 flex flex-col items-center gap-1.5">
+                    <div className="w-7 h-7 rounded-full bg-[var(--safety-orange)]/10 border border-[var(--safety-orange)]/20 flex items-center justify-center">
+                      <Zap className="w-3.5 h-3.5 text-[var(--safety-orange)]" />
+                    </div>
+                    <span className="text-[10px] text-[var(--light-gray)]">Same-Day</span>
                   </div>
-                  <div className="w-px h-4 bg-[var(--steel-gray)]/30" />
-                  <div className="flex items-center gap-1">
-                    <Star className="w-4 h-4 text-yellow-500 fill-yellow-500" />
-                    <span className="text-xs text-[var(--light-gray)]">5.0</span>
+                  <div className="flex-1 flex flex-col items-center gap-1.5">
+                    <div className="w-7 h-7 rounded-full bg-yellow-500/10 border border-yellow-500/20 flex items-center justify-center">
+                      <Star className="w-3.5 h-3.5 text-yellow-500 fill-yellow-500" />
+                    </div>
+                    <span className="text-[10px] text-[var(--light-gray)]">5.0 Rating</span>
                   </div>
                 </div>
 
@@ -835,33 +793,24 @@ export default function PricingPageContent() {
                   Free estimates · No contracts · Cancel anytime
                 </p>
               </div>
-            </motion.div>
+            </div>
           </div>
 
           {/* Desktop CTA */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="hidden sm:block"
-          >
-            <div className="relative rounded-3xl overflow-hidden">
-              {/* Gradient border */}
-              <div className="absolute inset-0 bg-gradient-to-r from-[var(--safety-orange)]/40 via-[var(--safety-orange)]/20 to-[var(--safety-orange)]/40 rounded-3xl" />
+          <div className="hidden sm:block">
+            <div className="relative rounded-3xl overflow-hidden border border-[var(--safety-orange)]/30 shadow-xl shadow-[var(--safety-orange)]/10">
+              {/* Top glow bar */}
+              <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[var(--safety-orange)] to-transparent" />
 
-              <div className="relative m-[1px] p-10 rounded-3xl bg-gradient-to-br from-[var(--asphalt-black)] to-[var(--concrete-gray)]/30">
+              <div className="relative p-10 rounded-3xl bg-gradient-to-br from-[var(--asphalt-black)] to-[var(--concrete-gray)]/30">
                 <div className="flex items-center justify-between gap-10">
                   {/* Left content */}
                   <div className="flex-1">
-                    <motion.div
-                      initial={{ scale: 0 }}
-                      whileInView={{ scale: 1 }}
-                      viewport={{ once: true }}
-                      transition={{ type: 'spring', delay: 0.1 }}
+                    <div
                       className="w-14 h-14 rounded-2xl bg-[var(--safety-orange)] flex items-center justify-center mb-5 shadow-lg shadow-[var(--safety-orange)]/30"
                     >
                       <Sparkles className="w-7 h-7 text-white" />
-                    </motion.div>
+                    </div>
 
                     <h2 className="text-2xl lg:text-3xl font-bold text-white mb-3">
                       Ready for Sparkling Clean Bins?
@@ -919,7 +868,7 @@ export default function PricingPageContent() {
                 </div>
               </div>
             </div>
-          </motion.div>
+          </div>
         </Container>
       </section>
 

@@ -1,7 +1,7 @@
 'use client'
 
-import { useEffect, useRef, useState, memo, useCallback } from 'react'
-import { motion, useMotionValue, useSpring, useTransform, PanInfo } from 'motion/react'
+import { useEffect, useRef, useState, memo } from 'react'
+import { motion } from 'motion/react'
 import { Home, Building2, CalendarClock, Sparkles, ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react'
 import Container from '@/components/ui/Container'
 import Button from '@/components/ui/Button'
@@ -128,75 +128,33 @@ const ServiceCard = memo(function ServiceCard({ service }: { service: typeof ser
   )
 })
 
-// Memoized MobileCarousel with smooth spring physics
+// Memoized MobileCarousel with smooth natural swiping
 const MobileCarousel = memo(function MobileCarousel() {
-  const [maxDrag, setMaxDrag] = useState(0)
-  const carousel = useRef<HTMLDivElement>(null)
-
-  // Use motion value for smooth position tracking
-  const x = useMotionValue(0)
-
-  // Responsive spring - tighter control
-  const smoothX = useSpring(x, {
-    stiffness: 300,   // Higher = snappier response
-    damping: 35,      // Higher = stops faster
-    mass: 0.8,        // Slightly heavier = less floaty
-  })
-
-  // Calculate max drag distance
-  const calculateWidth = useCallback(() => {
-    if (carousel.current) {
-      setMaxDrag(carousel.current.scrollWidth - carousel.current.offsetWidth)
-    }
-  }, [])
+  const [dragConstraint, setDragConstraint] = useState(0)
+  const containerRef = useRef<HTMLDivElement>(null)
+  const carouselRef = useRef<HTMLDivElement>(null)
 
   useEffect(() => {
-    calculateWidth()
-
-    let timeoutId: ReturnType<typeof setTimeout>
-    const handleResize = () => {
-      clearTimeout(timeoutId)
-      timeoutId = setTimeout(calculateWidth, 150)
+    const updateConstraints = () => {
+      if (containerRef.current && carouselRef.current) {
+        const containerWidth = containerRef.current.offsetWidth
+        const carouselWidth = carouselRef.current.scrollWidth
+        setDragConstraint(containerWidth - carouselWidth)
+      }
     }
 
-    window.addEventListener('resize', handleResize, { passive: true })
-    return () => {
-      window.removeEventListener('resize', handleResize)
-      clearTimeout(timeoutId)
-    }
-  }, [calculateWidth])
-
-  // Handle drag end with minimal momentum
-  const handleDragEnd = useCallback((event: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
-    const currentX = x.get()
-    const velocity = info.velocity.x
-
-    // Minimal momentum - stops quickly
-    const momentum = velocity * 0.08
-    let targetX = currentX + momentum
-
-    // Clamp to boundaries
-    targetX = Math.max(-maxDrag, Math.min(0, targetX))
-
-    x.set(targetX)
-  }, [x, maxDrag])
+    updateConstraints()
+    window.addEventListener('resize', updateConstraints)
+    return () => window.removeEventListener('resize', updateConstraints)
+  }, [])
 
   return (
-    <div className="w-full overflow-hidden sm:hidden touch-pan-y">
+    <div ref={containerRef} className="w-full overflow-hidden sm:hidden">
       <motion.div
-        ref={carousel}
-        style={{ x: smoothX }}
+        ref={carouselRef}
         drag="x"
-        dragDirectionLock
-        dragElastic={0.05}
-        dragConstraints={{ right: 0, left: -maxDrag }}
-        dragTransition={{
-          power: 0.1,           // Low power = stops quickly
-          timeConstant: 100,    // Short = fast stop
-          bounceDamping: 40,    // High = minimal bounce
-          bounceStiffness: 200, // Firm edges
-        }}
-        onDragEnd={handleDragEnd}
+        dragConstraints={{ left: dragConstraint, right: 0 }}
+        dragElastic={0.1}
         className="flex cursor-grab active:cursor-grabbing"
       >
         {services.map((service, index) => (
