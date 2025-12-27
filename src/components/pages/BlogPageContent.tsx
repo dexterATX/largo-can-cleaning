@@ -535,27 +535,50 @@ export default function BlogPageContent() {
 
         <Container className="relative z-10">
           <div className="max-w-3xl mx-auto text-center">
-            {/* Badge - No animation delay */}
-            <div className="inline-flex items-center gap-2 px-4 py-2 mb-6 rounded-full bg-[var(--safety-orange)]/10 border border-[var(--safety-orange)]/20">
-              <Sparkles className="w-4 h-4 text-[var(--safety-orange)]" />
+            {/* Badge */}
+            <motion.div
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.35 }}
+              className="inline-flex items-center gap-2 px-4 py-2 mb-6 rounded-full bg-[var(--safety-orange)]/10 border border-[var(--safety-orange)]/20"
+            >
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[var(--safety-orange)] opacity-75" />
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-[var(--safety-orange)]" />
+              </span>
               <span className="text-xs sm:text-sm font-medium text-[var(--safety-orange)]">
                 Tips, Insights & Updates
               </span>
-            </div>
+            </motion.div>
 
             {/* Heading */}
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight mb-4">
+            <motion.h1
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.35, delay: 0.05 }}
+              className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight mb-4"
+            >
               <span className="text-white">Our </span>
               <span className="text-gradient-orange">Blog</span>
-            </h1>
+            </motion.h1>
 
             {/* Subtitle */}
-            <p className="text-base sm:text-lg text-[var(--light-gray)] max-w-xl mx-auto mb-8">
+            <motion.p
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.35, delay: 0.1 }}
+              className="text-base sm:text-lg text-[var(--light-gray)] max-w-xl mx-auto mb-8"
+            >
               Expert tips on bin cleaning, home hygiene, and keeping your outdoor space fresh and pest-free.
-            </p>
+            </motion.p>
 
             {/* Search Bar */}
-            <div className="max-w-md mx-auto">
+            <motion.div
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.35, delay: 0.15 }}
+              className="max-w-md mx-auto"
+            >
               <div className="relative">
                 <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-[var(--steel-gray)]" />
                 <input
@@ -566,7 +589,7 @@ export default function BlogPageContent() {
                   className="w-full pl-12 pr-4 py-3 sm:py-3.5 bg-[var(--concrete-gray)]/30 border border-[var(--steel-gray)]/20 rounded-xl text-white placeholder-[var(--steel-gray)] focus:outline-none focus:border-[var(--safety-orange)]/50 focus:ring-2 focus:ring-[var(--safety-orange)]/10 transition-all text-sm sm:text-base"
                 />
               </div>
-            </div>
+            </motion.div>
           </div>
         </Container>
 
