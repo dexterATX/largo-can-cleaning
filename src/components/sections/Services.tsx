@@ -1,8 +1,8 @@
 'use client'
 
 import { useEffect, useRef, useState, memo, useCallback } from 'react'
-import { motion } from 'motion/react'
-import { Home, Building2, CalendarClock, Sparkles, ArrowRight } from 'lucide-react'
+import { motion, useMotionValue, useSpring, useTransform, PanInfo } from 'motion/react'
+import { Home, Building2, CalendarClock, Sparkles, ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react'
 import Container from '@/components/ui/Container'
 import Button from '@/components/ui/Button'
 
@@ -30,7 +30,7 @@ const services = [
     title: 'Recurring Service',
     description:
       'Set it and forget it. We automatically clean your bins on a schedule that works for you.',
-    features: ['Weekly/Bi-weekly/Monthly', 'Priority scheduling', '10% discount'],
+    features: ['Weekly, Bi-weekly, Monthly', 'Priority scheduling', '10% discount'],
     price: 'From $22',
     popular: true,
   },
@@ -128,22 +128,31 @@ const ServiceCard = memo(function ServiceCard({ service }: { service: typeof ser
   )
 })
 
-// Memoized MobileCarousel to prevent re-renders
+// Memoized MobileCarousel with smooth spring physics
 const MobileCarousel = memo(function MobileCarousel() {
-  const [width, setWidth] = useState(0)
+  const [maxDrag, setMaxDrag] = useState(0)
   const carousel = useRef<HTMLDivElement>(null)
 
-  // Debounced width calculation
+  // Use motion value for smooth position tracking
+  const x = useMotionValue(0)
+
+  // Responsive spring - tighter control
+  const smoothX = useSpring(x, {
+    stiffness: 300,   // Higher = snappier response
+    damping: 35,      // Higher = stops faster
+    mass: 0.8,        // Slightly heavier = less floaty
+  })
+
+  // Calculate max drag distance
   const calculateWidth = useCallback(() => {
     if (carousel.current) {
-      setWidth(carousel.current.scrollWidth - carousel.current.offsetWidth)
+      setMaxDrag(carousel.current.scrollWidth - carousel.current.offsetWidth)
     }
   }, [])
 
   useEffect(() => {
     calculateWidth()
 
-    // Debounced resize handler
     let timeoutId: ReturnType<typeof setTimeout>
     const handleResize = () => {
       clearTimeout(timeoutId)
@@ -157,25 +166,62 @@ const MobileCarousel = memo(function MobileCarousel() {
     }
   }, [calculateWidth])
 
+  // Handle drag end with minimal momentum
+  const handleDragEnd = useCallback((event: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
+    const currentX = x.get()
+    const velocity = info.velocity.x
+
+    // Minimal momentum - stops quickly
+    const momentum = velocity * 0.08
+    let targetX = currentX + momentum
+
+    // Clamp to boundaries
+    targetX = Math.max(-maxDrag, Math.min(0, targetX))
+
+    x.set(targetX)
+  }, [x, maxDrag])
+
   return (
-    <div className="w-full overflow-hidden sm:hidden">
+    <div className="w-full overflow-hidden sm:hidden touch-pan-y">
       <motion.div
         ref={carousel}
+        style={{ x: smoothX }}
         drag="x"
-        dragElastic={0.1}
-        dragConstraints={{ right: 0, left: -width }}
-        dragTransition={{ bounceDamping: 20, bounceStiffness: 300 }}
-        className="flex will-change-transform cursor-grab active:cursor-grabbing"
+        dragDirectionLock
+        dragElastic={0.05}
+        dragConstraints={{ right: 0, left: -maxDrag }}
+        dragTransition={{
+          power: 0.1,           // Low power = stops quickly
+          timeConstant: 100,    // Short = fast stop
+          bounceDamping: 40,    // High = minimal bounce
+          bounceStiffness: 200, // Firm edges
+        }}
+        onDragEnd={handleDragEnd}
+        className="flex cursor-grab active:cursor-grabbing"
       >
         {services.map((service, index) => (
-          <div key={index} className="min-w-[85vw] p-2">
+          <div key={index} className="min-w-[85vw] max-w-[85vw] p-2 flex-shrink-0">
             <ServiceCard service={service} />
           </div>
         ))}
       </motion.div>
-      <p className="text-center text-xs text-[var(--slate-gray)] mt-4">
-        Swipe to see more services
-      </p>
+      <div className="flex items-center justify-center gap-2 mt-4">
+        <motion.div
+          animate={{ x: [0, -4, 0] }}
+          transition={{ duration: 1.2, repeat: Infinity, ease: "easeInOut" }}
+        >
+          <ChevronLeft className="w-4 h-4 text-[var(--slate-gray)]" />
+        </motion.div>
+        <span className="text-xs text-[var(--slate-gray)]">
+          Swipe to see more services
+        </span>
+        <motion.div
+          animate={{ x: [0, 4, 0] }}
+          transition={{ duration: 1.2, repeat: Infinity, ease: "easeInOut" }}
+        >
+          <ChevronRight className="w-4 h-4 text-[var(--slate-gray)]" />
+        </motion.div>
+      </div>
     </div>
   )
 })

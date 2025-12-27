@@ -1,7 +1,8 @@
 'use client'
 
 import { useRef, useState, useEffect } from 'react'
-import { motion, useInView, AnimatePresence } from 'motion/react'
+import { createPortal } from 'react-dom'
+import { motion, useInView, AnimatePresence } from 'framer-motion'
 import {
   Home,
   Building2,
@@ -22,6 +23,7 @@ import {
   CircleDot,
   Play,
   ChevronRight,
+  ChevronLeft,
   X,
   Info,
   Star,
@@ -184,7 +186,7 @@ const serviceAreas = [
 // ============================================
 
 function AnimatedNumber({ value, suffix }: { value: string; suffix: string }) {
-  const [displayValue, setDisplayValue] = useState(() => parseInt(value)) // Start with final value
+  const [displayValue, setDisplayValue] = useState(() => parseInt(value))
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: '-50px' })
   const targetValue = parseInt(value)
@@ -229,42 +231,42 @@ function HeroSection() {
       {/* Subtle Gradient Background */}
       <div className="absolute inset-0">
         <div className="absolute inset-0 bg-gradient-to-br from-[var(--asphalt-black)] via-[var(--asphalt-black)] to-[var(--concrete-gray)]/30" />
-        {/* Soft glow - smaller on mobile for performance */}
-        <div className="absolute top-1/2 -right-16 md:-right-32 w-[200px] md:w-[500px] h-[200px] md:h-[500px] bg-[var(--safety-orange)]/10 md:bg-[var(--safety-orange)]/8 rounded-full blur-[40px] md:blur-[60px] -translate-y-1/2" />
-        <div className="absolute bottom-0 left-1/4 w-[150px] md:w-[400px] h-[150px] md:h-[400px] bg-[var(--safety-orange)]/8 md:bg-[var(--safety-orange)]/5 rounded-full blur-[30px] md:blur-[60px]" />
+        {/* Soft glow - hidden on mobile for performance */}
+        <div className="hidden md:block absolute top-1/2 -right-32 w-[500px] h-[500px] bg-[var(--safety-orange)]/8 rounded-full blur-[60px] -translate-y-1/2" />
+        <div className="hidden md:block absolute bottom-0 left-1/4 w-[400px] h-[400px] bg-[var(--safety-orange)]/5 rounded-full blur-[60px]" />
       </div>
 
       {/* Subtle Grid Pattern */}
       <div className="absolute inset-0 bg-grid-pattern opacity-30" />
 
-      {/* Floating Accent Lines - Hidden on mobile */}
-      <div className="hidden md:block absolute inset-0 overflow-hidden pointer-events-none">
+      {/* Floating Accent Lines - Subtle & Professional */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
         {/* Horizontal accent line */}
         <motion.div
           initial={{ scaleX: 0, opacity: 0 }}
           animate={{ scaleX: 1, opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
+          transition={{ duration: 1.2, delay: 0.5 }}
           className="absolute top-[30%] right-0 w-1/3 h-px bg-gradient-to-l from-[var(--safety-orange)]/40 to-transparent origin-right"
         />
         {/* Vertical accent line */}
         <motion.div
           initial={{ scaleY: 0, opacity: 0 }}
           animate={{ scaleY: 1, opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.3 }}
+          transition={{ duration: 1.2, delay: 0.7 }}
           className="absolute top-0 right-[20%] w-px h-1/3 bg-gradient-to-b from-[var(--safety-orange)]/30 to-transparent origin-top"
         />
         {/* Small accent dot */}
         <motion.div
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
-          transition={{ duration: 0.3, delay: 0.4 }}
+          transition={{ duration: 0.5, delay: 1.2 }}
           className="absolute top-[30%] right-[20%] w-2 h-2 bg-[var(--safety-orange)] rounded-full"
         />
         {/* Corner bracket accent */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.5, delay: 0.3 }}
+          transition={{ duration: 0.8, delay: 0.9 }}
           className="absolute bottom-[25%] right-[10%] w-16 h-16 border-r-2 border-b-2 border-[var(--safety-orange)]/20 rounded-br-xl"
         />
       </div>
@@ -351,36 +353,26 @@ function HeroSection() {
             </a>
           </motion.div>
 
-          {/* Social Proof Stats - Modern Pills */}
+          {/* Social Proof Stats - Minimal Pills */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5, duration: 0.6 }}
-            className="flex flex-wrap items-center justify-center gap-3 mb-10"
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ delay: 0.5 }}
+            className="flex flex-wrap items-center justify-center gap-2 mb-10"
           >
             {[
-              { value: '500+', label: 'Happy Customers', icon: Star, color: 'var(--safety-orange)' },
-              { value: '5.0', label: 'Google Rating', icon: Star, color: '#FBBF24' },
-              { value: '24hr', label: 'Turnaround', icon: Zap, color: '#10B981' },
+              { value: '500+', label: 'Customers', icon: Star },
+              { value: '5.0', label: 'Rating', icon: Star },
+              { value: '24hr', label: 'Service', icon: Zap },
             ].map((stat, i) => (
-              <motion.div
+              <div
                 key={i}
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 0.6 + i * 0.1 }}
-                className="flex items-center gap-3 px-4 py-2.5 rounded-full bg-[var(--concrete-gray)]/60 border border-[var(--steel-gray)]/30 backdrop-blur-sm"
+                className="flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-white/5 border border-white/10"
               >
-                <div
-                  className="w-8 h-8 rounded-full flex items-center justify-center"
-                  style={{ backgroundColor: `${stat.color}15` }}
-                >
-                  <stat.icon className="w-4 h-4" style={{ color: stat.color }} />
-                </div>
-                <div className="text-left">
-                  <div className="text-lg font-bold text-white leading-tight">{stat.value}</div>
-                  <div className="text-[10px] text-[var(--slate-gray)] uppercase tracking-wide">{stat.label}</div>
-                </div>
-              </motion.div>
+                <stat.icon className="w-3 h-3 text-[var(--safety-orange)]" />
+                <span className="text-xs font-semibold text-white">{stat.value}</span>
+                <span className="text-xs text-[var(--slate-gray)]">{stat.label}</span>
+              </div>
             ))}
           </motion.div>
 
@@ -547,68 +539,103 @@ interface ServiceDetailOverlayProps {
 }
 
 function ServiceDetailOverlay({ service, isOpen, onClose }: ServiceDetailOverlayProps) {
+  const [mounted, setMounted] = useState(false)
+
+  // Mount check for portal
+  useEffect(() => {
+    setMounted(true)
+  }, [])
+
+  // Ref for overlay content to allow scrolling inside it
+  const overlayContentRef = useRef<HTMLDivElement>(null)
+
   // Prevent body scroll when overlay is open
   useEffect(() => {
-    if (isOpen) {
-      document.body.style.overflow = 'hidden'
-    } else {
-      document.body.style.overflow = ''
+    if (!isOpen) return
+
+    const preventScroll = (e: TouchEvent) => {
+      // Allow scrolling inside the overlay content
+      if (overlayContentRef.current?.contains(e.target as Node)) {
+        return
+      }
+      e.preventDefault()
     }
+
+    const preventWheel = (e: WheelEvent) => {
+      if (overlayContentRef.current?.contains(e.target as Node)) {
+        return
+      }
+      e.preventDefault()
+    }
+
+    document.addEventListener('touchmove', preventScroll, { passive: false })
+    document.addEventListener('wheel', preventWheel, { passive: false })
+    document.body.style.overflow = 'hidden'
+
     return () => {
+      document.removeEventListener('touchmove', preventScroll)
+      document.removeEventListener('wheel', preventWheel)
       document.body.style.overflow = ''
     }
   }, [isOpen])
 
-  if (!service) return null
+  if (!service || !mounted) return null
 
-  return (
+  // Use portal to render overlay at document body level - breaks out of any parent containers
+  return createPortal(
     <AnimatePresence>
       {isOpen && (
         <>
-          {/* Backdrop */}
+          {/* Backdrop - No click to close, prevents touch scroll */}
           <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             transition={{ duration: 0.2 }}
-            className="fixed inset-0 bg-black/70 backdrop-blur-sm z-50"
-            onClick={onClose}
+            className="fixed inset-0 bg-black/80 backdrop-blur-md z-[9999] touch-none"
+            onTouchMove={(e) => e.preventDefault()}
           />
 
-          {/* Overlay Panel - Fits viewport */}
+          {/* Overlay Panel - Full modal with swipe to close */}
           <motion.div
             initial={{ opacity: 0, y: '100%' }}
             animate={{ opacity: 1, y: 0 }}
             exit={{ opacity: 0, y: '100%' }}
-            transition={{ type: 'spring', damping: 28, stiffness: 350 }}
-            className="fixed inset-x-2 bottom-2 z-50 rounded-2xl overflow-hidden"
-            style={{ maxHeight: 'calc(100dvh - 16px)' }}
+            transition={{ type: 'spring', damping: 30, stiffness: 300 }}
+            drag="y"
+            dragConstraints={{ top: 0, bottom: 0 }}
+            dragElastic={{ top: 0, bottom: 0.5 }}
+            onDragEnd={(_, info) => {
+              if (info.offset.y > 100 || info.velocity.y > 500) {
+                onClose()
+              }
+            }}
+            className="fixed inset-4 z-[9999] rounded-2xl overflow-hidden shadow-2xl touch-none"
           >
             {/* Background */}
             <div className="absolute inset-0 bg-[var(--concrete-gray)]" />
 
             {/* Top accent line */}
             <div
-              className="absolute top-0 left-0 right-0 h-0.5"
+              className="absolute top-0 left-0 right-0 h-1 rounded-t-2xl"
               style={{ backgroundColor: service.color }}
             />
 
-            {/* Content - No scroll, fits screen */}
-            <div className="relative h-full flex flex-col p-4 sm:p-5">
-              {/* Handle Bar & Close Row */}
-              <div className="flex items-center justify-between mb-3">
-                <div className="w-8 h-1 rounded-full bg-[var(--steel-gray)]/50" />
-                <motion.button
-                  whileTap={{ scale: 0.9 }}
-                  onClick={onClose}
-                  className="w-8 h-8 rounded-full bg-[var(--steel-gray)]/20 flex items-center justify-center text-[var(--slate-gray)]"
-                >
-                  <X className="w-4 h-4" />
-                </motion.button>
-              </div>
+            {/* Drag Handle - Mobile indicator */}
+            <div className="absolute top-2 left-1/2 -translate-x-1/2 w-10 h-1 rounded-full bg-white/20 z-20" />
+
+            {/* Content - Scrollable if needed */}
+            <div ref={overlayContentRef} className="relative h-full flex flex-col p-4 pt-6 overflow-y-auto touch-auto">
+              {/* Close Button */}
+              <button
+                onClick={onClose}
+                className="absolute top-3 right-3 w-8 h-8 rounded-full bg-white/5 backdrop-blur-sm border border-white/10 flex items-center justify-center text-white/70 hover:text-white hover:bg-white/10 active:scale-95 transition-all z-10"
+              >
+                <X className="w-4 h-4" />
+              </button>
 
               {/* Header - Icon, Title, Price */}
-              <div className="flex items-center gap-3 mb-4">
+              <div className="flex items-center gap-3 mb-5 pr-12">
                 <div
                   className="w-12 h-12 sm:w-14 sm:h-14 rounded-xl flex items-center justify-center flex-shrink-0"
                   style={{ backgroundColor: `${service.color}15` }}
@@ -616,14 +643,7 @@ function ServiceDetailOverlay({ service, isOpen, onClose }: ServiceDetailOverlay
                   <service.icon className="w-6 h-6 sm:w-7 sm:h-7" style={{ color: service.color }} />
                 </div>
                 <div className="flex-1 min-w-0">
-                  <div className="flex items-center gap-2">
-                    <h2 className="text-lg sm:text-xl font-bold text-white truncate">{service.title}</h2>
-                    {service.popular && (
-                      <span className="px-2 py-0.5 text-[9px] font-bold uppercase bg-[var(--safety-orange)] text-white rounded-full flex-shrink-0">
-                        Popular
-                      </span>
-                    )}
-                  </div>
+                  <h2 className="text-lg sm:text-xl font-bold text-white truncate">{service.title}</h2>
                   <p className="text-xs sm:text-sm text-[var(--slate-gray)] truncate">{service.shortDesc}</p>
                 </div>
                 <div className="text-right flex-shrink-0">
@@ -632,53 +652,55 @@ function ServiceDetailOverlay({ service, isOpen, onClose }: ServiceDetailOverlay
                 </div>
               </div>
 
-              {/* Quick Stats - Horizontal compact */}
-              <div className="flex gap-2 mb-4">
-                <div className="flex-1 text-center py-2 px-2 rounded-lg bg-[var(--asphalt-black)]/50">
+              {/* Description */}
+              <p className="text-sm text-[var(--light-gray)] leading-relaxed mb-4">
+                {service.fullDesc}
+              </p>
+
+              {/* Quick Stats - 3 columns */}
+              <div className="grid grid-cols-3 gap-2 mb-4">
+                <div className="text-center py-2 rounded-lg bg-[var(--asphalt-black)]/50">
                   <Timer className="w-4 h-4 mx-auto mb-0.5" style={{ color: service.color }} />
-                  <p className="text-[10px] text-[var(--slate-gray)]">Duration</p>
-                  <p className="text-xs font-semibold text-white truncate">{service.duration}</p>
+                  <p className="text-[9px] text-[var(--slate-gray)]">Duration</p>
+                  <p className="text-[11px] font-semibold text-white">{service.duration}</p>
                 </div>
-                <div className="flex-1 text-center py-2 px-2 rounded-lg bg-[var(--asphalt-black)]/50">
+                <div className="text-center py-2 rounded-lg bg-[var(--asphalt-black)]/50">
                   <ShieldCheck className="w-4 h-4 mx-auto mb-0.5" style={{ color: service.color }} />
-                  <p className="text-[10px] text-[var(--slate-gray)]">Guarantee</p>
-                  <p className="text-xs font-semibold text-white">100%</p>
+                  <p className="text-[9px] text-[var(--slate-gray)]">Guarantee</p>
+                  <p className="text-[11px] font-semibold text-white">100%</p>
                 </div>
-                <div className="flex-1 text-center py-2 px-2 rounded-lg bg-[var(--asphalt-black)]/50">
+                <div className="text-center py-2 rounded-lg bg-[var(--asphalt-black)]/50">
                   <Star className="w-4 h-4 mx-auto mb-0.5" style={{ color: service.color }} />
-                  <p className="text-[10px] text-[var(--slate-gray)]">Rating</p>
-                  <p className="text-xs font-semibold text-white">5.0 ★</p>
+                  <p className="text-[9px] text-[var(--slate-gray)]">Rating</p>
+                  <p className="text-[11px] font-semibold text-white">5.0 ★</p>
                 </div>
               </div>
 
-              {/* What's Included - Compact grid */}
-              <div className="flex-1 min-h-0 mb-4">
-                <p className="text-xs font-semibold text-[var(--slate-gray)] uppercase tracking-wider mb-2">
+              {/* What's Included - Compact */}
+              <div className="mb-4">
+                <p className="text-[10px] font-semibold text-[var(--slate-gray)] uppercase tracking-wider mb-2">
                   What's Included
                 </p>
-                <div className="grid grid-cols-2 gap-1.5 overflow-y-auto max-h-[120px] sm:max-h-[140px]">
-                  {service.whatsIncluded?.slice(0, 6).map((item, i) => (
-                    <div
-                      key={i}
-                      className="flex items-center gap-2 py-1.5 px-2 rounded-lg bg-[var(--asphalt-black)]/30"
-                    >
+                <div className="space-y-1.5">
+                  {service.whatsIncluded?.slice(0, 5).map((item, i) => (
+                    <div key={i} className="flex items-center gap-2">
                       <Check className="w-3 h-3 flex-shrink-0" style={{ color: service.color }} />
-                      <span className="text-[11px] sm:text-xs text-[var(--light-gray)] truncate">{item}</span>
+                      <span className="text-xs text-[var(--light-gray)]">{item}</span>
                     </div>
                   ))}
                 </div>
               </div>
 
-              {/* Perfect For - Tags row */}
+              {/* Perfect For - Tags */}
               <div className="mb-4">
-                <p className="text-xs font-semibold text-[var(--slate-gray)] uppercase tracking-wider mb-2">
+                <p className="text-[10px] font-semibold text-[var(--slate-gray)] uppercase tracking-wider mb-2">
                   Perfect For
                 </p>
                 <div className="flex flex-wrap gap-1.5">
-                  {service.perfectFor?.slice(0, 4).map((item, i) => (
+                  {service.perfectFor?.slice(0, 3).map((item, i) => (
                     <span
                       key={i}
-                      className="px-2.5 py-1 rounded-full text-[11px] sm:text-xs font-medium"
+                      className="px-2 py-1 rounded-full text-[10px] font-medium"
                       style={{
                         backgroundColor: `${service.color}15`,
                         color: service.color
@@ -690,30 +712,28 @@ function ServiceDetailOverlay({ service, isOpen, onClose }: ServiceDetailOverlay
                 </div>
               </div>
 
-              {/* CTA Buttons - Fixed at bottom */}
-              <div className="flex gap-2 pt-2 border-t border-[var(--steel-gray)]/10">
-                <motion.button
-                  whileTap={{ scale: 0.98 }}
-                  className="flex-1 py-3 sm:py-3.5 rounded-xl font-semibold text-white text-sm flex items-center justify-center gap-2"
+              {/* CTA Buttons */}
+              <div className="flex gap-2 mt-auto pt-3 border-t border-[var(--steel-gray)]/10">
+                <button
+                  className="flex-1 py-2.5 rounded-xl font-semibold text-white text-sm flex items-center justify-center gap-2 active:scale-[0.98] transition-transform"
                   style={{ backgroundColor: service.color }}
                 >
                   <span>Get Started</span>
                   <ArrowRight className="w-4 h-4" />
-                </motion.button>
-                <motion.a
-                  whileTap={{ scale: 0.98 }}
+                </button>
+                <a
                   href={`tel:${BUSINESS_INFO.phone}`}
-                  className="py-3 sm:py-3.5 px-4 rounded-xl font-semibold text-[var(--light-gray)] text-sm flex items-center justify-center gap-2 border border-[var(--steel-gray)]/30"
+                  className="py-2.5 px-4 rounded-xl font-semibold text-[var(--light-gray)] text-sm flex items-center justify-center gap-2 border border-[var(--steel-gray)]/30 active:scale-[0.98] transition-transform"
                 >
                   <Phone className="w-4 h-4" />
-                  <span className="hidden sm:inline">Call</span>
-                </motion.a>
+                </a>
               </div>
             </div>
           </motion.div>
         </>
       )}
-    </AnimatePresence>
+    </AnimatePresence>,
+    document.body
   )
 }
 
@@ -743,14 +763,6 @@ function ServiceCard({ service, index, isActive = false, isMobile = false, onTap
       )}
     >
 
-      {/* Popular Badge - Floating */}
-      {service.popular && (
-        <div className="absolute top-4 right-4 z-10">
-          <span className="px-3 py-1 text-[10px] font-bold uppercase tracking-wider bg-gradient-to-r from-[var(--safety-orange)] to-[var(--safety-orange-light)] text-white rounded-full shadow-lg shadow-[var(--safety-orange)]/30">
-            Most Popular
-          </span>
-        </div>
-      )}
 
       {/* Top Accent Line */}
       <div
@@ -764,16 +776,16 @@ function ServiceCard({ service, index, isActive = false, isMobile = false, onTap
       <div className="p-5 sm:p-6">
         {/* Icon + Title Row */}
         <div className="flex items-start gap-4 mb-4">
-          <div className="relative flex-shrink-0 transition-transform duration-200 group-hover:scale-105">
+          <div className="relative flex-shrink-0 transition-transform duration-200 hover:scale-110">
             <div
               className="w-14 h-14 rounded-2xl flex items-center justify-center"
               style={{ backgroundColor: `${service.color}15` }}
             >
               <service.icon className="w-7 h-7" style={{ color: service.color }} />
             </div>
-            {/* Glow effect - hidden on mobile */}
+            {/* Glow effect */}
             <div
-              className="hidden md:block absolute inset-0 rounded-2xl blur-xl opacity-30 -z-10"
+              className="absolute inset-0 rounded-2xl blur-xl opacity-30 -z-10"
               style={{ backgroundColor: service.color }}
             />
           </div>
@@ -800,7 +812,10 @@ function ServiceCard({ service, index, isActive = false, isMobile = false, onTap
         {/* Features - Vertical List */}
         <div className="space-y-2.5 mb-6">
           {service.features.map((feature, i) => (
-            <div key={i} className="flex items-center gap-3">
+            <div
+              key={i}
+              className="flex items-center gap-3"
+            >
               <div
                 className="w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0"
                 style={{ backgroundColor: `${service.color}20` }}
@@ -814,7 +829,7 @@ function ServiceCard({ service, index, isActive = false, isMobile = false, onTap
 
         {/* View Details Button */}
         <div
-          className="w-full flex items-center justify-center gap-2 py-3.5 text-sm font-semibold rounded-xl transition-all duration-200 group/btn hover:brightness-110 active:scale-[0.98]"
+          className="w-full flex items-center justify-center gap-2 py-3.5 text-sm font-semibold rounded-xl transition-all duration-200 group/btn hover:scale-[1.02] active:scale-[0.98]"
           style={{
             backgroundColor: service.popular ? service.color : `${service.color}15`,
             color: service.popular ? 'white' : service.color
@@ -826,7 +841,9 @@ function ServiceCard({ service, index, isActive = false, isMobile = false, onTap
       </div>
 
       {/* Hover/Active Overlay Hint */}
-      <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
+      <div
+        className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-300"
+      />
     </div>
   )
 }
@@ -950,10 +967,10 @@ function BentoServicesSection() {
 
   return (
     <section className="py-16 sm:py-24 bg-[var(--asphalt-dark)] relative overflow-hidden">
-      {/* Background accents - smaller on mobile for performance */}
+      {/* Background accents */}
       <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-[var(--steel-gray)]/30 to-transparent" />
-      <div className="absolute top-1/4 -left-16 md:-left-32 w-[150px] md:w-[400px] h-[150px] md:h-[400px] bg-[var(--safety-orange)]/8 md:bg-[var(--safety-orange)]/5 rounded-full blur-[50px] md:blur-[100px]" />
-      <div className="absolute bottom-1/4 -right-16 md:-right-32 w-[150px] md:w-[400px] h-[150px] md:h-[400px] bg-[var(--safety-orange)]/8 md:bg-[var(--safety-orange)]/5 rounded-full blur-[50px] md:blur-[100px]" />
+      <div className="absolute top-1/4 -left-32 w-[400px] h-[400px] bg-[var(--safety-orange)]/5 rounded-full blur-[150px]" />
+      <div className="absolute bottom-1/4 -right-32 w-[400px] h-[400px] bg-[var(--safety-orange)]/5 rounded-full blur-[150px]" />
 
       {/* Section Header */}
       <Container className="relative mb-10 sm:mb-14">
@@ -1195,6 +1212,31 @@ function MobileStepsCarousel() {
             Next
             <ChevronRight className="w-4 h-4" />
           </button>
+        </div>
+
+        {/* Swipe indicator with smooth animation */}
+        <div className="flex items-center justify-center gap-3 mt-4">
+          <motion.div
+            animate={{ x: [0, -5, 0], opacity: [0.5, 1, 0.5] }}
+            transition={{
+              duration: 1.2,
+              repeat: Infinity,
+              ease: [0.4, 0, 0.2, 1],
+            }}
+          >
+            <ChevronLeft className="w-4 h-4 text-[var(--safety-orange)]" />
+          </motion.div>
+          <span className="text-xs text-[var(--slate-gray)]">Swipe to navigate</span>
+          <motion.div
+            animate={{ x: [0, 5, 0], opacity: [0.5, 1, 0.5] }}
+            transition={{
+              duration: 1.2,
+              repeat: Infinity,
+              ease: [0.4, 0, 0.2, 1],
+            }}
+          >
+            <ChevronRight className="w-4 h-4 text-[var(--safety-orange)]" />
+          </motion.div>
         </div>
       </div>
     </div>
@@ -1614,9 +1656,14 @@ function ServiceAreasSection() {
             })}
           </div>
 
-          {/* Mobile Map - No animation to prevent white flash */}
-          <div className="relative rounded-xl overflow-hidden border border-[var(--steel-gray)]/30 mb-4 bg-[var(--asphalt-black)]">
-            <div className="relative w-full aspect-[4/3]">
+          {/* Mobile Map */}
+          <motion.div
+            initial={{ opacity: 0, y: 10 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="relative rounded-xl overflow-hidden border border-[var(--steel-gray)]/30 mb-4"
+          >
+            <div className="relative w-full aspect-[4/3] bg-[var(--asphalt-dark)]">
               <iframe
                 key={currentMapUrl}
                 src={currentMapUrl}
@@ -1653,7 +1700,7 @@ function ServiceAreasSection() {
                 <ChevronRight className="w-3 h-3" />
               </a>
             </div>
-          </div>
+          </motion.div>
 
           {/* Mobile Confirmation & CTA */}
           {selectedCity && (
@@ -1681,9 +1728,14 @@ function ServiceAreasSection() {
 
         {/* Desktop Layout */}
         <div className="hidden lg:grid lg:grid-cols-2 gap-10 items-center">
-          {/* Google Map - No animation to prevent white flash */}
-          <div className="relative rounded-2xl overflow-hidden border border-[var(--steel-gray)]/30 bg-[var(--asphalt-black)]">
-            <div className="relative w-full aspect-[4/3]">
+          {/* Google Map */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            viewport={{ once: true }}
+            className="relative rounded-2xl overflow-hidden border border-[var(--steel-gray)]/30"
+          >
+            <div className="relative w-full aspect-[4/3] bg-[var(--asphalt-dark)]">
               <iframe
                 key={currentMapUrl}
                 src={currentMapUrl}
@@ -1719,10 +1771,14 @@ function ServiceAreasSection() {
                 <ChevronRight className="w-3 h-3" />
               </a>
             </div>
-          </div>
+          </motion.div>
 
           {/* Content */}
-          <div>
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+          >
             <span className="inline-flex items-center gap-2 text-sm font-semibold text-[var(--safety-orange)] mb-4">
               <MapPin className="w-4 h-4" />
               SERVICE AREAS
@@ -1739,19 +1795,23 @@ function ServiceAreasSection() {
 
             {/* Area Tags - Interactive */}
             <div className="flex flex-wrap gap-2 mb-6">
-              {serviceAreas.map((area) => (
-                <button
+              {serviceAreas.map((area, index) => (
+                <motion.button
                   key={area}
+                  initial={{ opacity: 0, scale: 0.8 }}
+                  whileInView={{ opacity: 1, scale: 1 }}
+                  viewport={{ once: true }}
+                  transition={{ delay: index * 0.05 }}
                   onClick={() => setSelectedCity(selectedCity === area ? null : area)}
                   className={cn(
-                    'px-3 py-1.5 rounded-full text-sm font-medium border transition-all duration-200',
+                    'px-3 py-1.5 rounded-full text-sm font-medium border transition-all',
                     selectedCity === area
                       ? 'bg-[var(--safety-orange)] text-white border-[var(--safety-orange)]'
                       : 'bg-[var(--concrete-gray)] text-[var(--light-gray)] border-[var(--steel-gray)]/20 hover:border-[var(--safety-orange)]/50 hover:text-white'
                   )}
                 >
                   {area}
-                </button>
+                </motion.button>
               ))}
             </div>
 
@@ -1772,7 +1832,7 @@ function ServiceAreasSection() {
             <Button variant="outline" rightIcon={<ChevronRight className="w-4 h-4" />}>
               Check Availability
             </Button>
-          </div>
+          </motion.div>
         </div>
       </Container>
     </section>
@@ -1787,9 +1847,9 @@ function ServiceAreasSection() {
 function FinalCTASection() {
   return (
     <section className="py-12 sm:py-20 lg:py-32 bg-[var(--asphalt-dark)] relative overflow-hidden">
-      {/* Background Elements - smaller on mobile */}
+      {/* Background Elements */}
       <div className="absolute inset-0">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[200px] md:w-[600px] h-[200px] md:h-[600px] bg-[var(--safety-orange)]/10 md:bg-[var(--safety-orange)]/5 rounded-full blur-[50px] md:blur-[100px]" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[var(--safety-orange)]/5 rounded-full blur-[150px]" />
       </div>
       <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-[var(--steel-gray)]/20 to-transparent" />
 
@@ -1837,20 +1897,20 @@ function FinalCTASection() {
                 </a>
               </div>
 
-              {/* Trust badges - horizontal */}
-              <div className="flex items-center justify-center gap-4 pt-4 border-t border-[var(--steel-gray)]/10">
-                <div className="flex items-center gap-1.5 text-[11px] text-[var(--slate-gray)]">
-                  <Check className="w-3.5 h-3.5 text-green-500" />
-                  Free Quote
-                </div>
-                <div className="flex items-center gap-1.5 text-[11px] text-[var(--slate-gray)]">
-                  <Check className="w-3.5 h-3.5 text-green-500" />
-                  No Obligation
-                </div>
-                <div className="flex items-center gap-1.5 text-[11px] text-[var(--slate-gray)]">
-                  <Check className="w-3.5 h-3.5 text-green-500" />
-                  Cancel Anytime
-                </div>
+              {/* Trust badges - vertical layout */}
+              <div className="flex items-start justify-center gap-6 pt-4 border-t border-[var(--steel-gray)]/10">
+                {[
+                  { icon: Sparkles, text: 'Free Quote' },
+                  { icon: Shield, text: 'No Contract' },
+                  { icon: Zap, text: 'Flexible' },
+                ].map((item, i) => (
+                  <div key={i} className="flex flex-col items-center gap-1.5">
+                    <div className="w-8 h-8 rounded-full bg-[var(--safety-orange)]/10 border border-[var(--safety-orange)]/20 flex items-center justify-center">
+                      <item.icon className="w-4 h-4 text-[var(--safety-orange)]" />
+                    </div>
+                    <span className="text-[10px] text-white/70">{item.text}</span>
+                  </div>
+                ))}
               </div>
             </div>
 
@@ -1917,20 +1977,14 @@ function FinalCTASection() {
             </a>
           </div>
 
-          {/* Trust Row */}
-          <div className="flex flex-wrap items-center justify-center gap-8 text-sm text-[var(--slate-gray)]">
-            <div className="flex items-center gap-2">
-              <Check className="w-5 h-5 text-green-500" />
-              Free Estimates
-            </div>
-            <div className="flex items-center gap-2">
-              <Check className="w-5 h-5 text-green-500" />
-              No Obligation
-            </div>
-            <div className="flex items-center gap-2">
-              <Check className="w-5 h-5 text-green-500" />
-              Cancel Anytime
-            </div>
+          {/* Trust Row - Clean & Minimal */}
+          <div className="flex items-center justify-center gap-6">
+            {['Free Estimates', 'No Obligation', 'Cancel Anytime'].map((text, i) => (
+              <span key={i} className="flex items-center gap-1.5 text-xs text-[var(--slate-gray)]">
+                <Check className="w-3.5 h-3.5 text-emerald-500" />
+                {text}
+              </span>
+            ))}
           </div>
         </motion.div>
       </Container>

@@ -482,7 +482,7 @@ const MobileGallery = memo(function MobileGallery({ images, onImageClick }: Mobi
             />
 
             {/* Gradient for text readability */}
-            <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/90 via-black/50 to-transparent" />
+            <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-black via-black/70 to-transparent" />
 
             {/* Index - top right */}
             <span className="absolute top-2 right-2 text-[10px] font-semibold text-white/70 tabular-nums drop-shadow-sm">
@@ -735,7 +735,7 @@ export default function GalleryPageContent() {
       </section>
 
       {/* Gallery Content */}
-      <section className="pb-8 lg:py-16 bg-[var(--asphalt-dark)]">
+      <section className="pb-4 lg:pb-10 bg-[var(--asphalt-dark)]">
         {/* Mobile: Use Container */}
         <div className="lg:hidden">
           <Container>
@@ -831,7 +831,7 @@ export default function GalleryPageContent() {
       </section>
 
       {/* CTA Section - Simplified on Mobile */}
-      <section className="py-8 lg:py-16 bg-[var(--asphalt-dark)]">
+      <section className="pt-4 pb-8 lg:pt-10 lg:pb-14 bg-[var(--asphalt-dark)]">
         <Container>
           <motion.div
             initial={{ opacity: 0, y: 20 }}

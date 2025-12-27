@@ -887,6 +887,9 @@ function ServiceAreasSection() {
 function CTASection() {
   return (
     <section className="py-12 sm:py-20 bg-[var(--asphalt-black)] relative overflow-hidden">
+      {/* Top accent line */}
+      <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[var(--safety-orange)]/40 to-transparent" />
+
       {/* Hide expensive blurs on mobile */}
       <div className="hidden md:block absolute top-0 right-0 w-[400px] h-[400px] bg-[var(--safety-orange)]/5 rounded-full blur-[100px]" />
       <div className="hidden md:block absolute bottom-0 left-0 w-[300px] h-[300px] bg-[var(--safety-orange)]/5 rounded-full blur-[80px]" />
@@ -898,10 +901,12 @@ function CTASection() {
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="relative rounded-2xl overflow-hidden"
+            className="relative rounded-2xl overflow-hidden border border-[var(--safety-orange)]/30 shadow-lg shadow-[var(--safety-orange)]/10"
           >
-            <div className="absolute inset-0 bg-gradient-to-br from-[var(--safety-orange)]/20 via-transparent to-[var(--safety-orange)]/10 rounded-2xl" />
-            <div className="relative m-[1px] p-6 rounded-2xl bg-[var(--asphalt-black)]">
+            {/* Top glow bar */}
+            <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[var(--safety-orange)] to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-br from-[var(--safety-orange)]/10 via-transparent to-[var(--safety-orange)]/5 rounded-2xl" />
+            <div className="relative p-6 bg-[var(--asphalt-black)]/95">
               <div className="w-14 h-14 rounded-xl bg-[var(--safety-orange)] flex items-center justify-center mx-auto mb-4 shadow-lg shadow-[var(--safety-orange)]/30">
                 <Sparkles className="w-7 h-7 text-white" />
               </div>
@@ -940,9 +945,11 @@ function CTASection() {
           viewport={{ once: true }}
           className="hidden sm:block"
         >
-          <div className="relative rounded-3xl overflow-hidden">
-            <div className="absolute inset-0 bg-gradient-to-r from-[var(--safety-orange)]/30 via-[var(--safety-orange)]/10 to-[var(--safety-orange)]/30 rounded-3xl" />
-            <div className="relative m-[1px] p-10 rounded-3xl bg-gradient-to-br from-[var(--asphalt-black)] to-[var(--concrete-gray)]/20">
+          <div className="relative rounded-3xl overflow-hidden border border-[var(--safety-orange)]/30 shadow-xl shadow-[var(--safety-orange)]/10">
+            {/* Top glow bar */}
+            <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[var(--safety-orange)] to-transparent" />
+            <div className="absolute inset-0 bg-gradient-to-r from-[var(--safety-orange)]/10 via-transparent to-[var(--safety-orange)]/10 rounded-3xl" />
+            <div className="relative p-10 bg-gradient-to-br from-[var(--asphalt-black)] to-[var(--concrete-gray)]/20">
               <div className="flex items-center justify-between gap-10">
                 <div className="flex-1">
                   <div className="w-14 h-14 rounded-2xl bg-[var(--safety-orange)] flex items-center justify-center mb-5 shadow-lg shadow-[var(--safety-orange)]/30">

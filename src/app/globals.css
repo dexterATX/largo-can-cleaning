@@ -135,6 +135,12 @@
 
 * {
   box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Remove focus outlines - use custom focus states instead */
+*:focus {
+  outline: none;
 }
 
 html {

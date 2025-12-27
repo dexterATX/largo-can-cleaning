@@ -9,7 +9,7 @@ import { BUSINESS_INFO } from '@/lib/schema'
 export default function CTA() {
   return (
     <section
-      className="py-16 sm:py-24 bg-[var(--asphalt-dark)] relative overflow-hidden"
+      className="py-5 sm:py-24 bg-[var(--asphalt-dark)] relative overflow-hidden"
       aria-labelledby="cta-heading"
     >
       {/* Background Elements - Blur elements hidden on mobile for performance */}
@@ -77,29 +77,20 @@ export default function CTA() {
               </div>
 
               {/* Right Content - Trust Features */}
-              {/* Mobile Version */}
-              <div className="grid grid-cols-3 gap-2 sm:hidden">
+              {/* Mobile Version - Modern minimal pills */}
+              <div className="flex flex-wrap justify-center gap-2 sm:hidden">
                 {[
-                  { icon: Clock, title: 'Quick', desc: 'Service' },
-                  { icon: FileCheck, title: 'No', desc: 'Contracts' },
-                  { icon: Shield, title: '100%', desc: 'Guaranteed' },
+                  { icon: Clock, label: 'Same-Day' },
+                  { icon: FileCheck, label: 'No Contracts' },
+                  { icon: Shield, label: 'Guaranteed' },
                 ].map((item, index) => (
-                  <motion.div
+                  <div
                     key={index}
-                    initial={{ opacity: 0, y: 20 }}
-                    whileInView={{ opacity: 1, y: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.4, delay: index * 0.1 }}
-                    className="flex flex-col items-center gap-3 p-4 rounded-2xl bg-[var(--asphalt-black)]/70 border border-[var(--steel-gray)]/20"
+                    className="flex items-center gap-1.5 px-3 py-2 rounded-full bg-white/5 backdrop-blur-sm border border-white/10"
                   >
-                    <div className="w-12 h-12 rounded-xl bg-[var(--safety-orange)] flex items-center justify-center">
-                      <item.icon className="w-6 h-6 text-white" />
-                    </div>
-                    <div className="text-center">
-                      <h3 className="text-sm font-bold text-white">{item.title}</h3>
-                      <p className="text-xs text-[var(--slate-gray)]">{item.desc}</p>
-                    </div>
-                  </motion.div>
+                    <item.icon className="w-3.5 h-3.5 text-[var(--safety-orange)]" />
+                    <span className="text-xs font-medium text-white/90">{item.label}</span>
+                  </div>
                 ))}
               </div>
 

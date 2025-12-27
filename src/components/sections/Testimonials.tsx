@@ -117,7 +117,7 @@ function ReviewCard({
 export default function Testimonials() {
   return (
     <section
-      className="py-16 sm:py-24 bg-[var(--asphalt-dark)] relative overflow-hidden"
+      className="py-5 sm:py-24 bg-[var(--asphalt-dark)] relative overflow-hidden"
       aria-labelledby="testimonials-heading"
     >
       {/* Background */}

@@ -105,9 +105,9 @@ function Hero() {
         </div>
       )}
 
-      {/* Gradient Orbs - Hidden on mobile, reduced blur for performance */}
-      <div className="hidden md:block absolute top-1/4 -left-32 w-96 h-96 bg-[var(--safety-orange)]/10 rounded-full blur-[60px]" aria-hidden="true" />
-      <div className="hidden md:block absolute bottom-1/4 -right-32 w-96 h-96 bg-[var(--safety-orange)]/5 rounded-full blur-[60px]" aria-hidden="true" />
+      {/* Gradient Orbs - Responsive sizing */}
+      <div className="absolute top-1/4 -left-16 md:-left-32 w-48 md:w-96 h-48 md:h-96 bg-[var(--safety-orange)]/10 rounded-full blur-[40px] md:blur-[60px]" aria-hidden="true" />
+      <div className="absolute bottom-1/4 -right-16 md:-right-32 w-48 md:w-96 h-48 md:h-96 bg-[var(--safety-orange)]/5 rounded-full blur-[40px] md:blur-[60px]" aria-hidden="true" />
 
       {/* Content */}
       <Container className="relative z-10 pt-24 pb-16 sm:pt-32 sm:pb-24">
