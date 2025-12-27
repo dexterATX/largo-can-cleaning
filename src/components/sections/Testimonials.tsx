@@ -75,47 +75,44 @@ function ReviewCard({
   return (
     <figure
       className={cn(
-        // Fixed dimensions - wide and short like a Pokemon card
-        'relative cursor-pointer overflow-hidden rounded-lg border',
-        // Mobile: 260px x 90px, Desktop: 180px x 110px
-        'w-[260px] h-[90px] p-2.5',
-        'sm:w-[180px] sm:h-[110px] sm:p-3',
+        'relative cursor-pointer overflow-hidden rounded-xl border p-4',
+        'w-64 sm:w-56',
         'border-[var(--steel-gray)]/30 bg-[var(--concrete-gray)]/50 hover:bg-[var(--concrete-gray)]'
       )}
     >
-      {/* Header row with avatar, name, and stars */}
-      <div className="flex items-center gap-2">
+      {/* Stars */}
+      <div className="flex items-center gap-0.5 mb-3" role="img" aria-label="5 out of 5 stars">
+        {Array.from({ length: 5 }).map((_, i) => (
+          <Star
+            key={i}
+            className="w-4 h-4 text-[var(--safety-orange)] fill-[var(--safety-orange)]"
+            aria-hidden="true"
+          />
+        ))}
+      </div>
+
+      {/* Review text */}
+      <blockquote className="text-sm leading-relaxed text-[var(--light-gray)] mb-4">
+        {body}
+      </blockquote>
+
+      {/* Author */}
+      <div className="flex items-center gap-3">
         <Image
           src={img}
           alt={`${name}'s review`}
-          width={24}
-          height={24}
-          className="rounded-full shrink-0 sm:w-7 sm:h-7"
+          width={40}
+          height={40}
+          className="rounded-full"
           loading="lazy"
         />
-        <div className="flex flex-col min-w-0 flex-1">
-          <div className="flex items-center justify-between gap-1">
-            <figcaption className="text-[10px] sm:text-[11px] font-medium text-white truncate">
-              {name}
-            </figcaption>
-            <div className="flex items-center shrink-0" role="img" aria-label="5 out of 5 stars">
-              {Array.from({ length: 5 }).map((_, i) => (
-                <Star
-                  key={i}
-                  className="w-[8px] h-[8px] sm:w-[10px] sm:h-[10px] text-[var(--safety-orange)] fill-[var(--safety-orange)]"
-                  aria-hidden="true"
-                />
-              ))}
-            </div>
-          </div>
-          <p className="text-[8px] sm:text-[9px] text-[var(--slate-gray)]">{location}</p>
+        <div>
+          <figcaption className="text-sm font-medium text-white">
+            {name}
+          </figcaption>
+          <p className="text-xs text-[var(--slate-gray)]">{location}</p>
         </div>
       </div>
-
-      {/* Review text - strictly limited */}
-      <blockquote className="mt-1.5 text-[10px] sm:text-[11px] leading-tight text-[var(--light-gray)] line-clamp-2">
-        {body}
-      </blockquote>
     </figure>
   )
 }
@@ -146,31 +143,31 @@ export default function Testimonials() {
         </p>
       </div>
 
-      {/* 3D Marquee - Adjusted for mobile */}
-      <div className="relative flex h-72 sm:h-96 w-full flex-row items-center justify-center gap-2 sm:gap-4 overflow-hidden [perspective:250px] sm:[perspective:300px]">
+      {/* 3D Marquee */}
+      <div className="relative flex h-[400px] sm:h-[500px] w-full flex-row items-center justify-center gap-4 overflow-hidden [perspective:300px]">
         <div
-          className="flex flex-row items-center gap-2 sm:gap-4"
+          className="flex flex-row items-center gap-4"
           style={{
             transform:
-              'translateX(-80px) translateY(0px) translateZ(-80px) rotateX(18deg) rotateY(-8deg) rotateZ(18deg)',
+              'translateX(-50px) translateY(0px) translateZ(-50px) rotateX(20deg) rotateY(-10deg) rotateZ(20deg)',
           }}
         >
-          <Marquee pauseOnHover vertical className="[--duration:20s] [--gap:0.5rem] sm:[--gap:1rem]">
+          <Marquee pauseOnHover vertical className="[--duration:25s] [--gap:1rem]">
             {firstRow.map((review) => (
               <ReviewCard key={review.name} {...review} />
             ))}
           </Marquee>
-          <Marquee reverse pauseOnHover vertical className="[--duration:20s] [--gap:0.5rem] sm:[--gap:1rem]">
+          <Marquee reverse pauseOnHover vertical className="[--duration:25s] [--gap:1rem]">
             {secondRow.map((review) => (
               <ReviewCard key={review.name} {...review} />
             ))}
           </Marquee>
-          <Marquee reverse pauseOnHover vertical className="[--duration:20s] [--gap:0.5rem] sm:[--gap:1rem]">
+          <Marquee reverse pauseOnHover vertical className="[--duration:25s] [--gap:1rem]">
             {thirdRow.map((review) => (
               <ReviewCard key={review.name} {...review} />
             ))}
           </Marquee>
-          <Marquee pauseOnHover vertical className="[--duration:20s] [--gap:0.5rem] sm:[--gap:1rem]">
+          <Marquee pauseOnHover vertical className="[--duration:25s] [--gap:1rem]">
             {fourthRow.map((review) => (
               <ReviewCard key={review.name} {...review} />
             ))}
