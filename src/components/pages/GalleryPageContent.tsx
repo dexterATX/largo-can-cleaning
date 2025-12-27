@@ -212,10 +212,11 @@ interface LightboxProps {
   onClose: () => void
   onNext: () => void
   onPrev: () => void
+  onGoToIndex: (index: number) => void
 }
 
 // Memoized Lightbox component to prevent unnecessary re-renders
-const Lightbox = memo(function Lightbox({ images, currentIndex, isOpen, onClose, onNext, onPrev }: LightboxProps) {
+const Lightbox = memo(function Lightbox({ images, currentIndex, isOpen, onClose, onNext, onPrev, onGoToIndex }: LightboxProps) {
   const currentImage = images[currentIndex]
   const [dragDirection, setDragDirection] = useState<'left' | 'right' | null>(null)
   const [imageError, setImageError] = useState(false)
@@ -391,28 +392,51 @@ const Lightbox = memo(function Lightbox({ images, currentIndex, isOpen, onClose,
             </div>
           </div>
 
-          {/* Image Progress Indicator */}
+          {/* Image Progress Indicator - Tick Style */}
           <div className="absolute bottom-28 lg:bottom-24 left-0 right-0 flex justify-center px-6">
-            {/* Progress Bar Style - Clean & Pro */}
-            <div className="w-full max-w-[280px] lg:max-w-[320px]">
-              {/* Track */}
-              <div className="h-1 bg-white/10 rounded-full overflow-hidden">
-                {/* Progress Fill */}
-                <motion.div
-                  className="h-full bg-[var(--safety-orange)] rounded-full"
-                  initial={false}
-                  animate={{
-                    width: `${((currentIndex + 1) / images.length) * 100}%`,
-                  }}
-                  transition={{ duration: 0.3, ease: 'easeOut' }}
-                />
+            <div className="flex flex-col items-center gap-3">
+              {/* Tick Track */}
+              <div className="flex items-center gap-1">
+                {images.map((_, index) => (
+                  <button
+                    key={index}
+                    onClick={() => onGoToIndex(index)}
+                    className="group relative flex items-center justify-center py-2"
+                    aria-label={`Go to image ${index + 1}`}
+                  >
+                    {/* Tick Mark */}
+                    <motion.div
+                      initial={false}
+                      animate={{
+                        height: currentIndex === index ? 16 : 8,
+                        width: currentIndex === index ? 3 : 2,
+                        backgroundColor: currentIndex === index
+                          ? 'var(--safety-orange)'
+                          : index < currentIndex
+                            ? 'rgba(255, 107, 0, 0.5)'
+                            : 'rgba(255, 255, 255, 0.2)',
+                      }}
+                      transition={{ duration: 0.2, ease: 'easeOut' }}
+                      className="rounded-full"
+                    />
+                    {/* Active Glow */}
+                    {currentIndex === index && (
+                      <motion.div
+                        layoutId="tick-glow"
+                        className="absolute inset-0 -m-1 rounded-full bg-[var(--safety-orange)]/20 blur-sm"
+                        transition={{ duration: 0.2 }}
+                      />
+                    )}
+                  </button>
+                ))}
               </div>
               {/* Counter Text */}
-              <div className="flex justify-between mt-2">
-                <span className="text-[10px] text-white/40 font-medium">
+              <div className="flex items-center gap-2 text-[10px] font-medium">
+                <span className="text-[var(--safety-orange)]">
                   {String(currentIndex + 1).padStart(2, '0')}
                 </span>
-                <span className="text-[10px] text-white/40 font-medium">
+                <span className="text-white/30">/</span>
+                <span className="text-white/40">
                   {String(images.length).padStart(2, '0')}
                 </span>
               </div>
@@ -436,46 +460,44 @@ interface MobileGalleryProps {
 // Memoized MobileGallery component to prevent unnecessary re-renders
 const MobileGallery = memo(function MobileGallery({ images, onImageClick }: MobileGalleryProps) {
   return (
-    <div className="grid grid-cols-2 gap-2.5">
+    <div className="grid grid-cols-2 gap-2">
       {images.map((image, index) => (
         <motion.button
           key={image.id}
-          initial={{ opacity: 0, scale: 0.95 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ delay: index * 0.03, duration: 0.25 }}
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          transition={{ delay: index * 0.02, duration: 0.2 }}
           onClick={() => onImageClick(image, index)}
-          className="relative aspect-[3/4] rounded-xl overflow-hidden bg-[var(--concrete-gray)] group active:scale-[0.97] transition-transform duration-150 touch-manipulation"
+          className="relative overflow-hidden bg-[var(--concrete-gray)] group active:opacity-80 transition-opacity duration-150 touch-manipulation rounded-lg border border-[var(--steel-gray)]/30"
         >
           {/* Image */}
-          <Image
-            src={image.img}
-            alt={image.title}
-            fill
-            sizes="(max-width: 640px) 50vw, 33vw"
-            className="object-cover transition-transform duration-300 group-active:scale-105"
-            loading="lazy"
-          />
+          <div className="relative aspect-[4/5]">
+            <Image
+              src={image.img}
+              alt={image.title}
+              fill
+              sizes="(max-width: 640px) 50vw, 33vw"
+              className="object-cover"
+              loading="lazy"
+            />
 
-          {/* Minimal Bottom Bar */}
-          <div className="absolute bottom-0 left-0 right-0">
-            {/* Glass backdrop */}
-            <div className="backdrop-blur-md bg-black/60 px-2.5 py-2">
-              <div className="flex items-center gap-1.5">
-                {/* Category dot */}
-                <span className="w-1.5 h-1.5 rounded-full bg-[var(--safety-orange)] flex-shrink-0" />
-                {/* Title */}
-                <p className="text-white text-[11px] font-medium truncate">
-                  {image.title}
-                </p>
-              </div>
-            </div>
-          </div>
+            {/* Gradient for text readability */}
+            <div className="absolute inset-x-0 bottom-0 h-24 bg-gradient-to-t from-black/90 via-black/50 to-transparent" />
 
-          {/* Top Category Tag - Subtle */}
-          <div className="absolute top-2 left-2">
-            <span className="px-1.5 py-0.5 text-[8px] font-semibold uppercase tracking-wide text-white/90 bg-black/40 backdrop-blur-sm rounded">
-              {categories.find(c => c.id === image.category)?.label || image.category}
+            {/* Index - top right */}
+            <span className="absolute top-2 right-2 text-[10px] font-semibold text-white/70 tabular-nums drop-shadow-sm">
+              {String(index + 1).padStart(2, '0')}
             </span>
+
+            {/* Bottom info */}
+            <div className="absolute bottom-0 left-0 right-0 px-2.5 pb-2.5">
+              <p className="text-white text-xs font-semibold truncate leading-tight drop-shadow-sm">
+                {image.title}
+              </p>
+              <p className="text-[10px] text-white/70 uppercase tracking-wide mt-1">
+                {categories.find(c => c.id === image.category)?.label || image.category}
+              </p>
+            </div>
           </div>
         </motion.button>
       ))}
@@ -637,6 +659,10 @@ export default function GalleryPageContent() {
   const goToPrev = useCallback(() => {
     setCurrentImageIndex((prev) => (prev - 1 + filteredImages.length) % filteredImages.length)
   }, [filteredImages.length])
+
+  const goToIndex = useCallback((index: number) => {
+    setCurrentImageIndex(index)
+  }, [])
 
   return (
     <div className="relative bg-[var(--asphalt-dark)] min-h-screen overflow-hidden">
@@ -840,6 +866,7 @@ export default function GalleryPageContent() {
         onClose={closeLightbox}
         onNext={goToNext}
         onPrev={goToPrev}
+        onGoToIndex={goToIndex}
       />
     </div>
   )

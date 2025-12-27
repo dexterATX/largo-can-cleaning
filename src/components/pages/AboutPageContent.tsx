@@ -137,27 +137,36 @@ const testimonials = [
 // ============================================
 
 function AnimatedCounter({ value, suffix }: { value: string; suffix: string }) {
-  const [count, setCount] = useState(0)
+  const [count, setCount] = useState(() => parseFloat(value)) // Start with final value to prevent flash
   const ref = useRef(null)
   const isInView = useInView(ref, { once: true, margin: '-50px' })
   const numericValue = parseFloat(value)
+  const hasAnimated = useRef(false)
 
   useEffect(() => {
-    if (isInView) {
-      const duration = 2000
-      const steps = 60
-      const increment = numericValue / steps
-      let current = 0
-      const timer = setInterval(() => {
-        current += increment
-        if (current >= numericValue) {
-          setCount(numericValue)
-          clearInterval(timer)
+    if (isInView && !hasAnimated.current) {
+      hasAnimated.current = true
+      setCount(0) // Reset to 0 only after in view
+      const duration = 1200 // Faster animation
+      const startTime = performance.now()
+
+      const animate = (currentTime: number) => {
+        const elapsed = currentTime - startTime
+        const progress = Math.min(elapsed / duration, 1)
+        // Ease out cubic for smooth deceleration
+        const eased = 1 - Math.pow(1 - progress, 3)
+        const current = numericValue * eased
+
+        setCount(current)
+
+        if (progress < 1) {
+          requestAnimationFrame(animate)
         } else {
-          setCount(Math.floor(current * 10) / 10)
+          setCount(numericValue)
         }
-      }, duration / steps)
-      return () => clearInterval(timer)
+      }
+
+      requestAnimationFrame(animate)
     }
   }, [isInView, numericValue])
 
@@ -179,33 +188,34 @@ function HeroSection() {
       <div className="absolute inset-0">
         <div className="absolute inset-0 bg-gradient-to-br from-[var(--asphalt-black)] via-[var(--asphalt-black)] to-[var(--concrete-gray)]/30" />
         <div className="absolute inset-0 bg-grid-pattern opacity-30" />
-        <div className="absolute top-1/4 -right-20 w-[500px] h-[500px] bg-[var(--safety-orange)]/10 rounded-full blur-[150px]" />
-        <div className="absolute bottom-1/4 -left-20 w-[400px] h-[400px] bg-[var(--safety-orange)]/5 rounded-full blur-[120px]" />
+        {/* Hide expensive blur effects on mobile for performance */}
+        <div className="hidden md:block absolute top-1/4 -right-20 w-[500px] h-[500px] bg-[var(--safety-orange)]/10 rounded-full blur-[100px]" />
+        <div className="hidden md:block absolute bottom-1/4 -left-20 w-[400px] h-[400px] bg-[var(--safety-orange)]/5 rounded-full blur-[80px]" />
       </div>
 
-      {/* Accent Lines */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+      {/* Accent Lines - hidden on mobile, reduced delays */}
+      <div className="hidden md:block absolute inset-0 overflow-hidden pointer-events-none">
         <motion.div
           initial={{ scaleX: 0 }}
           animate={{ scaleX: 1 }}
-          transition={{ duration: 1.2, delay: 0.5 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
           className="absolute top-[30%] right-0 w-1/3 h-px bg-gradient-to-l from-[var(--safety-orange)]/40 to-transparent origin-right"
         />
         <motion.div
           initial={{ scaleY: 0 }}
           animate={{ scaleY: 1 }}
-          transition={{ duration: 1.2, delay: 0.7 }}
+          transition={{ duration: 0.8, delay: 0.3 }}
           className="absolute top-0 right-[20%] w-px h-1/3 bg-gradient-to-b from-[var(--safety-orange)]/30 to-transparent origin-top"
         />
       </div>
 
       <Container className="relative z-10">
         <div className="flex flex-col items-center text-center pt-24 pb-16 sm:pt-32 sm:pb-20">
-          {/* Eyebrow Badge */}
+          {/* Eyebrow Badge - no delay for immediate visibility */}
           <motion.div
             initial={{ opacity: 0, y: 10 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
+            transition={{ duration: 0.4 }}
             className="inline-flex items-center gap-2 px-4 py-2 mb-6 rounded-full bg-[var(--safety-orange)]/10 border border-[var(--safety-orange)]/20"
           >
             <span className="relative flex h-2 w-2">
@@ -221,16 +231,13 @@ function HeroSection() {
           <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2, duration: 0.6 }}
+            transition={{ delay: 0.05, duration: 0.5 }}
             className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-white leading-[1.1] mb-5"
           >
             Pinellas County's{' '}
             <span className="relative inline-block">
               <span className="text-[var(--safety-orange)]">Trusted</span>
-              <motion.svg
-                initial={{ pathLength: 0, opacity: 0 }}
-                animate={{ pathLength: 1, opacity: 1 }}
-                transition={{ duration: 0.8, delay: 0.6 }}
+              <svg
                 className="absolute -bottom-1 left-0 w-full h-3"
                 viewBox="0 0 200 12"
                 fill="none"
@@ -242,11 +249,11 @@ function HeroSection() {
                   strokeWidth="3"
                   strokeLinecap="round"
                   fill="none"
-                  initial={{ pathLength: 0 }}
-                  animate={{ pathLength: 1 }}
-                  transition={{ duration: 0.8, delay: 0.6 }}
+                  initial={{ pathLength: 0, opacity: 0 }}
+                  animate={{ pathLength: 1, opacity: 1 }}
+                  transition={{ duration: 0.5, delay: 0.15, ease: 'easeOut' }}
                 />
-              </motion.svg>
+              </svg>
             </span>
             <br className="hidden sm:block" />
             Trash Can Cleaning Service
@@ -256,7 +263,7 @@ function HeroSection() {
           <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3, duration: 0.6 }}
+            transition={{ delay: 0.1, duration: 0.5 }}
             className="text-base sm:text-lg text-[var(--slate-gray)] mb-8 max-w-2xl leading-relaxed"
           >
             Family-owned and operated in Seminole, FL. We provide professional trash can
@@ -269,7 +276,7 @@ function HeroSection() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4, duration: 0.6 }}
+            transition={{ delay: 0.15, duration: 0.5 }}
             className="flex flex-wrap items-center justify-center gap-3 mb-8"
           >
             {[
@@ -281,7 +288,7 @@ function HeroSection() {
                 key={i}
                 initial={{ opacity: 0, scale: 0.9 }}
                 animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 0.5 + i * 0.1 }}
+                transition={{ delay: 0.2 + i * 0.05 }}
                 className="flex items-center gap-2 px-3 py-2 rounded-full bg-[var(--concrete-gray)]/60 border border-[var(--steel-gray)]/30"
               >
                 <item.icon className="w-4 h-4" style={{ color: item.color }} />
@@ -294,7 +301,7 @@ function HeroSection() {
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.5, duration: 0.6 }}
+            transition={{ delay: 0.2, duration: 0.5 }}
             className="flex flex-wrap items-center justify-center gap-3 mb-12"
           >
             <Button size="lg" rightIcon={<ArrowRight className="w-5 h-5" />}>
@@ -313,7 +320,7 @@ function HeroSection() {
           <motion.div
             initial={{ opacity: 0, y: 30 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.6, duration: 0.6 }}
+            transition={{ delay: 0.25, duration: 0.5 }}
             className="w-full max-w-3xl"
           >
             {/* Mobile: 2x2 Grid */}
@@ -323,7 +330,7 @@ function HeroSection() {
                   key={index}
                   initial={{ opacity: 0, scale: 0.9 }}
                   animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: 0.7 + index * 0.1 }}
+                  transition={{ delay: 0.3 + index * 0.05 }}
                   className="p-4 rounded-xl bg-[var(--concrete-gray)]/40 border border-[var(--steel-gray)]/20 text-center"
                 >
                   <div className="w-10 h-10 rounded-lg mx-auto mb-2 flex items-center justify-center" style={{ backgroundColor: `${stat.color}15` }}>
@@ -359,8 +366,8 @@ function HeroSection() {
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 1.2 }}
-        className="absolute bottom-6 left-1/2 -translate-x-1/2"
+        transition={{ delay: 0.5 }}
+        className="hidden sm:block absolute bottom-6 left-1/2 -translate-x-1/2"
       >
         <motion.div
           animate={{ y: [0, 6, 0] }}
@@ -385,7 +392,8 @@ function HeroSection() {
 function MissionSection() {
   return (
     <section className="py-12 sm:py-20 bg-[var(--asphalt-dark)] relative overflow-hidden">
-      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-[var(--safety-orange)]/5 rounded-full blur-[150px]" />
+      {/* Hide expensive blur on mobile */}
+      <div className="hidden md:block absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-[var(--safety-orange)]/5 rounded-full blur-[100px]" />
 
       <Container className="relative z-10">
         <motion.div
@@ -439,7 +447,8 @@ function MissionSection() {
 function StorySection() {
   return (
     <section className="py-12 sm:py-20 bg-[var(--asphalt-black)] relative overflow-hidden">
-      <div className="absolute top-1/2 -left-[200px] w-[400px] h-[400px] bg-[var(--safety-orange)]/5 rounded-full blur-[120px] -translate-y-1/2" />
+      {/* Hide expensive blur on mobile */}
+      <div className="hidden md:block absolute top-1/2 -left-[200px] w-[400px] h-[400px] bg-[var(--safety-orange)]/5 rounded-full blur-[80px] -translate-y-1/2" />
 
       <Container className="relative z-10">
         <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
@@ -493,7 +502,8 @@ function StorySection() {
             transition={{ delay: 0.2 }}
           >
             <div className="relative">
-              <div className="absolute -inset-3 bg-gradient-to-br from-[var(--safety-orange)]/20 to-transparent rounded-3xl blur-xl opacity-50" />
+              {/* Reduce blur-xl to blur-lg for better performance */}
+              <div className="hidden md:block absolute -inset-3 bg-gradient-to-br from-[var(--safety-orange)]/20 to-transparent rounded-3xl blur-lg opacity-50" />
               <div className="relative p-6 sm:p-8 rounded-2xl bg-gradient-to-br from-[var(--concrete-gray)]/50 to-[var(--concrete-gray)]/20 border border-[var(--steel-gray)]/20">
                 <Quote className="w-10 h-10 text-[var(--safety-orange)]/30 mb-4" />
                 <blockquote className="text-lg sm:text-xl text-white font-medium leading-relaxed mb-6">
@@ -647,7 +657,8 @@ function ValuesSection() {
 function TimelineSection() {
   return (
     <section className="py-12 sm:py-20 bg-[var(--asphalt-dark)] relative overflow-hidden">
-      <div className="absolute top-1/2 -right-[200px] w-[400px] h-[400px] bg-[var(--safety-orange)]/5 rounded-full blur-[120px] -translate-y-1/2" />
+      {/* Hide expensive blur on mobile */}
+      <div className="hidden md:block absolute top-1/2 -right-[200px] w-[400px] h-[400px] bg-[var(--safety-orange)]/5 rounded-full blur-[80px] -translate-y-1/2" />
 
       <Container className="relative z-10">
         <motion.div
@@ -876,8 +887,9 @@ function ServiceAreasSection() {
 function CTASection() {
   return (
     <section className="py-12 sm:py-20 bg-[var(--asphalt-black)] relative overflow-hidden">
-      <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-[var(--safety-orange)]/5 rounded-full blur-[150px]" />
-      <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-[var(--safety-orange)]/5 rounded-full blur-[120px]" />
+      {/* Hide expensive blurs on mobile */}
+      <div className="hidden md:block absolute top-0 right-0 w-[400px] h-[400px] bg-[var(--safety-orange)]/5 rounded-full blur-[100px]" />
+      <div className="hidden md:block absolute bottom-0 left-0 w-[300px] h-[300px] bg-[var(--safety-orange)]/5 rounded-full blur-[80px]" />
 
       <Container className="relative z-10">
         {/* Mobile CTA */}

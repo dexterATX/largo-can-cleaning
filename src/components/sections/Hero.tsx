@@ -1,7 +1,7 @@
 'use client'
 
 import { useRef, useEffect, useState, memo, useMemo } from 'react'
-import { motion, useScroll, useTransform } from 'framer-motion'
+import { motion, useScroll, useTransform } from 'motion/react'
 import { ArrowRight, Sparkles, Shield, Droplets, CheckCircle2 } from 'lucide-react'
 import Container from '@/components/ui/Container'
 import Button from '@/components/ui/Button'
