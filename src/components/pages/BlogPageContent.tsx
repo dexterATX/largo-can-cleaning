@@ -696,7 +696,7 @@ export default function BlogPageContent() {
       </section>
 
       {/* Newsletter CTA */}
-      <section className="py-8 sm:py-10 bg-[var(--asphalt-dark)]">
+      <section className="pt-4 pb-8 sm:pt-6 sm:pb-10 bg-[var(--asphalt-dark)]">
         <Container>
           <div className="max-w-2xl mx-auto text-center">
             <div className="p-6 sm:p-10 rounded-2xl bg-gradient-to-br from-[var(--safety-orange)]/20 to-[var(--safety-orange)]/5 border border-[var(--safety-orange)]/20">
