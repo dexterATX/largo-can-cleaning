@@ -14,6 +14,9 @@ import {
   User,
   ArrowRight,
   Loader2,
+  Zap,
+  CalendarCheck,
+  MessageCircle,
 } from 'lucide-react'
 import Container from '@/components/ui/Container'
 import Button from '@/components/ui/Button'
@@ -82,16 +85,40 @@ function HeroSection() {
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.35, delay: 0.15 }}
-            className="text-base sm:text-lg lg:text-xl text-[var(--slate-gray)] mb-6 lg:mb-0"
+            className="text-base sm:text-lg lg:text-xl text-[var(--slate-gray)] mb-6"
           >
             Ready for clean bins? Fill out the form or give us a call.
           </motion.p>
+
+          {/* Feature Pills */}
+          <motion.div
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.35, delay: 0.2 }}
+            className="flex flex-wrap justify-center gap-2 sm:gap-3 mb-6 lg:mb-8"
+          >
+            {[
+              { icon: Zap, text: 'Same-Day Response' },
+              { icon: CalendarCheck, text: 'Flexible Scheduling' },
+              { icon: MessageCircle, text: '24/7 Support' },
+            ].map((feature, index) => (
+              <div
+                key={index}
+                className="flex items-center gap-1.5 sm:gap-2 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full bg-[var(--concrete-gray)]/50 border border-[var(--steel-gray)]/30"
+              >
+                <feature.icon className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[var(--safety-orange)]" />
+                <span className="text-[11px] sm:text-xs text-[var(--light-gray)]">
+                  {feature.text}
+                </span>
+              </div>
+            ))}
+          </motion.div>
 
           {/* Quick Contact - Mobile only */}
           <motion.div
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.35, delay: 0.2 }}
+            transition={{ duration: 0.35, delay: 0.25 }}
             className="flex flex-wrap items-center justify-center gap-4 lg:hidden"
           >
             <a
@@ -108,6 +135,27 @@ function HeroSection() {
               <Mail className="w-4 h-4" />
               Email Us
             </a>
+          </motion.div>
+
+          {/* Trust Indicators - Desktop */}
+          <motion.div
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            transition={{ duration: 0.35, delay: 0.3 }}
+            className="hidden lg:flex items-center justify-center gap-6 mt-8 pt-6 border-t border-[var(--steel-gray)]/20"
+          >
+            <div className="flex items-center gap-2 text-sm text-[var(--slate-gray)]">
+              <CheckCircle className="w-4 h-4 text-[var(--success)]" />
+              <span>500+ Happy Customers</span>
+            </div>
+            <div className="flex items-center gap-2 text-sm text-[var(--slate-gray)]">
+              <CheckCircle className="w-4 h-4 text-[var(--success)]" />
+              <span>Licensed & Insured</span>
+            </div>
+            <div className="flex items-center gap-2 text-sm text-[var(--slate-gray)]">
+              <CheckCircle className="w-4 h-4 text-[var(--success)]" />
+              <span>100% Satisfaction Guaranteed</span>
+            </div>
           </motion.div>
         </motion.div>
       </Container>
