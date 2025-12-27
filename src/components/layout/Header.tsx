@@ -205,7 +205,7 @@ export default function Header() {
                   'px-4 py-2 text-sm font-medium',
                   'text-[var(--light-gray)] hover:text-white',
                   'transition-colors duration-200',
-                  'relative group'
+                  'relative group outline-none focus:outline-none'
                 )}
               >
                 {link.label}
@@ -218,7 +218,7 @@ export default function Header() {
           <div className="hidden lg:flex items-center gap-4">
             <a
               href={`tel:${BUSINESS_INFO.phone}`}
-              className="flex items-center gap-2 text-sm text-[var(--light-gray)] hover:text-[var(--safety-orange)] transition-colors"
+              className="flex items-center gap-2 text-sm text-[var(--light-gray)] hover:text-[var(--safety-orange)] transition-colors outline-none focus:outline-none"
             >
               <Phone className="w-4 h-4" />
               <span className="font-medium">{BUSINESS_INFO.phone}</span>
@@ -337,7 +337,7 @@ export default function Header() {
                           href={link.href}
                           onClick={closeMenu}
                           className={cn(
-                            "flex items-center gap-3 px-3 py-3 rounded-xl transition-all group",
+                            "flex items-center gap-3 px-3 py-3 rounded-xl transition-all group outline-none focus:outline-none",
                             "border",
                             isActive
                               ? "bg-[var(--safety-orange)]/10 border-[var(--safety-orange)]/30"
@@ -393,7 +393,7 @@ export default function Header() {
               <div className="px-4 pb-4 pt-2 border-t border-[var(--steel-gray)]/20 bg-gradient-to-t from-[var(--asphalt-black)] to-transparent">
                 {/* Contact Info Row */}
                 <div className="flex items-center justify-between mb-3 px-1">
-                  <a href={`tel:${BUSINESS_INFO.phone}`} className="flex items-center gap-2 text-[var(--light-gray)]">
+                  <a href={`tel:${BUSINESS_INFO.phone}`} className="flex items-center gap-2 text-[var(--light-gray)] outline-none focus:outline-none">
                     <Phone className="w-4 h-4 text-[var(--safety-orange)]" />
                     <span className="text-sm font-medium">{BUSINESS_INFO.phone}</span>
                   </a>
@@ -407,7 +407,7 @@ export default function Header() {
                 <div className="grid grid-cols-2 gap-2">
                   <a
                     href={`tel:${BUSINESS_INFO.phone}`}
-                    className="flex items-center justify-center gap-2 py-3 text-sm font-semibold text-white bg-[var(--concrete-gray)] rounded-xl border border-[var(--steel-gray)]/30"
+                    className="flex items-center justify-center gap-2 py-3 text-sm font-semibold text-white bg-[var(--concrete-gray)] rounded-xl border border-[var(--steel-gray)]/30 outline-none focus:outline-none"
                   >
                     <Phone className="w-4 h-4" />
                     Call Now
