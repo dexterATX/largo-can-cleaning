@@ -184,27 +184,31 @@ const serviceAreas = [
 // ============================================
 
 function AnimatedNumber({ value, suffix }: { value: string; suffix: string }) {
-  const [displayValue, setDisplayValue] = useState(0)
+  const [displayValue, setDisplayValue] = useState(() => parseInt(value)) // Start with final value
   const ref = useRef(null)
-  const isInView = useInView(ref, { once: true })
+  const isInView = useInView(ref, { once: true, margin: '-50px' })
   const targetValue = parseInt(value)
+  const hasAnimated = useRef(false)
 
   useEffect(() => {
-    if (isInView) {
-      const duration = 2000
-      const steps = 60
-      const increment = targetValue / steps
-      let current = 0
-      const timer = setInterval(() => {
-        current += increment
-        if (current >= targetValue) {
-          setDisplayValue(targetValue)
-          clearInterval(timer)
+    if (isInView && !hasAnimated.current) {
+      hasAnimated.current = true
+      setDisplayValue(0)
+      const duration = 1200
+      const startTime = performance.now()
+
+      const animate = (currentTime: number) => {
+        const elapsed = currentTime - startTime
+        const progress = Math.min(elapsed / duration, 1)
+        const eased = 1 - Math.pow(1 - progress, 3)
+        setDisplayValue(Math.floor(targetValue * eased))
+        if (progress < 1) {
+          requestAnimationFrame(animate)
         } else {
-          setDisplayValue(Math.floor(current))
+          setDisplayValue(targetValue)
         }
-      }, duration / steps)
-      return () => clearInterval(timer)
+      }
+      requestAnimationFrame(animate)
     }
   }, [isInView, targetValue])
 
@@ -233,34 +237,34 @@ function HeroSection() {
       {/* Subtle Grid Pattern */}
       <div className="absolute inset-0 bg-grid-pattern opacity-30" />
 
-      {/* Floating Accent Lines - Subtle & Professional */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+      {/* Floating Accent Lines - Hidden on mobile */}
+      <div className="hidden md:block absolute inset-0 overflow-hidden pointer-events-none">
         {/* Horizontal accent line */}
         <motion.div
           initial={{ scaleX: 0, opacity: 0 }}
           animate={{ scaleX: 1, opacity: 1 }}
-          transition={{ duration: 1.2, delay: 0.5 }}
+          transition={{ duration: 0.8, delay: 0.2 }}
           className="absolute top-[30%] right-0 w-1/3 h-px bg-gradient-to-l from-[var(--safety-orange)]/40 to-transparent origin-right"
         />
         {/* Vertical accent line */}
         <motion.div
           initial={{ scaleY: 0, opacity: 0 }}
           animate={{ scaleY: 1, opacity: 1 }}
-          transition={{ duration: 1.2, delay: 0.7 }}
+          transition={{ duration: 0.8, delay: 0.3 }}
           className="absolute top-0 right-[20%] w-px h-1/3 bg-gradient-to-b from-[var(--safety-orange)]/30 to-transparent origin-top"
         />
         {/* Small accent dot */}
         <motion.div
           initial={{ scale: 0 }}
           animate={{ scale: 1 }}
-          transition={{ duration: 0.5, delay: 1.2 }}
+          transition={{ duration: 0.3, delay: 0.4 }}
           className="absolute top-[30%] right-[20%] w-2 h-2 bg-[var(--safety-orange)] rounded-full"
         />
         {/* Corner bracket accent */}
         <motion.div
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.9 }}
+          transition={{ duration: 0.5, delay: 0.3 }}
           className="absolute bottom-[25%] right-[10%] w-16 h-16 border-r-2 border-b-2 border-[var(--safety-orange)]/20 rounded-br-xl"
         />
       </div>
@@ -727,33 +731,25 @@ interface ServiceCardProps {
 
 function ServiceCard({ service, index, isActive = false, isMobile = false, onTap }: ServiceCardProps) {
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 20, scale: 0.95 }}
-      whileInView={{ opacity: 1, y: 0, scale: 1 }}
-      viewport={{ once: true }}
-      transition={{ delay: isMobile ? 0 : index * 0.1, duration: 0.5 }}
-      whileTap={{ scale: 0.98 }}
+    <div
       onClick={onTap}
       className={cn(
-        "group relative rounded-2xl overflow-hidden transition-all duration-500 cursor-pointer",
+        "group relative rounded-2xl overflow-hidden transition-all duration-300 cursor-pointer",
         "bg-gradient-to-br from-[var(--concrete-gray)] to-[var(--asphalt-black)]",
         "border border-[var(--steel-gray)]/20",
         isActive && isMobile && "border-[var(--safety-orange)]/50 shadow-lg shadow-[var(--safety-orange)]/10",
-        !isMobile && "hover:border-[var(--steel-gray)]/40 hover:shadow-xl hover:shadow-black/20"
+        !isMobile && "hover:border-[var(--steel-gray)]/40 hover:shadow-xl hover:shadow-black/20",
+        "active:scale-[0.98]"
       )}
     >
 
       {/* Popular Badge - Floating */}
       {service.popular && (
-        <motion.div
-          initial={{ opacity: 0, y: -10 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="absolute top-4 right-4 z-10"
-        >
+        <div className="absolute top-4 right-4 z-10">
           <span className="px-3 py-1 text-[10px] font-bold uppercase tracking-wider bg-gradient-to-r from-[var(--safety-orange)] to-[var(--safety-orange-light)] text-white rounded-full shadow-lg shadow-[var(--safety-orange)]/30">
             Most Popular
           </span>
-        </motion.div>
+        </div>
       )}
 
       {/* Top Accent Line */}
@@ -768,22 +764,19 @@ function ServiceCard({ service, index, isActive = false, isMobile = false, onTap
       <div className="p-5 sm:p-6">
         {/* Icon + Title Row */}
         <div className="flex items-start gap-4 mb-4">
-          <motion.div
-            whileHover={{ scale: 1.1, rotate: 5 }}
-            className="relative flex-shrink-0"
-          >
+          <div className="relative flex-shrink-0 transition-transform duration-200 group-hover:scale-105">
             <div
               className="w-14 h-14 rounded-2xl flex items-center justify-center"
               style={{ backgroundColor: `${service.color}15` }}
             >
               <service.icon className="w-7 h-7" style={{ color: service.color }} />
             </div>
-            {/* Glow effect */}
+            {/* Glow effect - hidden on mobile */}
             <div
-              className="absolute inset-0 rounded-2xl blur-xl opacity-30 -z-10"
+              className="hidden md:block absolute inset-0 rounded-2xl blur-xl opacity-30 -z-10"
               style={{ backgroundColor: service.color }}
             />
-          </motion.div>
+          </div>
 
           <div className="flex-1 min-w-0">
             <h3 className="text-lg font-bold text-white mb-0.5 group-hover:text-[var(--safety-orange)] transition-colors">
@@ -807,14 +800,7 @@ function ServiceCard({ service, index, isActive = false, isMobile = false, onTap
         {/* Features - Vertical List */}
         <div className="space-y-2.5 mb-6">
           {service.features.map((feature, i) => (
-            <motion.div
-              key={i}
-              initial={{ opacity: 0, x: -10 }}
-              whileInView={{ opacity: 1, x: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.1 + i * 0.05 }}
-              className="flex items-center gap-3"
-            >
+            <div key={i} className="flex items-center gap-3">
               <div
                 className="w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0"
                 style={{ backgroundColor: `${service.color}20` }}
@@ -822,15 +808,13 @@ function ServiceCard({ service, index, isActive = false, isMobile = false, onTap
                 <Check className="w-3 h-3" style={{ color: service.color }} />
               </div>
               <span className="text-sm text-[var(--light-gray)]">{feature}</span>
-            </motion.div>
+            </div>
           ))}
         </div>
 
         {/* View Details Button */}
-        <motion.div
-          whileHover={{ scale: 1.02 }}
-          whileTap={{ scale: 0.98 }}
-          className="w-full flex items-center justify-center gap-2 py-3.5 text-sm font-semibold rounded-xl transition-all duration-300 group/btn"
+        <div
+          className="w-full flex items-center justify-center gap-2 py-3.5 text-sm font-semibold rounded-xl transition-all duration-200 group/btn hover:brightness-110 active:scale-[0.98]"
           style={{
             backgroundColor: service.popular ? service.color : `${service.color}15`,
             color: service.popular ? 'white' : service.color
@@ -838,16 +822,12 @@ function ServiceCard({ service, index, isActive = false, isMobile = false, onTap
         >
           <span>View Details</span>
           <ChevronDown className="w-4 h-4 transition-transform group-hover/btn:translate-y-0.5" />
-        </motion.div>
+        </div>
       </div>
 
       {/* Hover/Active Overlay Hint */}
-      <motion.div
-        initial={{ opacity: 0 }}
-        whileHover={{ opacity: 1 }}
-        className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none"
-      />
-    </motion.div>
+      <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-200" />
+    </div>
   )
 }
 
@@ -970,10 +950,10 @@ function BentoServicesSection() {
 
   return (
     <section className="py-16 sm:py-24 bg-[var(--asphalt-dark)] relative overflow-hidden">
-      {/* Background accents */}
+      {/* Background accents - hidden on mobile for performance */}
       <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-[var(--steel-gray)]/30 to-transparent" />
-      <div className="absolute top-1/4 -left-32 w-[400px] h-[400px] bg-[var(--safety-orange)]/5 rounded-full blur-[150px]" />
-      <div className="absolute bottom-1/4 -right-32 w-[400px] h-[400px] bg-[var(--safety-orange)]/5 rounded-full blur-[150px]" />
+      <div className="hidden md:block absolute top-1/4 -left-32 w-[400px] h-[400px] bg-[var(--safety-orange)]/5 rounded-full blur-[100px]" />
+      <div className="hidden md:block absolute bottom-1/4 -right-32 w-[400px] h-[400px] bg-[var(--safety-orange)]/5 rounded-full blur-[100px]" />
 
       {/* Section Header */}
       <Container className="relative mb-10 sm:mb-14">
@@ -1634,13 +1614,8 @@ function ServiceAreasSection() {
             })}
           </div>
 
-          {/* Mobile Map */}
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="relative rounded-xl overflow-hidden border border-[var(--steel-gray)]/30 mb-4"
-          >
+          {/* Mobile Map - No animation to prevent white flash */}
+          <div className="relative rounded-xl overflow-hidden border border-[var(--steel-gray)]/30 mb-4 bg-[var(--asphalt-black)]">
             <div className="relative w-full aspect-[4/3]">
               <iframe
                 key={currentMapUrl}
@@ -1678,7 +1653,7 @@ function ServiceAreasSection() {
                 <ChevronRight className="w-3 h-3" />
               </a>
             </div>
-          </motion.div>
+          </div>
 
           {/* Mobile Confirmation & CTA */}
           {selectedCity && (
@@ -1706,13 +1681,8 @@ function ServiceAreasSection() {
 
         {/* Desktop Layout */}
         <div className="hidden lg:grid lg:grid-cols-2 gap-10 items-center">
-          {/* Google Map */}
-          <motion.div
-            initial={{ opacity: 0, scale: 0.95 }}
-            whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true }}
-            className="relative rounded-2xl overflow-hidden border border-[var(--steel-gray)]/30"
-          >
+          {/* Google Map - No animation to prevent white flash */}
+          <div className="relative rounded-2xl overflow-hidden border border-[var(--steel-gray)]/30 bg-[var(--asphalt-black)]">
             <div className="relative w-full aspect-[4/3]">
               <iframe
                 key={currentMapUrl}
@@ -1749,14 +1719,10 @@ function ServiceAreasSection() {
                 <ChevronRight className="w-3 h-3" />
               </a>
             </div>
-          </motion.div>
+          </div>
 
           {/* Content */}
-          <motion.div
-            initial={{ opacity: 0, x: 30 }}
-            whileInView={{ opacity: 1, x: 0 }}
-            viewport={{ once: true }}
-          >
+          <div>
             <span className="inline-flex items-center gap-2 text-sm font-semibold text-[var(--safety-orange)] mb-4">
               <MapPin className="w-4 h-4" />
               SERVICE AREAS
@@ -1773,23 +1739,19 @@ function ServiceAreasSection() {
 
             {/* Area Tags - Interactive */}
             <div className="flex flex-wrap gap-2 mb-6">
-              {serviceAreas.map((area, index) => (
-                <motion.button
+              {serviceAreas.map((area) => (
+                <button
                   key={area}
-                  initial={{ opacity: 0, scale: 0.8 }}
-                  whileInView={{ opacity: 1, scale: 1 }}
-                  viewport={{ once: true }}
-                  transition={{ delay: index * 0.05 }}
                   onClick={() => setSelectedCity(selectedCity === area ? null : area)}
                   className={cn(
-                    'px-3 py-1.5 rounded-full text-sm font-medium border transition-all',
+                    'px-3 py-1.5 rounded-full text-sm font-medium border transition-all duration-200',
                     selectedCity === area
                       ? 'bg-[var(--safety-orange)] text-white border-[var(--safety-orange)]'
                       : 'bg-[var(--concrete-gray)] text-[var(--light-gray)] border-[var(--steel-gray)]/20 hover:border-[var(--safety-orange)]/50 hover:text-white'
                   )}
                 >
                   {area}
-                </motion.button>
+                </button>
               ))}
             </div>
 
@@ -1810,7 +1772,7 @@ function ServiceAreasSection() {
             <Button variant="outline" rightIcon={<ChevronRight className="w-4 h-4" />}>
               Check Availability
             </Button>
-          </motion.div>
+          </div>
         </div>
       </Container>
     </section>
@@ -1825,9 +1787,9 @@ function ServiceAreasSection() {
 function FinalCTASection() {
   return (
     <section className="py-12 sm:py-20 lg:py-32 bg-[var(--asphalt-dark)] relative overflow-hidden">
-      {/* Background Elements */}
+      {/* Background Elements - hidden on mobile */}
       <div className="absolute inset-0">
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[var(--safety-orange)]/5 rounded-full blur-[150px]" />
+        <div className="hidden md:block absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[var(--safety-orange)]/5 rounded-full blur-[100px]" />
       </div>
       <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-[var(--steel-gray)]/20 to-transparent" />
 
