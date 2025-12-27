@@ -1,7 +1,7 @@
 'use client'
 
 import { useState } from 'react'
-import { motion } from 'motion/react'
+import { motion, AnimatePresence } from 'motion/react'
 import {
   Check,
   ArrowRight,
@@ -10,7 +10,8 @@ import {
   Clock,
   Leaf,
   Star,
-  ChevronDown,
+  Plus,
+  Minus,
   Sparkles,
   Zap,
   BadgeCheck,
@@ -262,62 +263,65 @@ function FAQItem({ faq, index, isOpen, onToggle }: {
   onToggle: () => void
 }) {
   return (
-    <div
+    <motion.div
+      initial={{ opacity: 0, y: 10 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.3, delay: index * 0.03 }}
       className={cn(
-        "rounded-xl border",
+        'rounded-xl transition-all duration-200',
         isOpen
-          ? "bg-[var(--concrete-gray)]/50 border-[var(--safety-orange)]/30"
-          : "bg-[var(--concrete-gray)]/20 border-[var(--steel-gray)]/20"
+          ? 'bg-[var(--concrete-gray)]/50 border border-[var(--steel-gray)]/30'
+          : 'bg-[var(--concrete-gray)]/20 border border-transparent hover:bg-[var(--concrete-gray)]/30'
       )}
     >
       <button
         onClick={onToggle}
-        className="w-full flex items-center gap-3 p-4 text-left"
+        className="w-full flex items-center justify-between gap-4 p-4 text-left"
+        aria-expanded={isOpen}
       >
-        {/* Number badge */}
-        <div
+        <span
           className={cn(
-            "w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 text-xs font-bold",
-            isOpen
-              ? "bg-[var(--safety-orange)] text-white"
-              : "bg-[var(--steel-gray)]/20 text-[var(--slate-gray)]"
+            'text-sm sm:text-[15px] font-medium transition-colors leading-snug',
+            isOpen ? 'text-white' : 'text-[var(--light-gray)]'
           )}
         >
-          {(index + 1).toString().padStart(2, '0')}
-        </div>
-
-        <span className={cn(
-          "flex-1 text-sm font-medium",
-          isOpen ? "text-white" : "text-[var(--light-gray)]"
-        )}>
           {faq.q}
         </span>
-
-        {/* Plus/Minus icon - instant toggle */}
         <div
           className={cn(
-            "w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0",
-            isOpen ? "bg-[var(--safety-orange)]/20" : "bg-[var(--steel-gray)]/20"
+            'w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 transition-all',
+            isOpen
+              ? 'bg-[var(--safety-orange)] text-white'
+              : 'bg-[var(--steel-gray)]/20 text-[var(--slate-gray)]'
           )}
         >
-          <ChevronDown
-            className={cn(
-              "w-4 h-4",
-              isOpen ? "text-[var(--safety-orange)] rotate-180" : "text-[var(--slate-gray)]"
-            )}
-          />
+          <motion.div
+            animate={{ rotate: isOpen ? 180 : 0 }}
+            transition={{ duration: 0.2 }}
+          >
+            {isOpen ? <Minus className="w-4 h-4" /> : <Plus className="w-4 h-4" />}
+          </motion.div>
         </div>
       </button>
 
-      {/* Instant show/hide - no animation for maximum performance */}
-      {isOpen && (
-        <div className="px-4 pb-4 pl-[60px]">
-          <p className="text-sm text-[var(--slate-gray)] leading-relaxed">
-            {faq.a}
-          </p>
-        </div>
-      )}
-    </div>
+      <AnimatePresence>
+        {isOpen && (
+          <motion.div
+            initial={{ height: 0, opacity: 0 }}
+            animate={{ height: 'auto', opacity: 1 }}
+            exit={{ height: 0, opacity: 0 }}
+            transition={{ duration: 0.2, ease: 'easeOut' }}
+            className="overflow-hidden"
+          >
+            <div className="px-4 pb-4">
+              <p className="text-sm text-[var(--slate-gray)] leading-relaxed">
+                {faq.a}
+              </p>
+            </div>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </motion.div>
   )
 }
 
@@ -331,19 +335,19 @@ export default function PricingPageContent() {
   return (
     <>
       {/* Hero Section - Matching other pages */}
-      <section className="relative min-h-[60svh] sm:min-h-[70svh] flex items-center bg-[var(--asphalt-black)] overflow-hidden">
+      <section className="relative min-h-[60svh] sm:min-h-[70svh] flex items-center bg-gradient-to-b from-[var(--asphalt-dark)] to-[var(--asphalt-black)] overflow-hidden">
         {/* Gradient Background */}
-        <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-gradient-to-br from-[var(--asphalt-black)] via-[var(--asphalt-black)] to-[var(--concrete-gray)]/30" />
-          {/* Soft glow - hidden on mobile for performance */}
-          <div className="hidden md:block absolute top-1/2 -right-32 w-[500px] h-[500px] bg-[var(--safety-orange)]/8 rounded-full blur-[60px] -translate-y-1/2" />
-          <div className="hidden md:block absolute bottom-0 left-1/4 w-[400px] h-[400px] bg-[var(--safety-orange)]/5 rounded-full blur-[60px]" />
-        </div>
+        <div className="absolute inset-0 bg-gradient-to-br from-[var(--asphalt-black)] via-[var(--concrete-gray)]/20 to-[var(--asphalt-dark)]" />
 
         {/* Subtle Grid Pattern */}
         <div className="absolute inset-0 bg-grid-pattern opacity-30" />
 
-        {/* Floating Accent Lines - hidden on mobile */}
+        {/* Orange glows - visible on all screens */}
+        <div className="absolute top-1/3 -right-10 sm:-right-32 w-[200px] sm:w-[500px] h-[200px] sm:h-[500px] bg-[var(--safety-orange)]/10 rounded-full blur-[60px] sm:blur-[100px]" />
+        <div className="absolute bottom-0 -left-10 sm:left-1/4 w-[150px] sm:w-[400px] h-[150px] sm:h-[400px] bg-[var(--safety-orange)]/8 rounded-full blur-[50px] sm:blur-[80px]" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] sm:w-[600px] h-[300px] sm:h-[600px] bg-[var(--safety-orange)]/5 rounded-full blur-[80px] sm:blur-[120px]" />
+
+        {/* Floating Accent Lines - desktop only */}
         <div className="hidden md:block absolute inset-0 overflow-hidden pointer-events-none">
           <div className="absolute top-[30%] right-0 w-1/3 h-px bg-gradient-to-l from-[var(--safety-orange)]/40 to-transparent" />
           <div className="absolute top-0 right-[20%] w-px h-1/3 bg-gradient-to-b from-[var(--safety-orange)]/30 to-transparent" />
@@ -353,7 +357,12 @@ export default function PricingPageContent() {
         <Container className="relative z-10">
           <div className="flex flex-col items-center text-center pt-28 pb-16 sm:pt-36 sm:pb-20">
             {/* Eyebrow Badge */}
-            <div className="inline-flex items-center gap-2 px-4 py-2 mb-6 rounded-full bg-[var(--safety-orange)]/10 border border-[var(--safety-orange)]/20">
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.1 }}
+              className="inline-flex items-center gap-2 px-4 py-2 mb-6 rounded-full bg-[var(--safety-orange)]/10 border border-[var(--safety-orange)]/20"
+            >
               <span className="relative flex h-2 w-2">
                 <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[var(--safety-orange)] opacity-75" />
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-[var(--safety-orange)]" />
@@ -361,54 +370,83 @@ export default function PricingPageContent() {
               <span className="text-xs font-semibold tracking-widest uppercase text-[var(--safety-orange)]">
                 Simple Pricing
               </span>
-            </div>
+            </motion.div>
 
             {/* Headline */}
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-[1.1] mb-5">
+            <motion.h1
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.2, duration: 0.6 }}
+              className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-[1.1] mb-5"
+            >
               Transparent{' '}
               <span className="relative inline-block">
                 <span className="text-[var(--safety-orange)]">Pricing</span>
-                <svg
+                <motion.svg
+                  initial={{ pathLength: 0, opacity: 0 }}
+                  animate={{ pathLength: 1, opacity: 1 }}
+                  transition={{ duration: 0.8, delay: 0.6, ease: 'easeOut' }}
                   className="absolute -bottom-1 left-0 w-full h-3"
                   viewBox="0 0 200 12"
                   fill="none"
                   preserveAspectRatio="none"
                 >
-                  <path
+                  <motion.path
                     d="M4 8C40 2 160 2 196 8"
                     stroke="var(--safety-orange)"
                     strokeWidth="3"
                     strokeLinecap="round"
                     fill="none"
+                    initial={{ pathLength: 0 }}
+                    animate={{ pathLength: 1 }}
+                    transition={{ duration: 0.8, delay: 0.6, ease: 'easeOut' }}
                   />
-                </svg>
+                </motion.svg>
               </span>
-            </h1>
+            </motion.h1>
 
             {/* Subtitle */}
-            <p className="text-base sm:text-lg md:text-xl text-[var(--slate-gray)] max-w-xl mx-auto mb-8">
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.3, duration: 0.6 }}
+              className="text-base sm:text-lg md:text-xl text-[var(--slate-gray)] max-w-xl mx-auto mb-8"
+            >
               No contracts. No hidden fees. Cancel anytime.
-            </p>
+            </motion.p>
 
             {/* Trust Indicators */}
-            <div className="flex flex-wrap items-center justify-center gap-3 mb-10">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.4, duration: 0.6 }}
+              className="flex flex-wrap items-center justify-center gap-3 mb-10"
+            >
               {[
                 { icon: Shield, label: '100% Satisfaction', color: '#10B981' },
                 { icon: Zap, label: 'Same-Day Available', color: 'var(--safety-orange)' },
                 { icon: BadgeCheck, label: 'No Contracts', color: '#3B82F6' },
               ].map((item, i) => (
-                <div
+                <motion.div
                   key={i}
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: 0.5 + i * 0.1 }}
                   className="flex items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full bg-[var(--concrete-gray)]/50 border border-[var(--steel-gray)]/30"
                 >
                   <item.icon className="w-4 h-4" style={{ color: item.color }} />
                   <span className="text-xs sm:text-sm text-[var(--light-gray)]">{item.label}</span>
-                </div>
+                </motion.div>
               ))}
-            </div>
+            </motion.div>
 
             {/* Stats Row */}
-            <div className="flex items-center justify-center gap-6 sm:gap-10 pt-6 border-t border-[var(--steel-gray)]/20">
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.7, duration: 0.6 }}
+              className="flex items-center justify-center gap-6 sm:gap-10 pt-6 border-t border-[var(--steel-gray)]/20"
+            >
               <div className="text-center">
                 <div className="flex items-baseline justify-center gap-1">
                   <span className="text-2xl sm:text-3xl font-bold text-white">$22</span>
@@ -429,7 +467,7 @@ export default function PricingPageContent() {
                 </div>
                 <p className="text-[10px] sm:text-xs text-[var(--slate-gray)]">Google Rating</p>
               </div>
-            </div>
+            </motion.div>
           </div>
         </Container>
 
@@ -438,28 +476,56 @@ export default function PricingPageContent() {
       </section>
 
       {/* Pricing Cards */}
-      <section className="py-8 sm:py-12 bg-[var(--asphalt-black)]">
+      <section className="py-8 sm:py-12 bg-gradient-to-b from-[var(--asphalt-black)] to-[var(--asphalt-dark)] relative overflow-hidden">
+        {/* Background elements */}
+        <div className="absolute inset-0 bg-grid-pattern opacity-30" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] sm:w-[600px] h-[300px] sm:h-[600px] bg-[var(--safety-orange)]/5 rounded-full blur-[80px] sm:blur-[120px]" />
+
         {/* Mobile & Tablet: Drag Carousel */}
-        <MobileCarousel plans={plans} />
+        <motion.div
+          initial={{ opacity: 0, y: 30 }}
+          animate={{ opacity: 1, y: 0 }}
+          transition={{ delay: 0.8, duration: 0.6 }}
+          className="relative z-10"
+        >
+          <MobileCarousel plans={plans} />
+        </motion.div>
 
         {/* Desktop: Grid */}
-        <Container className="hidden lg:block">
+        <Container className="hidden lg:block relative z-10">
           <div className="grid grid-cols-3 gap-5 max-w-4xl mx-auto">
-            {plans.map((plan) => (
-              <PlanCard key={plan.id} plan={plan} />
+            {plans.map((plan, index) => (
+              <motion.div
+                key={plan.id}
+                initial={{ opacity: 0, y: 30 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: 0.8 + index * 0.1, duration: 0.5 }}
+              >
+                <PlanCard plan={plan} />
+              </motion.div>
             ))}
           </div>
         </Container>
       </section>
 
       {/* Trust & Add-ons Combined Section */}
-      <section className="py-8 sm:py-12 bg-[var(--asphalt-dark)]">
-        <Container>
+      <motion.section
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 1.1, duration: 0.5 }}
+        className="py-8 sm:py-12 bg-gradient-to-b from-[var(--asphalt-dark)] to-[var(--asphalt-black)] relative overflow-hidden"
+      >
+        {/* Background accents */}
+        <div className="absolute inset-0 bg-grid-pattern opacity-20" />
+        <div className="absolute -top-10 -right-10 sm:-top-20 sm:-right-20 w-[200px] sm:w-[400px] h-[200px] sm:h-[400px] bg-[var(--safety-orange)]/5 rounded-full blur-[60px] sm:blur-[100px]" />
+        <div className="absolute -bottom-10 -left-10 sm:-bottom-20 sm:-left-20 w-[150px] sm:w-[300px] h-[150px] sm:h-[300px] bg-[var(--safety-orange)]/5 rounded-full blur-[50px] sm:blur-[80px]" />
+
+        <Container className="relative z-10">
           {/* Trust Badges - Horizontal Scroll on Mobile */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 1.2, duration: 0.5 }}
             className="mb-8"
           >
             {/* Mobile: Scrollable badges with scroll indicator */}
@@ -581,12 +647,18 @@ export default function PricingPageContent() {
             </motion.div>
           </motion.div>
         </Container>
-      </section>
+      </motion.section>
 
       {/* FAQ Accordion - Modern Design */}
-      <section className="py-10 sm:py-16 bg-[var(--asphalt-black)] relative overflow-hidden">
-        {/* Subtle background accent */}
-        <div className="absolute top-1/2 left-0 w-[300px] h-[300px] bg-[var(--safety-orange)]/5 rounded-full blur-[120px] -translate-y-1/2" />
+      <section className="py-10 sm:py-16 bg-gradient-to-b from-[var(--asphalt-black)] via-[var(--asphalt-dark)] to-[var(--asphalt-black)] relative overflow-hidden">
+        {/* Background elements */}
+        <div className="absolute inset-0 bg-grid-pattern opacity-25" />
+        <div className="absolute top-1/2 -left-10 sm:-left-20 w-[200px] sm:w-[400px] h-[200px] sm:h-[400px] bg-[var(--safety-orange)]/5 rounded-full blur-[80px] sm:blur-[120px] -translate-y-1/2" />
+        <div className="absolute top-1/4 -right-10 sm:-right-20 w-[150px] sm:w-[300px] h-[150px] sm:h-[300px] bg-[var(--safety-orange)]/5 rounded-full blur-[60px] sm:blur-[100px]" />
+
+        {/* Accent lines - desktop only */}
+        <div className="hidden md:block absolute top-[20%] left-0 w-1/4 h-px bg-gradient-to-r from-[var(--safety-orange)]/20 to-transparent" />
+        <div className="hidden md:block absolute bottom-[30%] right-0 w-1/5 h-px bg-gradient-to-l from-[var(--safety-orange)]/15 to-transparent" />
 
         <Container className="relative z-10">
           {/* Header */}
@@ -683,10 +755,15 @@ export default function PricingPageContent() {
       </section>
 
       {/* Final CTA - Modern Design */}
-      <section className="py-10 sm:py-16 bg-[var(--asphalt-dark)] relative overflow-hidden">
-        {/* Background accents */}
-        <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-[var(--safety-orange)]/5 rounded-full blur-[150px]" />
-        <div className="absolute bottom-0 left-0 w-[300px] h-[300px] bg-[var(--safety-orange)]/5 rounded-full blur-[120px]" />
+      <section className="py-10 sm:py-16 bg-gradient-to-b from-[var(--asphalt-dark)] to-[var(--asphalt-black)] relative overflow-hidden">
+        {/* Background elements */}
+        <div className="absolute inset-0 bg-grid-pattern opacity-20" />
+        <div className="absolute top-0 right-0 w-[250px] sm:w-[500px] h-[250px] sm:h-[500px] bg-[var(--safety-orange)]/8 rounded-full blur-[100px] sm:blur-[150px]" />
+        <div className="absolute bottom-0 left-0 w-[200px] sm:w-[400px] h-[200px] sm:h-[400px] bg-[var(--safety-orange)]/5 rounded-full blur-[80px] sm:blur-[120px]" />
+
+        {/* Accent elements - desktop only */}
+        <div className="hidden md:block absolute top-1/2 right-[10%] w-24 h-24 border border-[var(--safety-orange)]/10 rounded-full -translate-y-1/2" />
+        <div className="hidden md:block absolute bottom-[20%] left-[15%] w-16 h-16 border border-[var(--safety-orange)]/10 rounded-full" />
 
         <Container className="relative z-10">
           {/* Mobile CTA Card */}
