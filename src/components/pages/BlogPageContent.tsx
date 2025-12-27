@@ -598,7 +598,7 @@ export default function BlogPageContent() {
       </section>
 
       {/* Blog Content */}
-      <section className="py-8 sm:py-12 lg:py-16 bg-[var(--asphalt-dark)]">
+      <section className="pt-8 pb-8 sm:pt-12 sm:pb-10 lg:pt-16 bg-[var(--asphalt-dark)]">
         <Container>
           {/* Category Filters - No animation delay */}
           <div className="mb-8">
@@ -696,7 +696,7 @@ export default function BlogPageContent() {
       </section>
 
       {/* Newsletter CTA */}
-      <section className="pt-4 pb-8 sm:pt-6 sm:pb-10 bg-[var(--asphalt-dark)]">
+      <section className="pb-8 sm:pb-10 bg-[var(--asphalt-dark)]">
         <Container>
           <div className="max-w-2xl mx-auto text-center">
             <div className="p-6 sm:p-10 rounded-2xl bg-gradient-to-br from-[var(--safety-orange)]/20 to-[var(--safety-orange)]/5 border border-[var(--safety-orange)]/20">
