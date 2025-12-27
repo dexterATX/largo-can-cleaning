@@ -549,37 +549,41 @@ function ServiceDetailOverlay({ service, isOpen, onClose }: ServiceDetailOverlay
   // Ref for overlay content to allow scrolling inside it
   const overlayContentRef = useRef<HTMLDivElement>(null)
 
-  // Prevent body scroll when overlay is open - robust solution for all browsers including iOS
+  // Prevent body scroll when overlay is open
   useEffect(() => {
     if (!isOpen) return
 
-    // Save current scroll position
-    const scrollY = window.scrollY
-    const scrollX = window.scrollX
+    // Simple approach: just hide overflow on body and html
+    // This works on most browsers and doesn't cause visual jumps
+    const originalBodyOverflow = document.body.style.overflow
+    const originalHtmlOverflow = document.documentElement.style.overflow
+    const originalBodyPaddingRight = document.body.style.paddingRight
 
-    // Lock body scroll - works on most browsers
+    // Get scrollbar width to prevent layout shift
+    const scrollbarWidth = window.innerWidth - document.documentElement.clientWidth
+
     document.body.style.overflow = 'hidden'
-    document.body.style.position = 'fixed'
-    document.body.style.top = `-${scrollY}px`
-    document.body.style.left = '0'
-    document.body.style.right = '0'
-    document.body.style.width = '100%'
-
-    // Also lock html element for extra safety
     document.documentElement.style.overflow = 'hidden'
+    if (scrollbarWidth > 0) {
+      document.body.style.paddingRight = `${scrollbarWidth}px`
+    }
+
+    // For iOS Safari, we need to prevent touchmove on the body
+    const preventTouchMove = (e: TouchEvent) => {
+      // Allow scrolling inside the overlay content
+      if (overlayContentRef.current?.contains(e.target as Node)) {
+        return
+      }
+      e.preventDefault()
+    }
+
+    document.addEventListener('touchmove', preventTouchMove, { passive: false })
 
     return () => {
-      // Restore body styles
-      document.body.style.overflow = ''
-      document.body.style.position = ''
-      document.body.style.top = ''
-      document.body.style.left = ''
-      document.body.style.right = ''
-      document.body.style.width = ''
-      document.documentElement.style.overflow = ''
-
-      // Restore scroll position
-      window.scrollTo(scrollX, scrollY)
+      document.body.style.overflow = originalBodyOverflow
+      document.documentElement.style.overflow = originalHtmlOverflow
+      document.body.style.paddingRight = originalBodyPaddingRight
+      document.removeEventListener('touchmove', preventTouchMove)
     }
   }, [isOpen])
 
