@@ -1,7 +1,7 @@
 'use client'
 
-import { useState, useRef, useEffect } from 'react'
-import { motion, AnimatePresence } from 'motion/react'
+import { useState } from 'react'
+import { motion } from 'motion/react'
 import {
   Check,
   ArrowRight,
@@ -261,15 +261,6 @@ function FAQItem({ faq, index, isOpen, onToggle }: {
   isOpen: boolean
   onToggle: () => void
 }) {
-  const contentRef = useRef<HTMLDivElement>(null)
-  const [height, setHeight] = useState(0)
-
-  useEffect(() => {
-    if (contentRef.current) {
-      setHeight(contentRef.current.scrollHeight)
-    }
-  }, [faq.a])
-
   return (
     <div
       className={cn(
@@ -302,7 +293,7 @@ function FAQItem({ faq, index, isOpen, onToggle }: {
           {faq.q}
         </span>
 
-        {/* Plus/Minus icon */}
+        {/* Plus/Minus icon - instant toggle */}
         <div
           className={cn(
             "w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0",
@@ -311,28 +302,21 @@ function FAQItem({ faq, index, isOpen, onToggle }: {
         >
           <ChevronDown
             className={cn(
-              "w-4 h-4 will-change-transform",
-              isOpen ? "text-[var(--safety-orange)] rotate-180" : "text-[var(--slate-gray)] rotate-0"
+              "w-4 h-4",
+              isOpen ? "text-[var(--safety-orange)] rotate-180" : "text-[var(--slate-gray)]"
             )}
-            style={{ transition: 'transform 100ms ease-out' }}
           />
         </div>
       </button>
 
-      {/* Height-based animation with will-change */}
-      <div
-        className="overflow-hidden will-change-[height]"
-        style={{
-          height: isOpen ? height : 0,
-          transition: 'height 100ms ease-out',
-        }}
-      >
-        <div ref={contentRef} className="px-4 pb-4 pl-[60px]">
+      {/* Instant show/hide - no animation for maximum performance */}
+      {isOpen && (
+        <div className="px-4 pb-4 pl-[60px]">
           <p className="text-sm text-[var(--slate-gray)] leading-relaxed">
             {faq.a}
           </p>
         </div>
-      </div>
+      )}
     </div>
   )
 }
@@ -346,25 +330,28 @@ export default function PricingPageContent() {
 
   return (
     <>
-      {/* Hero Section - Modern Design */}
-      <section className="relative pt-24 pb-10 sm:pt-32 sm:pb-14 bg-[var(--asphalt-black)] overflow-hidden">
-        {/* Background Elements */}
+      {/* Hero Section - Matching other pages */}
+      <section className="relative min-h-[60svh] sm:min-h-[70svh] flex items-center bg-[var(--asphalt-black)] overflow-hidden">
+        {/* Gradient Background */}
         <div className="absolute inset-0">
-          <div className="absolute inset-0 bg-gradient-to-br from-[var(--asphalt-black)] via-[var(--asphalt-black)] to-[var(--concrete-gray)]/20" />
-          <div className="absolute inset-0 bg-grid-pattern opacity-30" />
-          {/* Glows - hidden on mobile for performance */}
-          <div className="hidden md:block absolute top-1/4 -right-20 w-[400px] h-[400px] bg-[var(--safety-orange)]/10 rounded-full blur-[60px]" />
-          <div className="hidden md:block absolute bottom-0 -left-20 w-[300px] h-[300px] bg-[var(--safety-orange)]/5 rounded-full blur-[60px]" />
+          <div className="absolute inset-0 bg-gradient-to-br from-[var(--asphalt-black)] via-[var(--asphalt-black)] to-[var(--concrete-gray)]/30" />
+          {/* Soft glow - hidden on mobile for performance */}
+          <div className="hidden md:block absolute top-1/2 -right-32 w-[500px] h-[500px] bg-[var(--safety-orange)]/8 rounded-full blur-[60px] -translate-y-1/2" />
+          <div className="hidden md:block absolute bottom-0 left-1/4 w-[400px] h-[400px] bg-[var(--safety-orange)]/5 rounded-full blur-[60px]" />
         </div>
 
-        {/* Floating Accent Elements - hidden on mobile */}
+        {/* Subtle Grid Pattern */}
+        <div className="absolute inset-0 bg-grid-pattern opacity-30" />
+
+        {/* Floating Accent Lines - hidden on mobile */}
         <div className="hidden md:block absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute top-[35%] right-0 w-1/4 h-px bg-gradient-to-l from-[var(--safety-orange)]/30 to-transparent" />
-          <div className="absolute top-[45%] left-0 w-1/5 h-px bg-gradient-to-r from-[var(--safety-orange)]/20 to-transparent" />
+          <div className="absolute top-[30%] right-0 w-1/3 h-px bg-gradient-to-l from-[var(--safety-orange)]/40 to-transparent" />
+          <div className="absolute top-0 right-[20%] w-px h-1/3 bg-gradient-to-b from-[var(--safety-orange)]/30 to-transparent" />
+          <div className="absolute top-[30%] right-[20%] w-2 h-2 bg-[var(--safety-orange)] rounded-full" />
         </div>
 
         <Container className="relative z-10">
-          <div className="text-center max-w-2xl mx-auto">
+          <div className="flex flex-col items-center text-center pt-28 pb-16 sm:pt-36 sm:pb-20">
             {/* Eyebrow Badge */}
             <div className="inline-flex items-center gap-2 px-4 py-2 mb-6 rounded-full bg-[var(--safety-orange)]/10 border border-[var(--safety-orange)]/20">
               <span className="relative flex h-2 w-2">
@@ -377,7 +364,7 @@ export default function PricingPageContent() {
             </div>
 
             {/* Headline */}
-            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white leading-tight mb-4">
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-[1.1] mb-5">
               Transparent{' '}
               <span className="relative inline-block">
                 <span className="text-[var(--safety-orange)]">Pricing</span>
@@ -399,12 +386,12 @@ export default function PricingPageContent() {
             </h1>
 
             {/* Subtitle */}
-            <p className="text-base sm:text-lg text-[var(--slate-gray)] mb-8 max-w-md mx-auto">
+            <p className="text-base sm:text-lg md:text-xl text-[var(--slate-gray)] max-w-xl mx-auto mb-8">
               No contracts. No hidden fees. Cancel anytime.
             </p>
 
-            {/* Trust Indicators - Mobile Pills */}
-            <div className="flex flex-wrap items-center justify-center gap-2 sm:gap-3 mb-8">
+            {/* Trust Indicators */}
+            <div className="flex flex-wrap items-center justify-center gap-3 mb-10">
               {[
                 { icon: Shield, label: '100% Satisfaction', color: '#10B981' },
                 { icon: Zap, label: 'Same-Day Available', color: 'var(--safety-orange)' },
@@ -412,57 +399,42 @@ export default function PricingPageContent() {
               ].map((item, i) => (
                 <div
                   key={i}
-                  className="flex items-center gap-2 px-3 py-2 rounded-full bg-[var(--concrete-gray)]/60 border border-[var(--steel-gray)]/30"
+                  className="flex items-center gap-2 px-3 py-1.5 sm:px-4 sm:py-2 rounded-full bg-[var(--concrete-gray)]/50 border border-[var(--steel-gray)]/30"
                 >
                   <item.icon className="w-4 h-4" style={{ color: item.color }} />
-                  <span className="text-xs font-medium text-[var(--light-gray)]">{item.label}</span>
+                  <span className="text-xs sm:text-sm text-[var(--light-gray)]">{item.label}</span>
                 </div>
               ))}
             </div>
 
-            {/* Quick Price Preview - Mobile Only */}
-            <div className="sm:hidden">
-              <div className="inline-flex items-center gap-3 px-5 py-3 rounded-2xl bg-gradient-to-r from-[var(--concrete-gray)] to-[var(--concrete-gray)]/80 border border-[var(--steel-gray)]/30">
-                <div className="text-left">
-                  <p className="text-[10px] text-[var(--slate-gray)] uppercase tracking-wide">Starting at</p>
-                  <div className="flex items-baseline gap-1">
-                    <span className="text-2xl font-bold text-white">$22</span>
-                    <span className="text-xs text-[var(--slate-gray)]">/can/mo</span>
-                  </div>
+            {/* Stats Row */}
+            <div className="flex items-center justify-center gap-6 sm:gap-10 pt-6 border-t border-[var(--steel-gray)]/20">
+              <div className="text-center">
+                <div className="flex items-baseline justify-center gap-1">
+                  <span className="text-2xl sm:text-3xl font-bold text-white">$22</span>
+                  <span className="text-xs sm:text-sm text-[var(--slate-gray)]">/can/mo</span>
                 </div>
-                <div className="w-px h-10 bg-[var(--steel-gray)]/30" />
-                <div className="flex items-center gap-1.5">
-                  <Star className="w-4 h-4 text-[var(--safety-orange)] fill-[var(--safety-orange)]" />
-                  <div className="text-left">
-                    <p className="text-sm font-bold text-white">5.0</p>
-                    <p className="text-[9px] text-[var(--slate-gray)]">500+ reviews</p>
-                  </div>
-                </div>
+                <p className="text-[10px] sm:text-xs text-[var(--slate-gray)]">Starting Price</p>
               </div>
-            </div>
-
-            {/* Desktop Stats Row */}
-            <div className="hidden sm:flex items-center justify-center gap-8">
-              {[
-                { value: '$22', label: 'Starting Price', sub: '/can/mo' },
-                { value: '500+', label: 'Happy Customers' },
-                { value: '5.0', label: 'Google Rating', icon: Star },
-              ].map((stat, i) => (
-                <div key={i} className="text-center">
-                  <div className="flex items-baseline justify-center gap-1">
-                    {stat.icon && <stat.icon className="w-5 h-5 text-[var(--safety-orange)] fill-[var(--safety-orange)]" />}
-                    <span className="text-2xl font-bold text-white">{stat.value}</span>
-                    {stat.sub && <span className="text-sm text-[var(--slate-gray)]">{stat.sub}</span>}
-                  </div>
-                  <p className="text-xs text-[var(--slate-gray)]">{stat.label}</p>
+              <div className="w-px h-10 bg-[var(--steel-gray)]/30" />
+              <div className="text-center">
+                <p className="text-2xl sm:text-3xl font-bold text-white">500+</p>
+                <p className="text-[10px] sm:text-xs text-[var(--slate-gray)]">Happy Customers</p>
+              </div>
+              <div className="w-px h-10 bg-[var(--steel-gray)]/30" />
+              <div className="text-center">
+                <div className="flex items-center justify-center gap-1">
+                  <Star className="w-5 h-5 text-[var(--safety-orange)] fill-[var(--safety-orange)]" />
+                  <span className="text-2xl sm:text-3xl font-bold text-white">5.0</span>
                 </div>
-              ))}
+                <p className="text-[10px] sm:text-xs text-[var(--slate-gray)]">Google Rating</p>
+              </div>
             </div>
           </div>
         </Container>
 
-        {/* Bottom Fade */}
-        <div className="absolute bottom-0 left-0 right-0 h-20 bg-gradient-to-t from-[var(--asphalt-black)] to-transparent" />
+        {/* Bottom Gradient Fade */}
+        <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[var(--asphalt-black)] to-transparent" />
       </section>
 
       {/* Pricing Cards */}
