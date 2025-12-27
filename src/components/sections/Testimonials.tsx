@@ -149,22 +149,22 @@ export default function Testimonials() {
               'translateX(-30px) translateY(0px) translateZ(-50px) rotateX(20deg) rotateY(-10deg) rotateZ(20deg)',
           }}
         >
-          <Marquee pauseOnHover vertical className="[--duration:25s] [--gap:0.75rem]">
+          <Marquee pauseOnHover vertical className="[--duration:25s] [--gap:0.75rem] !p-0">
             {firstRow.map((review) => (
               <ReviewCard key={review.name} {...review} />
             ))}
           </Marquee>
-          <Marquee reverse pauseOnHover vertical className="[--duration:25s] [--gap:0.75rem]">
+          <Marquee reverse pauseOnHover vertical className="[--duration:25s] [--gap:0.75rem] !p-0">
             {secondRow.map((review) => (
               <ReviewCard key={review.name} {...review} />
             ))}
           </Marquee>
-          <Marquee reverse pauseOnHover vertical className="[--duration:25s] [--gap:0.75rem]">
+          <Marquee reverse pauseOnHover vertical className="[--duration:25s] [--gap:0.75rem] !p-0">
             {thirdRow.map((review) => (
               <ReviewCard key={review.name} {...review} />
             ))}
           </Marquee>
-          <Marquee pauseOnHover vertical className="[--duration:25s] [--gap:0.75rem]">
+          <Marquee pauseOnHover vertical className="[--duration:25s] [--gap:0.75rem] !p-0">
             {fourthRow.map((review) => (
               <ReviewCard key={review.name} {...review} />
             ))}
