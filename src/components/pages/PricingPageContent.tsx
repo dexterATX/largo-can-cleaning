@@ -264,7 +264,7 @@ function FAQItem({ faq, index, isOpen, onToggle }: {
   return (
     <div
       className={cn(
-        "rounded-xl border transition-all duration-200",
+        "rounded-xl border transition-colors duration-150",
         isOpen
           ? "bg-[var(--concrete-gray)]/50 border-[var(--safety-orange)]/30"
           : "bg-[var(--concrete-gray)]/20 border-[var(--steel-gray)]/20 hover:border-[var(--steel-gray)]/40"
@@ -277,7 +277,7 @@ function FAQItem({ faq, index, isOpen, onToggle }: {
         {/* Number badge */}
         <div
           className={cn(
-            "w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 text-xs font-bold transition-colors",
+            "w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 text-xs font-bold transition-colors duration-150",
             isOpen
               ? "bg-[var(--safety-orange)] text-white"
               : "bg-[var(--steel-gray)]/20 text-[var(--slate-gray)]"
@@ -287,57 +287,49 @@ function FAQItem({ faq, index, isOpen, onToggle }: {
         </div>
 
         <span className={cn(
-          "flex-1 text-sm font-medium transition-colors",
+          "flex-1 text-sm font-medium transition-colors duration-150",
           isOpen ? "text-white" : "text-[var(--light-gray)]"
         )}>
           {faq.q}
         </span>
 
-        {/* Plus/Minus icon */}
+        {/* Plus/Minus icon - CSS only */}
         <div
           className={cn(
-            "w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 transition-all",
-            isOpen
-              ? "bg-[var(--safety-orange)]/20 rotate-0"
-              : "bg-[var(--steel-gray)]/20"
+            "w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 transition-colors duration-150",
+            isOpen ? "bg-[var(--safety-orange)]/20" : "bg-[var(--steel-gray)]/20"
           )}
         >
-          <motion.span
-            animate={{ rotate: isOpen ? 180 : 0 }}
-            transition={{ duration: 0.2 }}
-            className="relative w-3 h-3"
-          >
+          <span className="relative w-3 h-3">
             {/* Horizontal line */}
             <span className={cn(
-              "absolute top-1/2 left-0 w-full h-0.5 -translate-y-1/2 transition-colors",
+              "absolute top-1/2 left-0 w-full h-0.5 -translate-y-1/2 transition-colors duration-150",
               isOpen ? "bg-[var(--safety-orange)]" : "bg-[var(--slate-gray)]"
             )} />
             {/* Vertical line (hidden when open) */}
             <span className={cn(
-              "absolute top-0 left-1/2 w-0.5 h-full -translate-x-1/2 transition-all",
+              "absolute top-0 left-1/2 w-0.5 h-full -translate-x-1/2 transition-all duration-150",
               isOpen ? "bg-transparent scale-0" : "bg-[var(--slate-gray)] scale-100"
             )} />
-          </motion.span>
+          </span>
         </div>
       </button>
 
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: 'auto', opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.2 }}
-            className="overflow-hidden"
-          >
-            <div className="px-4 pb-4 pl-[60px]">
-              <p className="text-sm text-[var(--slate-gray)] leading-relaxed">
-                {faq.a}
-              </p>
-            </div>
-          </motion.div>
+      {/* CSS Grid for smooth height animation */}
+      <div
+        className={cn(
+          "grid transition-[grid-template-rows] duration-150 ease-out",
+          isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
         )}
-      </AnimatePresence>
+      >
+        <div className="overflow-hidden">
+          <div className="px-4 pb-4 pl-[60px]">
+            <p className="text-sm text-[var(--slate-gray)] leading-relaxed">
+              {faq.a}
+            </p>
+          </div>
+        </div>
+      </div>
     </div>
   )
 }
