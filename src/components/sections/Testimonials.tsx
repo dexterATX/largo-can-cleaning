@@ -76,40 +76,42 @@ function ReviewCard({
     <figure
       className={cn(
         'relative cursor-pointer overflow-hidden rounded-2xl p-3',
-        'w-40 backdrop-blur-sm',
+        'w-28 backdrop-blur-sm',
         'bg-white/5 hover:bg-white/10 transition-colors'
       )}
     >
-      {/* Quote */}
-      <blockquote className="text-[11px] leading-snug text-white/80 mb-3 line-clamp-3">
-        "{body}"
-      </blockquote>
-
-      {/* Author row */}
-      <div className="flex items-center gap-2">
+      {/* Avatar */}
+      <div className="flex justify-center mb-2">
         <Image
           src={img}
           alt={name}
-          width={24}
-          height={24}
+          width={32}
+          height={32}
           className="rounded-full ring-1 ring-white/20"
           loading="lazy"
         />
-        <div className="flex-1 min-w-0">
-          <figcaption className="text-[10px] font-medium text-white truncate">
-            {name}
-          </figcaption>
-          <div className="flex items-center gap-1">
-            {Array.from({ length: 5 }).map((_, i) => (
-              <Star
-                key={i}
-                className="w-2 h-2 text-[var(--safety-orange)] fill-[var(--safety-orange)]"
-                aria-hidden="true"
-              />
-            ))}
-          </div>
-        </div>
       </div>
+
+      {/* Name */}
+      <figcaption className="text-[10px] font-medium text-white text-center mb-1">
+        {name}
+      </figcaption>
+
+      {/* Stars */}
+      <div className="flex items-center justify-center gap-0.5 mb-2">
+        {Array.from({ length: 5 }).map((_, i) => (
+          <Star
+            key={i}
+            className="w-2 h-2 text-[var(--safety-orange)] fill-[var(--safety-orange)]"
+            aria-hidden="true"
+          />
+        ))}
+      </div>
+
+      {/* Quote */}
+      <blockquote className="text-[10px] leading-snug text-white/70 text-center line-clamp-4">
+        "{body}"
+      </blockquote>
     </figure>
   )
 }
