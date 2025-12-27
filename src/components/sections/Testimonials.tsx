@@ -75,42 +75,39 @@ function ReviewCard({
   return (
     <figure
       className={cn(
-        'relative cursor-pointer overflow-hidden rounded-xl border p-4',
-        'w-36 min-h-[180px]',
-        'border-[var(--steel-gray)]/30 bg-[var(--concrete-gray)]/50 hover:bg-[var(--concrete-gray)]'
+        'relative cursor-pointer overflow-hidden rounded-2xl p-3',
+        'w-40 backdrop-blur-sm',
+        'bg-white/5 hover:bg-white/10 transition-colors'
       )}
     >
-      {/* Stars */}
-      <div className="flex items-center gap-0.5 mb-3" role="img" aria-label="5 out of 5 stars">
-        {Array.from({ length: 5 }).map((_, i) => (
-          <Star
-            key={i}
-            className="w-3.5 h-3.5 text-[var(--safety-orange)] fill-[var(--safety-orange)]"
-            aria-hidden="true"
-          />
-        ))}
-      </div>
-
-      {/* Review text */}
-      <blockquote className="text-xs leading-relaxed text-[var(--light-gray)] mb-4 line-clamp-4">
-        {body}
+      {/* Quote */}
+      <blockquote className="text-[11px] leading-snug text-white/80 mb-3 line-clamp-3">
+        "{body}"
       </blockquote>
 
-      {/* Author */}
-      <div className="flex items-center gap-2 mt-auto">
+      {/* Author row */}
+      <div className="flex items-center gap-2">
         <Image
           src={img}
-          alt={`${name}'s review`}
-          width={32}
-          height={32}
-          className="rounded-full"
+          alt={name}
+          width={24}
+          height={24}
+          className="rounded-full ring-1 ring-white/20"
           loading="lazy"
         />
-        <div>
-          <figcaption className="text-xs font-medium text-white">
+        <div className="flex-1 min-w-0">
+          <figcaption className="text-[10px] font-medium text-white truncate">
             {name}
           </figcaption>
-          <p className="text-[10px] text-[var(--slate-gray)]">{location}</p>
+          <div className="flex items-center gap-1">
+            {Array.from({ length: 5 }).map((_, i) => (
+              <Star
+                key={i}
+                className="w-2 h-2 text-[var(--safety-orange)] fill-[var(--safety-orange)]"
+                aria-hidden="true"
+              />
+            ))}
+          </div>
         </div>
       </div>
     </figure>
