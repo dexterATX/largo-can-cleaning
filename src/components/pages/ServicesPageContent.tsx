@@ -1864,22 +1864,11 @@ function FinalCTASection() {
       <Container className="relative z-10">
         {/* Mobile Layout */}
         <div className="lg:hidden">
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="text-center"
-          >
-            {/* Icon */}
-            <motion.div
-              initial={{ scale: 0 }}
-              whileInView={{ scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ type: 'spring', stiffness: 300, delay: 0.1 }}
-              className="w-14 h-14 rounded-2xl bg-[var(--safety-orange)] flex items-center justify-center mx-auto mb-5 shadow-lg shadow-[var(--safety-orange)]/30"
-            >
+          <div className="text-center">
+            {/* Icon - No scale animation, just fade in */}
+            <div className="w-14 h-14 rounded-2xl bg-[var(--safety-orange)] flex items-center justify-center mx-auto mb-5 shadow-lg shadow-[var(--safety-orange)]/30">
               <Sparkles className="w-7 h-7 text-white" />
-            </motion.div>
+            </div>
 
             {/* Headline */}
             <h2 className="text-2xl sm:text-3xl font-bold text-white mb-3">
@@ -1922,47 +1911,31 @@ function FinalCTASection() {
               </div>
             </div>
 
-            {/* Social proof */}
-            <motion.div
-              initial={{ opacity: 0 }}
-              whileInView={{ opacity: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: 0.3 }}
-              className="flex items-center justify-center gap-2"
-            >
+            {/* Social proof - No animation delay, instant render */}
+            <div className="flex items-center justify-center gap-2">
               <div className="flex -space-x-2">
-                {[1, 2, 3, 4].map((i) => (
+                {['JD', 'MK', 'AS', 'TR'].map((initials, i) => (
                   <div
                     key={i}
-                    className="w-7 h-7 rounded-full bg-[var(--steel-gray)] border-2 border-[var(--asphalt-dark)] flex items-center justify-center text-[10px] font-bold text-white"
+                    className="w-7 h-7 rounded-full bg-gradient-to-br from-[var(--steel-gray)] to-[var(--concrete-gray)] border-2 border-[var(--asphalt-dark)] flex items-center justify-center text-[10px] font-bold text-white"
                   >
-                    {['JD', 'MK', 'AS', 'TR'][i - 1]}
+                    {initials}
                   </div>
                 ))}
               </div>
               <div className="text-xs text-[var(--slate-gray)]">
                 <span className="text-white font-semibold">500+</span> happy customers
               </div>
-            </motion.div>
-          </motion.div>
+            </div>
+          </div>
         </div>
 
         {/* Desktop Layout */}
-        <motion.div
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="hidden lg:block max-w-3xl mx-auto text-center"
-        >
-          <motion.div
-            initial={{ scale: 0 }}
-            whileInView={{ scale: 1 }}
-            viewport={{ once: true }}
-            transition={{ type: 'spring', stiffness: 200, delay: 0.2 }}
-            className="w-20 h-20 rounded-3xl bg-[var(--safety-orange)] flex items-center justify-center mx-auto mb-8 shadow-lg shadow-[var(--safety-orange)]/30"
-          >
+        <div className="hidden lg:block max-w-3xl mx-auto text-center">
+          {/* Icon - Simple, no scale animation */}
+          <div className="w-20 h-20 rounded-3xl bg-[var(--safety-orange)] flex items-center justify-center mx-auto mb-8 shadow-lg shadow-[var(--safety-orange)]/30">
             <Sparkles className="w-10 h-10 text-white" />
-          </motion.div>
+          </div>
 
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6">
             Ready for Clean Bins?
@@ -1994,7 +1967,7 @@ function FinalCTASection() {
               </span>
             ))}
           </div>
-        </motion.div>
+        </div>
       </Container>
     </section>
   )
