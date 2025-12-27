@@ -75,36 +75,36 @@ function ReviewCard({
   return (
     <figure
       className={cn(
-        'relative w-72 cursor-pointer overflow-hidden rounded-xl border p-4 sm:w-56',
+        'relative w-72 cursor-pointer overflow-hidden rounded-xl border p-3 sm:w-56',
         'border-[var(--steel-gray)]/30 bg-[var(--concrete-gray)]/50 hover:bg-[var(--concrete-gray)]'
       )}
     >
-      <div className="flex flex-row items-center gap-3">
+      <div className="flex flex-row items-center gap-2">
         <Image
           src={img}
           alt={`${name}'s review`}
-          width={40}
-          height={40}
+          width={32}
+          height={32}
           className="rounded-full shrink-0"
           loading="lazy"
         />
         <div className="flex flex-col min-w-0">
-          <figcaption className="text-sm font-semibold text-white">
+          <figcaption className="text-xs font-medium text-white">
             {name}
           </figcaption>
-          <p className="text-xs font-medium text-[var(--slate-gray)]">{location}</p>
+          <p className="text-[10px] text-[var(--slate-gray)]">{location}</p>
         </div>
         <div className="flex items-center gap-0.5 ml-auto shrink-0" role="img" aria-label="5 out of 5 stars">
           {Array.from({ length: 5 }).map((_, i) => (
             <Star
               key={i}
-              className="w-3 h-3 text-[var(--safety-orange)] fill-[var(--safety-orange)]"
+              className="w-2.5 h-2.5 text-[var(--safety-orange)] fill-[var(--safety-orange)]"
               aria-hidden="true"
             />
           ))}
         </div>
       </div>
-      <blockquote className="mt-3 text-sm leading-relaxed text-[var(--light-gray)]">{body}</blockquote>
+      <blockquote className="mt-2 text-xs leading-snug text-[var(--light-gray)] line-clamp-3">{body}</blockquote>
     </figure>
   )
 }
