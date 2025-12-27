@@ -229,9 +229,9 @@ function HeroSection() {
       {/* Subtle Gradient Background */}
       <div className="absolute inset-0">
         <div className="absolute inset-0 bg-gradient-to-br from-[var(--asphalt-black)] via-[var(--asphalt-black)] to-[var(--concrete-gray)]/30" />
-        {/* Soft glow - hidden on mobile for performance */}
-        <div className="hidden md:block absolute top-1/2 -right-32 w-[500px] h-[500px] bg-[var(--safety-orange)]/8 rounded-full blur-[60px] -translate-y-1/2" />
-        <div className="hidden md:block absolute bottom-0 left-1/4 w-[400px] h-[400px] bg-[var(--safety-orange)]/5 rounded-full blur-[60px]" />
+        {/* Soft glow - smaller on mobile for performance */}
+        <div className="absolute top-1/2 -right-16 md:-right-32 w-[200px] md:w-[500px] h-[200px] md:h-[500px] bg-[var(--safety-orange)]/10 md:bg-[var(--safety-orange)]/8 rounded-full blur-[40px] md:blur-[60px] -translate-y-1/2" />
+        <div className="absolute bottom-0 left-1/4 w-[150px] md:w-[400px] h-[150px] md:h-[400px] bg-[var(--safety-orange)]/8 md:bg-[var(--safety-orange)]/5 rounded-full blur-[30px] md:blur-[60px]" />
       </div>
 
       {/* Subtle Grid Pattern */}
@@ -950,10 +950,10 @@ function BentoServicesSection() {
 
   return (
     <section className="py-16 sm:py-24 bg-[var(--asphalt-dark)] relative overflow-hidden">
-      {/* Background accents - hidden on mobile for performance */}
+      {/* Background accents - smaller on mobile for performance */}
       <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-[var(--steel-gray)]/30 to-transparent" />
-      <div className="hidden md:block absolute top-1/4 -left-32 w-[400px] h-[400px] bg-[var(--safety-orange)]/5 rounded-full blur-[100px]" />
-      <div className="hidden md:block absolute bottom-1/4 -right-32 w-[400px] h-[400px] bg-[var(--safety-orange)]/5 rounded-full blur-[100px]" />
+      <div className="absolute top-1/4 -left-16 md:-left-32 w-[150px] md:w-[400px] h-[150px] md:h-[400px] bg-[var(--safety-orange)]/8 md:bg-[var(--safety-orange)]/5 rounded-full blur-[50px] md:blur-[100px]" />
+      <div className="absolute bottom-1/4 -right-16 md:-right-32 w-[150px] md:w-[400px] h-[150px] md:h-[400px] bg-[var(--safety-orange)]/8 md:bg-[var(--safety-orange)]/5 rounded-full blur-[50px] md:blur-[100px]" />
 
       {/* Section Header */}
       <Container className="relative mb-10 sm:mb-14">
@@ -1787,9 +1787,9 @@ function ServiceAreasSection() {
 function FinalCTASection() {
   return (
     <section className="py-12 sm:py-20 lg:py-32 bg-[var(--asphalt-dark)] relative overflow-hidden">
-      {/* Background Elements - hidden on mobile */}
+      {/* Background Elements - smaller on mobile */}
       <div className="absolute inset-0">
-        <div className="hidden md:block absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[600px] bg-[var(--safety-orange)]/5 rounded-full blur-[100px]" />
+        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[200px] md:w-[600px] h-[200px] md:h-[600px] bg-[var(--safety-orange)]/10 md:bg-[var(--safety-orange)]/5 rounded-full blur-[50px] md:blur-[100px]" />
       </div>
       <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-[var(--steel-gray)]/20 to-transparent" />
 
