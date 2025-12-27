@@ -38,31 +38,65 @@ const serviceOptions = [
 
 function HeroSection() {
   return (
-    <section className="pt-28 pb-10 sm:pt-36 sm:pb-14 lg:pt-32 lg:pb-8 bg-[var(--asphalt-black)] relative overflow-hidden">
-      {/* Background */}
-      <div className="absolute inset-0">
-        <div className="absolute inset-0 bg-grid-pattern opacity-20" />
-        <div className="absolute top-0 right-0 w-[400px] h-[400px] bg-[var(--safety-orange)]/10 rounded-full blur-[150px]" />
-      </div>
+    <section className="pt-28 pb-10 sm:pt-36 sm:pb-14 lg:pt-32 lg:pb-8 bg-gradient-dark relative overflow-hidden">
+      {/* Background Grid Pattern */}
+      <div className="absolute inset-0 bg-grid-pattern opacity-50" />
+
+      {/* Gradient Orbs */}
+      <div className="absolute top-1/4 -left-32 w-64 h-64 sm:w-80 sm:h-80 lg:w-96 lg:h-96 bg-[var(--safety-orange)]/10 rounded-full blur-[100px]" />
+      <div className="absolute -top-20 right-0 w-72 h-72 sm:w-96 sm:h-96 lg:w-[500px] lg:h-[500px] bg-[var(--safety-orange)]/15 rounded-full blur-[120px]" />
+      <div className="absolute bottom-0 left-1/3 w-48 h-48 sm:w-64 sm:h-64 bg-[var(--safety-orange)]/5 rounded-full blur-[80px]" />
 
       <Container className="relative z-10">
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
+          transition={{ duration: 0.35 }}
           className="text-center max-w-2xl lg:max-w-3xl mx-auto"
         >
-          <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4 lg:mb-3">
-            Get Your <span className="text-[var(--safety-orange)]">Free Quote</span>
-          </h1>
-          <p className="text-base sm:text-lg lg:text-xl text-[var(--slate-gray)] mb-6 lg:mb-0">
+          {/* Badge */}
+          <motion.div
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.35, delay: 0.05 }}
+            className="inline-flex items-center gap-2 px-4 py-2 mb-5 sm:mb-6 rounded-full bg-[var(--safety-orange)]/10 border border-[var(--safety-orange)]/20"
+          >
+            <span className="relative flex h-2 w-2">
+              <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-[var(--safety-orange)] opacity-75" />
+              <span className="relative inline-flex rounded-full h-2 w-2 bg-[var(--safety-orange)]" />
+            </span>
+            <span className="text-xs sm:text-sm font-medium text-[var(--safety-orange)]">
+              Free Estimates • No Obligation
+            </span>
+          </motion.div>
+
+          <motion.h1
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.35, delay: 0.1 }}
+            className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4 lg:mb-3"
+          >
+            Get Your <span className="text-gradient-orange">Free Quote</span>
+          </motion.h1>
+          <motion.p
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.35, delay: 0.15 }}
+            className="text-base sm:text-lg lg:text-xl text-[var(--slate-gray)] mb-6 lg:mb-0"
+          >
             Ready for clean bins? Fill out the form or give us a call.
-          </p>
+          </motion.p>
 
           {/* Quick Contact - Mobile only */}
-          <div className="flex flex-wrap items-center justify-center gap-4 lg:hidden">
+          <motion.div
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.35, delay: 0.2 }}
+            className="flex flex-wrap items-center justify-center gap-4 lg:hidden"
+          >
             <a
               href={`tel:${BUSINESS_INFO.phone}`}
-              className="inline-flex items-center gap-2 px-5 py-2.5 bg-[var(--safety-orange)] text-white font-semibold rounded-xl hover:bg-[var(--safety-orange-dark)] transition-colors"
+              className="inline-flex items-center gap-2 px-5 py-2.5 bg-[var(--safety-orange)] text-white font-semibold rounded-xl hover:bg-[var(--safety-orange-dark)] transition-colors shadow-lg shadow-[var(--safety-orange)]/20"
             >
               <Phone className="w-4 h-4" />
               {BUSINESS_INFO.phone}
@@ -72,11 +106,14 @@ function HeroSection() {
               className="inline-flex items-center gap-2 px-5 py-2.5 text-[var(--light-gray)] font-medium hover:text-white transition-colors"
             >
               <Mail className="w-4 h-4" />
-              {BUSINESS_INFO.email}
+              Email Us
             </a>
-          </div>
+          </motion.div>
         </motion.div>
       </Container>
+
+      {/* Bottom Gradient Fade */}
+      <div className="absolute bottom-0 left-0 right-0 h-24 bg-gradient-to-t from-[var(--asphalt-dark)] to-transparent" />
     </section>
   )
 }
