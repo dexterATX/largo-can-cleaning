@@ -219,7 +219,9 @@ function ContactFormSection() {
             viewport={{ once: true }}
             className="lg:col-span-2"
           >
-            <div className="p-5 sm:p-6 lg:p-10 lg:px-12 rounded-xl lg:rounded-2xl bg-gradient-to-b from-[var(--concrete-gray)]/40 to-[var(--concrete-gray)]/20 border border-[var(--steel-gray)]/20 lg:border-[var(--steel-gray)]/30">
+            <div className="relative p-5 sm:p-6 lg:p-10 lg:px-12 rounded-xl lg:rounded-2xl bg-gradient-to-b from-[var(--concrete-gray)]/70 to-[var(--concrete-gray)]/40 border border-[var(--steel-gray)]/40 lg:border-[var(--safety-orange)]/20 shadow-xl shadow-black/30 lg:shadow-2xl lg:shadow-[var(--safety-orange)]/5 ring-1 ring-inset ring-white/5">
+              {/* Orange accent line at top */}
+              <div className="absolute top-0 left-4 right-4 lg:left-8 lg:right-8 h-0.5 lg:h-1 bg-gradient-to-r from-transparent via-[var(--safety-orange)] to-transparent rounded-full" />
               {submitted ? (
                 <motion.div
                   initial={{ opacity: 0, scale: 0.95 }}
@@ -248,10 +250,18 @@ function ContactFormSection() {
                 </motion.div>
               ) : (
                 <form onSubmit={handleSubmit} className="space-y-3 lg:space-y-6">
-                  {/* Form Header - Desktop Only */}
-                  <div className="hidden lg:block mb-8">
-                    <h2 className="text-2xl font-bold text-white mb-2">Request a Free Quote</h2>
-                    <p className="text-[var(--slate-gray)]">Fill out the form below and we&apos;ll get back to you within 24 hours.</p>
+                  {/* Form Header */}
+                  <div className="mb-4 lg:mb-8">
+                    <div className="flex items-center gap-3 mb-2 lg:mb-3">
+                      <div className="w-10 h-10 lg:w-12 lg:h-12 rounded-xl bg-[var(--safety-orange)]/15 flex items-center justify-center">
+                        <Send className="w-5 h-5 lg:w-6 lg:h-6 text-[var(--safety-orange)]" />
+                      </div>
+                      <div>
+                        <h2 className="text-lg lg:text-2xl font-bold text-white">Request a Free Quote</h2>
+                        <p className="hidden lg:block text-sm text-[var(--slate-gray)]">We&apos;ll get back to you within 24 hours</p>
+                      </div>
+                    </div>
+                    <p className="text-xs lg:hidden text-[var(--slate-gray)]">Fill out the form below for your free estimate.</p>
                   </div>
 
                   {/* Error Message */}
@@ -343,16 +353,16 @@ function ContactFormSection() {
                   </div>
 
                   {/* Submit */}
-                  <div className="lg:pt-4">
+                  <div className="pt-2 lg:pt-4">
                     <Button
                       type="submit"
-                      className="w-full lg:py-4 lg:text-base"
-                      rightIcon={isSubmitting ? <Loader2 className="w-4 h-4 lg:w-5 lg:h-5 animate-spin" /> : <ArrowRight className="w-4 h-4 lg:w-5 lg:h-5" />}
+                      className="w-full py-3 lg:py-4 text-base lg:text-lg font-semibold shadow-lg shadow-[var(--safety-orange)]/20 hover:shadow-xl hover:shadow-[var(--safety-orange)]/30 transition-shadow"
+                      rightIcon={isSubmitting ? <Loader2 className="w-5 h-5 lg:w-6 lg:h-6 animate-spin" /> : <ArrowRight className="w-5 h-5 lg:w-6 lg:h-6" />}
                       disabled={isSubmitting}
                     >
                       {isSubmitting ? 'Sending...' : 'Get Your Free Quote'}
                     </Button>
-                    <p className="hidden lg:block text-center text-sm text-[var(--slate-gray)] mt-4">
+                    <p className="text-center text-xs lg:text-sm text-[var(--slate-gray)] mt-3 lg:mt-4">
                       No obligation · Response within 24 hours
                     </p>
                   </div>
