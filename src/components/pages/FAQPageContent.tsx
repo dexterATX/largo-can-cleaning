@@ -1,7 +1,7 @@
 'use client'
 
-import { useState } from 'react'
-import { motion, AnimatePresence } from 'motion/react'
+import { useState, useRef, memo } from 'react'
+import { motion, AnimatePresence, useInView } from 'motion/react'
 import Link from 'next/link'
 import {
   Phone,
@@ -118,10 +118,10 @@ function FAQSchema() {
 }
 
 // ============================================
-// FAQ ITEM
+// FAQ ITEM - Memoized for performance
 // ============================================
 
-function FAQItem({
+const FAQItem = memo(function FAQItem({
   question,
   answer,
   isOpen,
@@ -134,11 +134,15 @@ function FAQItem({
   onToggle: () => void
   index: number
 }) {
+  const ref = useRef(null)
+  const isInView = useInView(ref, { once: true, margin: '-20px' })
+
   return (
     <motion.div
+      ref={ref}
       initial={{ opacity: 0, y: 10 }}
-      animate={{ opacity: 1, y: 0 }}
-      transition={{ duration: 0.3, delay: index * 0.03 }}
+      animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 10 }}
+      transition={{ duration: 0.25, delay: Math.min(index * 0.02, 0.15) }}
       className={cn(
         'rounded-xl transition-all duration-200',
         isOpen
@@ -195,7 +199,7 @@ function FAQItem({
       </AnimatePresence>
     </motion.div>
   )
-}
+})
 
 // ============================================
 // MAIN COMPONENT
@@ -225,9 +229,9 @@ export default function FAQPageContent() {
           <div className="max-w-3xl mx-auto text-center">
             {/* Badge */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5 }}
+              transition={{ duration: 0.35 }}
               className="inline-flex items-center gap-2 px-4 py-2 mb-6 rounded-full bg-[var(--safety-orange)]/10 border border-[var(--safety-orange)]/20"
             >
               <span className="relative flex h-2 w-2">
@@ -241,9 +245,9 @@ export default function FAQPageContent() {
 
             {/* Main Heading */}
             <motion.h1
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.1 }}
+              transition={{ duration: 0.35, delay: 0.05 }}
               className="text-3xl sm:text-5xl lg:text-6xl font-bold tracking-tight mb-6"
             >
               <span className="text-white">Frequently Asked </span>
@@ -252,9 +256,9 @@ export default function FAQPageContent() {
 
             {/* Subheading */}
             <motion.p
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.2 }}
+              transition={{ duration: 0.35, delay: 0.1 }}
               className="text-base sm:text-lg md:text-xl text-[var(--light-gray)] max-w-2xl mx-auto mb-8"
             >
               Everything you need to know about our professional trash can cleaning service
@@ -262,9 +266,9 @@ export default function FAQPageContent() {
 
             {/* Feature Pills */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.3 }}
+              transition={{ duration: 0.35, delay: 0.15 }}
               className="flex flex-wrap justify-center gap-3 mb-10"
             >
               {faqFeatures.map((feature, index) => (
@@ -282,9 +286,9 @@ export default function FAQPageContent() {
 
             {/* CTA Buttons */}
             <motion.div
-              initial={{ opacity: 0, y: 20 }}
+              initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.4 }}
+              transition={{ duration: 0.35, delay: 0.2 }}
               className="flex flex-col sm:flex-row items-center justify-center gap-4"
             >
               <Link href="/contact">
