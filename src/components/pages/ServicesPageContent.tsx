@@ -549,33 +549,37 @@ function ServiceDetailOverlay({ service, isOpen, onClose }: ServiceDetailOverlay
   // Ref for overlay content to allow scrolling inside it
   const overlayContentRef = useRef<HTMLDivElement>(null)
 
-  // Prevent body scroll when overlay is open
+  // Prevent body scroll when overlay is open - robust solution for all browsers including iOS
   useEffect(() => {
     if (!isOpen) return
 
-    const preventScroll = (e: TouchEvent) => {
-      // Allow scrolling inside the overlay content
-      if (overlayContentRef.current?.contains(e.target as Node)) {
-        return
-      }
-      e.preventDefault()
-    }
+    // Save current scroll position
+    const scrollY = window.scrollY
+    const scrollX = window.scrollX
 
-    const preventWheel = (e: WheelEvent) => {
-      if (overlayContentRef.current?.contains(e.target as Node)) {
-        return
-      }
-      e.preventDefault()
-    }
-
-    document.addEventListener('touchmove', preventScroll, { passive: false })
-    document.addEventListener('wheel', preventWheel, { passive: false })
+    // Lock body scroll - works on most browsers
     document.body.style.overflow = 'hidden'
+    document.body.style.position = 'fixed'
+    document.body.style.top = `-${scrollY}px`
+    document.body.style.left = '0'
+    document.body.style.right = '0'
+    document.body.style.width = '100%'
+
+    // Also lock html element for extra safety
+    document.documentElement.style.overflow = 'hidden'
 
     return () => {
-      document.removeEventListener('touchmove', preventScroll)
-      document.removeEventListener('wheel', preventWheel)
+      // Restore body styles
       document.body.style.overflow = ''
+      document.body.style.position = ''
+      document.body.style.top = ''
+      document.body.style.left = ''
+      document.body.style.right = ''
+      document.body.style.width = ''
+      document.documentElement.style.overflow = ''
+
+      // Restore scroll position
+      window.scrollTo(scrollX, scrollY)
     }
   }, [isOpen])
 
@@ -625,7 +629,7 @@ function ServiceDetailOverlay({ service, isOpen, onClose }: ServiceDetailOverlay
             <div className="absolute top-2 left-1/2 -translate-x-1/2 w-10 h-1 rounded-full bg-white/20 z-20" />
 
             {/* Content - Scrollable if needed */}
-            <div ref={overlayContentRef} className="relative h-full flex flex-col p-4 pt-6 overflow-y-auto touch-auto">
+            <div ref={overlayContentRef} className="relative h-full flex flex-col p-4 pt-6 overflow-y-auto touch-auto overscroll-contain">
               {/* Close Button */}
               <button
                 onClick={onClose}
