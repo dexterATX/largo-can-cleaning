@@ -9,49 +9,49 @@ const reviews = [
   {
     name: 'Maria G.',
     location: 'Seminole, FL',
-    body: "I can't believe I waited so long to try this service! My trash cans look and smell brand new.",
+    body: "Can't believe I waited so long! My trash cans look brand new.",
     img: 'https://i.pravatar.cc/150?img=32',
   },
   {
     name: 'James W.',
     location: 'Largo, FL',
-    body: "As a property manager, I've signed up all 12 of my properties. The tenants love it!",
+    body: "Signed up all 12 of my properties. The tenants love it!",
     img: 'https://i.pravatar.cc/150?img=11',
   },
   {
     name: 'Patricia C.',
     location: 'Clearwater, FL',
-    body: 'We had a serious maggot problem in summer. One cleaning and the problem was gone!',
+    body: 'Had a maggot problem. One cleaning and it was gone!',
     img: 'https://i.pravatar.cc/150?img=5',
   },
   {
     name: 'Marcus J.',
     location: 'St. Petersburg, FL',
-    body: "They show up, do their thing, and my cans are spotless. No more hosing them down myself.",
+    body: "They show up, do their thing, and my cans are spotless.",
     img: 'https://i.pravatar.cc/150?img=53',
   },
   {
     name: 'Emily R.',
     location: 'Pinellas Park, FL',
-    body: 'Our HOA was sending notices about dirty bins. After one visit, problem solved. 10/10!',
+    body: 'HOA was complaining about dirty bins. Problem solved!',
     img: 'https://i.pravatar.cc/150?img=23',
   },
   {
     name: 'Thomas A.',
     location: 'Dunedin, FL',
-    body: "Best investment for my home. The smell from the garage is completely gone.",
+    body: "Best investment for my home. No more garage smell.",
     img: 'https://i.pravatar.cc/150?img=12',
   },
   {
     name: 'Rachel K.',
     location: 'Palm Harbor, FL',
-    body: "Professional, on time, and thorough. My bins have never been this clean!",
+    body: "Professional and thorough. My bins have never been cleaner!",
     img: 'https://i.pravatar.cc/150?img=9',
   },
   {
     name: 'Brian M.',
     location: 'Safety Harbor, FL',
-    body: "Worth every penny. No more raccoons digging through my trash at night.",
+    body: "Worth every penny. No more raccoons at night.",
     img: 'https://i.pravatar.cc/150?img=68',
   },
 ]
@@ -75,36 +75,47 @@ function ReviewCard({
   return (
     <figure
       className={cn(
-        'relative w-72 cursor-pointer overflow-hidden rounded-xl border p-3 sm:w-56',
+        // Fixed dimensions - wide and short like a Pokemon card
+        'relative cursor-pointer overflow-hidden rounded-lg border',
+        // Mobile: 260px x 90px, Desktop: 180px x 110px
+        'w-[260px] h-[90px] p-2.5',
+        'sm:w-[180px] sm:h-[110px] sm:p-3',
         'border-[var(--steel-gray)]/30 bg-[var(--concrete-gray)]/50 hover:bg-[var(--concrete-gray)]'
       )}
     >
-      <div className="flex flex-row items-center gap-2">
+      {/* Header row with avatar, name, and stars */}
+      <div className="flex items-center gap-2">
         <Image
           src={img}
           alt={`${name}'s review`}
-          width={32}
-          height={32}
-          className="rounded-full shrink-0"
+          width={24}
+          height={24}
+          className="rounded-full shrink-0 sm:w-7 sm:h-7"
           loading="lazy"
         />
-        <div className="flex flex-col min-w-0">
-          <figcaption className="text-xs font-medium text-white">
-            {name}
-          </figcaption>
-          <p className="text-[10px] text-[var(--slate-gray)]">{location}</p>
-        </div>
-        <div className="flex items-center gap-0.5 ml-auto shrink-0" role="img" aria-label="5 out of 5 stars">
-          {Array.from({ length: 5 }).map((_, i) => (
-            <Star
-              key={i}
-              className="w-2.5 h-2.5 text-[var(--safety-orange)] fill-[var(--safety-orange)]"
-              aria-hidden="true"
-            />
-          ))}
+        <div className="flex flex-col min-w-0 flex-1">
+          <div className="flex items-center justify-between gap-1">
+            <figcaption className="text-[10px] sm:text-[11px] font-medium text-white truncate">
+              {name}
+            </figcaption>
+            <div className="flex items-center shrink-0" role="img" aria-label="5 out of 5 stars">
+              {Array.from({ length: 5 }).map((_, i) => (
+                <Star
+                  key={i}
+                  className="w-[8px] h-[8px] sm:w-[10px] sm:h-[10px] text-[var(--safety-orange)] fill-[var(--safety-orange)]"
+                  aria-hidden="true"
+                />
+              ))}
+            </div>
+          </div>
+          <p className="text-[8px] sm:text-[9px] text-[var(--slate-gray)]">{location}</p>
         </div>
       </div>
-      <blockquote className="mt-2 text-xs leading-snug text-[var(--light-gray)] line-clamp-3">{body}</blockquote>
+
+      {/* Review text - strictly limited */}
+      <blockquote className="mt-1.5 text-[10px] sm:text-[11px] leading-tight text-[var(--light-gray)] line-clamp-2">
+        {body}
+      </blockquote>
     </figure>
   )
 }
@@ -135,31 +146,31 @@ export default function Testimonials() {
         </p>
       </div>
 
-      {/* 3D Marquee */}
-      <div className="relative flex h-96 w-full flex-row items-center justify-center gap-4 overflow-hidden [perspective:300px]">
+      {/* 3D Marquee - Adjusted for mobile */}
+      <div className="relative flex h-72 sm:h-96 w-full flex-row items-center justify-center gap-2 sm:gap-4 overflow-hidden [perspective:250px] sm:[perspective:300px]">
         <div
-          className="flex flex-row items-center gap-4"
+          className="flex flex-row items-center gap-2 sm:gap-4"
           style={{
             transform:
-              'translateX(-100px) translateY(0px) translateZ(-100px) rotateX(20deg) rotateY(-10deg) rotateZ(20deg)',
+              'translateX(-80px) translateY(0px) translateZ(-80px) rotateX(18deg) rotateY(-8deg) rotateZ(18deg)',
           }}
         >
-          <Marquee pauseOnHover vertical className="[--duration:20s]">
+          <Marquee pauseOnHover vertical className="[--duration:20s] [--gap:0.5rem] sm:[--gap:1rem]">
             {firstRow.map((review) => (
               <ReviewCard key={review.name} {...review} />
             ))}
           </Marquee>
-          <Marquee reverse pauseOnHover vertical className="[--duration:20s]">
+          <Marquee reverse pauseOnHover vertical className="[--duration:20s] [--gap:0.5rem] sm:[--gap:1rem]">
             {secondRow.map((review) => (
               <ReviewCard key={review.name} {...review} />
             ))}
           </Marquee>
-          <Marquee reverse pauseOnHover vertical className="[--duration:20s]">
+          <Marquee reverse pauseOnHover vertical className="[--duration:20s] [--gap:0.5rem] sm:[--gap:1rem]">
             {thirdRow.map((review) => (
               <ReviewCard key={review.name} {...review} />
             ))}
           </Marquee>
-          <Marquee pauseOnHover vertical className="[--duration:20s]">
+          <Marquee pauseOnHover vertical className="[--duration:20s] [--gap:0.5rem] sm:[--gap:1rem]">
             {fourthRow.map((review) => (
               <ReviewCard key={review.name} {...review} />
             ))}
