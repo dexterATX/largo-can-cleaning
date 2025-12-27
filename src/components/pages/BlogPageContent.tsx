@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useRef, useEffect, useMemo, memo } from 'react'
-import { motion, useInView } from 'motion/react'
+import { motion } from 'motion/react'
 import Link from 'next/link'
 import {
   Clock,
@@ -16,22 +16,6 @@ import {
 } from 'lucide-react'
 import Container from '@/components/ui/Container'
 import { cn } from '@/lib/utils'
-
-// Fade-in animation variants
-const fadeInUp = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0 },
-}
-
-const staggerContainer = {
-  hidden: { opacity: 1 },
-  visible: {
-    opacity: 1,
-    transition: {
-      staggerChildren: 0.05,
-    },
-  },
-}
 
 // ============================================
 // TYPES
@@ -192,15 +176,9 @@ function getCategoryLabel(categoryId: string, categories: Category[]): string {
 
 // Featured Post Card - Mobile First - Memoized to prevent re-renders
 const FeaturedPostCard = memo(function FeaturedPostCard({ post, categories }: { post: BlogPost; categories: Category[] }) {
-  const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, margin: '-50px' })
-
   return (
-    <Link href={`/blog/${post.slug}`} className="block group" ref={ref}>
-      <motion.article
-        initial={{ opacity: 0, y: 20 }}
-        animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 20 }}
-        transition={{ duration: 0.4, ease: 'easeOut' }}
+    <Link href={`/blog/${post.slug}`} className="block group">
+      <article
         className="relative rounded-2xl overflow-hidden bg-gradient-to-br from-[var(--concrete-gray)]/60 to-[var(--concrete-gray)]/30 border border-[var(--steel-gray)]/20 transition-transform duration-200 hover:scale-[1.01]"
       >
         {/* Image Placeholder */}
@@ -252,22 +230,16 @@ const FeaturedPostCard = memo(function FeaturedPostCard({ post, categories }: { 
             </span>
           </div>
         </div>
-      </motion.article>
+      </article>
     </Link>
   )
 })
 
 // Regular Post Card - Mobile First (Compact) - Memoized to prevent re-renders
 const PostCard = memo(function PostCard({ post, categories, index = 0 }: { post: BlogPost; categories: Category[]; index?: number }) {
-  const ref = useRef(null)
-  const isInView = useInView(ref, { once: true, margin: '-30px' })
-
   return (
-    <Link href={`/blog/${post.slug}`} className="block group" ref={ref}>
-      <motion.article
-        initial={{ opacity: 0, y: 15 }}
-        animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: 15 }}
-        transition={{ duration: 0.3, delay: index * 0.03, ease: 'easeOut' }}
+    <Link href={`/blog/${post.slug}`} className="block group">
+      <article
         className="h-full rounded-xl overflow-hidden bg-[var(--concrete-gray)]/30 border border-[var(--steel-gray)]/20 active:border-[var(--safety-orange)]/30 lg:hover:border-[var(--safety-orange)]/30 transition-all"
       >
         {/* Image Placeholder - Shorter on mobile */}
@@ -320,7 +292,7 @@ const PostCard = memo(function PostCard({ post, categories, index = 0 }: { post:
             <ArrowRight className="w-4 h-4 text-[var(--steel-gray)] group-hover:text-[var(--safety-orange)] group-hover:translate-x-1 transition-all" />
           </div>
         </div>
-      </motion.article>
+      </article>
     </Link>
   )
 })
@@ -443,10 +415,7 @@ const MobileTrendingCarousel = memo(function MobileTrendingCarousel({ posts, cat
               className="flex-shrink-0 w-[280px] group"
               draggable={false}
             >
-              <motion.div
-                initial={{ opacity: 0, y: 10 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.3, delay: 0.6 + index * 0.05 }}
+              <div
                 className="relative rounded-xl overflow-hidden bg-gradient-to-br from-[var(--concrete-gray)]/60 to-[var(--concrete-gray)]/30 border border-[var(--steel-gray)]/20 active:border-[var(--safety-orange)]/40 transition-colors"
               >
                 {/* Image Area */}
@@ -483,7 +452,7 @@ const MobileTrendingCarousel = memo(function MobileTrendingCarousel({ posts, cat
                     {post.excerpt}
                   </p>
                 </div>
-              </motion.div>
+              </div>
             </Link>
           ))}
         </motion.div>
@@ -566,47 +535,27 @@ export default function BlogPageContent() {
 
         <Container className="relative z-10">
           <div className="max-w-3xl mx-auto text-center">
-            {/* Badge */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: 0.1 }}
-              className="inline-flex items-center gap-2 px-4 py-2 mb-6 rounded-full bg-[var(--safety-orange)]/10 border border-[var(--safety-orange)]/20"
-            >
+            {/* Badge - No animation delay */}
+            <div className="inline-flex items-center gap-2 px-4 py-2 mb-6 rounded-full bg-[var(--safety-orange)]/10 border border-[var(--safety-orange)]/20">
               <Sparkles className="w-4 h-4 text-[var(--safety-orange)]" />
               <span className="text-xs sm:text-sm font-medium text-[var(--safety-orange)]">
                 Tips, Insights & Updates
               </span>
-            </motion.div>
+            </div>
 
             {/* Heading */}
-            <motion.h1
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: 0.2 }}
-              className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight mb-4"
-            >
+            <h1 className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight mb-4">
               <span className="text-white">Our </span>
               <span className="text-gradient-orange">Blog</span>
-            </motion.h1>
+            </h1>
 
             {/* Subtitle */}
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: 0.3 }}
-              className="text-base sm:text-lg text-[var(--light-gray)] max-w-xl mx-auto mb-8"
-            >
+            <p className="text-base sm:text-lg text-[var(--light-gray)] max-w-xl mx-auto mb-8">
               Expert tips on bin cleaning, home hygiene, and keeping your outdoor space fresh and pest-free.
-            </motion.p>
+            </p>
 
             {/* Search Bar */}
-            <motion.div
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.4, delay: 0.4 }}
-              className="max-w-md mx-auto"
-            >
+            <div className="max-w-md mx-auto">
               <div className="relative">
                 <Search className="absolute left-4 top-1/2 -translate-y-1/2 w-5 h-5 text-[var(--steel-gray)]" />
                 <input
@@ -617,7 +566,7 @@ export default function BlogPageContent() {
                   className="w-full pl-12 pr-4 py-3 sm:py-3.5 bg-[var(--concrete-gray)]/30 border border-[var(--steel-gray)]/20 rounded-xl text-white placeholder-[var(--steel-gray)] focus:outline-none focus:border-[var(--safety-orange)]/50 focus:ring-2 focus:ring-[var(--safety-orange)]/10 transition-all text-sm sm:text-base"
                 />
               </div>
-            </motion.div>
+            </div>
           </div>
         </Container>
 
@@ -628,20 +577,15 @@ export default function BlogPageContent() {
       {/* Blog Content */}
       <section className="py-8 sm:py-12 lg:py-16 bg-[var(--asphalt-dark)]">
         <Container>
-          {/* Category Filters */}
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.4, delay: 0.5 }}
-            className="mb-8"
-          >
+          {/* Category Filters - No animation delay */}
+          <div className="mb-8">
             <CategoryFilter
               activeCategory={activeCategory}
               onCategoryChange={setActiveCategory}
               categories={categories}
               totalPosts={totalPosts}
             />
-          </motion.div>
+          </div>
 
           {/* Mobile Trending Carousel - At Top */}
           {activeCategory === 'all' && !searchQuery && (
