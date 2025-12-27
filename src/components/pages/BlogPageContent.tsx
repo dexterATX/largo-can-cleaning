@@ -685,7 +685,7 @@ export default function BlogPageContent() {
 
           {/* Load More - For future pagination */}
           {filteredPosts.length > 6 && (
-            <div className="mt-10 text-center">
+            <div className="mt-6 text-center">
               <button className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-[var(--concrete-gray)]/30 border border-[var(--steel-gray)]/20 text-white font-medium hover:bg-[var(--concrete-gray)]/50 transition-all">
                 Load More Articles
                 <ArrowRight className="w-4 h-4" />
@@ -696,7 +696,7 @@ export default function BlogPageContent() {
       </section>
 
       {/* Newsletter CTA */}
-      <section className="py-12 sm:py-16 bg-[var(--asphalt-dark)]">
+      <section className="py-8 sm:py-10 bg-[var(--asphalt-dark)]">
         <Container>
           <div className="max-w-2xl mx-auto text-center">
             <div className="p-6 sm:p-10 rounded-2xl bg-gradient-to-br from-[var(--safety-orange)]/20 to-[var(--safety-orange)]/5 border border-[var(--safety-orange)]/20">
