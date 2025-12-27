@@ -75,29 +75,29 @@ function ReviewCard({
   return (
     <figure
       className={cn(
-        'relative cursor-pointer overflow-hidden rounded-xl border p-3',
-        'w-36',
+        'relative cursor-pointer overflow-hidden rounded-xl border p-4',
+        'w-36 min-h-[180px]',
         'border-[var(--steel-gray)]/30 bg-[var(--concrete-gray)]/50 hover:bg-[var(--concrete-gray)]'
       )}
     >
       {/* Stars */}
-      <div className="flex items-center gap-0.5 mb-2" role="img" aria-label="5 out of 5 stars">
+      <div className="flex items-center gap-0.5 mb-3" role="img" aria-label="5 out of 5 stars">
         {Array.from({ length: 5 }).map((_, i) => (
           <Star
             key={i}
-            className="w-3 h-3 text-[var(--safety-orange)] fill-[var(--safety-orange)]"
+            className="w-3.5 h-3.5 text-[var(--safety-orange)] fill-[var(--safety-orange)]"
             aria-hidden="true"
           />
         ))}
       </div>
 
       {/* Review text */}
-      <blockquote className="text-xs leading-relaxed text-[var(--light-gray)] mb-3 line-clamp-3">
+      <blockquote className="text-xs leading-relaxed text-[var(--light-gray)] mb-4 line-clamp-4">
         {body}
       </blockquote>
 
       {/* Author */}
-      <div className="flex items-center gap-2">
+      <div className="flex items-center gap-2 mt-auto">
         <Image
           src={img}
           alt={`${name}'s review`}
@@ -144,9 +144,9 @@ export default function Testimonials() {
       </div>
 
       {/* 3D Marquee */}
-      <div className="relative flex h-[350px] sm:h-[450px] w-full flex-row items-center justify-center gap-3 overflow-hidden [perspective:300px]">
+      <div className="relative flex h-[350px] sm:h-[450px] w-full flex-row items-center justify-center gap-2 overflow-hidden [perspective:300px]">
         <div
-          className="flex flex-row items-center gap-3"
+          className="flex flex-row items-center gap-2"
           style={{
             transform:
               'translateX(-30px) translateY(0px) translateZ(-50px) rotateX(20deg) rotateY(-10deg) rotateZ(20deg)',
