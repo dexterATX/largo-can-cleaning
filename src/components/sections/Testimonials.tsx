@@ -75,36 +75,36 @@ function ReviewCard({
   return (
     <figure
       className={cn(
-        'relative h-full w-52 cursor-pointer overflow-hidden rounded-xl border p-4 sm:w-44',
+        'relative w-72 cursor-pointer overflow-hidden rounded-xl border p-4 sm:w-56',
         'border-[var(--steel-gray)]/30 bg-[var(--concrete-gray)]/50 hover:bg-[var(--concrete-gray)]'
       )}
     >
-      <div className="flex flex-row items-center gap-2">
+      <div className="flex flex-row items-center gap-3">
         <Image
           src={img}
           alt={`${name}'s review`}
-          width={32}
-          height={32}
-          className="rounded-full"
+          width={40}
+          height={40}
+          className="rounded-full shrink-0"
           loading="lazy"
         />
-        <div className="flex flex-col">
-          <figcaption className="text-sm font-medium text-white">
+        <div className="flex flex-col min-w-0">
+          <figcaption className="text-sm font-semibold text-white">
             {name}
           </figcaption>
           <p className="text-xs font-medium text-[var(--slate-gray)]">{location}</p>
         </div>
+        <div className="flex items-center gap-0.5 ml-auto shrink-0" role="img" aria-label="5 out of 5 stars">
+          {Array.from({ length: 5 }).map((_, i) => (
+            <Star
+              key={i}
+              className="w-3 h-3 text-[var(--safety-orange)] fill-[var(--safety-orange)]"
+              aria-hidden="true"
+            />
+          ))}
+        </div>
       </div>
-      <div className="flex items-center gap-0.5 mt-2" role="img" aria-label="5 out of 5 stars">
-        {Array.from({ length: 5 }).map((_, i) => (
-          <Star
-            key={i}
-            className="w-3 h-3 text-[var(--safety-orange)] fill-[var(--safety-orange)]"
-            aria-hidden="true"
-          />
-        ))}
-      </div>
-      <blockquote className="mt-2 text-sm text-[var(--light-gray)]">{body}</blockquote>
+      <blockquote className="mt-3 text-sm leading-relaxed text-[var(--light-gray)]">{body}</blockquote>
     </figure>
   )
 }
