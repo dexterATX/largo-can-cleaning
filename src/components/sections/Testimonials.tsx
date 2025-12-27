@@ -80,38 +80,36 @@ function ReviewCard({
         'bg-white/5 hover:bg-white/10 transition-colors'
       )}
     >
-      {/* Avatar */}
-      <div className="flex justify-center mb-2">
-        <Image
-          src={img}
-          alt={name}
-          width={32}
-          height={32}
-          className="rounded-full ring-1 ring-white/20"
-          loading="lazy"
-        />
-      </div>
-
-      {/* Name */}
-      <figcaption className="text-[10px] font-medium text-white text-center mb-1">
-        {name}
-      </figcaption>
-
-      {/* Stars */}
-      <div className="flex items-center justify-center gap-0.5 mb-2">
+      {/* Stars at top */}
+      <div className="flex items-center gap-0.5 mb-2">
         {Array.from({ length: 5 }).map((_, i) => (
           <Star
             key={i}
-            className="w-2 h-2 text-[var(--safety-orange)] fill-[var(--safety-orange)]"
+            className="w-2.5 h-2.5 text-[var(--safety-orange)] fill-[var(--safety-orange)]"
             aria-hidden="true"
           />
         ))}
       </div>
 
       {/* Quote */}
-      <blockquote className="text-[10px] leading-snug text-white/70 text-center line-clamp-4">
-        "{body}"
+      <blockquote className="text-[10px] leading-relaxed text-white/80 mb-3 line-clamp-5">
+        {body}
       </blockquote>
+
+      {/* Author at bottom */}
+      <div className="flex items-center gap-2">
+        <Image
+          src={img}
+          alt={name}
+          width={20}
+          height={20}
+          className="rounded-full"
+          loading="lazy"
+        />
+        <figcaption className="text-[9px] font-medium text-white/60">
+          {name}
+        </figcaption>
+      </div>
     </figure>
   )
 }
