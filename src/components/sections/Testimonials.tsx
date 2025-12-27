@@ -141,30 +141,30 @@ export default function Testimonials() {
       </div>
 
       {/* 3D Marquee */}
-      <div className="relative flex h-[350px] sm:h-[450px] w-full flex-row items-center justify-center gap-2 overflow-hidden [perspective:300px]">
+      <div className="relative flex h-[350px] sm:h-[450px] w-full flex-row items-center justify-center gap-3 overflow-hidden [perspective:300px]">
         <div
-          className="flex flex-row items-center gap-2"
+          className="flex flex-row items-center gap-3"
           style={{
             transform:
               'translateX(-30px) translateY(0px) translateZ(-50px) rotateX(20deg) rotateY(-10deg) rotateZ(20deg)',
           }}
         >
-          <Marquee pauseOnHover vertical className="[--duration:25s] [--gap:0.5rem]">
+          <Marquee pauseOnHover vertical className="[--duration:25s] [--gap:0.75rem]">
             {firstRow.map((review) => (
               <ReviewCard key={review.name} {...review} />
             ))}
           </Marquee>
-          <Marquee reverse pauseOnHover vertical className="[--duration:25s] [--gap:0.5rem]">
+          <Marquee reverse pauseOnHover vertical className="[--duration:25s] [--gap:0.75rem]">
             {secondRow.map((review) => (
               <ReviewCard key={review.name} {...review} />
             ))}
           </Marquee>
-          <Marquee reverse pauseOnHover vertical className="[--duration:25s] [--gap:0.5rem]">
+          <Marquee reverse pauseOnHover vertical className="[--duration:25s] [--gap:0.75rem]">
             {thirdRow.map((review) => (
               <ReviewCard key={review.name} {...review} />
             ))}
           </Marquee>
-          <Marquee pauseOnHover vertical className="[--duration:25s] [--gap:0.5rem]">
+          <Marquee pauseOnHover vertical className="[--duration:25s] [--gap:0.75rem]">
             {fourthRow.map((review) => (
               <ReviewCard key={review.name} {...review} />
             ))}
