@@ -225,9 +225,9 @@ function HeroSection() {
       {/* Subtle Gradient Background */}
       <div className="absolute inset-0">
         <div className="absolute inset-0 bg-gradient-to-br from-[var(--asphalt-black)] via-[var(--asphalt-black)] to-[var(--concrete-gray)]/30" />
-        {/* Soft glow on right */}
-        <div className="absolute top-1/2 -right-32 w-[500px] h-[500px] bg-[var(--safety-orange)]/8 rounded-full blur-[150px] -translate-y-1/2" />
-        <div className="absolute bottom-0 left-1/4 w-[400px] h-[400px] bg-[var(--safety-orange)]/5 rounded-full blur-[120px]" />
+        {/* Soft glow - hidden on mobile for performance */}
+        <div className="hidden md:block absolute top-1/2 -right-32 w-[500px] h-[500px] bg-[var(--safety-orange)]/8 rounded-full blur-[60px] -translate-y-1/2" />
+        <div className="hidden md:block absolute bottom-0 left-1/4 w-[400px] h-[400px] bg-[var(--safety-orange)]/5 rounded-full blur-[60px]" />
       </div>
 
       {/* Subtle Grid Pattern */}
@@ -852,7 +852,7 @@ function ServiceCard({ service, index, isActive = false, isMobile = false, onTap
 }
 
 // ============================================
-// MOBILE CAROUSEL COMPONENT
+// MOBILE CAROUSEL COMPONENT - CSS Scroll Snap for instant response
 // ============================================
 
 interface MobileServicesCarouselProps {
@@ -860,120 +860,84 @@ interface MobileServicesCarouselProps {
 }
 
 function MobileServicesCarousel({ onServiceTap }: MobileServicesCarouselProps) {
-  const [activeIndex, setActiveIndex] = useState(1) // Start with "Recurring" (popular)
-  const [dragStart, setDragStart] = useState(0)
-  const [isDragging, setIsDragging] = useState(false)
-  const containerRef = useRef<HTMLDivElement>(null)
+  const scrollRef = useRef<HTMLDivElement>(null)
+  const [activeIndex, setActiveIndex] = useState(1)
 
-  const handleDragStart = (e: React.TouchEvent | React.MouseEvent) => {
-    const clientX = 'touches' in e ? e.touches[0].clientX : e.clientX
-    setDragStart(clientX)
-    setIsDragging(false)
-  }
+  // Update active index based on scroll position
+  useEffect(() => {
+    const container = scrollRef.current
+    if (!container) return
 
-  const handleDragMove = (e: React.TouchEvent | React.MouseEvent) => {
-    const clientX = 'touches' in e ? e.touches[0].clientX : e.clientX
-    if (Math.abs(clientX - dragStart) > 10) {
-      setIsDragging(true)
+    // Scroll to recurring (index 1) on mount
+    const itemWidth = container.offsetWidth * 0.85 + 16 // 85% + gap
+    container.scrollTo({ left: itemWidth, behavior: 'auto' })
+
+    const handleScroll = () => {
+      const scrollLeft = container.scrollLeft
+      const itemWidth = container.offsetWidth * 0.85 + 16
+      const newIndex = Math.round(scrollLeft / itemWidth)
+      setActiveIndex(Math.min(newIndex, services.length - 1))
     }
-  }
 
-  const handleDragEnd = (e: React.TouchEvent | React.MouseEvent) => {
-    const clientX = 'changedTouches' in e ? e.changedTouches[0].clientX : e.clientX
-    const diff = dragStart - clientX
+    container.addEventListener('scroll', handleScroll, { passive: true })
+    return () => container.removeEventListener('scroll', handleScroll)
+  }, [])
 
-    if (Math.abs(diff) > 50) {
-      if (diff > 0 && activeIndex < services.length - 1) {
-        setActiveIndex(activeIndex + 1)
-      } else if (diff < 0 && activeIndex > 0) {
-        setActiveIndex(activeIndex - 1)
-      }
-    }
-  }
-
-  const handleCardTap = (service: typeof services[0], index: number) => {
-    // Only open overlay if not dragging and tapping the active card
-    if (!isDragging && index === activeIndex) {
-      onServiceTap(service)
-    } else if (!isDragging) {
-      // Navigate to tapped card
-      setActiveIndex(index)
-    }
+  const scrollToIndex = (index: number) => {
+    const container = scrollRef.current
+    if (!container) return
+    const itemWidth = container.offsetWidth * 0.85 + 16
+    container.scrollTo({ left: index * itemWidth, behavior: 'smooth' })
   }
 
   return (
     <div className="md:hidden">
-      {/* Carousel Container */}
+      {/* CSS Scroll Snap Carousel */}
       <div
-        ref={containerRef}
-        className="relative overflow-hidden touch-pan-y"
-        onTouchStart={handleDragStart}
-        onTouchMove={handleDragMove}
-        onTouchEnd={handleDragEnd}
-        onMouseDown={handleDragStart}
-        onMouseMove={handleDragMove}
-        onMouseUp={handleDragEnd}
+        ref={scrollRef}
+        className="flex gap-4 overflow-x-auto snap-x snap-mandatory px-4 pb-4"
+        style={{
+          scrollbarWidth: 'none',
+          msOverflowStyle: 'none',
+          WebkitOverflowScrolling: 'touch',
+        }}
       >
-        <motion.div
-          className="flex gap-4 px-4"
-          animate={{ x: `calc(-${activeIndex * 85}% + ${activeIndex * 16}px)` }}
-          transition={{ type: "spring", stiffness: 300, damping: 30 }}
-        >
-          {services.map((service, index) => (
-            <div
-              key={service.id}
-              className="w-[85%] flex-shrink-0"
-            >
-              <ServiceCard
-                service={service}
-                index={index}
-                isActive={index === activeIndex}
-                isMobile
-                onTap={() => handleCardTap(service, index)}
-              />
-            </div>
-          ))}
-        </motion.div>
+        {services.map((service, index) => (
+          <div
+            key={service.id}
+            className="w-[85%] flex-shrink-0 snap-center"
+          >
+            <ServiceCard
+              service={service}
+              index={index}
+              isActive={index === activeIndex}
+              isMobile
+              onTap={() => onServiceTap(service)}
+            />
+          </div>
+        ))}
       </div>
 
       {/* Dot Indicators */}
-      <div className="flex justify-center gap-2 mt-6">
+      <div className="flex justify-center gap-2 mt-4">
         {services.map((_, index) => (
           <button
             key={index}
-            onClick={() => setActiveIndex(index)}
-            className="relative p-1"
-          >
-            <motion.div
-              className={cn(
-                "w-2 h-2 rounded-full transition-colors duration-300",
-                index === activeIndex
-                  ? "bg-[var(--safety-orange)]"
-                  : "bg-[var(--steel-gray)]/50"
-              )}
-              animate={index === activeIndex ? { scale: [1, 1.2, 1] } : { scale: 1 }}
-              transition={{ duration: 0.3 }}
-            />
-            {index === activeIndex && (
-              <motion.div
-                layoutId="activeDot"
-                className="absolute inset-0 m-auto w-4 h-4 rounded-full border-2 border-[var(--safety-orange)]/50"
-                transition={{ type: "spring", stiffness: 300, damping: 30 }}
-              />
+            onClick={() => scrollToIndex(index)}
+            className={cn(
+              "h-2 rounded-full transition-all duration-150",
+              index === activeIndex
+                ? "bg-[var(--safety-orange)] w-6"
+                : "bg-[var(--steel-gray)]/50 w-2"
             )}
-          </button>
+          />
         ))}
       </div>
 
       {/* Swipe Hint */}
-      <motion.p
-        initial={{ opacity: 0 }}
-        animate={{ opacity: 1 }}
-        transition={{ delay: 1 }}
-        className="text-center text-xs text-[var(--slate-gray)] mt-3"
-      >
+      <p className="text-center text-xs text-[var(--slate-gray)] mt-3">
         Swipe to explore • Tap for details
-      </motion.p>
+      </p>
     </div>
   )
 }
@@ -1133,89 +1097,106 @@ function BentoServicesSection() {
 }
 
 // ============================================
-// MOBILE STEPS CAROUSEL
+// MOBILE STEPS CAROUSEL - CSS Scroll Snap
 // ============================================
 
 function MobileStepsCarousel() {
+  const scrollRef = useRef<HTMLDivElement>(null)
   const [activeStep, setActiveStep] = useState(0)
+
+  useEffect(() => {
+    const container = scrollRef.current
+    if (!container) return
+
+    const handleScroll = () => {
+      const scrollLeft = container.scrollLeft
+      const itemWidth = container.offsetWidth
+      const newIndex = Math.round(scrollLeft / itemWidth)
+      setActiveStep(Math.min(newIndex, timelineSteps.length - 1))
+    }
+
+    container.addEventListener('scroll', handleScroll, { passive: true })
+    return () => container.removeEventListener('scroll', handleScroll)
+  }, [])
+
+  const scrollToIndex = (index: number) => {
+    const container = scrollRef.current
+    if (!container) return
+    container.scrollTo({ left: index * container.offsetWidth, behavior: 'smooth' })
+  }
 
   return (
     <div className="lg:hidden">
-      {/* Steps Carousel */}
-      <div className="relative overflow-hidden">
-        <motion.div
-          className="flex"
-          animate={{ x: `-${activeStep * 100}%` }}
-          transition={{ type: 'spring', stiffness: 300, damping: 30 }}
-        >
-          {timelineSteps.map((step, index) => (
-            <div key={index} className="w-full flex-shrink-0 px-4">
-              <div className="bg-[var(--concrete-gray)] rounded-2xl p-5 border border-[var(--steel-gray)]/20">
-                {/* Step indicator */}
-                <div className="flex items-center gap-3 mb-4">
-                  <div
-                    className="w-10 h-10 rounded-xl bg-[var(--safety-orange)]/10 flex items-center justify-center"
-                  >
-                    <step.icon className="w-5 h-5 text-[var(--safety-orange)]" />
-                  </div>
-                  <div>
-                    <span className="text-[10px] font-bold text-[var(--safety-orange)] uppercase tracking-wider">
-                      Step {index + 1} of {timelineSteps.length}
-                    </span>
-                    <h3 className="text-lg font-bold text-white">{step.title}</h3>
-                  </div>
+      {/* CSS Scroll Snap Steps */}
+      <div
+        ref={scrollRef}
+        className="flex overflow-x-auto snap-x snap-mandatory"
+        style={{
+          scrollbarWidth: 'none',
+          msOverflowStyle: 'none',
+          WebkitOverflowScrolling: 'touch',
+        }}
+      >
+        {timelineSteps.map((step, index) => (
+          <div key={index} className="w-full flex-shrink-0 snap-center px-4">
+            <div className="bg-[var(--concrete-gray)] rounded-2xl p-5 border border-[var(--steel-gray)]/20">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-10 h-10 rounded-xl bg-[var(--safety-orange)]/10 flex items-center justify-center">
+                  <step.icon className="w-5 h-5 text-[var(--safety-orange)]" />
                 </div>
-                <p className="text-sm text-[var(--slate-gray)] leading-relaxed">
-                  {step.desc}
-                </p>
+                <div>
+                  <span className="text-[10px] font-bold text-[var(--safety-orange)] uppercase tracking-wider">
+                    Step {index + 1} of {timelineSteps.length}
+                  </span>
+                  <h3 className="text-lg font-bold text-white">{step.title}</h3>
+                </div>
               </div>
+              <p className="text-sm text-[var(--slate-gray)] leading-relaxed">
+                {step.desc}
+              </p>
             </div>
-          ))}
-        </motion.div>
+          </div>
+        ))}
       </div>
 
       {/* Progress Bar & Navigation */}
       <div className="px-4 mt-4">
-        {/* Progress bar */}
         <div className="h-1 bg-[var(--steel-gray)]/20 rounded-full overflow-hidden mb-3">
-          <motion.div
-            className="h-full bg-[var(--safety-orange)] rounded-full"
-            animate={{ width: `${((activeStep + 1) / timelineSteps.length) * 100}%` }}
-            transition={{ type: 'spring', stiffness: 300, damping: 30 }}
+          <div
+            className="h-full bg-[var(--safety-orange)] rounded-full transition-all duration-150"
+            style={{ width: `${((activeStep + 1) / timelineSteps.length) * 100}%` }}
           />
         </div>
 
-        {/* Navigation buttons */}
         <div className="flex items-center justify-between">
           <button
-            onClick={() => setActiveStep(Math.max(0, activeStep - 1))}
+            onClick={() => scrollToIndex(Math.max(0, activeStep - 1))}
             disabled={activeStep === 0}
-            className="flex items-center gap-1 text-xs font-medium text-[var(--slate-gray)] disabled:opacity-30 transition-opacity"
+            className="flex items-center gap-1 text-xs font-medium text-[var(--slate-gray)] disabled:opacity-30"
           >
             <ChevronRight className="w-4 h-4 rotate-180" />
             Previous
           </button>
 
-          {/* Step dots */}
           <div className="flex gap-1.5">
             {timelineSteps.map((_, index) => (
               <button
                 key={index}
-                onClick={() => setActiveStep(index)}
+                onClick={() => scrollToIndex(index)}
                 className={cn(
-                  "w-2 h-2 rounded-full transition-all duration-300",
+                  "h-2 rounded-full transition-all duration-150",
                   index === activeStep
                     ? "bg-[var(--safety-orange)] w-6"
-                    : "bg-[var(--steel-gray)]/40"
+                    : "bg-[var(--steel-gray)]/40 w-2"
                 )}
               />
             ))}
           </div>
 
           <button
-            onClick={() => setActiveStep(Math.min(timelineSteps.length - 1, activeStep + 1))}
+            onClick={() => scrollToIndex(Math.min(timelineSteps.length - 1, activeStep + 1))}
             disabled={activeStep === timelineSteps.length - 1}
-            className="flex items-center gap-1 text-xs font-medium text-[var(--slate-gray)] disabled:opacity-30 transition-opacity"
+            className="flex items-center gap-1 text-xs font-medium text-[var(--slate-gray)] disabled:opacity-30"
           >
             Next
             <ChevronRight className="w-4 h-4" />
