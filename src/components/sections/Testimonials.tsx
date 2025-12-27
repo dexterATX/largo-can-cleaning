@@ -76,7 +76,7 @@ function ReviewCard({
     <figure
       className={cn(
         'relative cursor-pointer overflow-hidden rounded-xl border p-3',
-        'w-44',
+        'w-36',
         'border-[var(--steel-gray)]/30 bg-[var(--concrete-gray)]/50 hover:bg-[var(--concrete-gray)]'
       )}
     >
