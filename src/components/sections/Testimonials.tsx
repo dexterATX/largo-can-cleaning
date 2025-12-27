@@ -80,36 +80,36 @@ function ReviewCard({
         'bg-white/5 hover:bg-white/10 transition-colors'
       )}
     >
-      {/* Stars at top */}
+      {/* Author at top */}
+      <div className="flex items-center gap-2 mb-2">
+        <Image
+          src={img}
+          alt={name}
+          width={22}
+          height={22}
+          className="rounded-full"
+          loading="lazy"
+        />
+        <figcaption className="text-[10px] font-medium text-white">
+          {name}
+        </figcaption>
+      </div>
+
+      {/* Stars */}
       <div className="flex items-center gap-0.5 mb-2">
         {Array.from({ length: 5 }).map((_, i) => (
           <Star
             key={i}
-            className="w-2.5 h-2.5 text-[var(--safety-orange)] fill-[var(--safety-orange)]"
+            className="w-3 h-3 text-[var(--safety-orange)] fill-[var(--safety-orange)]"
             aria-hidden="true"
           />
         ))}
       </div>
 
-      {/* Quote */}
-      <blockquote className="text-[10px] leading-relaxed text-white/80 mb-3 line-clamp-5">
+      {/* Quote fills the rest */}
+      <blockquote className="text-[10px] leading-relaxed text-white/70 line-clamp-5">
         {body}
       </blockquote>
-
-      {/* Author at bottom */}
-      <div className="flex items-center gap-2">
-        <Image
-          src={img}
-          alt={name}
-          width={20}
-          height={20}
-          className="rounded-full"
-          loading="lazy"
-        />
-        <figcaption className="text-[9px] font-medium text-white/60">
-          {name}
-        </figcaption>
-      </div>
     </figure>
   )
 }
