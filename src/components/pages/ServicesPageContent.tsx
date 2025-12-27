@@ -924,13 +924,20 @@ function MobileServicesCarousel({ onServiceTap }: MobileServicesCarouselProps) {
           <button
             key={index}
             onClick={() => scrollToIndex(index)}
-            className={cn(
-              "h-2 rounded-full transition-all duration-150",
-              index === activeIndex
-                ? "bg-[var(--safety-orange)] w-6"
-                : "bg-[var(--steel-gray)]/50 w-2"
+            className="relative p-1"
+          >
+            <div
+              className={cn(
+                "w-2 h-2 rounded-full transition-colors duration-150",
+                index === activeIndex
+                  ? "bg-[var(--safety-orange)]"
+                  : "bg-[var(--steel-gray)]/50"
+              )}
+            />
+            {index === activeIndex && (
+              <div className="absolute inset-0 m-auto w-4 h-4 rounded-full border-2 border-[var(--safety-orange)]/50" />
             )}
-          />
+          </button>
         ))}
       </div>
 
@@ -1183,13 +1190,20 @@ function MobileStepsCarousel() {
               <button
                 key={index}
                 onClick={() => scrollToIndex(index)}
-                className={cn(
-                  "h-2 rounded-full transition-all duration-150",
-                  index === activeStep
-                    ? "bg-[var(--safety-orange)] w-6"
-                    : "bg-[var(--steel-gray)]/40 w-2"
+                className="relative p-1"
+              >
+                <div
+                  className={cn(
+                    "w-2 h-2 rounded-full transition-colors duration-150",
+                    index === activeStep
+                      ? "bg-[var(--safety-orange)]"
+                      : "bg-[var(--steel-gray)]/40"
+                  )}
+                />
+                {index === activeStep && (
+                  <div className="absolute inset-0 m-auto w-4 h-4 rounded-full border-2 border-[var(--safety-orange)]/50" />
                 )}
-              />
+              </button>
             ))}
           </div>
 
