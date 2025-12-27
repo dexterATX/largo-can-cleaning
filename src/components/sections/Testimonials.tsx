@@ -154,17 +154,17 @@ export default function Testimonials() {
               <ReviewCard key={review.name} {...review} />
             ))}
           </Marquee>
-          <Marquee reverse pauseOnHover vertical className="[--duration:25s] [--gap:0.75rem] !p-0">
+          <Marquee reverse pauseOnHover vertical className="[--duration:25s] [--gap:0.75rem] !p-0 mt-8">
             {secondRow.map((review) => (
               <ReviewCard key={review.name} {...review} />
             ))}
           </Marquee>
-          <Marquee reverse pauseOnHover vertical className="[--duration:25s] [--gap:0.75rem] !p-0">
+          <Marquee reverse pauseOnHover vertical className="[--duration:25s] [--gap:0.75rem] !p-0 mt-4">
             {thirdRow.map((review) => (
               <ReviewCard key={review.name} {...review} />
             ))}
           </Marquee>
-          <Marquee pauseOnHover vertical className="[--duration:25s] [--gap:0.75rem] !p-0">
+          <Marquee pauseOnHover vertical className="[--duration:25s] [--gap:0.75rem] !p-0 mt-12">
             {fourthRow.map((review) => (
               <ReviewCard key={review.name} {...review} />
             ))}
