@@ -10,7 +10,7 @@ export const metadata: Metadata = {
     'bin cleaning before after',
     'garbage can sanitization photos',
     'cleaning service gallery',
-    'CleanCan Pro work',
+    'Largo Can Cleaning work',
   ],
   alternates: {
     canonical: `${BUSINESS_INFO.url}/gallery`,

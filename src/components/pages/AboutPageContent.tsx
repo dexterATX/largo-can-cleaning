@@ -110,7 +110,7 @@ const whyChooseUs = [
 
 const testimonials = [
   {
-    quote: "CleanCan Pro transformed my disgusting trash cans into sparkling clean bins. The smell is completely gone! I can finally open my garage without holding my breath.",
+    quote: "Largo Can Cleaning transformed my disgusting trash cans into sparkling clean bins. The smell is completely gone! I can finally open my garage without holding my breath.",
     author: 'Sarah M.',
     location: 'Seminole, FL',
     rating: 5,
@@ -223,7 +223,7 @@ function HeroSection() {
               <span className="relative inline-flex rounded-full h-2 w-2 bg-[var(--safety-orange)]" />
             </span>
             <span className="text-xs font-semibold tracking-widest uppercase text-[var(--safety-orange)]">
-              About CleanCan Pro
+              About Largo Can Cleaning
             </span>
           </motion.div>
 
@@ -512,10 +512,10 @@ function StorySection() {
                 </blockquote>
                 <div className="flex items-center gap-3">
                   <div className="w-12 h-12 rounded-full bg-[var(--safety-orange)] flex items-center justify-center">
-                    <span className="text-white font-bold text-lg">CP</span>
+                    <span className="text-white font-bold text-lg">LC</span>
                   </div>
                   <div>
-                    <p className="text-white font-semibold">CleanCan Pro Team</p>
+                    <p className="text-white font-semibold">Largo Can Cleaning Team</p>
                     <p className="text-sm text-[var(--slate-gray)]">Founders, Seminole FL</p>
                   </div>
                 </div>
@@ -547,7 +547,7 @@ function WhyChooseUsSection() {
             <span className="text-[10px] font-semibold uppercase tracking-wider text-[var(--safety-orange)]">Why Choose Us</span>
           </div>
           <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-3">
-            The CleanCan Pro Difference
+            The Largo Can Cleaning Difference
           </h2>
           <p className="text-[var(--slate-gray)] max-w-lg mx-auto">
             Professional service, local care, guaranteed results.
@@ -956,7 +956,7 @@ function CTASection() {
                     <Sparkles className="w-7 h-7 text-white" />
                   </div>
                   <h2 className="text-2xl lg:text-3xl font-bold text-white mb-3">
-                    Ready to Experience the CleanCan Pro Difference?
+                    Ready to Experience the Largo Can Cleaning Difference?
                   </h2>
                   <p className="text-base text-[var(--slate-gray)] mb-6 max-w-lg">
                     Join over 500 satisfied customers in Pinellas County. Get your free quote

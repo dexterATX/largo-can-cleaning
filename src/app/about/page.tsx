@@ -6,9 +6,9 @@ export const metadata: Metadata = {
   title: 'About Us',
   description: `Learn about ${BUSINESS_INFO.name} - your trusted trash can cleaning service in ${BUSINESS_INFO.address.city}, FL. Family-owned, eco-friendly, and committed to healthier communities.`,
   keywords: [
-    'about CleanCan Pro',
+    'about Largo Can Cleaning',
     'trash can cleaning company',
-    'Seminole FL cleaning service',
+    'Largo FL cleaning service',
     'eco-friendly bin cleaning',
     'local cleaning business',
   ],

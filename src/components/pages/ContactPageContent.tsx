@@ -379,12 +379,12 @@ function ContactFormSection() {
               </div>
               <div className="space-y-1 lg:space-y-2 text-xs lg:text-sm">
                 <div className="flex justify-between">
-                  <span className="text-[var(--slate-gray)]">Mon - Fri</span>
-                  <span className="text-white font-medium">8am - 6pm</span>
+                  <span className="text-[var(--slate-gray)]">Every Day</span>
+                  <span className="text-white font-medium">24/7</span>
                 </div>
                 <div className="flex justify-between">
-                  <span className="text-[var(--slate-gray)]">Saturday</span>
-                  <span className="text-white font-medium">9am - 2pm</span>
+                  <span className="text-[var(--slate-gray)]">Availability</span>
+                  <span className="text-white font-medium">7 Days a Week</span>
                 </div>
               </div>
             </div>

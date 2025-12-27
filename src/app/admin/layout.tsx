@@ -2,8 +2,8 @@ import AuthGuard from '@/components/admin/AuthGuard'
 import AdminLayoutWrapper from '@/components/admin/AdminLayoutWrapper'
 
 export const metadata = {
-  title: 'Admin Panel | CleanCan Pro',
-  description: 'CleanCan Pro Admin Dashboard',
+  title: 'Admin Panel | Largo Can Cleaning',
+  description: 'Largo Can Cleaning Admin Dashboard',
   robots: {
     index: false,
     follow: false,

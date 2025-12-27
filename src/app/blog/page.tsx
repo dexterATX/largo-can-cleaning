@@ -4,7 +4,7 @@ import { BUSINESS_INFO } from '@/lib/schema'
 
 export const metadata: Metadata = {
   title: 'Blog | Tips & Insights',
-  description: 'Expert tips on trash can cleaning, home hygiene, pest prevention, and maintaining a clean outdoor space. Stay informed with CleanCan Pro.',
+  description: 'Expert tips on trash can cleaning, home hygiene, pest prevention, and maintaining a clean outdoor space. Stay informed with Largo Can Cleaning.',
   keywords: [
     'trash can cleaning tips',
     'garbage bin hygiene',

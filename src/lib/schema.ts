@@ -1,28 +1,28 @@
 /**
  * JSON-LD Schema generators for SEO
- * CleanCan Pro - Seminole, Florida 33776
+ * Largo Can Cleaning - Largo, Florida 33770
  */
 
 export const BUSINESS_INFO = {
-  name: 'CleanCan Pro',
-  description: 'Professional trash can cleaning and sanitization service in Seminole, Florida. We eliminate 99.9% of bacteria, odors, and pests from your trash cans.',
+  name: 'Largo Can Cleaning',
+  description: 'Professional trash can cleaning and sanitization service in Largo, Florida. We eliminate 99.9% of bacteria, odors, and pests from your trash cans.',
   slogan: 'Professional-grade sanitation for your bins',
-  phone: '727-555-0123', // Placeholder - update with real number
-  email: 'info@cleancanpro.com',
+  phone: '352-843-3425',
+  email: 'support@largocancleaning.com',
   address: {
-    street: '123 Main Street', // Placeholder
-    city: 'Seminole',
+    street: '123 Main Street',
+    city: 'Largo',
     state: 'FL',
-    zip: '33776',
+    zip: '33770',
     country: 'US',
   },
   geo: {
-    latitude: 27.8397,
-    longitude: -82.7918,
+    latitude: 27.9095,
+    longitude: -82.7873,
   },
-  url: 'https://cleancanpro.com',
+  url: 'https://largocancleaning.com',
   priceRange: '$25 - $77',
-  openingHours: 'Mo-Fr 08:00-18:00, Sa 09:00-14:00',
+  openingHours: 'Mo-Su 00:00-23:59',
   areaServed: [
     'Seminole',
     'Largo',
@@ -68,15 +68,9 @@ export function generateLocalBusinessSchema() {
     openingHoursSpecification: [
       {
         '@type': 'OpeningHoursSpecification',
-        dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'],
-        opens: '08:00',
-        closes: '18:00',
-      },
-      {
-        '@type': 'OpeningHoursSpecification',
-        dayOfWeek: 'Saturday',
-        opens: '09:00',
-        closes: '14:00',
+        dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday', 'Sunday'],
+        opens: '00:00',
+        closes: '23:59',
       },
     ],
     sameAs: [

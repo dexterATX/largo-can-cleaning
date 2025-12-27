@@ -28,11 +28,11 @@ interface Settings {
 }
 
 const defaultSettings: Settings = {
-  business_name: 'CleanCan Pro',
+  business_name: 'Largo Can Cleaning',
   business_tagline: 'Professional Trash Can Cleaning',
-  business_phone: '(727) 555-0123',
-  business_email: 'info@cleancanpro.com',
-  default_meta_title: 'CleanCan Pro | Professional Trash Can Cleaning in Seminole, FL',
+  business_phone: '(352) 843-3425',
+  business_email: 'support@largocancleaning.com',
+  default_meta_title: 'Largo Can Cleaning | Professional Trash Can Cleaning in Largo, FL',
   default_meta_description: 'Professional trash can cleaning and sanitization services in Pinellas County.',
   social_facebook: '',
   social_instagram: '',

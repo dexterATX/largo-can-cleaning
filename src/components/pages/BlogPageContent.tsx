@@ -130,7 +130,7 @@ const fallbackPosts: BlogPost[] = [
   {
     id: 7,
     slug: 'cleancan-pro-expansion-2025',
-    title: 'CleanCan Pro Expands Service to All of Pinellas County',
+    title: 'Largo Can Cleaning Expands Service to All of Pinellas County',
     excerpt: 'We\'re excited to announce our expanded coverage area, now serving more communities across the region.',
     category: 'news',
     categoryLabel: 'Company News',

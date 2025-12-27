@@ -101,14 +101,14 @@ export default function Footer() {
                 <div className="relative w-11 h-11">
                   <Image
                     src="/logo.png"
-                    alt="CleanCan Pro Mascot"
+                    alt="Largo Can Cleaning Mascot"
                     fill
                     className="object-contain"
                   />
                 </div>
                 <div className="flex flex-col">
-                  <span className="text-base font-bold text-white leading-none">CleanCan</span>
-                  <span className="text-[8px] font-semibold text-[var(--safety-orange)] uppercase tracking-widest">Pro</span>
+                  <span className="text-base font-bold text-white leading-none">LargoCan</span>
+                  <span className="text-[8px] font-semibold text-[var(--safety-orange)] uppercase tracking-widest">Cleaning</span>
                 </div>
               </Link>
               <a
@@ -158,8 +158,8 @@ export default function Footer() {
                   </a>
                   <div className="pt-2 border-t border-[var(--steel-gray)]/10">
                     <p className="text-xs text-[var(--slate-gray)] mb-1">Business Hours</p>
-                    <p className="text-sm text-[var(--light-gray)]">Mon - Fri: 8am - 6pm</p>
-                    <p className="text-sm text-[var(--light-gray)]">Saturday: 9am - 2pm</p>
+                    <p className="text-sm text-[var(--light-gray)]">Open 24/7</p>
+                    <p className="text-sm text-[var(--light-gray)]">7 Days a Week</p>
                   </div>
                 </div>
               </FooterDropdown>
@@ -184,14 +184,14 @@ export default function Footer() {
                 <div className="relative w-14 h-14">
                   <Image
                     src="/logo.png"
-                    alt="CleanCan Pro Mascot"
+                    alt="Largo Can Cleaning Mascot"
                     fill
                     className="object-contain"
                   />
                 </div>
                 <div className="flex flex-col">
-                  <span className="text-lg font-bold text-white leading-none">CleanCan</span>
-                  <span className="text-[9px] font-semibold text-[var(--safety-orange)] uppercase tracking-widest">Pro</span>
+                  <span className="text-lg font-bold text-white leading-none">LargoCan</span>
+                  <span className="text-[9px] font-semibold text-[var(--safety-orange)] uppercase tracking-widest">Cleaning</span>
                 </div>
               </Link>
               <p className="text-sm text-[var(--slate-gray)] mb-5 max-w-xs">
@@ -245,8 +245,8 @@ export default function Footer() {
                 <div className="flex items-start gap-2.5 text-sm">
                   <Clock className="w-4 h-4 text-[var(--safety-orange)] mt-0.5 shrink-0" />
                   <div className="text-[var(--slate-gray)]">
-                    <p>Mon - Fri: 8am - 6pm</p>
-                    <p>Saturday: 9am - 2pm</p>
+                    <p>Open 24/7</p>
+                    <p>7 Days a Week</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-2.5 text-sm">

@@ -3,7 +3,7 @@ import { notFound } from 'next/navigation'
 import BlogPostContent from '@/components/pages/BlogPostContent'
 import { generateArticleSchema, generateBreadcrumbSchema, BUSINESS_INFO } from '@/lib/schema'
 
-const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://cleancanpro.com'
+const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://largocancleaning.com'
 
 // Fallback posts for when Supabase is not configured
 const fallbackPosts: Record<string, {
@@ -84,7 +84,7 @@ const fallbackPosts: Record<string, {
       </ul>
 
       <h2>Professional Bin Cleaning</h2>
-      <p>Professional services like CleanCan Pro offer a completely different experience:</p>
+      <p>Professional services like Largo Can Cleaning offer a completely different experience:</p>
 
       <h3>What's Included:</h3>
       <ul>
@@ -184,7 +184,7 @@ const fallbackPosts: Record<string, {
     excerpt: 'Learn about our sustainable cleaning process, biodegradable solutions, and zero-runoff water capture system.',
     content: `
       <h2>Our Commitment to Sustainability</h2>
-      <p>At CleanCan Pro, we believe effective cleaning shouldn't come at the cost of our environment. That's why we've developed a cleaning system that's as green as it is powerful.</p>
+      <p>At Largo Can Cleaning, we believe effective cleaning shouldn't come at the cost of our environment. That's why we've developed a cleaning system that's as green as it is powerful.</p>
 
       <h2>100% Water Capture System</h2>
       <p>Our specially designed trucks feature complete water capture systems. Every drop of water used in cleaning your bins is captured, filtered, and properly disposed of. Zero runoff means:</p>
@@ -207,7 +207,7 @@ const fallbackPosts: Record<string, {
       <p>Our high-pressure, high-temperature system uses significantly less water than DIY cleaning while achieving superior results. We typically use only 2-3 gallons per bin compared to 50+ gallons with a garden hose.</p>
 
       <h2>Supporting Local Environmental Initiatives</h2>
-      <p>A portion of every cleaning goes toward local beach cleanup and environmental restoration projects. When you choose CleanCan Pro, you're supporting a cleaner community in multiple ways.</p>
+      <p>A portion of every cleaning goes toward local beach cleanup and environmental restoration projects. When you choose Largo Can Cleaning, you're supporting a cleaner community in multiple ways.</p>
     `,
     category: 'sustainability',
     categoryLabel: 'Eco-Friendly',
@@ -249,11 +249,11 @@ const fallbackPosts: Record<string, {
     image: '/images/blog/summer-tips.jpg',
   },
   'cleancan-pro-expansion-2025': {
-    title: 'CleanCan Pro Expands Service to All of Pinellas County',
+    title: 'Largo Can Cleaning Expands Service to All of Pinellas County',
     excerpt: 'We\'re excited to announce our expanded coverage area, now serving more communities across the region.',
     content: `
       <h2>Growing to Serve You Better</h2>
-      <p>We're thrilled to announce that CleanCan Pro is expanding our service area to cover all of Pinellas County! This means more residents can now enjoy the benefits of professional trash can cleaning.</p>
+      <p>We're thrilled to announce that Largo Can Cleaning is expanding our service area to cover all of Pinellas County! This means more residents can now enjoy the benefits of professional trash can cleaning.</p>
 
       <h2>New Service Areas</h2>
       <p>In addition to our existing coverage in Seminole and surrounding areas, we now serve:</p>
@@ -400,7 +400,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   if (!data?.post) {
     return {
-      title: 'Post Not Found | CleanCan Pro Blog',
+      title: 'Post Not Found | Largo Can Cleaning Blog',
     }
   }
 
@@ -408,7 +408,7 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const canonicalUrl = `${BASE_URL}/blog/${slug}`
 
   return {
-    title: post.metaTitle || `${post.title} | CleanCan Pro Blog`,
+    title: post.metaTitle || `${post.title} | Largo Can Cleaning Blog`,
     description: post.metaDescription || post.excerpt,
     keywords: post.metaKeywords?.join(', '),
     alternates: {

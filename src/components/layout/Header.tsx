@@ -179,18 +179,18 @@ export default function Header() {
             <div className="relative w-14 h-14 sm:w-16 sm:h-16 transition-transform duration-300 group-hover:scale-105">
               <Image
                 src="/logo.png"
-                alt="CleanCan Pro Mascot"
+                alt="Largo Can Cleaning Mascot"
                 fill
                 className="object-contain"
                 priority
               />
             </div>
             <div className="flex flex-col">
-              <span className="text-lg sm:text-xl font-bold text-white tracking-tight">
-                CleanCan
+              <span className="text-lg sm:text-xl font-bold text-white tracking-tight leading-none">
+                LargoCan
               </span>
-              <span className="text-[10px] sm:text-xs font-semibold text-[var(--safety-orange)] uppercase tracking-widest -mt-1">
-                Pro
+              <span className="text-[10px] sm:text-xs font-semibold text-[var(--safety-orange)] uppercase tracking-widest">
+                Cleaning
               </span>
             </div>
           </Link>
@@ -278,15 +278,15 @@ export default function Header() {
                   <div className="relative w-12 h-12">
                     <Image
                       src="/logo.png"
-                      alt="CleanCan Pro Mascot"
+                      alt="Largo Can Cleaning Mascot"
                       fill
                       className="object-contain"
                     />
                   </div>
                   <div className="flex flex-col">
-                    <span className="text-lg font-bold text-white">CleanCan</span>
-                    <span className="text-[9px] font-semibold text-[var(--safety-orange)] uppercase tracking-widest -mt-0.5">
-                      Pro
+                    <span className="text-lg font-bold text-white leading-none">LargoCan</span>
+                    <span className="text-[9px] font-semibold text-[var(--safety-orange)] uppercase tracking-widest">
+                      Cleaning
                     </span>
                   </div>
                 </Link>

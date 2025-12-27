@@ -174,11 +174,11 @@ export default function Testimonials() {
           </Marquee>
         </div>
 
-        {/* Gradient overlays */}
-        <div className="pointer-events-none absolute inset-x-0 top-0 h-1/4 bg-gradient-to-b from-[var(--asphalt-dark)]" />
-        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/4 bg-gradient-to-t from-[var(--asphalt-dark)]" />
-        <div className="pointer-events-none absolute inset-y-0 left-0 w-1/4 bg-gradient-to-r from-[var(--asphalt-dark)]" />
-        <div className="pointer-events-none absolute inset-y-0 right-0 w-1/4 bg-gradient-to-l from-[var(--asphalt-dark)]" />
+        {/* Gradient overlays - larger fade zones for smooth card transitions */}
+        <div className="pointer-events-none absolute inset-x-0 top-0 h-1/3 bg-gradient-to-b from-[var(--asphalt-dark)] via-[var(--asphalt-dark)]/50 to-transparent" />
+        <div className="pointer-events-none absolute inset-x-0 bottom-0 h-1/3 bg-gradient-to-t from-[var(--asphalt-dark)] via-[var(--asphalt-dark)]/50 to-transparent" />
+        <div className="pointer-events-none absolute inset-y-0 left-0 w-1/3 bg-gradient-to-r from-[var(--asphalt-dark)] via-[var(--asphalt-dark)]/50 to-transparent" />
+        <div className="pointer-events-none absolute inset-y-0 right-0 w-1/3 bg-gradient-to-l from-[var(--asphalt-dark)] via-[var(--asphalt-dark)]/50 to-transparent" />
       </div>
 
       {/* Google Reviews Badge */}

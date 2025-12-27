@@ -59,7 +59,7 @@ export default function AdminSidebar() {
             <Sparkles className="w-5 h-5 text-white" />
           </div>
           <div>
-            <h1 className="text-lg font-bold text-white">CleanCan Pro</h1>
+            <h1 className="text-lg font-bold text-white">Largo Can Cleaning</h1>
             <p className="text-[10px] text-[var(--slate-gray)] uppercase tracking-wider">Admin Panel</p>
           </div>
         </Link>

@@ -33,16 +33,17 @@ const WaterParticle = memo(function WaterParticle({ delay, x, size }: { delay: n
 })
 
 // Generate particles arrays - full for desktop, reduced for mobile
-const desktopParticles = Array.from({ length: 20 }, (_, i) => ({
+// Particles start with small delays to sync with content animation (starts at 0s)
+const desktopParticles = Array.from({ length: 35 }, (_, i) => ({
   id: i,
-  delay: Math.random() * 3,
+  delay: i * 0.1, // Staggered start synced with content appearing
   x: Math.random() * 100,
   size: 4 + Math.random() * 8,
 }))
 
-const mobileParticles = Array.from({ length: 6 }, (_, i) => ({
+const mobileParticles = Array.from({ length: 12 }, (_, i) => ({
   id: i,
-  delay: Math.random() * 2,
+  delay: i * 0.15, // Staggered start synced with content appearing
   x: Math.random() * 100,
   size: 4 + Math.random() * 6,
 }))

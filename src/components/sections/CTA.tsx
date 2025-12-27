@@ -9,7 +9,7 @@ import { BUSINESS_INFO } from '@/lib/schema'
 export default function CTA() {
   return (
     <section
-      className="py-5 sm:py-24 bg-[var(--asphalt-dark)] relative overflow-hidden"
+      className="pt-5 pb-12 sm:pt-24 sm:pb-28 bg-[var(--asphalt-dark)] relative overflow-hidden"
       aria-labelledby="cta-heading"
     >
       {/* Background Elements - Blur elements hidden on mobile for performance */}

@@ -1,6 +1,6 @@
 'use client'
 
-// Analytics Tracker for CleanCan Pro
+// Analytics Tracker for Largo Can Cleaning
 // Tracks page views, scroll depth, and time on page
 
 const TRACKING_ENDPOINT = '/api/analytics/track'

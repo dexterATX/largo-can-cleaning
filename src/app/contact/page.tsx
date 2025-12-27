@@ -6,9 +6,9 @@ export const metadata: Metadata = {
   title: 'Contact Us',
   description: `Contact ${BUSINESS_INFO.name} for professional trash can cleaning in ${BUSINESS_INFO.address.city}, FL. Call ${BUSINESS_INFO.phone} or request a free quote online.`,
   keywords: [
-    'contact CleanCan Pro',
+    'contact Largo Can Cleaning',
     'trash can cleaning quote',
-    'bin cleaning Seminole FL',
+    'bin cleaning Largo FL',
     'schedule bin cleaning',
   ],
   alternates: {
