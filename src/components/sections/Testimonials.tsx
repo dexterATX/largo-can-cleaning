@@ -9,49 +9,49 @@ const reviews = [
   {
     name: 'Maria G.',
     location: 'Seminole, FL',
-    body: "Can't believe I waited so long! My trash cans look brand new.",
+    body: "Can't believe I waited so long to try this service! My trash cans look brand new and smell fresh. Highly recommend to everyone.",
     img: 'https://i.pravatar.cc/150?img=32',
   },
   {
     name: 'James W.',
     location: 'Largo, FL',
-    body: "Signed up all 12 of my properties. The tenants love it!",
+    body: "Signed up all 12 of my rental properties. The tenants love it and I don't get complaints about smelly bins anymore!",
     img: 'https://i.pravatar.cc/150?img=11',
   },
   {
     name: 'Patricia C.',
     location: 'Clearwater, FL',
-    body: 'Had a maggot problem. One cleaning and it was gone!',
+    body: "Had a horrible maggot problem in my bins. One cleaning and it was completely gone. These guys are lifesavers!",
     img: 'https://i.pravatar.cc/150?img=5',
   },
   {
     name: 'Marcus J.',
     location: 'St. Petersburg, FL',
-    body: "They show up, do their thing, and my cans are spotless.",
+    body: "Super easy service. They show up right after trash pickup, do their thing, and my cans are spotless every time.",
     img: 'https://i.pravatar.cc/150?img=53',
   },
   {
     name: 'Emily R.',
     location: 'Pinellas Park, FL',
-    body: 'HOA was complaining about dirty bins. Problem solved!',
+    body: "My HOA was complaining about dirty bins on the street. Problem solved! Now my bins are the cleanest in the neighborhood.",
     img: 'https://i.pravatar.cc/150?img=23',
   },
   {
     name: 'Thomas A.',
     location: 'Dunedin, FL',
-    body: "Best investment for my home. No more garage smell.",
+    body: "Best investment for my home. No more awful garage smell when I store the bins inside. Worth every single penny.",
     img: 'https://i.pravatar.cc/150?img=12',
   },
   {
     name: 'Rachel K.',
     location: 'Palm Harbor, FL',
-    body: "Professional and thorough. My bins have never been cleaner!",
+    body: "Professional, thorough, and on time every month. My bins have never been cleaner. Five stars all the way!",
     img: 'https://i.pravatar.cc/150?img=9',
   },
   {
     name: 'Brian M.',
     location: 'Safety Harbor, FL',
-    body: "Worth every penny. No more raccoons at night.",
+    body: "Worth every penny! No more raccoons digging through my trash at night. The sanitizing really makes a difference.",
     img: 'https://i.pravatar.cc/150?img=68',
   },
 ]
@@ -107,7 +107,7 @@ function ReviewCard({
       </div>
 
       {/* Quote */}
-      <blockquote className="text-[9px] leading-relaxed text-white/60 line-clamp-4">
+      <blockquote className="text-[9px] leading-relaxed text-white/60 line-clamp-6">
         {body}
       </blockquote>
     </figure>
