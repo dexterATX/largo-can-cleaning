@@ -261,13 +261,22 @@ function FAQItem({ faq, index, isOpen, onToggle }: {
   isOpen: boolean
   onToggle: () => void
 }) {
+  const contentRef = useRef<HTMLDivElement>(null)
+  const [height, setHeight] = useState(0)
+
+  useEffect(() => {
+    if (contentRef.current) {
+      setHeight(contentRef.current.scrollHeight)
+    }
+  }, [faq.a])
+
   return (
     <div
       className={cn(
-        "rounded-xl border transition-colors duration-150",
+        "rounded-xl border",
         isOpen
           ? "bg-[var(--concrete-gray)]/50 border-[var(--safety-orange)]/30"
-          : "bg-[var(--concrete-gray)]/20 border-[var(--steel-gray)]/20 hover:border-[var(--steel-gray)]/40"
+          : "bg-[var(--concrete-gray)]/20 border-[var(--steel-gray)]/20"
       )}
     >
       <button
@@ -277,7 +286,7 @@ function FAQItem({ faq, index, isOpen, onToggle }: {
         {/* Number badge */}
         <div
           className={cn(
-            "w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 text-xs font-bold transition-colors duration-150",
+            "w-8 h-8 rounded-lg flex items-center justify-center flex-shrink-0 text-xs font-bold",
             isOpen
               ? "bg-[var(--safety-orange)] text-white"
               : "bg-[var(--steel-gray)]/20 text-[var(--slate-gray)]"
@@ -287,47 +296,41 @@ function FAQItem({ faq, index, isOpen, onToggle }: {
         </div>
 
         <span className={cn(
-          "flex-1 text-sm font-medium transition-colors duration-150",
+          "flex-1 text-sm font-medium",
           isOpen ? "text-white" : "text-[var(--light-gray)]"
         )}>
           {faq.q}
         </span>
 
-        {/* Plus/Minus icon - CSS only */}
+        {/* Plus/Minus icon */}
         <div
           className={cn(
-            "w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0 transition-colors duration-150",
+            "w-6 h-6 rounded-full flex items-center justify-center flex-shrink-0",
             isOpen ? "bg-[var(--safety-orange)]/20" : "bg-[var(--steel-gray)]/20"
           )}
         >
-          <span className="relative w-3 h-3">
-            {/* Horizontal line */}
-            <span className={cn(
-              "absolute top-1/2 left-0 w-full h-0.5 -translate-y-1/2 transition-colors duration-150",
-              isOpen ? "bg-[var(--safety-orange)]" : "bg-[var(--slate-gray)]"
-            )} />
-            {/* Vertical line (hidden when open) */}
-            <span className={cn(
-              "absolute top-0 left-1/2 w-0.5 h-full -translate-x-1/2 transition-all duration-150",
-              isOpen ? "bg-transparent scale-0" : "bg-[var(--slate-gray)] scale-100"
-            )} />
-          </span>
+          <ChevronDown
+            className={cn(
+              "w-4 h-4 will-change-transform",
+              isOpen ? "text-[var(--safety-orange)] rotate-180" : "text-[var(--slate-gray)] rotate-0"
+            )}
+            style={{ transition: 'transform 100ms ease-out' }}
+          />
         </div>
       </button>
 
-      {/* CSS Grid for smooth height animation */}
+      {/* Height-based animation with will-change */}
       <div
-        className={cn(
-          "grid transition-[grid-template-rows] duration-150 ease-out",
-          isOpen ? "grid-rows-[1fr]" : "grid-rows-[0fr]"
-        )}
+        className="overflow-hidden will-change-[height]"
+        style={{
+          height: isOpen ? height : 0,
+          transition: 'height 100ms ease-out',
+        }}
       >
-        <div className="overflow-hidden">
-          <div className="px-4 pb-4 pl-[60px]">
-            <p className="text-sm text-[var(--slate-gray)] leading-relaxed">
-              {faq.a}
-            </p>
-          </div>
+        <div ref={contentRef} className="px-4 pb-4 pl-[60px]">
+          <p className="text-sm text-[var(--slate-gray)] leading-relaxed">
+            {faq.a}
+          </p>
         </div>
       </div>
     </div>
@@ -615,12 +618,7 @@ export default function PricingPageContent() {
 
         <Container className="relative z-10">
           {/* Header */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="mb-8"
-          >
+          <div className="mb-8">
             {/* Mobile: Centered */}
             <div className="sm:hidden text-center">
               <div className="inline-flex items-center gap-2 px-3 py-1.5 mb-4 rounded-full bg-[var(--safety-orange)]/10 border border-[var(--safety-orange)]/20">
@@ -654,7 +652,7 @@ export default function PricingPageContent() {
                 <p className="text-xs text-[var(--slate-gray)]">Questions answered</p>
               </div>
             </div>
-          </motion.div>
+          </div>
 
           {/* FAQ Items - Stacked Cards */}
           <div className="max-w-2xl mx-auto space-y-3">
@@ -670,12 +668,7 @@ export default function PricingPageContent() {
           </div>
 
           {/* Bottom CTA */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            className="max-w-2xl mx-auto mt-8"
-          >
+          <div className="max-w-2xl mx-auto mt-8">
             {/* Mobile: Simple link */}
             <div className="sm:hidden text-center">
               <a
@@ -713,7 +706,7 @@ export default function PricingPageContent() {
                 </a>
               </div>
             </div>
-          </motion.div>
+          </div>
         </Container>
       </section>
 
