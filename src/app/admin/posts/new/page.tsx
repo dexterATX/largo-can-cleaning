@@ -19,7 +19,7 @@ import type { Category, BlogPostInsert } from '@/types/admin'
 export default function NewPostPage() {
   const router = useRouter()
   const [categories, setCategories] = useState<Category[]>([])
-  const [isLoading, setIsLoading] = useState(false)
+  const [isLoading] = useState(false)
   const [isSaving, setIsSaving] = useState(false)
   const [error, setError] = useState('')
   const [showSeoPanel, setShowSeoPanel] = useState(false)

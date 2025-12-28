@@ -113,6 +113,7 @@ export default function Footer() {
                     src="/logo.png"
                     alt="Largo Can Cleaning - Professional Trash Can Cleaning Service in Pinellas County, Florida"
                     fill
+                    sizes="44px"
                     className="object-contain"
                   />
                 </div>
@@ -211,6 +212,7 @@ export default function Footer() {
                     src="/logo.png"
                     alt="Largo Can Cleaning - Professional Trash Can Cleaning Service in Pinellas County, Florida"
                     fill
+                    sizes="56px"
                     className="object-contain"
                   />
                 </div>

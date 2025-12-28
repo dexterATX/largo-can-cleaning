@@ -256,7 +256,7 @@ const FeaturedPostCard = memo(function FeaturedPostCard({ post, categories }: { 
 })
 
 // Regular Post Card - Mobile First (Compact) - Memoized to prevent re-renders
-const PostCard = memo(function PostCard({ post, categories, index = 0 }: { post: BlogPost; categories: Category[]; index?: number }) {
+const PostCard = memo(function PostCard({ post, categories }: { post: BlogPost; categories: Category[] }) {
   return (
     <article
       className="relative h-full rounded-xl overflow-hidden bg-[var(--concrete-gray)]/30 border border-[var(--steel-gray)]/20 active:border-[var(--safety-orange)]/30 lg:hover:border-[var(--safety-orange)]/30 transition-all group"
@@ -434,7 +434,7 @@ const MobileTrendingCarousel = memo(function MobileTrendingCarousel({ posts, cat
           onDrag={handleScroll}
           className="flex gap-3 px-4 cursor-grab active:cursor-grabbing"
         >
-          {featuredFirst.slice(0, 5).map((post, index) => (
+          {featuredFirst.slice(0, 5).map((post) => (
             <div
               key={post.id}
               className="flex-shrink-0 w-[280px] group relative"
@@ -695,17 +695,15 @@ export default function BlogPageContent() {
                 </div>
               )}
 
-              {/* Mobile: 2-column compact grid - show all filtered posts */}
               <div className="grid gap-3 grid-cols-2 lg:hidden">
-                {filteredPosts.map((post, index) => (
-                  <PostCard key={post.id} post={post} categories={categories} index={index} />
+                {filteredPosts.map((post) => (
+                  <PostCard key={post.id} post={post} categories={categories} />
                 ))}
               </div>
 
-              {/* Desktop: Normal grid - show regular posts (featured shown above) */}
               <div className="hidden lg:grid gap-6 grid-cols-3">
-                {(activeCategory !== 'all' || searchQuery ? filteredPosts : regularPosts.length > 0 ? regularPosts : filteredPosts).map((post, index) => (
-                  <PostCard key={post.id} post={post} categories={categories} index={index} />
+                {(activeCategory !== 'all' || searchQuery ? filteredPosts : regularPosts.length > 0 ? regularPosts : filteredPosts).map((post) => (
+                  <PostCard key={post.id} post={post} categories={categories} />
                 ))}
               </div>
             </div>

@@ -278,7 +278,7 @@ export default function FAQPageContent() {
               transition={{ duration: 0.35, delay: 0.1 }}
               className="text-base sm:text-lg md:text-xl text-[var(--light-gray)] max-w-2xl mx-auto mb-4"
             >
-              Browse our trash can cleaning FAQs—answers to common questions about Largo Can Cleaning's professional service in Largo FL
+              Browse our trash can cleaning FAQs—answers to common questions about Largo Can Cleaning&apos;s professional service in Largo FL
             </motion.p>
 
             {/* Additional descriptive content for SEO */}
@@ -288,7 +288,7 @@ export default function FAQPageContent() {
               transition={{ duration: 0.35, delay: 0.12 }}
               className="text-sm text-[var(--slate-gray)] max-w-xl mx-auto mb-8 leading-relaxed"
             >
-              Whether you're curious about our cleaning process, pricing options, service areas throughout Pinellas County, or scheduling details, we've compiled comprehensive answers to help you make an informed decision about professional bin sanitization.
+              Whether you&apos;re curious about our cleaning process, pricing options, service areas throughout Pinellas County, or scheduling details, we&apos;ve compiled comprehensive answers to help you make an informed decision about professional bin sanitization.
             </motion.p>
 
             {/* Feature Pills */}
@@ -439,10 +439,10 @@ export default function FAQPageContent() {
               We understand that choosing a professional trash can cleaning service is an important decision for your home or business. Our team at Largo Can Cleaning is committed to providing transparent information about our sanitization process, eco-friendly cleaning solutions, and flexible scheduling options. We proudly serve residential and commercial customers throughout Pinellas County, including Largo, Seminole, Clearwater, Pinellas Park, Safety Harbor, Dunedin, Palm Harbor, and Belleair.
             </p>
             <p className="text-sm sm:text-base text-[var(--slate-gray)] leading-relaxed mb-4">
-              Our professional bin cleaning service uses high-temperature, high-pressure water to eliminate 99.9% of bacteria, remove stubborn odors, and prevent pest infestations. With no contracts required and satisfaction guaranteed, there's no risk in trying our service. Our truck-mounted cleaning system heats water to 190°F and applies over 3,000 PSI of pressure to blast away years of built-up grime and bacteria that regular hosing simply cannot remove.
+              Our professional bin cleaning service uses high-temperature, high-pressure water to eliminate 99.9% of bacteria, remove stubborn odors, and prevent pest infestations. With no contracts required and satisfaction guaranteed, there&apos;s no risk in trying our service. Our truck-mounted cleaning system heats water to 190°F and applies over 3,000 PSI of pressure to blast away years of built-up grime and bacteria that regular hosing simply cannot remove.
             </p>
             <p className="text-sm sm:text-base text-[var(--slate-gray)] leading-relaxed mb-6">
-              Every cleaning includes a deodorizing treatment that leaves your bins smelling fresh for weeks. We capture all wastewater to protect your lawn and local waterways. Whether you have questions about residential service, commercial accounts, or our eco-friendly cleaning methods, we're here to help. Contact us today for a free quote or call us directly to speak with a member of our team about your specific trash can cleaning needs.
+              Every cleaning includes a deodorizing treatment that leaves your bins smelling fresh for weeks. We capture all wastewater to protect your lawn and local waterways. Whether you have questions about residential service, commercial accounts, or our eco-friendly cleaning methods, we&apos;re here to help. Contact us today for a free quote or call us directly to speak with a member of our team about your specific trash can cleaning needs.
             </p>
             <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
               <Link href="/contact">

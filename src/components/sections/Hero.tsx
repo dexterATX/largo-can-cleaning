@@ -1,14 +1,13 @@
 'use client'
 
-import { useRef, useEffect, useState, memo, useMemo } from 'react'
+import { useRef, useEffect, useState, memo, useMemo, startTransition } from 'react'
 import Link from 'next/link'
 import { motion, useScroll, useTransform } from 'motion/react'
 import { ArrowRight, Sparkles, Shield, Droplets, CheckCircle2 } from 'lucide-react'
 import Container from '@/components/ui/Container'
 import Button from '@/components/ui/Button'
 
-// Animated water droplet particle component - memoized to prevent unnecessary re-renders
-const WaterParticle = memo(function WaterParticle({ delay, x, size }: { delay: number; x: number; size: number }) {
+const WaterParticle = memo(function WaterParticle({ delay, x, size, duration }: { delay: number; x: number; size: number; duration: number }) {
   return (
     <motion.div
       className="absolute rounded-full bg-[var(--safety-orange)]/20 will-change-transform"
@@ -24,7 +23,7 @@ const WaterParticle = memo(function WaterParticle({ delay, x, size }: { delay: n
         opacity: [0, 1, 1, 0],
       }}
       transition={{
-        duration: 4 + Math.random() * 2,
+        duration,
         delay: delay,
         repeat: Infinity,
         ease: 'linear',
@@ -44,7 +43,6 @@ function seededRandom(seed: number): () => number {
   }
 }
 
-// Generate particles with deterministic positions for SSR/hydration consistency
 function generateParticles(count: number, seed: number, delayMultiplier: number, sizeRange: [number, number]) {
   const random = seededRandom(seed)
   return Array.from({ length: count }, (_, i) => ({
@@ -52,6 +50,7 @@ function generateParticles(count: number, seed: number, delayMultiplier: number,
     delay: i * delayMultiplier,
     x: random() * 100,
     size: sizeRange[0] + random() * (sizeRange[1] - sizeRange[0]),
+    duration: 4 + random() * 2,
   }))
 }
 
@@ -64,9 +63,10 @@ function Hero() {
   const [isMounted, setIsMounted] = useState(false)
   const [isMobile, setIsMobile] = useState(false)
 
-  // Check for mobile on client side only to avoid hydration mismatch
   useEffect(() => {
-    setIsMounted(true)
+    startTransition(() => {
+      setIsMounted(true)
+    })
     const checkMobile = () => setIsMobile(window.innerWidth < 768)
     checkMobile()
     window.addEventListener('resize', checkMobile)
@@ -113,6 +113,7 @@ function Hero() {
               delay={particle.delay}
               x={particle.x}
               size={particle.size}
+              duration={particle.duration}
             />
           ))}
         </div>

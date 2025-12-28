@@ -2,6 +2,7 @@
 
 import { useState } from 'react'
 import { useRouter } from 'next/navigation'
+import Link from 'next/link'
 import { motion } from 'motion/react'
 import { Lock, Loader2, AlertCircle, Shield } from 'lucide-react'
 
@@ -144,12 +145,12 @@ export default function AdminLoginPage() {
 
           {/* Footer */}
           <div className="mt-6 text-center">
-            <a
+            <Link
               href="/"
               className="text-sm text-[var(--slate-gray)] hover:text-[var(--safety-orange)] transition-colors"
             >
               &larr; Back to website
-            </a>
+            </Link>
           </div>
         </div>
 

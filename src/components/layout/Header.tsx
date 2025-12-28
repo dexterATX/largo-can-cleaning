@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useLayoutEffect, useRef, useCallback } from 'react'
+import { useState, useEffect, useLayoutEffect, useRef, useCallback, startTransition } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { usePathname } from 'next/navigation'
@@ -18,7 +18,6 @@ import {
   MapPin,
   Star,
   ChevronRight,
-  Sparkles,
   Shield,
   Zap,
   BookOpen,
@@ -40,21 +39,21 @@ const navLinks = [
   { href: '/contact', label: 'Contact', icon: Mail, desc: 'Get in touch' },
 ]
 
-const quickFeatures = [
-  { icon: Zap, label: 'Same-Day Service' },
-  { icon: Shield, label: '100% Guaranteed' },
-  { icon: Sparkles, label: 'Eco-Friendly' },
-]
-
 export default function Header() {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isScrolled, setIsScrolled] = useState(false)
   const pathname = usePathname()
   const menuButtonRef = useRef<HTMLButtonElement>(null)
 
-  // Close menu on route change
-  useEffect(() => {
-    setIsMenuOpen(false)
+  // Close menu on route change - using ref to avoid cascading renders
+  const prevPathname = useRef(pathname)
+  useLayoutEffect(() => {
+    if (prevPathname.current !== pathname) {
+      startTransition(() => {
+        setIsMenuOpen(false)
+      })
+      prevPathname.current = pathname
+    }
   }, [pathname])
 
   // useLayoutEffect runs synchronously before paint - prevents scrollbar flash
@@ -180,8 +179,10 @@ export default function Header() {
                 src="/logo.png"
                 alt="Largo Can Cleaning - Professional Trash Can Cleaning Service in Pinellas County, Florida"
                 fill
+                sizes="64px"
                 className="object-contain"
                 priority
+                fetchPriority="high"
               />
             </div>
             <div className="flex flex-col">
@@ -284,6 +285,7 @@ export default function Header() {
                       src="/logo.png"
                       alt="Largo Can Cleaning - Professional Trash Can Cleaning Service in Pinellas County, Florida"
                       fill
+                      sizes="48px"
                       className="object-contain"
                     />
                   </div>

@@ -7,7 +7,6 @@ import {
   Upload,
   FolderPlus,
   Settings,
-  ArrowRight,
 } from 'lucide-react'
 
 const actions = [

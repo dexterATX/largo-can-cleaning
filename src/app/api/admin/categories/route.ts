@@ -34,7 +34,7 @@ export async function GET() {
         ? (cat.blog_posts[0] as { count: number }).count
         : 0
       // Remove the nested blog_posts from the response
-      const { blog_posts, ...categoryData } = cat
+      const { blog_posts: _blog_posts, ...categoryData } = cat
       return {
         ...categoryData,
         post_count: postCount,

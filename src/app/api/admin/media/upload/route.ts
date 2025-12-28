@@ -90,7 +90,7 @@ export async function POST(request: NextRequest) {
     const buffer = Buffer.from(arrayBuffer)
 
     // Upload to Supabase Storage
-    const { data: uploadData, error: uploadError } = await supabase.storage
+    const { error: uploadError } = await supabase.storage
       .from(BUCKET_NAME)
       .upload(filePath, buffer, {
         contentType: file.type,
@@ -113,8 +113,8 @@ export async function POST(request: NextRequest) {
     const fileUrl = urlData.publicUrl
 
     // Get image dimensions if it's an image
-    let width: number | null = null
-    let height: number | null = null
+    const width: number | null = null
+    const height: number | null = null
 
     // Insert media record in database
     const { data: mediaRecord, error: dbError } = await supabase

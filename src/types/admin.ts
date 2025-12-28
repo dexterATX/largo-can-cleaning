@@ -45,7 +45,7 @@ export interface BlogPostInsert {
   author?: string
 }
 
-export interface BlogPostUpdate extends Partial<BlogPostInsert> {}
+export type BlogPostUpdate = Partial<BlogPostInsert>
 
 // Category
 export interface Category {
@@ -69,7 +69,7 @@ export interface CategoryInsert {
   sort_order?: number
 }
 
-export interface CategoryUpdate extends Partial<CategoryInsert> {}
+export type CategoryUpdate = Partial<CategoryInsert>
 
 // Media
 export interface Media {

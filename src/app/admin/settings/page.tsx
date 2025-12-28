@@ -426,7 +426,7 @@ export default function SettingsPage() {
           environment variable. You can use online bcrypt generators or run:
         </p>
         <pre className="mt-3 p-3 bg-[var(--asphalt-dark)] rounded-lg text-xs text-[var(--slate-gray)] overflow-x-auto">
-          npx bcryptjs-cli hash "your-new-password" 12
+          npx bcryptjs-cli hash &quot;your-new-password&quot; 12
         </pre>
       </div>
     </div>

@@ -2,7 +2,6 @@
 
 import { useState, useCallback } from 'react'
 import { motion } from 'motion/react'
-import Link from 'next/link'
 import {
   Phone,
   Mail,
@@ -364,7 +363,7 @@ function ContactFormSection() {
       await new Promise(resolve => setTimeout(resolve, 1000))
       setSubmitted(true)
       setFormData({ name: '', email: '', phone: '', address: '', service: '', binCount: '', hearAboutUs: '', message: '' })
-    } catch (err) {
+    } catch {
       setError('Failed to send message. Please try again.')
     } finally {
       setIsSubmitting(false)
@@ -410,7 +409,7 @@ function ContactFormSection() {
                   </div>
                   <h3 className="text-lg font-bold text-white mb-1">Message Sent!</h3>
                   <p className="text-sm text-[var(--slate-gray)] mb-5">
-                    We'll respond within 24 hours.
+                    We&apos;ll respond within 24 hours.
                   </p>
                   <Button
                     variant="outline"
@@ -751,7 +750,7 @@ function AreasWeServeSection() {
             Don&apos;t see your area? Give us a call - we may still be able to serve you!
           </p>
           <p className="text-xs text-[var(--slate-gray)]/70 mb-4 max-w-md mx-auto">
-            We're continuously expanding our service coverage and offer special arrangements for customers just outside our regular service zones.
+            We&apos;re continuously expanding our service coverage and offer special arrangements for customers just outside our regular service zones.
           </p>
           <a
             href={`tel:${BUSINESS_INFO.phoneRaw}`}
@@ -775,7 +774,7 @@ function AreasWeServeSection() {
               As a locally-owned and operated business based in Seminole, Florida, we take pride in providing exceptional trash can cleaning services to our Pinellas County neighbors. Our commitment to customer satisfaction, eco-friendly practices, and professional-grade equipment sets us apart from DIY alternatives. We offer flexible scheduling, no contracts, and a 100% satisfaction guarantee on every cleaning.
             </p>
             <p className="text-sm text-[var(--slate-gray)] leading-relaxed mb-3">
-              Whether you need residential curbside bin cleaning, commercial dumpster sanitization, or HOA community services, our team delivers consistent, reliable results you can count on. Our truck-mounted system uses 190°F pressurized water and EPA-approved sanitizing solutions to eliminate 99.9% of bacteria, remove foul odors, and prevent pest infestations that plague dirty trash cans in Florida's warm climate.
+              Whether you need residential curbside bin cleaning, commercial dumpster sanitization, or HOA community services, our team delivers consistent, reliable results you can count on. Our truck-mounted system uses 190°F pressurized water and EPA-approved sanitizing solutions to eliminate 99.9% of bacteria, remove foul odors, and prevent pest infestations that plague dirty trash cans in Florida&apos;s warm climate.
             </p>
             <p className="text-sm text-[var(--slate-gray)] leading-relaxed">
               Contact us today using the form above or call us directly for immediate assistance. We respond to all inquiries within 24 hours and can often schedule your first cleaning within days. Join hundreds of satisfied customers throughout Largo, Seminole, Clearwater, and surrounding communities who trust us for professional trash can sanitization services.

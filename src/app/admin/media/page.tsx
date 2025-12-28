@@ -1,12 +1,12 @@
 'use client'
 
 import { useState, useEffect, useCallback, useRef } from 'react'
+import Image from 'next/image'
 import { motion, AnimatePresence } from 'motion/react'
 import {
   Upload,
   Loader2,
   AlertCircle,
-  Image as ImageIcon,
   Trash2,
   X,
   Copy,
@@ -312,11 +312,14 @@ export default function MediaPage() {
     }
   }
 
-  // Copy URL
-  const copyUrl = (url: string) => {
-    navigator.clipboard.writeText(url)
-    setCopiedUrl(true)
-    createTrackedTimeout(() => setCopiedUrl(false), 2000)
+  const copyUrl = async (url: string) => {
+    try {
+      await navigator.clipboard.writeText(url)
+      setCopiedUrl(true)
+      createTrackedTimeout(() => setCopiedUrl(false), 2000)
+    } catch {
+      console.warn('Clipboard access denied')
+    }
   }
 
   // Format file size
@@ -549,10 +552,13 @@ export default function MediaPage() {
               className="relative group aspect-square bg-[var(--concrete-gray)]/30 border border-[var(--steel-gray)]/20 rounded-xl overflow-hidden cursor-pointer hover:border-[var(--safety-orange)]/50 transition-colors"
               onClick={() => setSelectedMedia(item)}
             >
-              <img
+              <Image
                 src={item.file_url}
                 alt={item.alt_text || item.original_filename || item.filename}
-                className="w-full h-full object-cover"
+                fill
+                sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 200px"
+                className="object-cover"
+                unoptimized
               />
               <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
                 <span className="text-white text-xs font-medium px-2 py-1 bg-black/50 rounded">
@@ -573,11 +579,16 @@ export default function MediaPage() {
                 transition={{ delay: index * 0.02 }}
                 className="flex items-center gap-4 p-4 hover:bg-[var(--asphalt-dark)]/30 transition-colors"
               >
-                <img
-                  src={item.file_url}
-                  alt={item.alt_text || item.original_filename || item.filename}
-                  className="w-16 h-16 object-cover rounded-lg"
-                />
+                <div className="relative w-16 h-16 flex-shrink-0">
+                  <Image
+                    src={item.file_url}
+                    alt={item.alt_text || item.original_filename || item.filename}
+                    fill
+                    sizes="64px"
+                    className="object-cover rounded-lg"
+                    unoptimized
+                  />
+                </div>
                 <div className="flex-1 min-w-0">
                   <p className="font-medium text-white truncate">{item.original_filename || item.filename}</p>
                   <p className="text-xs text-[var(--slate-gray)]">
@@ -652,11 +663,16 @@ export default function MediaPage() {
 
               {/* Image */}
               <div className="p-4 bg-[var(--asphalt-dark)]">
-                <img
-                  src={selectedMedia.file_url}
-                  alt={selectedMedia.alt_text || selectedMedia.original_filename || selectedMedia.filename}
-                  className="max-h-[60vh] mx-auto rounded-lg"
-                />
+                <div className="relative w-full h-[60vh]">
+                  <Image
+                    src={selectedMedia.file_url}
+                    alt={selectedMedia.alt_text || selectedMedia.original_filename || selectedMedia.filename}
+                    fill
+                    sizes="100vw"
+                    className="object-contain rounded-lg"
+                    unoptimized
+                  />
+                </div>
               </div>
 
               {/* Details */}

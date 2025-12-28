@@ -35,6 +35,32 @@ const validateUrl = (url: string): boolean => {
   }
 }
 
+// ToolbarButton moved OUTSIDE component to prevent recreation on each render
+interface ToolbarButtonProps {
+  onClick: () => void
+  active?: boolean
+  children: React.ReactNode
+  title: string
+}
+
+function ToolbarButton({ onClick, active, children, title }: ToolbarButtonProps) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      title={title}
+      className={cn(
+        'p-2 rounded-lg transition-colors',
+        active
+          ? 'bg-[var(--safety-orange)] text-white'
+          : 'text-[var(--slate-gray)] hover:text-white hover:bg-[var(--steel-gray)]/30'
+      )}
+    >
+      {children}
+    </button>
+  )
+}
+
 interface PostEditorProps {
   content: string
   onChange: (content: string) => void
@@ -92,32 +118,6 @@ export default function PostEditor({ content, onChange }: PostEditorProps) {
       </div>
     )
   }
-
-  const ToolbarButton = ({
-    onClick,
-    active,
-    children,
-    title,
-  }: {
-    onClick: () => void
-    active?: boolean
-    children: React.ReactNode
-    title: string
-  }) => (
-    <button
-      type="button"
-      onClick={onClick}
-      title={title}
-      className={cn(
-        'p-2 rounded-lg transition-colors',
-        active
-          ? 'bg-[var(--safety-orange)] text-white'
-          : 'text-[var(--slate-gray)] hover:text-white hover:bg-[var(--steel-gray)]/30'
-      )}
-    >
-      {children}
-    </button>
-  )
 
   const addLink = () => {
     const url = prompt('Enter URL:')

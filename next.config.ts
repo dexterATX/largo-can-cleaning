@@ -56,7 +56,6 @@ const nextConfig: NextConfig = {
     removeConsole: process.env.NODE_ENV === 'production',
   },
 
-  // Optimize package imports for better tree-shaking
   experimental: {
     optimizePackageImports: [
       'motion',
@@ -67,6 +66,7 @@ const nextConfig: NextConfig = {
       '@tiptap/starter-kit',
       '@supabase/supabase-js',
     ],
+    viewTransition: true,
   },
 
   images: {

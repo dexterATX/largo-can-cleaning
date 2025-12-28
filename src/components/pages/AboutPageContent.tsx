@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useRef, useEffect } from 'react'
-import { motion, useInView, AnimatePresence } from 'motion/react'
+import { motion, useInView } from 'motion/react'
 import {
   Users,
   Target,
@@ -19,21 +19,16 @@ import {
   Clock,
   CheckCircle2,
   Star,
-  Droplets,
   Zap,
   BadgeCheck,
   Quote,
   Home,
-  Building2,
   Mail,
-  ChevronRight,
-  Play,
 } from 'lucide-react'
 import Link from 'next/link'
 import Container from '@/components/ui/Container'
 import Button from '@/components/ui/Button'
 import { BUSINESS_INFO } from '@/lib/schema'
-import { cn } from '@/lib/utils'
 
 // ============================================
 // DATA - SEO Optimized Content
@@ -147,14 +142,16 @@ function AnimatedCounter({ value, suffix }: { value: string; suffix: string }) {
   useEffect(() => {
     if (isInView && !hasAnimated.current) {
       hasAnimated.current = true
-      setCount(0) // Reset to 0 only after in view
-      const duration = 1200 // Faster animation
-      const startTime = performance.now()
+      const duration = 1200
+      let startTime: number | null = null
 
       const animate = (currentTime: number) => {
+        if (startTime === null) {
+          startTime = currentTime
+          setCount(0)
+        }
         const elapsed = currentTime - startTime
         const progress = Math.min(elapsed / duration, 1)
-        // Ease out cubic for smooth deceleration
         const eased = 1 - Math.pow(1 - progress, 3)
         const current = numericValue * eased
 
@@ -232,7 +229,7 @@ function HeroSection() {
             transition={{ delay: 0.05, duration: 0.5 }}
             className="text-3xl sm:text-4xl lg:text-5xl xl:text-6xl font-bold text-white leading-[1.1] mb-5"
           >
-            Pinellas County's{' '}
+            Pinellas County&apos;s{' '}
             <span className="relative inline-block">
               <span className="text-[var(--safety-orange)]">Trusted</span>
               <svg
@@ -264,7 +261,7 @@ function HeroSection() {
             transition={{ delay: 0.1, duration: 0.5 }}
             className="text-base sm:text-lg text-[var(--slate-gray)] mb-8 max-w-2xl leading-relaxed"
           >
-            As Pinellas County's trusted trash can cleaning service, we're a family-owned and operated
+            As Pinellas County&apos;s trusted trash can cleaning service, we&apos;re a family-owned and operated
             business based in Seminole, FL. We provide professional trash can sanitization to homes
             and businesses throughout{' '}
             <span className="text-white">Pinellas County</span>—eliminating 99.9% of bacteria,
@@ -410,8 +407,8 @@ function MissionSection() {
           </h2>
 
           <p className="text-[var(--slate-gray)] leading-relaxed mb-8">
-            Trash cans are breeding grounds for harmful bacteria, pests, and odors—yet they're
-            often the most neglected items at home. We're here to change that. Using
+            Trash cans are breeding grounds for harmful bacteria, pests, and odors—yet they&apos;re
+            often the most neglected items at home. We&apos;re here to change that. Using
             professional-grade equipment and eco-friendly products, we eliminate 99.9% of
             germs while keeping your family and the environment safe.
           </p>
@@ -476,7 +473,7 @@ function StorySection() {
                 sanitization</span>—the same technology used by hospitals.
               </p>
               <p>
-                Today, we proudly serve over 500 families across Pinellas County. But we're
+                Today, we proudly serve over 500 families across Pinellas County. But we&apos;re
                 still the same local, family-owned business—your neighbors committed to
                 keeping our community clean and healthy.
               </p>
@@ -504,8 +501,8 @@ function StorySection() {
               <div className="relative p-6 sm:p-8 rounded-2xl bg-gradient-to-br from-[var(--concrete-gray)]/50 to-[var(--concrete-gray)]/20 border border-[var(--steel-gray)]/20">
                 <Quote className="w-10 h-10 text-[var(--safety-orange)]/30 mb-4" />
                 <blockquote className="text-lg sm:text-xl text-white font-medium leading-relaxed mb-6">
-                  "We believe every family deserves a cleaner, healthier outdoor environment.
-                  That's not just our mission—it's our promise to Pinellas County."
+                  &quot;We believe every family deserves a cleaner, healthier outdoor environment.
+                  That&apos;s not just our mission—it&apos;s our promise to Pinellas County.&quot;
                 </blockquote>
                 <div className="flex items-center gap-3">
                   <div className="w-12 h-12 rounded-full bg-[var(--safety-orange)] flex items-center justify-center">
@@ -790,7 +787,7 @@ function TestimonialsSection() {
               </div>
 
               <p className="text-sm text-[var(--light-gray)] leading-relaxed mb-4">
-                "{testimonial.quote}"
+                &ldquo;{testimonial.quote}&rdquo;
               </p>
 
               <div className="flex items-center justify-between">

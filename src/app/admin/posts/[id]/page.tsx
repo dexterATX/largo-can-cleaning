@@ -16,7 +16,7 @@ import {
 } from 'lucide-react'
 import PostEditor from '@/components/admin/PostEditor'
 import ConfirmDialog from '@/components/ui/ConfirmDialog'
-import type { Category, BlogPost, BlogPostUpdate } from '@/types/admin'
+import type { Category, BlogPostUpdate } from '@/types/admin'
 
 export default function EditPostPage({ params }: { params: Promise<{ id: string }> }) {
   const { id } = use(params)
@@ -170,7 +170,7 @@ export default function EditPostPage({ params }: { params: Promise<{ id: string 
       } else {
         setError(data.error || 'Failed to update post')
       }
-    } catch (err) {
+    } catch {
       setError('Failed to save post')
     } finally {
       setIsSaving(false)
@@ -198,7 +198,7 @@ export default function EditPostPage({ params }: { params: Promise<{ id: string 
         setError(data.error || 'Failed to delete post')
         setDeleteDialogOpen(false)
       }
-    } catch (err) {
+    } catch {
       setError('Failed to delete post')
       setDeleteDialogOpen(false)
     } finally {

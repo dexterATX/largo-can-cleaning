@@ -5,7 +5,6 @@ import {
   FileText,
   Eye,
   FolderOpen,
-  Image,
   TrendingUp,
   TrendingDown,
   ArrowUpRight,

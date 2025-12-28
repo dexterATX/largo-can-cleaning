@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { motion } from 'motion/react'
-import { FileText, Edit, MoreHorizontal, Eye, Clock, Calendar } from 'lucide-react'
+import { FileText, Edit, Clock, Calendar } from 'lucide-react'
 import type { BlogPost } from '@/types/admin'
 
 interface RecentPostsProps {
@@ -47,7 +47,7 @@ export default function RecentPosts({ posts }: RecentPostsProps) {
       {/* Posts List */}
       {posts.length > 0 ? (
         <div className="divide-y divide-[var(--steel-gray)]/10">
-          {posts.map((post, index) => (
+          {posts.map((post) => (
             <div
               key={post.id}
               className="flex items-center justify-between p-4 hover:bg-[var(--asphalt-dark)]/30 transition-colors"

@@ -107,9 +107,10 @@ export default function ConfirmDialog({
                 <button
                   onClick={onClose}
                   disabled={isLoading}
+                  aria-label="Close dialog"
                   className="p-2 rounded-lg text-[var(--slate-gray)] hover:text-white hover:bg-[var(--concrete-gray)]/50 transition-colors disabled:opacity-50"
                 >
-                  <X className="w-5 h-5" />
+                  <X className="w-5 h-5" aria-hidden="true" />
                 </button>
               </div>
 

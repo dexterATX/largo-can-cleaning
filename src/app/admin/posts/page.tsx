@@ -2,11 +2,9 @@
 
 import { useState, useEffect } from 'react'
 import Link from 'next/link'
-import { motion } from 'motion/react'
 import {
   Plus,
   Search,
-  Filter,
   Loader2,
   AlertCircle,
 } from 'lucide-react'
@@ -159,8 +157,7 @@ export default function PostsPage() {
         const data = await res.json()
         setError(data.error || 'Failed to delete post')
       }
-    } catch (err) {
-      // Rollback on network error
+    } catch {
       setPosts(originalPosts)
       setError('Failed to delete post')
     } finally {

@@ -149,7 +149,7 @@ export default function DashboardPage() {
               Welcome back!
             </h2>
             <p className="text-[var(--slate-gray)]">
-              Here's what's happening with your blog today.
+              Here&apos;s what&apos;s happening with your blog today.
             </p>
           </div>
           <button

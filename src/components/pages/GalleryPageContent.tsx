@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useEffect, useCallback, useRef, useMemo, memo } from 'react'
+import { useState, useEffect, useCallback, useRef, useMemo, memo, startTransition } from 'react'
 import { motion, AnimatePresence, PanInfo } from 'motion/react'
 import Image from 'next/image'
 import Link from 'next/link'
@@ -247,9 +247,10 @@ const Lightbox = memo(function Lightbox({ images, currentIndex, isOpen, onClose,
   const [imageError, setImageError] = useState(false)
   const constraintsRef = useRef(null)
 
-  // Reset image error when image changes
   useEffect(() => {
-    setImageError(false)
+    startTransition(() => {
+      setImageError(false)
+    })
   }, [currentIndex])
 
   // Handle keyboard navigation
@@ -754,7 +755,7 @@ export default function GalleryPageContent() {
               className="text-sm lg:text-lg text-[var(--light-gray)] max-w-md lg:max-w-xl mx-auto"
             >
               <span className="lg:hidden">Browse our work—before & after photos of our cleaning results.</span>
-              <span className="hidden lg:inline">See our work in action. Before and after photos showcasing Largo Can Cleaning's professional trash can cleaning results throughout Pinellas County, Florida.</span>
+              <span className="hidden lg:inline">See our work in action. Before and after photos showcasing Largo Can Cleaning&apos;s professional trash can cleaning results throughout Pinellas County, Florida.</span>
             </motion.p>
 
             {/* Additional descriptive content for SEO */}

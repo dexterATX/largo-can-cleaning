@@ -259,9 +259,8 @@ function MobileCarousel({ plans: plansList }: { plans: Plan[] }) {
   )
 }
 
-function FAQItem({ faq, index, isOpen, onToggle }: {
+function FAQItem({ faq, isOpen, onToggle }: {
   faq: typeof faqs[0]
-  index: number
   isOpen: boolean
   onToggle: () => void
 }) {
@@ -663,7 +662,6 @@ export default function PricingPageContent() {
               <FAQItem
                 key={index}
                 faq={faq}
-                index={index}
                 isOpen={openFAQ === index}
                 onToggle={() => setOpenFAQ(openFAQ === index ? null : index)}
               />
@@ -691,7 +689,7 @@ export default function PricingPageContent() {
                 </div>
                 <div>
                   <p className="text-sm font-medium text-white">Still have questions?</p>
-                  <p className="text-xs text-[var(--slate-gray)]">We're here to help</p>
+                  <p className="text-xs text-[var(--slate-gray)]">We&apos;re here to help</p>
                 </div>
               </div>
               <div className="flex items-center gap-3">

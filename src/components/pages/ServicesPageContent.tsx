@@ -1,6 +1,6 @@
 'use client'
 
-import { useRef, useState, useEffect } from 'react'
+import { useRef, useState, useEffect, startTransition } from 'react'
 import { createPortal } from 'react-dom'
 import { motion, useInView, AnimatePresence } from 'motion/react'
 import Link from 'next/link'
@@ -15,7 +15,6 @@ import {
   Phone,
   Shield,
   Zap,
-  Leaf,
   ThermometerSun,
   Droplets,
   BadgeCheck,
@@ -26,10 +25,8 @@ import {
   ChevronRight,
   ChevronLeft,
   X,
-  Info,
   Star,
   Timer,
-  Truck,
   ShieldCheck,
   ChevronDown,
 } from 'lucide-react'
@@ -196,11 +193,14 @@ function AnimatedNumber({ value, suffix }: { value: string; suffix: string }) {
   useEffect(() => {
     if (isInView && !hasAnimated.current) {
       hasAnimated.current = true
-      setDisplayValue(0)
       const duration = 1200
-      const startTime = performance.now()
+      let startTime: number | null = null
 
       const animate = (currentTime: number) => {
+        if (startTime === null) {
+          startTime = currentTime
+          setDisplayValue(0)
+        }
         const elapsed = currentTime - startTime
         const progress = Math.min(elapsed / duration, 1)
         const eased = 1 - Math.pow(1 - progress, 3)
@@ -531,9 +531,10 @@ interface ServiceDetailOverlayProps {
 function ServiceDetailOverlay({ service, isOpen, onClose }: ServiceDetailOverlayProps) {
   const [mounted, setMounted] = useState(false)
 
-  // Mount check for portal
   useEffect(() => {
-    setMounted(true)
+    startTransition(() => {
+      setMounted(true)
+    })
   }, [])
 
   // Ref for overlay content to allow scrolling inside it
@@ -627,9 +628,10 @@ function ServiceDetailOverlay({ service, isOpen, onClose }: ServiceDetailOverlay
               {/* Close Button */}
               <button
                 onClick={onClose}
+                aria-label="Close service details"
                 className="absolute top-3 right-3 w-8 h-8 rounded-full bg-white/5 backdrop-blur-sm border border-white/10 flex items-center justify-center text-white/70 hover:text-white hover:bg-white/10 active:scale-95 transition-all z-10"
               >
-                <X className="w-4 h-4" />
+                <X className="w-4 h-4" aria-hidden="true" />
               </button>
 
               {/* Header - Icon, Title, Price */}
@@ -677,7 +679,7 @@ function ServiceDetailOverlay({ service, isOpen, onClose }: ServiceDetailOverlay
               {/* What's Included - Compact */}
               <div className="mb-4">
                 <p className="text-[10px] font-semibold text-[var(--slate-gray)] uppercase tracking-wider mb-2">
-                  What's Included
+                  What&apos;s Included
                 </p>
                 <div className="space-y-1.5">
                   {service.whatsIncluded?.slice(0, 5).map((item, i) => (
@@ -742,13 +744,12 @@ function ServiceDetailOverlay({ service, isOpen, onClose }: ServiceDetailOverlay
 
 interface ServiceCardProps {
   service: typeof services[0]
-  index: number
   isActive?: boolean
   isMobile?: boolean
   onTap?: () => void
 }
 
-function ServiceCard({ service, index, isActive = false, isMobile = false, onTap }: ServiceCardProps) {
+function ServiceCard({ service, isActive = false, isMobile = false, onTap }: ServiceCardProps) {
   return (
     <div
       onClick={onTap}
@@ -905,7 +906,6 @@ function MobileServicesCarousel({ onServiceTap }: MobileServicesCarouselProps) {
           >
             <ServiceCard
               service={service}
-              index={index}
               isActive={index === activeIndex}
               isMobile
               onTap={() => onServiceTap(service)}
@@ -1021,7 +1021,7 @@ function BentoServicesSection() {
             </span>
           </h2>
           <p className="text-base sm:text-lg text-[var(--slate-gray)] max-w-xl mx-auto">
-            Every property is different. That's why we offer flexible plans
+            Every property is different. That&apos;s why we offer flexible plans
             to match your exact needs.
           </p>
 
@@ -1055,11 +1055,10 @@ function BentoServicesSection() {
       {/* Desktop Grid */}
       <Container className="relative hidden md:block">
         <div className="grid grid-cols-2 gap-5 max-w-5xl mx-auto">
-          {services.map((service, index) => (
+          {services.map((service) => (
             <ServiceCard
               key={service.id}
               service={service}
-              index={index}
               onTap={() => handleServiceTap(service)}
             />
           ))}
@@ -1519,7 +1518,7 @@ function ImpactSection() {
               The Numbers Speak
             </h2>
             <p className="text-sm text-[var(--slate-gray)]">
-              Real results from real cleaning. Here's what we deliver every single time.
+              Real results from real cleaning. Here&apos;s what we deliver every single time.
             </p>
           </motion.div>
 
@@ -1719,7 +1718,7 @@ function ServiceAreasSection() {
 
           <div className="text-center">
             <p className="text-xs text-[var(--slate-gray)] mb-4">
-              Don't see your area? Contact us — we may still be able to help!
+              Don&apos;t see your area? Contact us — we may still be able to help!
             </p>
             <Link href="/contact">
               <Button size="sm" variant="outline" rightIcon={<ChevronRight className="w-3.5 h-3.5" />}>
@@ -1829,7 +1828,7 @@ function ServiceAreasSection() {
             )}
 
             <p className="text-sm text-[var(--slate-gray)] mb-6">
-              Don't see your area? Contact us — we may still be able to help!
+              Don&apos;t see your area? Contact us — we may still be able to help!
             </p>
 
             <Link href="/contact">

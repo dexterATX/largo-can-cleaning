@@ -70,7 +70,7 @@ export async function GET(request: NextRequest) {
       query = query.or(`title.ilike.%${escapedSearch}%,excerpt.ilike.%${escapedSearch}%`)
     }
 
-    const { data: posts, error, count } = await query
+    const { data: posts, error } = await query
 
     if (error) {
       console.error('Error fetching posts:', error)

@@ -6,7 +6,6 @@ import {
   Clock,
   Calendar,
   ArrowLeft,
-  Share2,
   Twitter,
   Facebook,
   Linkedin,
@@ -17,7 +16,7 @@ import {
   ChevronRight,
   Building2,
 } from 'lucide-react'
-import { useState, useMemo } from 'react'
+import { useState } from 'react'
 import DOMPurify from 'dompurify'
 import Container from '@/components/ui/Container'
 
@@ -90,9 +89,13 @@ function ShareButtons({ title, url }: { title: string; url: string }) {
   const shareUrl = typeof window !== 'undefined' ? window.location.href : url
 
   const handleCopy = async () => {
-    await navigator.clipboard.writeText(shareUrl)
-    setCopied(true)
-    setTimeout(() => setCopied(false), 2000)
+    try {
+      await navigator.clipboard.writeText(shareUrl)
+      setCopied(true)
+      setTimeout(() => setCopied(false), 2000)
+    } catch {
+      console.warn('Clipboard access denied')
+    }
   }
 
   return (

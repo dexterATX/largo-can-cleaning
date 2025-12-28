@@ -358,6 +358,12 @@ section {
   contain: layout style;
 }
 
+/* content-visibility for below-fold sections - skip rendering until visible */
+section:not(:first-of-type) {
+  content-visibility: auto;
+  contain-intrinsic-size: auto 500px;
+}
+
 /* Optimize transforms on mobile */
 @media (max-width: 768px) {
   /* Disable expensive blur effects on mobile */

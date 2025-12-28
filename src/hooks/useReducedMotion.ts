@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, startTransition } from 'react';
 
 /**
  * Hook to detect if user prefers reduced motion or is on a mobile device
@@ -18,7 +18,9 @@ export function useReducedMotion(): boolean {
       ('ontouchstart' in window) ||
       (navigator.maxTouchPoints > 0);
 
-    setShouldReduceMotion(mediaQuery.matches || isMobile);
+    startTransition(() => {
+      setShouldReduceMotion(mediaQuery.matches || isMobile);
+    });
 
     const handleChange = (event: MediaQueryListEvent) => {
       setShouldReduceMotion(event.matches || isMobile);
