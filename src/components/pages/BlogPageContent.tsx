@@ -179,6 +179,14 @@ function getCategoryLabel(categoryId: string, categories: Category[]): string {
   return category?.label || category?.name || categoryId
 }
 
+// Generate unique, SEO-friendly anchor text from title if linkText not provided
+function getAnchorText(post: BlogPost): string {
+  if (post.linkText) return post.linkText
+  // Create short anchor from title: "Why Clean Trash Cans Matter" → "Read: Clean Trash Cans"
+  const words = post.title.split(' ').slice(0, 4).join(' ')
+  return `Read: ${words}`
+}
+
 // ============================================
 // COMPONENTS
 // ============================================
@@ -191,7 +199,7 @@ const FeaturedPostCard = memo(function FeaturedPostCard({ post, categories }: { 
     >
       {/* Overlay link for full card clickability with SEO-friendly anchor text */}
       <Link href={`/blog/${post.slug}`} className="absolute inset-0 z-10" tabIndex={-1}>
-        <span className="sr-only">{post.linkText || 'Read: ' + post.title}</span>
+        <span className="sr-only">{getAnchorText(post)}</span>
       </Link>
 
       {/* Image Placeholder */}
@@ -238,7 +246,7 @@ const FeaturedPostCard = memo(function FeaturedPostCard({ post, categories }: { 
             {formatDate(post.date)}
           </span>
           <Link href={`/blog/${post.slug}`} className="relative z-20 flex items-center gap-1 text-sm font-medium text-[var(--safety-orange)] hover:gap-2 transition-all">
-            {post.linkText || 'Read Article'}
+            {getAnchorText(post)}
             <ArrowRight className="w-4 h-4" />
           </Link>
         </div>
@@ -255,7 +263,7 @@ const PostCard = memo(function PostCard({ post, categories, index = 0 }: { post:
     >
       {/* Overlay link for full card clickability with SEO-friendly anchor text */}
       <Link href={`/blog/${post.slug}`} className="absolute inset-0 z-10" tabIndex={-1}>
-        <span className="sr-only">{post.linkText || 'Read: ' + post.title}</span>
+        <span className="sr-only">{getAnchorText(post)}</span>
       </Link>
 
       {/* Image Placeholder - Shorter on mobile */}
@@ -306,7 +314,7 @@ const PostCard = memo(function PostCard({ post, categories, index = 0 }: { post:
             {formatDate(post.date)}
           </span>
           <Link href={`/blog/${post.slug}`} className="relative z-20 flex items-center gap-1 text-xs font-medium text-[var(--safety-orange)] hover:gap-2 transition-all">
-            {post.linkText || 'Read'}
+            {getAnchorText(post)}
             <ArrowRight className="w-4 h-4" />
           </Link>
         </div>
@@ -434,7 +442,7 @@ const MobileTrendingCarousel = memo(function MobileTrendingCarousel({ posts, cat
             >
               {/* Overlay link for full card clickability with SEO-friendly anchor text */}
               <Link href={`/blog/${post.slug}`} className="absolute inset-0 z-10" tabIndex={-1}>
-                <span className="sr-only">{post.linkText || 'Read: ' + post.title}</span>
+                <span className="sr-only">{getAnchorText(post)}</span>
               </Link>
 
               <div
@@ -471,7 +479,7 @@ const MobileTrendingCarousel = memo(function MobileTrendingCarousel({ posts, cat
                     {post.title}
                   </h3>
                   <Link href={`/blog/${post.slug}`} className="relative z-20 text-[11px] text-[var(--safety-orange)] font-medium mt-2 inline-flex items-center gap-1">
-                    {post.linkText || 'Read Article'}
+                    {getAnchorText(post)}
                     <ArrowRight className="w-3 h-3" />
                   </Link>
                 </div>
