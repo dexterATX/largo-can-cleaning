@@ -26,29 +26,11 @@ services:
     ports:
       - "80:80"
       - "443:443"
-    volumes:
-      - certbot-conf:/etc/letsencrypt:ro
-      - certbot-www:/var/www/certbot:ro
     depends_on:
       - web
     restart: unless-stopped
     networks:
       - app-network
-
-  certbot:
-    image: certbot/certbot
-    volumes:
-      - certbot-conf:/etc/letsencrypt
-      - certbot-www:/var/www/certbot
-    depends_on:
-      - nginx
-    entrypoint: "/bin/sh -c 'if [ ! -f /etc/letsencrypt/live/largocancleaning.com/fullchain.pem ]; then certbot certonly --webroot -w /var/www/certbot --email admin@largocancleaning.com -d largocancleaning.com -d www.largocancleaning.com --agree-tos --no-eff-email --force-renewal; fi && trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
-    networks:
-      - app-network
-
-volumes:
-  certbot-conf:
-  certbot-www:
 
 networks:
   app-network:

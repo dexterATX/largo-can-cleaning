@@ -1,9 +1,8 @@
 FROM nginx:alpine
 
-RUN apk add --no-cache bash
+RUN apk add --no-cache bash openssl
 
-# Store configs in a separate location, not in conf.d
-COPY nginx-init.conf /etc/nginx/templates/nginx-init.conf
+# Store configs in a separate location
 COPY nginx.conf /etc/nginx/templates/nginx-ssl.conf
 COPY docker-entrypoint.sh /docker-entrypoint.sh
 
