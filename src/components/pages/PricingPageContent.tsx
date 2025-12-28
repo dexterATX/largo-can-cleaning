@@ -471,6 +471,23 @@ export default function PricingPageContent() {
         <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[var(--asphalt-black)] to-transparent" />
       </section>
 
+      {/* Pricing Introduction - SEO Content */}
+      <section className="py-8 sm:py-12 bg-[var(--asphalt-black)] relative overflow-hidden">
+        <Container className="relative z-10">
+          <div className="max-w-3xl mx-auto text-center mb-8">
+            <p className="text-sm sm:text-base text-[var(--slate-gray)] leading-relaxed mb-4">
+              At Largo Can Cleaning, we believe professional trash can sanitization should be affordable and accessible to every Pinellas County household. Our pricing is straightforward with no hidden fees, surprise charges, or long-term commitments required. Whether you need a one-time deep clean or prefer the convenience of scheduled monthly service, we have a plan that fits your needs and budget.
+            </p>
+            <p className="text-sm sm:text-base text-[var(--slate-gray)] leading-relaxed mb-4">
+              Every cleaning includes our signature 190°F high-pressure sanitization that eliminates 99.9% of bacteria, removes stubborn odors, and prevents pest infestations. Our truck-mounted system captures all wastewater to protect your property and the environment. We use only EPA-approved, biodegradable cleaning solutions that are safe for children, pets, and plants.
+            </p>
+            <p className="text-sm sm:text-base text-[var(--slate-gray)] leading-relaxed">
+              Choose from our three service options below. Monthly subscribers enjoy a 12% discount and priority scheduling, while our deep clean option is perfect for bins that need extra attention with industrial degreasing and protective coating treatments.
+            </p>
+          </div>
+        </Container>
+      </section>
+
       {/* Pricing Cards */}
       <section className="py-8 sm:py-12 bg-[var(--asphalt-black)] relative overflow-hidden">
         {/* Subtle grid continuation */}
