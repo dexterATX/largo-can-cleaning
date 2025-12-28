@@ -28,7 +28,7 @@ const steps = [
   {
     icon: Droplets,
     step: '03',
-    title: 'Deep Clean',
+    title: 'High-Pressure Wash',
     description:
       '190°F high-pressure wash eliminates 99.9% of bacteria, grease, and odors in minutes.',
     img: 'https://images.unsplash.com/photo-1585421514284-efb74c2b69ba?q=90&w=800&auto=format&fit=crop',

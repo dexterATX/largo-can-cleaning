@@ -637,35 +637,20 @@ export default function PricingPageContent() {
         <Container className="relative z-10">
           {/* Header */}
           <div className="mb-8">
-            {/* Mobile: Centered */}
-            <div className="sm:hidden text-center">
-              <div className="inline-flex items-center gap-2 px-3 py-1.5 mb-4 rounded-full bg-[var(--safety-orange)]/10 border border-[var(--safety-orange)]/20">
-                <CircleDot className="w-3 h-3 text-[var(--safety-orange)]" />
-                <span className="text-[10px] font-semibold uppercase tracking-wider text-[var(--safety-orange)]">FAQ</span>
-              </div>
-              <h2 className="text-xl font-bold text-white mb-2">
-                Common Questions
-              </h2>
-              <p className="text-sm text-[var(--slate-gray)]">
-                Quick answers to help you decide
-              </p>
-            </div>
-
-            {/* Desktop: Left aligned with stats */}
-            <div className="hidden sm:flex items-end justify-between max-w-2xl mx-auto">
+            <div className="flex flex-col sm:flex-row items-center sm:items-end justify-between max-w-2xl mx-auto text-center sm:text-left">
               <div>
                 <div className="inline-flex items-center gap-2 px-3 py-1.5 mb-4 rounded-full bg-[var(--safety-orange)]/10 border border-[var(--safety-orange)]/20">
                   <CircleDot className="w-3 h-3 text-[var(--safety-orange)]" />
                   <span className="text-[10px] font-semibold uppercase tracking-wider text-[var(--safety-orange)]">FAQ</span>
                 </div>
-                <h2 className="text-2xl font-bold text-white mb-1">
+                <h2 className="text-xl sm:text-2xl font-bold text-white mb-1 sm:mb-2">
                   Common Questions
                 </h2>
                 <p className="text-sm text-[var(--slate-gray)]">
                   Quick answers to help you decide
                 </p>
               </div>
-              <div className="text-right">
+              <div className="hidden sm:block text-right">
                 <p className="text-2xl font-bold text-white">{faqs.length}</p>
                 <p className="text-xs text-[var(--slate-gray)]">Questions answered</p>
               </div>

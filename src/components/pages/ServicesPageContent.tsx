@@ -1270,7 +1270,7 @@ function TimelineProcessSection() {
               HOW IT WORKS
             </span>
             <h2 className="text-2xl sm:text-3xl font-bold text-white mb-2">
-              From Dirty to <span className="text-[var(--safety-orange)]">Spotless</span>
+              Our 5-Step <span className="text-[var(--safety-orange)]">Cleaning Process</span>
             </h2>
             <p className="text-sm text-[var(--slate-gray)] max-w-sm mx-auto">
               Our streamlined 5-step process means you never lift a finger.
@@ -1624,8 +1624,7 @@ function ServiceAreasSection() {
               SERVICE AREAS
             </span>
             <h2 className="text-2xl sm:text-3xl font-bold text-white mb-2">
-              Proudly Serving{' '}
-              <span className="text-[var(--safety-orange)]">Pinellas County</span>
+              Service <span className="text-[var(--safety-orange)]">Coverage Areas</span>
             </h2>
             <p className="text-sm text-[var(--slate-gray)]">
               Tap a city below to view on the map

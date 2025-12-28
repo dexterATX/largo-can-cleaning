@@ -394,7 +394,7 @@ const MobileTrendingCarousel = memo(function MobileTrendingCarousel({ posts, cat
           <div className="w-6 h-6 rounded-lg bg-[var(--safety-orange)] flex items-center justify-center">
             <TrendingUp className="w-3.5 h-3.5 text-white" />
           </div>
-          <h2 className="text-sm font-semibold text-white">Featured</h2>
+          <span className="text-sm font-semibold text-white">Top Picks</span>
         </div>
         <div
           className={cn(

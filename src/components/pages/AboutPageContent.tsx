@@ -558,6 +558,7 @@ function WhyChooseUsSection() {
           viewport={{ once: true }}
           transition={{ duration: 0.4 }}
           className="sm:hidden grid grid-cols-2 gap-3"
+          aria-hidden="true"
         >
           {whyChooseUs.map((item, index) => (
             <div
@@ -567,7 +568,7 @@ function WhyChooseUsSection() {
               <div className="w-10 h-10 rounded-lg bg-[var(--safety-orange)]/10 flex items-center justify-center mb-3">
                 <item.icon className="w-5 h-5 text-[var(--safety-orange)]" />
               </div>
-              <h3 className="text-sm font-semibold text-white mb-1">{item.title}</h3>
+              <p className="text-sm font-semibold text-white mb-1">{item.title}</p>
               <p className="text-[11px] text-[var(--slate-gray)]">{item.desc}</p>
             </div>
           ))}
@@ -685,6 +686,7 @@ function TimelineSection() {
           viewport={{ once: true }}
           transition={{ duration: 0.4 }}
           className="sm:hidden relative"
+          aria-hidden="true"
         >
           <div className="absolute top-0 bottom-0 left-5 w-0.5 bg-gradient-to-b from-[var(--safety-orange)] via-[var(--safety-orange)]/50 to-transparent" />
 
@@ -701,7 +703,7 @@ function TimelineSection() {
                   <span className="inline-block px-2 py-0.5 text-[10px] font-bold text-[var(--safety-orange)] bg-[var(--safety-orange)]/10 rounded mb-1">
                     {milestone.year}
                   </span>
-                  <h3 className="text-base font-semibold text-white">{milestone.title}</h3>
+                  <p className="text-base font-semibold text-white">{milestone.title}</p>
                   <p className="text-sm text-[var(--slate-gray)]">{milestone.desc}</p>
                 </div>
               </div>
