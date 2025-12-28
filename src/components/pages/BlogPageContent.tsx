@@ -25,6 +25,7 @@ interface BlogPost {
   id: string | number
   slug: string
   title: string
+  linkText?: string // Short anchor text for SEO (2-5 words)
   excerpt: string
   category: string
   categoryLabel?: string
@@ -58,6 +59,7 @@ const fallbackPosts: BlogPost[] = [
     id: 1,
     slug: 'why-clean-trash-cans-matter',
     title: 'Why Clean Trash Cans Matter More Than You Think',
+    linkText: 'Why Clean Bins Matter',
     excerpt: 'Discover the hidden health risks lurking in your dirty bins and why regular cleaning is essential for your family\'s wellbeing.',
     category: 'health',
     categoryLabel: 'Health & Safety',
@@ -70,6 +72,7 @@ const fallbackPosts: BlogPost[] = [
     id: 2,
     slug: 'diy-vs-professional-cleaning',
     title: 'DIY vs Professional Bin Cleaning: What\'s the Real Difference?',
+    linkText: 'DIY vs Pro Cleaning',
     excerpt: 'We break down the costs, effectiveness, and time investment of both approaches to help you make the right choice.',
     category: 'tips',
     categoryLabel: 'Tips & How-To',
@@ -82,6 +85,7 @@ const fallbackPosts: BlogPost[] = [
     id: 3,
     slug: 'prevent-pests-trash-bins',
     title: '5 Ways to Prevent Pests From Invading Your Trash Bins',
+    linkText: 'Prevent Trash Bin Pests',
     excerpt: 'Keep raccoons, flies, and rodents away with these proven prevention strategies that actually work.',
     category: 'tips',
     categoryLabel: 'Tips & How-To',
@@ -94,6 +98,7 @@ const fallbackPosts: BlogPost[] = [
     id: 4,
     slug: 'bacteria-in-garbage-bins',
     title: 'The Shocking Truth About Bacteria in Your Garbage Bins',
+    linkText: 'Bin Bacteria Facts',
     excerpt: 'Lab tests reveal what\'s really growing in the average household trash can—and it\'s not pretty.',
     category: 'health',
     categoryLabel: 'Health & Safety',
@@ -106,6 +111,7 @@ const fallbackPosts: BlogPost[] = [
     id: 5,
     slug: 'eco-friendly-bin-cleaning',
     title: 'How We Clean Your Bins Without Harming the Environment',
+    linkText: 'Eco-Friendly Cleaning',
     excerpt: 'Learn about our sustainable cleaning process, biodegradable solutions, and zero-runoff water capture system.',
     category: 'sustainability',
     categoryLabel: 'Eco-Friendly',
@@ -118,6 +124,7 @@ const fallbackPosts: BlogPost[] = [
     id: 6,
     slug: 'summer-bin-odor-tips',
     title: 'Beat the Heat: Summer Bin Odor Prevention Guide',
+    linkText: 'Summer Odor Prevention',
     excerpt: 'Hot weather makes bin odors worse. Here\'s how to keep your outdoor area smelling fresh all summer long.',
     category: 'tips',
     categoryLabel: 'Tips & How-To',
@@ -130,6 +137,7 @@ const fallbackPosts: BlogPost[] = [
     id: 7,
     slug: 'cleancan-pro-expansion-2025',
     title: 'Largo Can Cleaning Expands Service to All of Pinellas County',
+    linkText: 'Pinellas County Expansion',
     excerpt: 'We\'re excited to announce our expanded coverage area, now serving more communities across the region.',
     category: 'news',
     categoryLabel: 'Company News',
@@ -142,6 +150,7 @@ const fallbackPosts: BlogPost[] = [
     id: 8,
     slug: 'commercial-bin-cleaning-benefits',
     title: 'Why Restaurants Are Switching to Professional Bin Cleaning',
+    linkText: 'Commercial Bin Cleaning',
     excerpt: 'Health codes, customer perception, and pest control—discover why commercial cleaning pays for itself.',
     category: 'news',
     categoryLabel: 'Company News',
@@ -177,123 +186,128 @@ function getCategoryLabel(categoryId: string, categories: Category[]): string {
 // Featured Post Card - Mobile First - Memoized to prevent re-renders
 const FeaturedPostCard = memo(function FeaturedPostCard({ post, categories }: { post: BlogPost; categories: Category[] }) {
   return (
-    <Link href={`/blog/${post.slug}`} className="block group">
-      <article
-        className="relative rounded-2xl overflow-hidden bg-gradient-to-br from-[var(--concrete-gray)]/60 to-[var(--concrete-gray)]/30 border border-[var(--steel-gray)]/20 transition-transform duration-200 hover:scale-[1.01]"
-      >
-        {/* Image Placeholder */}
-        <div className="aspect-[16/10] sm:aspect-[16/8] lg:aspect-[16/7] bg-gradient-to-br from-[var(--safety-orange)]/20 to-[var(--safety-orange)]/5 relative">
-          <div className="absolute inset-0 flex items-center justify-center">
-            <BookOpen className="w-12 h-12 sm:w-16 sm:h-16 text-[var(--safety-orange)]/30" />
-          </div>
-          {/* Featured Badge */}
-          <div className="absolute top-3 left-3 sm:top-4 sm:left-4">
-            <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[var(--safety-orange)] text-white text-[10px] sm:text-xs font-semibold">
-              <TrendingUp className="w-3 h-3" />
-              Featured
-            </span>
-          </div>
+    <article
+      className="relative rounded-2xl overflow-hidden bg-gradient-to-br from-[var(--concrete-gray)]/60 to-[var(--concrete-gray)]/30 border border-[var(--steel-gray)]/20 transition-transform duration-200 hover:scale-[1.01] group"
+    >
+      {/* Overlay link for full card clickability - aria-hidden so anchor text comes from visible link */}
+      <Link href={`/blog/${post.slug}`} className="absolute inset-0 z-10" tabIndex={-1} aria-hidden="true" />
+
+      {/* Image Placeholder */}
+      <div className="aspect-[16/10] sm:aspect-[16/8] lg:aspect-[16/7] bg-gradient-to-br from-[var(--safety-orange)]/20 to-[var(--safety-orange)]/5 relative">
+        <div className="absolute inset-0 flex items-center justify-center">
+          <BookOpen className="w-12 h-12 sm:w-16 sm:h-16 text-[var(--safety-orange)]/30" />
+        </div>
+        {/* Featured Badge */}
+        <div className="absolute top-3 left-3 sm:top-4 sm:left-4">
+          <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[var(--safety-orange)] text-white text-[10px] sm:text-xs font-semibold">
+            <TrendingUp className="w-3 h-3" />
+            Featured
+          </span>
+        </div>
+      </div>
+
+      {/* Content */}
+      <div className="p-4 sm:p-6">
+        {/* Meta */}
+        <div className="flex items-center gap-3 mb-3">
+          <span className="px-2 py-0.5 rounded-md bg-[var(--safety-orange)]/10 text-[var(--safety-orange)] text-[10px] sm:text-xs font-medium">
+            {post.categoryLabel || getCategoryLabel(post.category, categories)}
+          </span>
+          <span className="flex items-center gap-1 text-[10px] sm:text-xs text-[var(--slate-gray)]">
+            <Clock className="w-3 h-3" />
+            {post.readTime} min read
+          </span>
         </div>
 
-        {/* Content */}
-        <div className="p-4 sm:p-6">
-          {/* Meta */}
-          <div className="flex items-center gap-3 mb-3">
-            <span className="px-2 py-0.5 rounded-md bg-[var(--safety-orange)]/10 text-[var(--safety-orange)] text-[10px] sm:text-xs font-medium">
-              {post.categoryLabel || getCategoryLabel(post.category, categories)}
-            </span>
-            <span className="flex items-center gap-1 text-[10px] sm:text-xs text-[var(--slate-gray)]">
-              <Clock className="w-3 h-3" />
-              {post.readTime} min read
-            </span>
-          </div>
+        {/* Title */}
+        <h2 className="text-lg sm:text-xl lg:text-2xl font-bold text-white mb-2 group-hover:text-[var(--safety-orange)] transition-colors leading-tight">
+          {post.title}
+        </h2>
 
-          {/* Title */}
-          <h2 className="text-lg sm:text-xl lg:text-2xl font-bold text-white mb-2 group-hover:text-[var(--safety-orange)] transition-colors leading-tight">
-            {post.title}
-          </h2>
+        {/* Excerpt */}
+        <p className="text-sm sm:text-base text-[var(--slate-gray)] leading-relaxed mb-4 line-clamp-2">
+          {post.excerpt}
+        </p>
 
-          {/* Excerpt */}
-          <p className="text-sm sm:text-base text-[var(--slate-gray)] leading-relaxed mb-4 line-clamp-2">
-            {post.excerpt}
-          </p>
-
-          {/* Footer */}
-          <div className="flex items-center justify-between">
-            <span className="flex items-center gap-1.5 text-xs sm:text-sm text-[var(--steel-gray)]">
-              <Calendar className="w-3.5 h-3.5" />
-              {formatDate(post.date)}
-            </span>
-            <span className="flex items-center gap-1 text-sm font-medium text-[var(--safety-orange)] group-hover:gap-2 transition-all">
-              Read Full Article
-              <ArrowRight className="w-4 h-4" />
-            </span>
-          </div>
+        {/* Footer */}
+        <div className="flex items-center justify-between">
+          <span className="flex items-center gap-1.5 text-xs sm:text-sm text-[var(--steel-gray)]">
+            <Calendar className="w-3.5 h-3.5" />
+            {formatDate(post.date)}
+          </span>
+          <Link href={`/blog/${post.slug}`} className="relative z-20 flex items-center gap-1 text-sm font-medium text-[var(--safety-orange)] hover:gap-2 transition-all">
+            {post.linkText || 'Read Article'}
+            <ArrowRight className="w-4 h-4" />
+          </Link>
         </div>
-      </article>
-    </Link>
+      </div>
+    </article>
   )
 })
 
 // Regular Post Card - Mobile First (Compact) - Memoized to prevent re-renders
 const PostCard = memo(function PostCard({ post, categories, index = 0 }: { post: BlogPost; categories: Category[]; index?: number }) {
   return (
-    <Link href={`/blog/${post.slug}`} className="block group">
-      <article
-        className="h-full rounded-xl overflow-hidden bg-[var(--concrete-gray)]/30 border border-[var(--steel-gray)]/20 active:border-[var(--safety-orange)]/30 lg:hover:border-[var(--safety-orange)]/30 transition-all"
-      >
-        {/* Image Placeholder - Shorter on mobile */}
-        <div className="aspect-[4/3] lg:aspect-[16/9] bg-gradient-to-br from-[var(--concrete-gray)]/60 to-[var(--concrete-gray)]/30 relative">
-          <div className="absolute inset-0 flex items-center justify-center">
-            <BookOpen className="w-6 h-6 lg:w-8 lg:h-8 text-[var(--steel-gray)]/50" />
-          </div>
-          {/* Category Badge - On image for mobile */}
-          <div className="absolute bottom-2 left-2 lg:hidden">
-            <span className="px-1.5 py-0.5 rounded bg-black/60 backdrop-blur-sm text-[var(--safety-orange)] text-[8px] font-medium">
-              {post.categoryLabel || getCategoryLabel(post.category, categories)}
-            </span>
-          </div>
+    <article
+      className="relative h-full rounded-xl overflow-hidden bg-[var(--concrete-gray)]/30 border border-[var(--steel-gray)]/20 active:border-[var(--safety-orange)]/30 lg:hover:border-[var(--safety-orange)]/30 transition-all group"
+    >
+      {/* Overlay link for full card clickability - aria-hidden so anchor text comes from visible link */}
+      <Link href={`/blog/${post.slug}`} className="absolute inset-0 z-10" tabIndex={-1} aria-hidden="true" />
+
+      {/* Image Placeholder - Shorter on mobile */}
+      <div className="aspect-[4/3] lg:aspect-[16/9] bg-gradient-to-br from-[var(--concrete-gray)]/60 to-[var(--concrete-gray)]/30 relative">
+        <div className="absolute inset-0 flex items-center justify-center">
+          <BookOpen className="w-6 h-6 lg:w-8 lg:h-8 text-[var(--steel-gray)]/50" />
+        </div>
+        {/* Category Badge - On image for mobile */}
+        <div className="absolute bottom-2 left-2 lg:hidden">
+          <span className="px-1.5 py-0.5 rounded bg-black/60 backdrop-blur-sm text-[var(--safety-orange)] text-[8px] font-medium">
+            {post.categoryLabel || getCategoryLabel(post.category, categories)}
+          </span>
+        </div>
+      </div>
+
+      {/* Content - Compact on mobile */}
+      <div className="p-2.5 lg:p-4">
+        {/* Meta - Desktop only full version */}
+        <div className="hidden lg:flex items-center gap-2 mb-2">
+          <span className="px-2 py-0.5 rounded-md bg-[var(--safety-orange)]/10 text-[var(--safety-orange)] text-[10px] font-medium">
+            {post.categoryLabel || getCategoryLabel(post.category, categories)}
+          </span>
+          <span className="flex items-center gap-1 text-[10px] text-[var(--slate-gray)]">
+            <Clock className="w-3 h-3" />
+            {post.readTime} min
+          </span>
         </div>
 
-        {/* Content - Compact on mobile */}
-        <div className="p-2.5 lg:p-4">
-          {/* Meta - Desktop only full version */}
-          <div className="hidden lg:flex items-center gap-2 mb-2">
-            <span className="px-2 py-0.5 rounded-md bg-[var(--safety-orange)]/10 text-[var(--safety-orange)] text-[10px] font-medium">
-              {post.categoryLabel || getCategoryLabel(post.category, categories)}
-            </span>
-            <span className="flex items-center gap-1 text-[10px] text-[var(--slate-gray)]">
-              <Clock className="w-3 h-3" />
-              {post.readTime} min
-            </span>
-          </div>
+        {/* Title - Smaller on mobile */}
+        <h3 className="text-[13px] lg:text-base font-semibold text-white mb-1 lg:mb-2 group-active:text-[var(--safety-orange)] lg:group-hover:text-[var(--safety-orange)] transition-colors leading-snug line-clamp-2">
+          {post.title}
+        </h3>
 
-          {/* Title - Smaller on mobile */}
-          <h3 className="text-[13px] lg:text-base font-semibold text-white mb-1 lg:mb-2 group-active:text-[var(--safety-orange)] lg:group-hover:text-[var(--safety-orange)] transition-colors leading-snug line-clamp-2">
-            {post.title}
-          </h3>
-
-          {/* Read time - Mobile */}
-          <div className="flex items-center gap-1 text-[9px] text-[var(--slate-gray)] lg:hidden">
-            <Clock className="w-2.5 h-2.5" />
-            {post.readTime} min read
-          </div>
-
-          {/* Excerpt - Desktop only */}
-          <p className="hidden lg:block text-sm text-[var(--slate-gray)] leading-relaxed mb-3 line-clamp-2">
-            {post.excerpt}
-          </p>
-
-          {/* Date - Desktop only */}
-          <div className="hidden lg:flex items-center justify-between pt-2 border-t border-[var(--steel-gray)]/10">
-            <span className="text-xs text-[var(--steel-gray)]">
-              {formatDate(post.date)}
-            </span>
-            <ArrowRight className="w-4 h-4 text-[var(--steel-gray)] group-hover:text-[var(--safety-orange)] group-hover:translate-x-1 transition-all" />
-          </div>
+        {/* Read time - Mobile */}
+        <div className="flex items-center gap-1 text-[9px] text-[var(--slate-gray)] lg:hidden">
+          <Clock className="w-2.5 h-2.5" />
+          {post.readTime} min read
         </div>
-      </article>
-    </Link>
+
+        {/* Excerpt - Desktop only */}
+        <p className="hidden lg:block text-sm text-[var(--slate-gray)] leading-relaxed mb-3 line-clamp-2">
+          {post.excerpt}
+        </p>
+
+        {/* Date and Link - Desktop only */}
+        <div className="hidden lg:flex items-center justify-between pt-2 border-t border-[var(--steel-gray)]/10">
+          <span className="text-xs text-[var(--steel-gray)]">
+            {formatDate(post.date)}
+          </span>
+          <Link href={`/blog/${post.slug}`} className="relative z-20 flex items-center gap-1 text-xs font-medium text-[var(--safety-orange)] hover:gap-2 transition-all">
+            {post.linkText || 'Read'}
+            <ArrowRight className="w-4 h-4" />
+          </Link>
+        </div>
+      </div>
+    </article>
   )
 })
 
@@ -409,12 +423,14 @@ const MobileTrendingCarousel = memo(function MobileTrendingCarousel({ posts, cat
           className="flex gap-3 px-4 cursor-grab active:cursor-grabbing"
         >
           {featuredFirst.slice(0, 5).map((post, index) => (
-            <Link
+            <div
               key={post.id}
-              href={`/blog/${post.slug}`}
-              className="flex-shrink-0 w-[280px] group"
+              className="flex-shrink-0 w-[280px] group relative"
               draggable={false}
             >
+              {/* Overlay link for full card clickability */}
+              <Link href={`/blog/${post.slug}`} className="absolute inset-0 z-10" tabIndex={-1} aria-hidden="true" />
+
               <div
                 className="relative rounded-xl overflow-hidden bg-gradient-to-br from-[var(--concrete-gray)]/60 to-[var(--concrete-gray)]/30 border border-[var(--steel-gray)]/20 active:border-[var(--safety-orange)]/40 transition-colors"
               >
@@ -448,12 +464,13 @@ const MobileTrendingCarousel = memo(function MobileTrendingCarousel({ posts, cat
                   <h3 className="text-sm font-semibold text-white leading-snug line-clamp-2 mt-1 group-active:text-[var(--safety-orange)] transition-colors">
                     {post.title}
                   </h3>
-                  <p className="text-[11px] text-[var(--slate-gray)] line-clamp-1 mt-1">
-                    {post.excerpt}
-                  </p>
+                  <Link href={`/blog/${post.slug}`} className="relative z-20 text-[11px] text-[var(--safety-orange)] font-medium mt-2 inline-flex items-center gap-1">
+                    {post.linkText || 'Read Article'}
+                    <ArrowRight className="w-3 h-3" />
+                  </Link>
                 </div>
               </div>
-            </Link>
+            </div>
           ))}
         </motion.div>
       </div>

@@ -137,30 +137,37 @@ function ShareButtons({ title, url }: { title: string; url: string }) {
 }
 
 function RelatedPostCard({ post }: { post: RelatedPost }) {
+  // Generate short anchor text from title (first 3-4 words)
+  const shortAnchor = post.title.split(' ').slice(0, 4).join(' ')
+
   return (
-    <Link href={`/blog/${post.slug}`} className="block group">
-      <article className="h-full rounded-xl overflow-hidden bg-[var(--concrete-gray)]/30 border border-[var(--steel-gray)]/20 hover:border-[var(--safety-orange)]/30 transition-all">
-        <div className="aspect-[16/9] bg-gradient-to-br from-[var(--concrete-gray)]/60 to-[var(--concrete-gray)]/30 relative">
-          <div className="absolute inset-0 flex items-center justify-center">
-            <BookOpen className="w-8 h-8 text-[var(--steel-gray)]/50" />
-          </div>
+    <article className="relative h-full rounded-xl overflow-hidden bg-[var(--concrete-gray)]/30 border border-[var(--steel-gray)]/20 hover:border-[var(--safety-orange)]/30 transition-all group">
+      {/* Overlay link for full card clickability - aria-hidden so anchor text comes from visible link */}
+      <Link href={`/blog/${post.slug}`} className="absolute inset-0 z-10" tabIndex={-1} aria-hidden="true" />
+
+      <div className="aspect-[16/9] bg-gradient-to-br from-[var(--concrete-gray)]/60 to-[var(--concrete-gray)]/30 relative">
+        <div className="absolute inset-0 flex items-center justify-center">
+          <BookOpen className="w-8 h-8 text-[var(--steel-gray)]/50" />
         </div>
-        <div className="p-4">
-          <span className="text-xs text-[var(--safety-orange)] font-medium uppercase tracking-wide">
-            {post.categoryLabel}
+      </div>
+      <div className="p-4">
+        <span className="text-xs text-[var(--safety-orange)] font-medium uppercase tracking-wide">
+          {post.categoryLabel}
+        </span>
+        <h3 className="text-base font-semibold text-white mt-1 mb-2 group-hover:text-[var(--safety-orange)] transition-colors line-clamp-2">
+          {post.title}
+        </h3>
+        <div className="flex items-center justify-between text-xs text-[var(--slate-gray)]">
+          <span className="flex items-center gap-1">
+            <Clock className="w-3 h-3" />
+            {post.readTime} min
           </span>
-          <h3 className="text-base font-semibold text-white mt-1 mb-2 group-hover:text-[var(--safety-orange)] transition-colors line-clamp-2">
-            {post.title}
-          </h3>
-          <div className="flex items-center gap-3 text-xs text-[var(--slate-gray)]">
-            <span className="flex items-center gap-1">
-              <Clock className="w-3 h-3" />
-              {post.readTime} min
-            </span>
-          </div>
+          <Link href={`/blog/${post.slug}`} className="relative z-20 text-[var(--safety-orange)] font-medium hover:underline">
+            {shortAnchor}
+          </Link>
         </div>
-      </article>
-    </Link>
+      </div>
+    </article>
   )
 }
 
