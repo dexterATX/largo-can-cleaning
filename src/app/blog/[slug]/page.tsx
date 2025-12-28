@@ -59,7 +59,7 @@ const fallbackPosts: Record<string, {
     image: '/images/blog/clean-bins.jpg',
   },
   'diy-vs-professional-cleaning': {
-    title: 'DIY vs Professional Bin Cleaning Compared',
+    title: 'DIY vs Pro Bin Cleaning Comparison',
     excerpt: 'We break down the costs, effectiveness, and time investment of both approaches to help you make the right choice.',
     content: `
       <h2>The DIY Approach</h2>
@@ -114,7 +114,7 @@ const fallbackPosts: Record<string, {
     image: '/images/blog/diy-vs-pro.jpg',
   },
   'prevent-pests-trash-bins': {
-    title: '5 Ways to Prevent Pests From Invading Your Trash Bins',
+    title: '5 Ways to Keep Pests Out of Trash Bins',
     excerpt: 'Keep raccoons, flies, and rodents away with these proven prevention strategies that actually work.',
     content: `
       <h2>Understanding the Pest Problem</h2>
@@ -150,7 +150,7 @@ const fallbackPosts: Record<string, {
     image: '/images/blog/pest-prevention.jpg',
   },
   'bacteria-in-garbage-bins': {
-    title: 'The Shocking Truth About Bacteria in Your Garbage Bins',
+    title: 'Bacteria in Your Trash Cans: The Facts',
     excerpt: 'Lab tests reveal what\'s really growing in the average household trash can—and it\'s not pretty.',
     content: `
       <h2>What the Lab Tests Revealed</h2>
@@ -192,7 +192,7 @@ const fallbackPosts: Record<string, {
     image: '/images/blog/bacteria.jpg',
   },
   'eco-friendly-bin-cleaning': {
-    title: 'How We Clean Your Bins Without Harming the Environment',
+    title: 'Eco-Friendly Bin Cleaning Explained',
     excerpt: 'Learn about our sustainable cleaning process, biodegradable solutions, and zero-runoff water capture system.',
     content: `
       <h2>Our Commitment to Sustainability</h2>
@@ -232,7 +232,7 @@ const fallbackPosts: Record<string, {
     image: '/images/blog/eco-friendly.jpg',
   },
   'summer-bin-odor-tips': {
-    title: 'Beat the Heat: Summer Bin Odor Prevention Guide',
+    title: 'Summer Bin Odor Prevention Tips',
     excerpt: 'Hot weather makes bin odors worse. Here\'s how to keep your outdoor area smelling fresh all summer long.',
     content: `
       <h2>Why Summer Makes Things Worse</h2>
@@ -318,7 +318,7 @@ const fallbackPosts: Record<string, {
     image: '/images/blog/expansion.jpg',
   },
   'commercial-bin-cleaning-benefits': {
-    title: 'Why Restaurants Are Switching to Professional Bin Cleaning',
+    title: 'Why Restaurants Choose Pro Bin Cleaning',
     excerpt: 'Health codes, customer perception, and pest control—discover why commercial cleaning pays for itself.',
     content: `
       <h2>The Commercial Challenge</h2>
@@ -447,8 +447,8 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const canonicalUrl = `${BASE_URL}/blog/${slug}`
   const imageUrl = post.image?.startsWith('http') ? post.image : `${BASE_URL}${post.image}`
 
-  // Create short title for SEO (under 60 chars to avoid truncation)
-  const shortTitle = (post.metaTitle || post.title).replace(/ \| .*$/, '').substring(0, 55)
+  // Create short title for SEO (under 40 chars + "| Largo Can Cleaning" = ~60 chars total)
+  const shortTitle = (post.metaTitle || post.title).replace(/ \| .*$/, '').substring(0, 40)
 
   return {
     title: shortTitle,

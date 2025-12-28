@@ -71,7 +71,7 @@ const fallbackPosts: BlogPost[] = [
   {
     id: 2,
     slug: 'diy-vs-professional-cleaning',
-    title: 'DIY vs Professional Bin Cleaning: What\'s the Real Difference?',
+    title: 'DIY vs Pro Bin Cleaning Comparison',
     linkText: 'DIY vs Pro Cleaning',
     excerpt: 'We break down the costs, effectiveness, and time investment of both approaches to help you make the right choice.',
     category: 'tips',
@@ -84,7 +84,7 @@ const fallbackPosts: BlogPost[] = [
   {
     id: 3,
     slug: 'prevent-pests-trash-bins',
-    title: '5 Ways to Prevent Pests From Invading Your Trash Bins',
+    title: '5 Ways to Keep Pests Out of Trash Bins',
     linkText: 'Prevent Trash Bin Pests',
     excerpt: 'Keep raccoons, flies, and rodents away with these proven prevention strategies that actually work.',
     category: 'tips',
@@ -97,7 +97,7 @@ const fallbackPosts: BlogPost[] = [
   {
     id: 4,
     slug: 'bacteria-in-garbage-bins',
-    title: 'The Shocking Truth About Bacteria in Your Garbage Bins',
+    title: 'Bacteria in Your Trash Cans: The Facts',
     linkText: 'Bin Bacteria Facts',
     excerpt: 'Lab tests reveal what\'s really growing in the average household trash can—and it\'s not pretty.',
     category: 'health',
@@ -110,7 +110,7 @@ const fallbackPosts: BlogPost[] = [
   {
     id: 5,
     slug: 'eco-friendly-bin-cleaning',
-    title: 'How We Clean Your Bins Without Harming the Environment',
+    title: 'Eco-Friendly Bin Cleaning Explained',
     linkText: 'Eco-Friendly Cleaning',
     excerpt: 'Learn about our sustainable cleaning process, biodegradable solutions, and zero-runoff water capture system.',
     category: 'sustainability',
@@ -123,7 +123,7 @@ const fallbackPosts: BlogPost[] = [
   {
     id: 6,
     slug: 'summer-bin-odor-tips',
-    title: 'Beat the Heat: Summer Bin Odor Prevention Guide',
+    title: 'Summer Bin Odor Prevention Tips',
     linkText: 'Summer Odor Prevention',
     excerpt: 'Hot weather makes bin odors worse. Here\'s how to keep your outdoor area smelling fresh all summer long.',
     category: 'tips',
@@ -149,7 +149,7 @@ const fallbackPosts: BlogPost[] = [
   {
     id: 8,
     slug: 'commercial-bin-cleaning-benefits',
-    title: 'Why Restaurants Are Switching to Professional Bin Cleaning',
+    title: 'Why Restaurants Choose Pro Bin Cleaning',
     linkText: 'Commercial Bin Cleaning',
     excerpt: 'Health codes, customer perception, and pest control—discover why commercial cleaning pays for itself.',
     category: 'news',

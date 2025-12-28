@@ -13,7 +13,7 @@ const PricingPageContent = dynamic(
 )
 
 export const metadata: Metadata = {
-  title: 'Trash Can Cleaning Prices | Largo FL',
+  title: 'Trash Can Cleaning Prices - Pinellas County',
   description: `Transparent trash can cleaning prices starting at $25. Monthly, bi-weekly, and one-time cleaning options in ${BUSINESS_INFO.address.city}, FL. No contracts, no hidden fees.`,
   keywords: [
     'trash can cleaning prices',
