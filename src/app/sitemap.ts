@@ -6,7 +6,7 @@ const supabase = createClient(
   process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY!
 )
 
-const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://cleancanpro.com'
+const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://largocancleaning.com'
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   // Static pages

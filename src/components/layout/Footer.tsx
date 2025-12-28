@@ -47,7 +47,9 @@ function FooterDropdown({
     <div className="border-b border-[var(--steel-gray)]/10">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full flex items-center justify-between py-3 text-left"
+        className="w-full flex items-center justify-between py-3 text-left focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--safety-orange)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--asphalt-black)] rounded-lg"
+        aria-expanded={isOpen}
+        aria-label={`${isOpen ? 'Collapse' : 'Expand'} ${title} section`}
       >
         <div className="flex items-center gap-3">
           <div className="w-8 h-8 rounded-lg bg-[var(--safety-orange)]/10 flex items-center justify-center">
@@ -89,7 +91,15 @@ export default function Footer() {
     <footer
       className="bg-[var(--asphalt-black)] border-t-2 border-[var(--safety-orange)]/40"
       role="contentinfo"
+      itemScope
+      itemType="https://schema.org/LocalBusiness"
     >
+      {/* Hidden structured data for SEO */}
+      <meta itemProp="name" content={BUSINESS_INFO.name} />
+      <meta itemProp="telephone" content={BUSINESS_INFO.phoneRaw} />
+      <meta itemProp="email" content={BUSINESS_INFO.email} />
+      <meta itemProp="priceRange" content={BUSINESS_INFO.priceRange} />
+      <link itemProp="url" href={BUSINESS_INFO.url} />
       <Container>
         {/* Main Footer Content */}
         <div className="py-6 lg:py-10">
@@ -101,7 +111,7 @@ export default function Footer() {
                 <div className="relative w-11 h-11">
                   <Image
                     src="/logo.png"
-                    alt="Largo Can Cleaning Mascot"
+                    alt="Largo Can Cleaning - Professional Trash Can Cleaning Service in Pinellas County, Florida"
                     fill
                     className="object-contain"
                   />
@@ -112,16 +122,17 @@ export default function Footer() {
                 </div>
               </Link>
               <a
-                href={`tel:${BUSINESS_INFO.phone}`}
-                className="flex items-center gap-2 px-4 py-2.5 bg-[var(--safety-orange)] text-white text-sm font-semibold rounded-xl"
+                href={`tel:${BUSINESS_INFO.phoneRaw}`}
+                className="flex items-center gap-2 px-4 py-2.5 bg-[var(--safety-orange)] text-white text-sm font-semibold rounded-xl focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--safety-orange)]"
+                aria-label={`Call us at ${BUSINESS_INFO.phone}`}
               >
-                <Phone className="w-4 h-4" />
+                <Phone className="w-4 h-4" aria-hidden="true" />
                 Call Now
               </a>
             </div>
 
             {/* Dropdown Sections */}
-            <div className="mb-4">
+            <nav className="mb-4" aria-label="Footer navigation">
               <FooterDropdown title="Our Services" icon={Trash2}>
                 <ul className="space-y-2.5">
                   {footerLinks.services.map((link) => (
@@ -147,19 +158,27 @@ export default function Footer() {
               </FooterDropdown>
 
               <FooterDropdown title="Contact & Hours" icon={Clock}>
-                <div className="space-y-3">
-                  <a href={`tel:${BUSINESS_INFO.phone}`} className="flex items-center gap-2 text-sm text-[var(--light-gray)]">
+                <div className="space-y-3" itemProp="address" itemScope itemType="https://schema.org/PostalAddress">
+                  <div className="flex items-center gap-2 text-sm text-[var(--light-gray)]">
+                    <MapPin className="w-3.5 h-3.5 text-[var(--safety-orange)]" />
+                    <span>
+                      <span itemProp="addressLocality">{BUSINESS_INFO.address.city}</span>,{' '}
+                      <span itemProp="addressRegion">{BUSINESS_INFO.address.state}</span>{' '}
+                      <span itemProp="postalCode">{BUSINESS_INFO.address.zip}</span>
+                    </span>
+                  </div>
+                  <a href={`tel:${BUSINESS_INFO.phoneRaw}`} className="flex items-center gap-2 text-sm text-[var(--light-gray)] hover:text-[var(--safety-orange)] transition-colors">
                     <Phone className="w-3.5 h-3.5 text-[var(--safety-orange)]" />
-                    {BUSINESS_INFO.phone}
+                    <span itemProp="telephone">{BUSINESS_INFO.phone}</span>
                   </a>
-                  <a href={`mailto:${BUSINESS_INFO.email}`} className="flex items-center gap-2 text-sm text-[var(--light-gray)]">
+                  <a href={`mailto:${BUSINESS_INFO.email}`} className="flex items-center gap-2 text-sm text-[var(--light-gray)] hover:text-[var(--safety-orange)] transition-colors">
                     <Mail className="w-3.5 h-3.5 text-[var(--safety-orange)]" />
                     {BUSINESS_INFO.email}
                   </a>
                   <div className="pt-2 border-t border-[var(--steel-gray)]/10">
                     <p className="text-xs text-[var(--slate-gray)] mb-1">Business Hours</p>
-                    <p className="text-sm text-[var(--light-gray)]">Open 24/7</p>
-                    <p className="text-sm text-[var(--light-gray)]">7 Days a Week</p>
+                    <p className="text-sm text-[var(--light-gray)]">Mon-Sat: 6AM - 8PM</p>
+                    <p className="text-sm text-[var(--light-gray)]">Sunday: Closed</p>
                   </div>
                 </div>
               </FooterDropdown>
@@ -167,13 +186,19 @@ export default function Footer() {
               <FooterDropdown title="Service Areas" icon={MapPin}>
                 <div className="flex flex-wrap gap-1.5">
                   {BUSINESS_INFO.areaServed.map((area) => (
-                    <span key={area} className="px-2 py-0.5 text-xs text-[var(--light-gray)] bg-[var(--steel-gray)]/10 rounded-md">
-                      {area}
+                    <span
+                      key={area}
+                      className="px-2 py-0.5 text-xs text-[var(--light-gray)] bg-[var(--steel-gray)]/10 rounded-md"
+                      itemProp="areaServed"
+                      itemScope
+                      itemType="https://schema.org/City"
+                    >
+                      <span itemProp="name">{area}</span>
                     </span>
                   ))}
                 </div>
               </FooterDropdown>
-            </div>
+            </nav>
           </div>
 
           {/* Desktop Layout */}
@@ -184,7 +209,7 @@ export default function Footer() {
                 <div className="relative w-14 h-14">
                   <Image
                     src="/logo.png"
-                    alt="Largo Can Cleaning Mascot"
+                    alt="Largo Can Cleaning - Professional Trash Can Cleaning Service in Pinellas County, Florida"
                     fill
                     className="object-contain"
                   />
@@ -197,56 +222,72 @@ export default function Footer() {
               <p className="text-sm text-[var(--slate-gray)] mb-5 max-w-xs">
                 Professional trash can cleaning & sanitization. Eliminating 99.9% of bacteria, odors, and pests.
               </p>
-              {/* Contact Info */}
-              <div className="space-y-2">
-                <a href={`tel:${BUSINESS_INFO.phone}`} className="flex items-center gap-2.5 text-sm text-[var(--light-gray)] hover:text-[var(--safety-orange)] transition-colors">
-                  <Phone className="w-4 h-4 text-[var(--safety-orange)]" />
-                  {BUSINESS_INFO.phone}
+              {/* Contact Info - NAP with Schema */}
+              <address className="space-y-2 not-italic" itemProp="address" itemScope itemType="https://schema.org/PostalAddress">
+                <div className="flex items-center gap-2.5 text-sm text-[var(--light-gray)]">
+                  <MapPin className="w-4 h-4 text-[var(--safety-orange)]" aria-hidden="true" />
+                  <span>
+                    <span itemProp="addressLocality">{BUSINESS_INFO.address.city}</span>,{' '}
+                    <span itemProp="addressRegion">{BUSINESS_INFO.address.state}</span>{' '}
+                    <span itemProp="postalCode">{BUSINESS_INFO.address.zip}</span>
+                  </span>
+                </div>
+                <a
+                  href={`tel:${BUSINESS_INFO.phoneRaw}`}
+                  className="flex items-center gap-2.5 text-sm text-[var(--light-gray)] hover:text-[var(--safety-orange)] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--safety-orange)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--asphalt-black)] rounded"
+                  aria-label={`Call us at ${BUSINESS_INFO.phone}`}
+                >
+                  <Phone className="w-4 h-4 text-[var(--safety-orange)]" aria-hidden="true" />
+                  <span itemProp="telephone">{BUSINESS_INFO.phone}</span>
                 </a>
-                <a href={`mailto:${BUSINESS_INFO.email}`} className="flex items-center gap-2.5 text-sm text-[var(--light-gray)] hover:text-[var(--safety-orange)] transition-colors">
-                  <Mail className="w-4 h-4 text-[var(--safety-orange)]" />
-                  {BUSINESS_INFO.email}
+                <a
+                  href={`mailto:${BUSINESS_INFO.email}`}
+                  className="flex items-center gap-2.5 text-sm text-[var(--light-gray)] hover:text-[var(--safety-orange)] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--safety-orange)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--asphalt-black)] rounded"
+                  aria-label={`Email us at ${BUSINESS_INFO.email}`}
+                >
+                  <Mail className="w-4 h-4 text-[var(--safety-orange)]" aria-hidden="true" />
+                  <span itemProp="email">{BUSINESS_INFO.email}</span>
                 </a>
-              </div>
+              </address>
             </div>
 
             {/* Services Column */}
-            <div className="col-span-2">
-              <h4 className="text-xs font-semibold text-white uppercase tracking-wider mb-4">Services</h4>
+            <nav className="col-span-2" aria-labelledby="footer-services-heading">
+              <h2 id="footer-services-heading" className="text-xs font-semibold text-white uppercase tracking-wider mb-4">Services</h2>
               <ul className="space-y-2.5">
                 {footerLinks.services.map((link) => (
                   <li key={link.href}>
-                    <Link href={link.href} className="text-sm text-[var(--slate-gray)] hover:text-[var(--safety-orange)] transition-colors">
+                    <Link href={link.href} className="text-sm text-[var(--slate-gray)] hover:text-[var(--safety-orange)] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--safety-orange)] rounded">
                       {link.label}
                     </Link>
                   </li>
                 ))}
               </ul>
-            </div>
+            </nav>
 
             {/* Company Column */}
-            <div className="col-span-2">
-              <h4 className="text-xs font-semibold text-white uppercase tracking-wider mb-4">Company</h4>
+            <nav className="col-span-2" aria-labelledby="footer-company-heading">
+              <h2 id="footer-company-heading" className="text-xs font-semibold text-white uppercase tracking-wider mb-4">Company</h2>
               <ul className="space-y-2.5">
                 {footerLinks.company.map((link) => (
                   <li key={link.href}>
-                    <Link href={link.href} className="text-sm text-[var(--slate-gray)] hover:text-[var(--safety-orange)] transition-colors">
+                    <Link href={link.href} className="text-sm text-[var(--slate-gray)] hover:text-[var(--safety-orange)] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--safety-orange)] rounded">
                       {link.label}
                     </Link>
                   </li>
                 ))}
               </ul>
-            </div>
+            </nav>
 
             {/* Hours & Location Column */}
             <div className="col-span-4">
-              <h4 className="text-xs font-semibold text-white uppercase tracking-wider mb-4">Hours & Location</h4>
+              <h2 className="text-xs font-semibold text-white uppercase tracking-wider mb-4">Hours & Location</h2>
               <div className="space-y-3">
                 <div className="flex items-start gap-2.5 text-sm">
                   <Clock className="w-4 h-4 text-[var(--safety-orange)] mt-0.5 shrink-0" />
                   <div className="text-[var(--slate-gray)]">
-                    <p>Open 24/7</p>
-                    <p>7 Days a Week</p>
+                    <p>Mon-Sat: 6AM - 8PM</p>
+                    <p>Sunday: Closed</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-2.5 text-sm">

@@ -11,6 +11,7 @@ interface MasonryItem {
   height: number
   title?: string
   category?: string
+  alt?: string
 }
 
 interface MasonryProps {
@@ -294,6 +295,8 @@ const Masonry = ({
             onClick={() => handleClick(item)}
             onMouseEnter={e => handleMouseEnter(e, item)}
             onMouseLeave={e => handleMouseLeave(e, item)}
+            role="img"
+            aria-label={item.alt || item.title || 'Gallery image'}
           >
             <div className="masonry-item-img" style={{ backgroundImage: `url(${item.img})` }}>
               {colorShiftOnHover && (

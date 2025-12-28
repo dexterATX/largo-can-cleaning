@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { BUSINESS_INFO } from '@/lib/schema'
+import { BUSINESS_INFO, generateAboutPageSchema, generateLocalBusinessSchema } from '@/lib/schema'
 import AboutPageContent from '@/components/pages/AboutPageContent'
 
 export const metadata: Metadata = {
@@ -11,6 +11,8 @@ export const metadata: Metadata = {
     'Largo FL cleaning service',
     'eco-friendly bin cleaning',
     'local cleaning business',
+    'Pinellas County trash service',
+    'family owned cleaning business Florida',
   ],
   alternates: {
     canonical: `${BUSINESS_INFO.url}/about`,
@@ -23,5 +25,24 @@ export const metadata: Metadata = {
 }
 
 export default function AboutPage() {
-  return <AboutPageContent />
+  const aboutPageSchema = generateAboutPageSchema()
+  const localBusinessSchema = generateLocalBusinessSchema()
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(aboutPageSchema),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(localBusinessSchema),
+        }}
+      />
+      <AboutPageContent />
+    </>
+  )
 }

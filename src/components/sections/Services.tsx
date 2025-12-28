@@ -1,6 +1,7 @@
 'use client'
 
 import { useEffect, useRef, useState, memo } from 'react'
+import Link from 'next/link'
 import { motion } from 'motion/react'
 import { Home, Building2, CalendarClock, Sparkles, ArrowRight, ChevronLeft, ChevronRight } from 'lucide-react'
 import Container from '@/components/ui/Container'
@@ -87,7 +88,7 @@ const ServiceCard = memo(function ServiceCard({ service }: { service: typeof ser
 
       {/* Icon */}
       <div className="w-12 h-12 mb-4 rounded-xl bg-[var(--safety-orange)]/10 flex items-center justify-center group-hover:bg-[var(--safety-orange)]/20 transition-colors">
-        <service.icon className="w-6 h-6 text-[var(--safety-orange)]" />
+        <service.icon className="w-6 h-6 text-[var(--safety-orange)]" aria-hidden="true" />
       </div>
 
       {/* Content */}
@@ -99,13 +100,13 @@ const ServiceCard = memo(function ServiceCard({ service }: { service: typeof ser
       </p>
 
       {/* Features */}
-      <ul className="space-y-2 mb-6">
+      <ul className="space-y-2 mb-6" aria-label={`${service.title} features`}>
         {service.features.map((feature, i) => (
           <li
             key={i}
             className="flex items-center gap-2 text-xs text-[var(--light-gray)]"
           >
-            <div className="w-1.5 h-1.5 rounded-full bg-[var(--safety-orange)]" />
+            <div className="w-1.5 h-1.5 rounded-full bg-[var(--safety-orange)]" aria-hidden="true" />
             {feature}
           </li>
         ))}
@@ -116,13 +117,14 @@ const ServiceCard = memo(function ServiceCard({ service }: { service: typeof ser
         <span className="text-lg font-bold text-[var(--safety-orange)]">
           {service.price}
         </span>
-        <button
-          className="flex items-center gap-1 text-sm font-medium text-[var(--light-gray)] hover:text-[var(--safety-orange)] transition-colors"
+        <Link
+          href="/services"
+          className="flex items-center gap-1 text-sm font-medium text-[var(--light-gray)] hover:text-[var(--safety-orange)] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--safety-orange)] rounded"
           aria-label={`Learn more about ${service.title}`}
         >
           Learn more
-          <ArrowRight className="w-4 h-4" />
-        </button>
+          <ArrowRight className="w-4 h-4" aria-hidden="true" />
+        </Link>
       </div>
     </article>
   )
@@ -247,9 +249,11 @@ export default function Services() {
           <p className="text-[var(--slate-gray)] mb-4">
             Not sure which service is right for you?
           </p>
-          <Button variant="outline" rightIcon={<ArrowRight className="w-4 h-4" />}>
-            Compare All Services
-          </Button>
+          <Link href="/services">
+            <Button variant="outline" rightIcon={<ArrowRight className="w-4 h-4" />}>
+              Compare All Services
+            </Button>
+          </Link>
         </motion.div>
       </Container>
     </section>

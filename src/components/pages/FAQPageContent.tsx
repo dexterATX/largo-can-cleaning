@@ -61,7 +61,7 @@ const faqs = [
   },
   {
     question: 'What areas do you serve?',
-    answer: `We proudly serve ${BUSINESS_INFO.areaServed.slice(0, 6).join(', ')}, and surrounding areas throughout Pinellas County, FL.`,
+    answer: `We proudly serve ${BUSINESS_INFO.areaServed.join(', ')}, and surrounding areas throughout Pinellas County, FL.`,
   },
   // Process
   {
@@ -313,7 +313,7 @@ export default function FAQPageContent() {
                   Contact Us
                 </Button>
               </Link>
-              <a href={`tel:${BUSINESS_INFO.phone}`}>
+              <a href={`tel:${BUSINESS_INFO.phoneRaw}`}>
                 <Button variant="outline" size="lg">
                   <Phone className="w-4 h-4 mr-2" />
                   {BUSINESS_INFO.phone}

@@ -1,6 +1,7 @@
 'use client'
 
 import { useState } from 'react'
+import Link from 'next/link'
 import { motion, AnimatePresence } from 'motion/react'
 import {
   Check,
@@ -198,13 +199,15 @@ function PlanCard({ plan }: { plan: typeof plans[0] }) {
         </ul>
 
         {/* CTA */}
-        <Button
-          variant={plan.popular ? 'primary' : 'outline'}
-          className="w-full"
-          size="md"
-        >
-          {plan.cta}
-        </Button>
+        <Link href={`/contact?plan=${plan.id}`} className="w-full">
+          <Button
+            variant={plan.popular ? 'primary' : 'outline'}
+            className="w-full"
+            size="md"
+          >
+            {plan.cta}
+          </Button>
+        </Link>
       </div>
     </div>
   )
@@ -764,11 +767,13 @@ export default function PricingPageContent() {
 
                 {/* CTA buttons */}
                 <div className="space-y-2">
-                  <Button className="w-full" size="lg" rightIcon={<ArrowRight className="w-5 h-5" />}>
-                    Get Free Quote
-                  </Button>
+                  <Link href="/contact" className="w-full block">
+                    <Button className="w-full" size="lg" rightIcon={<ArrowRight className="w-5 h-5" />}>
+                      Get Free Quote
+                    </Button>
+                  </Link>
                   <a
-                    href={`tel:${BUSINESS_INFO.phone}`}
+                    href="tel:+13528433425"
                     className="flex items-center justify-center gap-2 w-full py-3 text-sm font-semibold text-white bg-[var(--concrete-gray)] rounded-xl"
                   >
                     <Phone className="w-4 h-4" />
@@ -836,11 +841,13 @@ export default function PricingPageContent() {
                       </div>
 
                       <div className="space-y-2">
-                        <Button className="w-full" size="lg" rightIcon={<ArrowRight className="w-5 h-5" />}>
-                          Get Free Quote
-                        </Button>
+                        <Link href="/contact" className="w-full block">
+                          <Button className="w-full" size="lg" rightIcon={<ArrowRight className="w-5 h-5" />}>
+                            Get Free Quote
+                          </Button>
+                        </Link>
                         <a
-                          href={`tel:${BUSINESS_INFO.phone}`}
+                          href="tel:+13528433425"
                           className="flex items-center justify-center gap-2 w-full py-3 text-sm font-medium text-[var(--light-gray)] hover:text-white transition-colors"
                         >
                           <Phone className="w-4 h-4" />

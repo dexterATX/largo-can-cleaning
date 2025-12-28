@@ -1,6 +1,7 @@
 'use client'
 
 import { motion } from 'motion/react'
+import Link from 'next/link'
 import { Phone, ArrowRight, Calendar, Clock, Shield, FileCheck } from 'lucide-react'
 import Container from '@/components/ui/Container'
 import Button from '@/components/ui/Button'
@@ -59,18 +60,21 @@ export default function CTA() {
 
                 {/* CTA Buttons */}
                 <div className="flex flex-col sm:flex-row gap-2 sm:gap-3 mb-5 sm:mb-8">
-                  <Button
-                    size="lg"
-                    rightIcon={<ArrowRight className="w-4 h-4 sm:w-5 sm:h-5" />}
-                    className="text-sm sm:text-base"
-                  >
-                    Get Free Quote
-                  </Button>
+                  <Link href="/contact">
+                    <Button
+                      size="lg"
+                      rightIcon={<ArrowRight className="w-4 h-4 sm:w-5 sm:h-5" />}
+                      className="text-sm sm:text-base"
+                    >
+                      Get Free Quote
+                    </Button>
+                  </Link>
                   <a
-                    href={`tel:${BUSINESS_INFO.phone}`}
-                    className="inline-flex items-center justify-center gap-2 px-4 py-2.5 sm:px-6 sm:py-3 text-xs sm:text-sm font-semibold text-white border border-[var(--steel-gray)]/50 rounded-xl hover:bg-[var(--steel-gray)]/20 transition-colors"
+                    href={`tel:${BUSINESS_INFO.phoneRaw}`}
+                    className="inline-flex items-center justify-center gap-2 px-4 py-2.5 sm:px-6 sm:py-3 text-xs sm:text-sm font-semibold text-white border border-[var(--steel-gray)]/50 rounded-xl hover:bg-[var(--steel-gray)]/20 transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--safety-orange)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--concrete-gray)]"
+                    aria-label={`Call us at ${BUSINESS_INFO.phone}`}
                   >
-                    <Phone className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+                    <Phone className="w-3.5 h-3.5 sm:w-4 sm:h-4" aria-hidden="true" />
                     {BUSINESS_INFO.phone}
                   </a>
                 </div>

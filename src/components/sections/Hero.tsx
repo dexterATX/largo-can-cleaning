@@ -1,6 +1,7 @@
 'use client'
 
 import { useRef, useEffect, useState, memo, useMemo } from 'react'
+import Link from 'next/link'
 import { motion, useScroll, useTransform } from 'motion/react'
 import { ArrowRight, Sparkles, Shield, Droplets, CheckCircle2 } from 'lucide-react'
 import Container from '@/components/ui/Container'
@@ -184,12 +185,16 @@ function Hero() {
             transition={{ duration: 0.5, delay: 0.4 }}
             className="flex flex-col sm:flex-row items-center justify-center gap-4"
           >
-            <Button size="lg" rightIcon={<ArrowRight className="w-5 h-5" />}>
-              Get Free Quote
-            </Button>
-            <Button variant="outline" size="lg">
-              View Pricing
-            </Button>
+            <Link href="/contact">
+              <Button size="lg" rightIcon={<ArrowRight className="w-5 h-5" />}>
+                Get Free Quote
+              </Button>
+            </Link>
+            <Link href="/pricing">
+              <Button variant="outline" size="lg">
+                View Pricing
+              </Button>
+            </Link>
           </motion.div>
 
           {/* Trust Indicators */}

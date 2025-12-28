@@ -1,7 +1,7 @@
 import { Metadata } from 'next'
 import { notFound } from 'next/navigation'
 import BlogPostContent from '@/components/pages/BlogPostContent'
-import { generateArticleSchema, generateBreadcrumbSchema, BUSINESS_INFO } from '@/lib/schema'
+import { generateBlogPostingSchema, generateBreadcrumbSchema, BUSINESS_INFO } from '@/lib/schema'
 
 const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://largocancleaning.com'
 
@@ -258,14 +258,14 @@ const fallbackPosts: Record<string, {
       <h2>New Service Areas</h2>
       <p>In addition to our existing coverage in Seminole and surrounding areas, we now serve:</p>
       <ul>
+        <li>Largo (Primary)</li>
+        <li>Seminole</li>
         <li>Clearwater</li>
-        <li>St. Petersburg</li>
-        <li>Largo</li>
-        <li>Palm Harbor</li>
-        <li>Dunedin</li>
-        <li>Tarpon Springs</li>
+        <li>Pinellas Park</li>
         <li>Safety Harbor</li>
-        <li>And all communities in between!</li>
+        <li>Dunedin</li>
+        <li>Palm Harbor</li>
+        <li>Belleair</li>
       </ul>
 
       <h2>Same Great Service, More Locations</h2>
@@ -406,11 +406,13 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
 
   const { post } = data
   const canonicalUrl = `${BASE_URL}/blog/${slug}`
+  const imageUrl = post.image?.startsWith('http') ? post.image : `${BASE_URL}${post.image}`
 
   return {
     title: post.metaTitle || `${post.title} | Largo Can Cleaning Blog`,
     description: post.metaDescription || post.excerpt,
     keywords: post.metaKeywords?.join(', '),
+    authors: [{ name: BUSINESS_INFO.name, url: BUSINESS_INFO.url }],
     alternates: {
       canonical: canonicalUrl,
     },
@@ -419,16 +421,41 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
       description: post.metaDescription || post.excerpt,
       type: 'article',
       publishedTime: post.date,
+      modifiedTime: post.updatedAt || post.date,
+      authors: [BUSINESS_INFO.name],
+      section: post.categoryLabel || post.category,
       url: canonicalUrl,
       siteName: BUSINESS_INFO.name,
-      images: post.image ? [{ url: post.image.startsWith('http') ? post.image : `${BASE_URL}${post.image}` }] : [],
+      locale: 'en_US',
+      images: post.image ? [
+        {
+          url: imageUrl,
+          width: 1200,
+          height: 630,
+          alt: post.title,
+        }
+      ] : [],
     },
     twitter: {
       card: 'summary_large_image',
       title: post.metaTitle || post.title,
       description: post.metaDescription || post.excerpt,
+      images: post.image ? [imageUrl] : [],
+    },
+    other: {
+      'article:published_time': post.date,
+      'article:modified_time': post.updatedAt || post.date,
+      'article:author': BUSINESS_INFO.name,
+      'article:section': post.categoryLabel || post.category,
     },
   }
+}
+
+// Helper function to estimate word count from HTML content
+function estimateWordCount(htmlContent: string): number {
+  // Strip HTML tags and count words
+  const textContent = htmlContent.replace(/<[^>]*>/g, ' ').replace(/\s+/g, ' ').trim()
+  return textContent.split(' ').filter(word => word.length > 0).length
 }
 
 export default async function BlogPostPage({ params }: PageProps) {
@@ -441,16 +468,21 @@ export default async function BlogPostPage({ params }: PageProps) {
 
   const { post } = data
   const postUrl = `${BASE_URL}/blog/${slug}`
+  const imageUrl = post.image?.startsWith('http') ? post.image : `${BASE_URL}${post.image}`
+  const wordCount = estimateWordCount(post.content || '')
 
-  // Generate Article schema
-  const articleSchema = generateArticleSchema({
+  // Generate enhanced BlogPosting schema
+  const blogPostingSchema = generateBlogPostingSchema({
     title: post.metaTitle || post.title,
     description: post.metaDescription || post.excerpt,
     url: postUrl,
-    image: post.image?.startsWith('http') ? post.image : `${BASE_URL}${post.image}`,
+    image: imageUrl,
     datePublished: post.date,
     dateModified: post.updatedAt || post.date,
     category: post.categoryLabel,
+    readingTime: post.readTime,
+    wordCount: wordCount,
+    keywords: post.metaKeywords,
   })
 
   // Generate Breadcrumb schema
@@ -464,7 +496,7 @@ export default async function BlogPostPage({ params }: PageProps) {
     <>
       <script
         type="application/ld+json"
-        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleSchema) }}
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(blogPostingSchema) }}
       />
       <script
         type="application/ld+json"

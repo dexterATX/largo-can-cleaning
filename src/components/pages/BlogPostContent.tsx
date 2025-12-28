@@ -15,6 +15,7 @@ import {
   BookOpen,
   Tag,
   ChevronRight,
+  Building2,
 } from 'lucide-react'
 import { useState, useMemo } from 'react'
 import DOMPurify from 'dompurify'
@@ -282,6 +283,43 @@ export default function BlogPostContent({ post, related }: BlogPostContentProps)
               }}
             />
 
+            {/* Author Info Section */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.65 }}
+              className="mt-10 p-6 rounded-xl bg-[var(--concrete-gray)]/20 border border-[var(--steel-gray)]/20"
+            >
+              <div className="flex items-start gap-4">
+                {/* Author Avatar/Logo */}
+                <div className="flex-shrink-0 w-14 h-14 rounded-xl bg-gradient-to-br from-[var(--safety-orange)] to-[var(--safety-orange-dark)] flex items-center justify-center">
+                  <Building2 className="w-7 h-7 text-white" />
+                </div>
+
+                {/* Author Details */}
+                <div className="flex-1 min-w-0">
+                  <p className="text-xs text-[var(--slate-gray)] uppercase tracking-wide mb-1">Written by</p>
+                  <h4 className="text-lg font-semibold text-white mb-1">
+                    Largo Can Cleaning
+                  </h4>
+                  <p className="text-sm text-[var(--slate-gray)] leading-relaxed">
+                    Professional trash can cleaning service in Pinellas County, Florida.
+                    We help keep your home clean, hygienic, and pest-free with our eco-friendly cleaning solutions.
+                  </p>
+                  <div className="mt-3 flex flex-wrap items-center gap-4 text-xs text-[var(--slate-gray)]">
+                    <span className="flex items-center gap-1.5">
+                      <Clock className="w-3.5 h-3.5 text-[var(--safety-orange)]" />
+                      {post.readTime} min read
+                    </span>
+                    <span className="flex items-center gap-1.5">
+                      <Calendar className="w-3.5 h-3.5 text-[var(--safety-orange)]" />
+                      Published {formatDate(post.date)}
+                    </span>
+                  </div>
+                </div>
+              </div>
+            </motion.div>
+
             {/* Share Section */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -333,13 +371,21 @@ export default function BlogPostContent({ post, related }: BlogPostContentProps)
               <p className="text-sm sm:text-base text-[var(--slate-gray)] mb-6">
                 Get a free quote for professional trash can cleaning in Pinellas County.
               </p>
-              <Link
-                href="/contact"
-                className="inline-flex items-center gap-2 px-6 py-3 bg-[var(--safety-orange)] text-white font-semibold rounded-xl hover:bg-[var(--safety-orange-dark)] transition-colors"
-              >
-                Get Free Quote
-                <ChevronRight className="w-4 h-4" />
-              </Link>
+              <div className="flex flex-col sm:flex-row gap-3 justify-center">
+                <Link
+                  href="/contact"
+                  className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-[var(--safety-orange)] text-white font-semibold rounded-xl hover:bg-[var(--safety-orange-dark)] transition-colors"
+                >
+                  Get Free Quote
+                  <ChevronRight className="w-4 h-4" />
+                </Link>
+                <a
+                  href="tel:+13528433425"
+                  className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-[var(--concrete-gray)]/30 border border-[var(--steel-gray)]/20 text-white font-semibold rounded-xl hover:bg-[var(--concrete-gray)]/50 transition-colors"
+                >
+                  Call (352) 843-3425
+                </a>
+              </div>
             </div>
           </div>
         </Container>

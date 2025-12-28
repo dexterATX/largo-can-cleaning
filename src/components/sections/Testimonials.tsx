@@ -26,7 +26,7 @@ const reviews = [
   },
   {
     name: 'Marcus J.',
-    location: 'St. Petersburg, FL',
+    location: 'Belleair, FL',
     body: "Super easy service. They show up right after trash pickup, do their thing, and my cans are spotless every time.",
     img: 'https://i.pravatar.cc/150?img=53',
   },
@@ -85,7 +85,7 @@ function ReviewCard({
         <div className="w-5 h-5 rounded-full bg-[var(--safety-orange)]/20 flex-shrink-0 overflow-hidden">
           <Image
             src={img}
-            alt={name}
+            alt={`${name} from ${location} - satisfied Largo Can Cleaning customer`}
             width={20}
             height={20}
             className="rounded-full w-full h-full object-cover"
@@ -97,7 +97,7 @@ function ReviewCard({
           <figcaption className="text-[9px] font-medium text-white leading-tight">
             {name}
           </figcaption>
-          <div className="flex items-center gap-px">
+          <div className="flex items-center gap-px" role="img" aria-label="5 star rating">
             {Array.from({ length: 5 }).map((_, i) => (
               <Star
                 key={i}
@@ -184,11 +184,12 @@ export default function Testimonials() {
       {/* Google Reviews Badge */}
       <div className="flex justify-center mt-8">
         <div className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full bg-[var(--concrete-gray)]/50 border border-[var(--steel-gray)]/30">
-          <div className="flex items-center gap-1">
+          <div className="flex items-center gap-1" role="img" aria-label="5 out of 5 stars rating">
             {Array.from({ length: 5 }).map((_, i) => (
               <Star
                 key={i}
                 className="w-4 h-4 text-[var(--safety-orange)] fill-[var(--safety-orange)]"
+                aria-hidden="true"
               />
             ))}
           </div>

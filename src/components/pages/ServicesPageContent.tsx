@@ -2,7 +2,8 @@
 
 import { useRef, useState, useEffect } from 'react'
 import { createPortal } from 'react-dom'
-import { motion, useInView, AnimatePresence } from 'framer-motion'
+import { motion, useInView, AnimatePresence } from 'motion/react'
+import Link from 'next/link'
 import {
   Home,
   Building2,
@@ -177,8 +178,8 @@ const impactStats = [
 ]
 
 const serviceAreas = [
-  'Seminole', 'Largo', 'Clearwater', 'St. Petersburg', 
-  'Pinellas Park', 'Dunedin', 'Palm Harbor', 'Safety Harbor'
+  'Largo', 'Seminole', 'Clearwater', 'Pinellas Park',
+  'Safety Harbor', 'Dunedin', 'Palm Harbor', 'Belleair'
 ]
 
 // ============================================
@@ -322,17 +323,19 @@ function HeroSection() {
           </motion.p>
 
           {/* CTA Row */}
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.4, duration: 0.6 }}
             className="flex flex-wrap items-center justify-center gap-3 mb-10"
           >
-            <Button size="lg" rightIcon={<ArrowRight className="w-5 h-5" />}>
-              View Services
-            </Button>
+            <a href="#services-section">
+              <Button size="lg" rightIcon={<ArrowRight className="w-5 h-5" />}>
+                View Services
+              </Button>
+            </a>
             <a
-              href={`tel:${BUSINESS_INFO.phone}`}
+              href={`tel:${BUSINESS_INFO.phoneRaw}`}
               className="inline-flex items-center gap-2 px-5 py-3 text-sm font-medium text-[var(--light-gray)] hover:text-white border border-[var(--steel-gray)]/30 hover:border-[var(--steel-gray)]/50 rounded-lg transition-all"
             >
               <Phone className="w-4 h-4" />
@@ -485,7 +488,7 @@ function HeroSection() {
               className="text-center mt-6"
             >
               <a
-                href="#services"
+                href="#services-section"
                 className="inline-flex items-center gap-2 text-sm text-[var(--slate-gray)] hover:text-[var(--safety-orange)] transition-colors group"
               >
                 <span>View all service details</span>
@@ -709,15 +712,16 @@ function ServiceDetailOverlay({ service, isOpen, onClose }: ServiceDetailOverlay
 
               {/* CTA Buttons */}
               <div className="flex gap-2 mt-auto pt-3 border-t border-[var(--steel-gray)]/10">
-                <button
+                <Link
+                  href="/pricing"
                   className="flex-1 py-2.5 rounded-xl font-semibold text-white text-sm flex items-center justify-center gap-2 active:scale-[0.98] transition-transform"
                   style={{ backgroundColor: service.color }}
                 >
                   <span>Get Started</span>
                   <ArrowRight className="w-4 h-4" />
-                </button>
+                </Link>
                 <a
-                  href={`tel:${BUSINESS_INFO.phone}`}
+                  href={`tel:${BUSINESS_INFO.phoneRaw}`}
                   className="py-2.5 px-4 rounded-xl font-semibold text-[var(--light-gray)] text-sm flex items-center justify-center gap-2 border border-[var(--steel-gray)]/30 active:scale-[0.98] transition-transform"
                 >
                   <Phone className="w-4 h-4" />
@@ -961,7 +965,7 @@ function BentoServicesSection() {
   }
 
   return (
-    <section className="py-16 sm:py-24 bg-[var(--asphalt-dark)] relative overflow-hidden">
+    <section id="services-section" className="py-16 sm:py-24 bg-[var(--asphalt-dark)] relative overflow-hidden">
       {/* Background accents */}
       <div className="absolute top-0 left-0 w-full h-px bg-gradient-to-r from-transparent via-[var(--steel-gray)]/30 to-transparent" />
       <div className="absolute top-1/4 -left-32 w-[400px] h-[400px] bg-[var(--safety-orange)]/5 rounded-full blur-[150px]" />
@@ -1075,7 +1079,7 @@ function BentoServicesSection() {
             Not sure which service is right for you?
           </p>
           <a
-            href={`tel:${BUSINESS_INFO.phone}`}
+            href={`tel:${BUSINESS_INFO.phoneRaw}`}
             className="inline-flex items-center gap-2 px-5 py-2.5 text-sm font-semibold text-[var(--safety-orange)] hover:text-white border border-[var(--safety-orange)]/30 hover:border-[var(--safety-orange)] hover:bg-[var(--safety-orange)]/10 rounded-full transition-all duration-300"
           >
             <Phone className="w-4 h-4" />
@@ -1327,9 +1331,11 @@ function TimelineProcessSection() {
             viewport={{ once: true }}
             className="mt-6"
           >
-            <Button className="w-full justify-center" rightIcon={<ArrowRight className="w-4 h-4" />}>
-              Schedule Your Clean
-            </Button>
+            <Link href="/contact" className="block">
+              <Button className="w-full justify-center" rightIcon={<ArrowRight className="w-4 h-4" />}>
+                Schedule Your Clean
+              </Button>
+            </Link>
           </motion.div>
         </Container>
       </div>
@@ -1377,9 +1383,11 @@ function TimelineProcessSection() {
               </div>
             </div>
 
-            <Button rightIcon={<ArrowRight className="w-5 h-5" />}>
-              Schedule Your Clean
-            </Button>
+            <Link href="/contact">
+              <Button rightIcon={<ArrowRight className="w-5 h-5" />}>
+                Schedule Your Clean
+              </Button>
+            </Link>
           </motion.div>
 
           {/* Right - Timeline */}
@@ -1564,9 +1572,9 @@ const cityMapData: Record<string, { embedUrl: string; mapsUrl: string }> = {
     embedUrl: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d56284.85898856498!2d-82.80584842167969!3d27.96572895!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88c2f15c1ffaac29%3A0x7c8ff2cd9d7c5c9b!2sClearwater%2C%20FL!5e0!3m2!1sen!2sus!4v1702500000002',
     mapsUrl: 'https://maps.google.com/?q=Clearwater,+FL',
   },
-  'St. Petersburg': {
-    embedUrl: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d56484.85898856498!2d-82.64584842167969!3d27.77072895!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88c2e1f5c1ffaa09%3A0x7c8ff2cd9d7c5cab!2sSt.%20Petersburg%2C%20FL!5e0!3m2!1sen!2sus!4v1702500000003',
-    mapsUrl: 'https://maps.google.com/?q=St.+Petersburg,+FL',
+  'Belleair': {
+    embedUrl: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d14096.21449714312!2d-82.82584842167969!3d27.93572895!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88c2f0a9c3a9e9e7%3A0x6c5c9e5b5a5c5c5c!2sBelleair%2C%20FL!5e0!3m2!1sen!2sus!4v1702500000003',
+    mapsUrl: 'https://maps.google.com/?q=Belleair,+FL',
   },
   'Pinellas Park': {
     embedUrl: 'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d56384.85898856498!2d-82.70584842167969!3d27.84272895!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x88c2e1f5c1ff1a29%3A0x7c8ff2cd9d7c5c3b!2sPinellas%20Park%2C%20FL!5e0!3m2!1sen!2sus!4v1702500000004',
@@ -1629,7 +1637,6 @@ function ServiceAreasSection() {
             {serviceAreas.map((area) => {
               // Shorten names for mobile
               const shortName = area
-                .replace('St. Petersburg', 'St. Pete')
                 .replace('Palm Harbor', 'Palm Hbr')
                 .replace('Safety Harbor', 'Safety Hbr')
                 .replace('Pinellas Park', 'Pinellas Pk')
@@ -1715,9 +1722,11 @@ function ServiceAreasSection() {
             <p className="text-xs text-[var(--slate-gray)] mb-4">
               Don't see your area? Contact us — we may still be able to help!
             </p>
-            <Button size="sm" variant="outline" rightIcon={<ChevronRight className="w-3.5 h-3.5" />}>
-              Check Availability
-            </Button>
+            <Link href="/contact">
+              <Button size="sm" variant="outline" rightIcon={<ChevronRight className="w-3.5 h-3.5" />}>
+                Check Availability
+              </Button>
+            </Link>
           </div>
         </div>
 
@@ -1824,9 +1833,11 @@ function ServiceAreasSection() {
               Don't see your area? Contact us — we may still be able to help!
             </p>
 
-            <Button variant="outline" rightIcon={<ChevronRight className="w-4 h-4" />}>
-              Check Availability
-            </Button>
+            <Link href="/contact">
+              <Button variant="outline" rightIcon={<ChevronRight className="w-4 h-4" />}>
+                Check Availability
+              </Button>
+            </Link>
           </motion.div>
         </div>
       </Container>
@@ -1869,11 +1880,13 @@ function FinalCTASection() {
             <div className="bg-[var(--concrete-gray)] rounded-2xl p-5 border border-[var(--steel-gray)]/10 mb-5">
               {/* Buttons */}
               <div className="space-y-3 mb-5">
-                <Button className="w-full justify-center" size="lg" rightIcon={<ArrowRight className="w-4 h-4" />}>
-                  Get Free Quote
-                </Button>
+                <Link href="/pricing" className="block">
+                  <Button className="w-full justify-center" size="lg" rightIcon={<ArrowRight className="w-4 h-4" />}>
+                    Get Free Quote
+                  </Button>
+                </Link>
                 <a
-                  href={`tel:${BUSINESS_INFO.phone}`}
+                  href={`tel:${BUSINESS_INFO.phoneRaw}`}
                   className="w-full inline-flex items-center justify-center gap-2 px-6 py-3 text-sm font-semibold text-white border border-[var(--steel-gray)]/30 rounded-xl hover:bg-[var(--steel-gray)]/10 transition-all"
                 >
                   <Phone className="w-4 h-4" />
@@ -1933,11 +1946,13 @@ function FinalCTASection() {
           </p>
 
           <div className="flex flex-col sm:flex-row gap-4 justify-center mb-12">
-            <Button size="lg" rightIcon={<ArrowRight className="w-5 h-5" />}>
-              Get Free Quote
-            </Button>
+            <Link href="/pricing">
+              <Button size="lg" rightIcon={<ArrowRight className="w-5 h-5" />}>
+                Get Free Quote
+              </Button>
+            </Link>
             <a
-              href={`tel:${BUSINESS_INFO.phone}`}
+              href={`tel:${BUSINESS_INFO.phoneRaw}`}
               className="inline-flex items-center justify-center gap-3 px-8 py-4 text-base font-semibold text-white border-2 border-[var(--steel-gray)]/50 rounded-xl hover:bg-[var(--steel-gray)]/20 transition-all"
             >
               <Phone className="w-5 h-5" />

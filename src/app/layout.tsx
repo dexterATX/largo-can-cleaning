@@ -26,9 +26,9 @@ export const viewport: Viewport = {
 }
 
 export const metadata: Metadata = {
-  metadataBase: new URL(BUSINESS_INFO.url),
+  metadataBase: new URL('https://largocancleaning.com'),
   title: {
-    default: `${BUSINESS_INFO.name} | Professional Trash Can Cleaning in Seminole, FL`,
+    default: `${BUSINESS_INFO.name} | Professional Trash Can Cleaning in Largo, FL`,
     template: `%s | ${BUSINESS_INFO.name}`,
   },
   description: BUSINESS_INFO.description,
@@ -37,14 +37,18 @@ export const metadata: Metadata = {
     'bin cleaning service',
     'garbage can sanitization',
     'pressure washing',
+    'Largo Florida',
     'Seminole Florida',
     'Pinellas County',
     'residential cleaning',
     'commercial cleaning',
     'odor removal',
     'bacteria elimination',
+    'trash bin sanitization',
+    'wheelie bin cleaning',
+    'garbage can cleaning service',
   ],
-  authors: [{ name: BUSINESS_INFO.name }],
+  authors: [{ name: BUSINESS_INFO.name, url: BUSINESS_INFO.url }],
   creator: BUSINESS_INFO.name,
   publisher: BUSINESS_INFO.name,
   formatDetection: {
@@ -57,14 +61,16 @@ export const metadata: Metadata = {
     locale: 'en_US',
     url: BUSINESS_INFO.url,
     siteName: BUSINESS_INFO.name,
-    title: `${BUSINESS_INFO.name} | Professional Trash Can Cleaning`,
+    title: `${BUSINESS_INFO.name} | Professional Trash Can Cleaning in Largo, FL`,
     description: BUSINESS_INFO.description,
+    countryName: 'United States',
     images: [
       {
-        url: '/images/og-image.jpg',
+        url: '/og-image.png',
         width: 1200,
         height: 630,
-        alt: `${BUSINESS_INFO.name} - Professional Trash Can Cleaning Service`,
+        alt: `${BUSINESS_INFO.name} - Professional Trash Can Cleaning Service in Largo, Florida`,
+        type: 'image/png',
       },
     ],
   },
@@ -72,23 +78,70 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: `${BUSINESS_INFO.name} | Professional Trash Can Cleaning`,
     description: BUSINESS_INFO.description,
-    images: ['/images/og-image.jpg'],
+    images: [
+      {
+        url: '/og-image.png',
+        width: 1200,
+        height: 630,
+        alt: `${BUSINESS_INFO.name} - Professional Trash Can Cleaning Service`,
+      },
+    ],
+    creator: '@largocancleaning',
+    site: '@largocancleaning',
   },
   robots: {
     index: true,
     follow: true,
+    nocache: false,
     googleBot: {
       index: true,
       follow: true,
+      noimageindex: false,
       'max-video-preview': -1,
       'max-image-preview': 'large',
       'max-snippet': -1,
     },
   },
   alternates: {
-    canonical: BUSINESS_INFO.url,
+    canonical: 'https://largocancleaning.com',
+    languages: {
+      'en-US': 'https://largocancleaning.com',
+    },
   },
   category: 'business',
+  classification: 'Business/Cleaning Services',
+  referrer: 'origin-when-cross-origin',
+  other: {
+    // Geo meta tags for local SEO
+    'geo.region': 'US-FL',
+    'geo.placename': 'Largo',
+    'geo.position': '27.9092;-82.7873',
+    'ICBM': '27.9092, -82.7873',
+    // Additional business meta tags
+    'business:contact_data:street_address': BUSINESS_INFO.address.street,
+    'business:contact_data:locality': BUSINESS_INFO.address.city,
+    'business:contact_data:region': BUSINESS_INFO.address.state,
+    'business:contact_data:postal_code': BUSINESS_INFO.address.zip,
+    'business:contact_data:country_name': 'United States',
+    'business:contact_data:phone_number': BUSINESS_INFO.phone,
+    'business:contact_data:email': BUSINESS_INFO.email,
+    // Additional SEO meta tags
+    'apple-mobile-web-app-capable': 'yes',
+    'apple-mobile-web-app-status-bar-style': 'black-translucent',
+    'apple-mobile-web-app-title': BUSINESS_INFO.name,
+    'application-name': BUSINESS_INFO.name,
+    'msapplication-TileColor': '#FF6B00',
+    'msapplication-config': '/browserconfig.xml',
+    // Rating and content info
+    'rating': 'General',
+    'distribution': 'global',
+    'revisit-after': '7 days',
+    'expires': 'never',
+    // Local business specific
+    'subject': 'Professional Trash Can Cleaning Services',
+    'coverage': 'Largo, Seminole, Clearwater, Pinellas Park, Safety Harbor, Dunedin, Palm Harbor, Belleair, Pinellas County, Florida',
+    'target': 'all',
+  },
 }
 
 export default function RootLayout({

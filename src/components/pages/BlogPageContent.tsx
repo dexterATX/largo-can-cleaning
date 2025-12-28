@@ -688,46 +688,44 @@ export default function BlogPageContent() {
             </div>
           )}
 
-          {/* Load More - For future pagination */}
+          {/* Pagination hint - shows when there are many posts */}
           {filteredPosts.length > 6 && (
             <div className="mt-6 text-center">
-              <button className="inline-flex items-center gap-2 px-6 py-3 rounded-xl bg-[var(--concrete-gray)]/30 border border-[var(--steel-gray)]/20 text-white font-medium hover:bg-[var(--concrete-gray)]/50 transition-all">
-                Load More Articles
-                <ArrowRight className="w-4 h-4" />
-              </button>
+              <p className="text-sm text-[var(--slate-gray)]">
+                Showing all {filteredPosts.length} articles
+              </p>
             </div>
           )}
         </Container>
       </section>
 
-      {/* Newsletter CTA */}
+      {/* CTA Section */}
       <section className="pb-8 sm:pb-10 bg-[var(--asphalt-dark)]">
         <Container>
           <div className="max-w-2xl mx-auto text-center">
             <div className="p-6 sm:p-10 rounded-2xl bg-gradient-to-br from-[var(--safety-orange)]/20 to-[var(--safety-orange)]/5 border border-[var(--safety-orange)]/20">
               <Sparkles className="w-8 h-8 text-[var(--safety-orange)] mx-auto mb-4" />
               <h3 className="text-xl sm:text-2xl font-bold text-white mb-2">
-                Stay Updated
+                Ready for Spotless Bins?
               </h3>
               <p className="text-sm sm:text-base text-[var(--slate-gray)] mb-6">
-                Get the latest tips and cleaning insights delivered to your inbox.
+                Get a free quote for professional trash can cleaning in Pinellas County.
               </p>
-              <form className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
-                <input
-                  type="email"
-                  placeholder="Enter your email"
-                  className="flex-1 px-4 py-3 bg-[var(--asphalt-black)] border border-[var(--steel-gray)]/30 rounded-xl text-white placeholder-[var(--steel-gray)] focus:outline-none focus:border-[var(--safety-orange)]/50 text-sm"
-                />
-                <button
-                  type="submit"
-                  className="px-6 py-3 bg-[var(--safety-orange)] text-white font-semibold rounded-xl hover:bg-[var(--safety-orange-dark)] transition-colors text-sm"
+              <div className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto justify-center">
+                <Link
+                  href="/contact"
+                  className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-[var(--safety-orange)] text-white font-semibold rounded-xl hover:bg-[var(--safety-orange-dark)] transition-colors text-sm"
                 >
-                  Subscribe
-                </button>
-              </form>
-              <p className="text-[10px] sm:text-xs text-[var(--steel-gray)] mt-3">
-                No spam, unsubscribe anytime.
-              </p>
+                  Get Free Quote
+                  <ArrowRight className="w-4 h-4" />
+                </Link>
+                <a
+                  href="tel:+13528433425"
+                  className="inline-flex items-center justify-center gap-2 px-6 py-3 bg-[var(--concrete-gray)]/30 border border-[var(--steel-gray)]/20 text-white font-semibold rounded-xl hover:bg-[var(--concrete-gray)]/50 transition-colors text-sm"
+                >
+                  Call (352) 843-3425
+                </a>
+              </div>
             </div>
           </div>
         </Container>

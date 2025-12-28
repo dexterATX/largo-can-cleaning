@@ -156,17 +156,19 @@ function HeroSection() {
             className="flex flex-wrap items-center justify-center gap-3 lg:hidden"
           >
             <a
-              href={`tel:${BUSINESS_INFO.phone}`}
-              className="inline-flex items-center gap-2 px-5 py-2.5 bg-[var(--safety-orange)] text-white font-semibold rounded-xl hover:bg-[var(--safety-orange-dark)] transition-colors shadow-lg shadow-[var(--safety-orange)]/20"
+              href={`tel:${BUSINESS_INFO.phoneRaw}`}
+              className="inline-flex items-center gap-2 px-5 py-2.5 bg-[var(--safety-orange)] text-white font-semibold rounded-xl hover:bg-[var(--safety-orange-dark)] transition-colors shadow-lg shadow-[var(--safety-orange)]/20 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--safety-orange)]"
+              aria-label={`Call us at ${BUSINESS_INFO.phone}`}
             >
-              <Phone className="w-4 h-4" />
+              <Phone className="w-4 h-4" aria-hidden="true" />
               Call Now
             </a>
             <a
               href={`mailto:${BUSINESS_INFO.email}`}
-              className="inline-flex items-center gap-2 px-5 py-2.5 bg-[var(--concrete-gray)]/60 text-white font-semibold rounded-xl border border-[var(--steel-gray)]/40 hover:bg-[var(--concrete-gray)] hover:border-[var(--safety-orange)]/30 transition-all"
+              className="inline-flex items-center gap-2 px-5 py-2.5 bg-[var(--concrete-gray)]/60 text-white font-semibold rounded-xl border border-[var(--steel-gray)]/40 hover:bg-[var(--concrete-gray)] hover:border-[var(--safety-orange)]/30 transition-all focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--safety-orange)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--asphalt-dark)]"
+              aria-label={`Email us at ${BUSINESS_INFO.email}`}
             >
-              <Mail className="w-4 h-4" />
+              <Mail className="w-4 h-4" aria-hidden="true" />
               Email Us
             </a>
           </motion.div>
@@ -240,6 +242,7 @@ function FormInput({
           id={id}
           name={id}
           required={required}
+          aria-required={required}
           value={value}
           onChange={onChange}
           placeholder={placeholder}
@@ -282,6 +285,7 @@ function FormSelect({
           id={id}
           name={id}
           required={required}
+          aria-required={required}
           value={value}
           onChange={onChange}
           className="w-full px-3 lg:px-4 py-3 lg:py-3.5 text-sm bg-[var(--asphalt-black)] border-2 border-[var(--steel-gray)]/30 rounded-xl text-white focus:outline-none focus:border-[var(--safety-orange)] focus:ring-4 focus:ring-[var(--safety-orange)]/15 transition-all appearance-none cursor-pointer"
@@ -593,7 +597,7 @@ function ContactFormSection() {
                 <h3 className="text-xs lg:text-sm font-semibold text-white">Service Area</h3>
               </div>
               <p className="text-xs lg:text-sm text-[var(--slate-gray)] leading-relaxed">
-                Pinellas County, FL — Seminole, Largo, Clearwater, St. Pete & more.
+                Pinellas County, FL — Largo, Seminole, Clearwater, Pinellas Park, Safety Harbor, Dunedin, Palm Harbor & Belleair.
               </p>
             </div>
 
@@ -621,19 +625,132 @@ function ContactFormSection() {
               </ul>
             </div>
 
-            {/* Direct Call */}
+            {/* Direct Call - Click to Call */}
             <a
-              href={`tel:${BUSINESS_INFO.phone}`}
+              href={`tel:${BUSINESS_INFO.phoneRaw}`}
               className="flex items-center justify-between p-4 lg:p-5 rounded-lg lg:rounded-xl bg-[var(--concrete-gray)]/30 border border-[var(--steel-gray)]/20 hover:border-[var(--safety-orange)]/30 transition-colors group"
+              itemScope
+              itemType="https://schema.org/LocalBusiness"
             >
               <div>
                 <p className="text-[10px] lg:text-xs text-[var(--slate-gray)] uppercase tracking-wide">Call us directly</p>
-                <p className="text-sm lg:text-lg font-bold text-[var(--safety-orange)]">{BUSINESS_INFO.phone}</p>
+                <p className="text-sm lg:text-lg font-bold text-[var(--safety-orange)]" itemProp="telephone">{BUSINESS_INFO.phone}</p>
               </div>
               <Phone className="w-4 h-4 lg:w-5 lg:h-5 text-[var(--steel-gray)] group-hover:text-[var(--safety-orange)] transition-colors" />
             </a>
+
+            {/* NAP Section with Microdata */}
+            <div
+              className="p-4 lg:p-5 rounded-lg lg:rounded-xl bg-[var(--concrete-gray)]/30 border border-[var(--steel-gray)]/20"
+              itemScope
+              itemType="https://schema.org/LocalBusiness"
+            >
+              <meta itemProp="name" content={BUSINESS_INFO.name} />
+              <div className="flex items-center gap-2 mb-2 lg:mb-3">
+                <div className="w-8 h-8 rounded-lg bg-[var(--safety-orange)]/10 flex items-center justify-center">
+                  <MapPin className="w-4 h-4 text-[var(--safety-orange)]" />
+                </div>
+                <h3 className="text-xs lg:text-sm font-semibold text-white">Contact Information</h3>
+              </div>
+              <div className="space-y-2 text-xs lg:text-sm" itemProp="address" itemScope itemType="https://schema.org/PostalAddress">
+                <div className="flex items-start gap-2">
+                  <MapPin className="w-3.5 h-3.5 text-[var(--safety-orange)] mt-0.5 flex-shrink-0" />
+                  <div className="text-[var(--slate-gray)]">
+                    <span itemProp="addressLocality">{BUSINESS_INFO.address.city}</span>,{' '}
+                    <span itemProp="addressRegion">{BUSINESS_INFO.address.state}</span>{' '}
+                    <span itemProp="postalCode">{BUSINESS_INFO.address.zip}</span>
+                  </div>
+                </div>
+                <a
+                  href={`tel:${BUSINESS_INFO.phoneRaw}`}
+                  className="flex items-center gap-2 text-[var(--light-gray)] hover:text-[var(--safety-orange)] transition-colors"
+                >
+                  <Phone className="w-3.5 h-3.5 text-[var(--safety-orange)]" />
+                  <span itemProp="telephone">{BUSINESS_INFO.phone}</span>
+                </a>
+                <a
+                  href={`mailto:${BUSINESS_INFO.email}`}
+                  className="flex items-center gap-2 text-[var(--light-gray)] hover:text-[var(--safety-orange)] transition-colors"
+                >
+                  <Mail className="w-3.5 h-3.5 text-[var(--safety-orange)]" />
+                  <span itemProp="email">{BUSINESS_INFO.email}</span>
+                </a>
+              </div>
+            </div>
           </motion.div>
         </div>
+      </Container>
+    </section>
+  )
+}
+
+// ============================================
+// AREAS WE SERVE SECTION
+// ============================================
+
+function AreasWeServeSection() {
+  return (
+    <section className="py-10 sm:py-16 bg-[var(--asphalt-black)] border-t border-[var(--steel-gray)]/10">
+      <Container>
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="text-center mb-8"
+        >
+          <div className="inline-flex items-center gap-2 px-3 py-1.5 mb-4 rounded-full bg-[var(--safety-orange)]/10 border border-[var(--safety-orange)]/20">
+            <MapPin className="w-3.5 h-3.5 text-[var(--safety-orange)]" />
+            <span className="text-[10px] font-semibold uppercase tracking-wider text-[var(--safety-orange)]">Areas We Serve</span>
+          </div>
+          <h2 className="text-2xl sm:text-3xl font-bold text-white mb-3">
+            Proudly Serving Pinellas County, Florida
+          </h2>
+          <p className="text-[var(--slate-gray)] max-w-lg mx-auto">
+            Professional trash can cleaning and sanitization services for residential and commercial customers throughout {BUSINESS_INFO.address.county}.
+          </p>
+        </motion.div>
+
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          className="flex flex-wrap justify-center gap-2 sm:gap-3 max-w-3xl mx-auto"
+          itemScope
+          itemType="https://schema.org/LocalBusiness"
+        >
+          <meta itemProp="name" content={BUSINESS_INFO.name} />
+          {BUSINESS_INFO.areaServed.map((area, index) => (
+            <span
+              key={index}
+              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-[var(--concrete-gray)]/30 border border-[var(--steel-gray)]/20 text-sm font-medium text-[var(--light-gray)] hover:border-[var(--safety-orange)]/30 hover:text-white transition-all"
+              itemProp="areaServed"
+              itemScope
+              itemType="https://schema.org/City"
+            >
+              <MapPin className="w-3.5 h-3.5 text-[var(--safety-orange)]" />
+              <span itemProp="name">{area}</span>, FL
+            </span>
+          ))}
+        </motion.div>
+
+        {/* CTA */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="mt-8 text-center"
+        >
+          <p className="text-sm text-[var(--slate-gray)] mb-4">
+            Don&apos;t see your area? Give us a call - we may still be able to serve you!
+          </p>
+          <a
+            href={`tel:${BUSINESS_INFO.phoneRaw}`}
+            className="inline-flex items-center gap-2 px-5 py-2.5 bg-[var(--safety-orange)] text-white font-semibold rounded-xl hover:bg-[var(--safety-orange-dark)] transition-colors shadow-lg shadow-[var(--safety-orange)]/20"
+          >
+            <Phone className="w-4 h-4" />
+            Call {BUSINESS_INFO.phone}
+          </a>
+        </motion.div>
       </Container>
     </section>
   )
@@ -648,6 +765,7 @@ export default function ContactPageContent() {
     <div className="relative bg-[var(--asphalt-black)]">
       <HeroSection />
       <ContactFormSection />
+      <AreasWeServeSection />
     </div>
   )
 }

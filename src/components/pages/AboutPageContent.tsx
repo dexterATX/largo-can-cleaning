@@ -29,6 +29,7 @@ import {
   ChevronRight,
   Play,
 } from 'lucide-react'
+import Link from 'next/link'
 import Container from '@/components/ui/Container'
 import Button from '@/components/ui/Button'
 import { BUSINESS_INFO } from '@/lib/schema'
@@ -298,11 +299,13 @@ function HeroSection() {
             transition={{ delay: 0.2, duration: 0.5 }}
             className="flex flex-wrap items-center justify-center gap-3 mb-12"
           >
-            <Button size="lg" rightIcon={<ArrowRight className="w-5 h-5" />}>
-              Get Free Quote
-            </Button>
+            <Link href="/pricing">
+              <Button size="lg" rightIcon={<ArrowRight className="w-5 h-5" />}>
+                Get Free Quote
+              </Button>
+            </Link>
             <a
-              href={`tel:${BUSINESS_INFO.phone}`}
+              href="tel:+13528433425"
               className="inline-flex items-center gap-2 px-5 py-3 text-sm font-medium text-[var(--light-gray)] hover:text-white border border-[var(--steel-gray)]/30 hover:border-[var(--steel-gray)]/50 rounded-lg transition-all"
             >
               <Phone className="w-4 h-4" />
@@ -479,9 +482,11 @@ function StorySection() {
             </div>
 
             <div className="mt-8">
-              <Button variant="outline" rightIcon={<ArrowRight className="w-4 h-4" />}>
-                View Our Services
-              </Button>
+              <Link href="/services">
+                <Button variant="outline" rightIcon={<ArrowRight className="w-4 h-4" />}>
+                  View Our Services
+                </Button>
+              </Link>
             </div>
           </motion.div>
 
@@ -866,7 +871,7 @@ function ServiceAreasSection() {
               <MapPin className="w-4 h-4 text-[var(--safety-orange)]" />
               <span>{BUSINESS_INFO.address.city}, {BUSINESS_INFO.address.state} {BUSINESS_INFO.address.zip}</span>
             </div>
-            <a href={`tel:${BUSINESS_INFO.phone}`} className="flex items-center gap-3 text-sm text-[var(--slate-gray)] hover:text-white transition-colors">
+            <a href="tel:+13528433425" className="flex items-center gap-3 text-sm text-[var(--slate-gray)] hover:text-white transition-colors">
               <Phone className="w-4 h-4 text-[var(--safety-orange)]" />
               <span>{BUSINESS_INFO.phone}</span>
             </a>
@@ -924,11 +929,13 @@ function CTASection() {
               </p>
 
               <div className="space-y-3">
-                <Button className="w-full" size="lg" rightIcon={<ArrowRight className="w-5 h-5" />}>
-                  Get Free Quote
-                </Button>
+                <Link href="/pricing" className="block">
+                  <Button className="w-full" size="lg" rightIcon={<ArrowRight className="w-5 h-5" />}>
+                    Get Free Quote
+                  </Button>
+                </Link>
                 <a
-                  href={`tel:${BUSINESS_INFO.phone}`}
+                  href="tel:+13528433425"
                   className="flex items-center justify-center gap-2 w-full py-3 text-sm font-semibold text-white bg-[var(--concrete-gray)] rounded-xl"
                 >
                   <Phone className="w-4 h-4" />
@@ -989,11 +996,13 @@ function CTASection() {
                       <span className="text-sm text-[var(--slate-gray)]">/can/mo</span>
                     </div>
                     <div className="space-y-2">
-                      <Button className="w-full" size="lg" rightIcon={<ArrowRight className="w-5 h-5" />}>
-                        Get Free Quote
-                      </Button>
+                      <Link href="/pricing" className="block">
+                        <Button className="w-full" size="lg" rightIcon={<ArrowRight className="w-5 h-5" />}>
+                          Get Free Quote
+                        </Button>
+                      </Link>
                       <a
-                        href={`tel:${BUSINESS_INFO.phone}`}
+                        href="tel:+13528433425"
                         className="flex items-center justify-center gap-2 w-full py-3 text-sm font-medium text-[var(--light-gray)] hover:text-white transition-colors"
                       >
                         <Phone className="w-4 h-4" />

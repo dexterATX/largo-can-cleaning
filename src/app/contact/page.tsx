@@ -1,5 +1,5 @@
 import type { Metadata } from 'next'
-import { BUSINESS_INFO } from '@/lib/schema'
+import { BUSINESS_INFO, generateContactPageSchema, generateLocalBusinessSchema } from '@/lib/schema'
 import ContactPageContent from '@/components/pages/ContactPageContent'
 
 export const metadata: Metadata = {
@@ -10,6 +10,8 @@ export const metadata: Metadata = {
     'trash can cleaning quote',
     'bin cleaning Largo FL',
     'schedule bin cleaning',
+    'trash can cleaning Pinellas County',
+    'garbage can cleaning near me',
   ],
   alternates: {
     canonical: `${BUSINESS_INFO.url}/contact`,
@@ -22,5 +24,24 @@ export const metadata: Metadata = {
 }
 
 export default function ContactPage() {
-  return <ContactPageContent />
+  const contactPageSchema = generateContactPageSchema()
+  const localBusinessSchema = generateLocalBusinessSchema()
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(contactPageSchema),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(localBusinessSchema),
+        }}
+      />
+      <ContactPageContent />
+    </>
+  )
 }

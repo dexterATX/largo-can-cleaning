@@ -9,6 +9,7 @@ type CarouselItem = {
   url: string
   title?: string
   description?: string
+  alt?: string
 }
 
 interface DragCarouselProps {
@@ -44,7 +45,7 @@ export function DragCarousel({ items, className }: DragCarouselProps) {
               src={item.url}
               width={400}
               height={400}
-              alt={item.title || 'carousel image'}
+              alt={item.alt || item.title || 'Largo Can Cleaning service image'}
               className="w-full h-full object-cover pointer-events-none rounded-md"
             />
           </motion.div>

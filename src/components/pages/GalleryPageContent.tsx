@@ -3,6 +3,7 @@
 import { useState, useEffect, useCallback, useRef, useMemo, memo } from 'react'
 import { motion, AnimatePresence, PanInfo } from 'motion/react'
 import Image from 'next/image'
+import Link from 'next/link'
 import {
   Camera,
   X,
@@ -37,6 +38,7 @@ const galleryImages = [
     height: 600,
     title: 'Sparkling Clean Result',
     category: 'before-after',
+    alt: 'Before and after trash can cleaning comparison showing sparkling clean garbage bin in Largo, Florida',
   },
   {
     id: 2,
@@ -44,6 +46,7 @@ const galleryImages = [
     height: 520,
     title: 'Residential Bin Cleaning',
     category: 'residential',
+    alt: 'Professional residential trash can cleaning service for Pinellas County homeowners',
   },
   {
     id: 3,
@@ -51,6 +54,7 @@ const galleryImages = [
     height: 560,
     title: 'Deep Clean Process',
     category: 'process',
+    alt: 'Deep cleaning process using high-pressure hot water to sanitize garbage bins',
   },
   {
     id: 4,
@@ -58,6 +62,7 @@ const galleryImages = [
     height: 480,
     title: 'Commercial Dumpster Service',
     category: 'commercial',
+    alt: 'Commercial dumpster cleaning service for businesses in Largo and Clearwater, Florida',
   },
   {
     id: 5,
@@ -65,6 +70,7 @@ const galleryImages = [
     height: 620,
     title: 'Before & After Transformation',
     category: 'before-after',
+    alt: 'Dramatic before and after transformation of dirty trash can to sanitized bin',
   },
   {
     id: 6,
@@ -72,6 +78,7 @@ const galleryImages = [
     height: 500,
     title: 'High-Pressure Wash',
     category: 'process',
+    alt: 'High-pressure 190 degree water wash eliminating bacteria from garbage cans',
   },
   {
     id: 7,
@@ -79,6 +86,7 @@ const galleryImages = [
     height: 580,
     title: 'Neighborhood Service',
     category: 'residential',
+    alt: 'Neighborhood trash can cleaning service in Seminole and Largo residential areas',
   },
   {
     id: 8,
@@ -86,6 +94,7 @@ const galleryImages = [
     height: 460,
     title: 'Restaurant Bin Cleaning',
     category: 'commercial',
+    alt: 'Restaurant and food service garbage bin sanitization in Pinellas County',
   },
   {
     id: 9,
@@ -93,6 +102,7 @@ const galleryImages = [
     height: 540,
     title: 'Sanitization Complete',
     category: 'before-after',
+    alt: 'Completed sanitization showing clean and odor-free trash can ready for use',
   },
   {
     id: 10,
@@ -100,6 +110,7 @@ const galleryImages = [
     height: 600,
     title: 'Eco-Friendly Cleaning',
     category: 'process',
+    alt: 'Eco-friendly trash can cleaning using biodegradable solutions in Florida',
   },
   {
     id: 11,
@@ -107,6 +118,7 @@ const galleryImages = [
     height: 480,
     title: 'Weekly Service Client',
     category: 'residential',
+    alt: 'Weekly trash can cleaning subscription service for Largo homeowners',
   },
   {
     id: 12,
@@ -114,6 +126,7 @@ const galleryImages = [
     height: 560,
     title: 'HOA Community Service',
     category: 'commercial',
+    alt: 'HOA community trash can cleaning service for Florida neighborhoods',
   },
   {
     id: 13,
@@ -121,6 +134,7 @@ const galleryImages = [
     height: 620,
     title: 'Complete Sanitization',
     category: 'before-after',
+    alt: 'Complete garbage bin sanitization eliminating 99.9 percent of bacteria',
   },
   {
     id: 14,
@@ -128,6 +142,7 @@ const galleryImages = [
     height: 520,
     title: 'Curbside Pickup Ready',
     category: 'residential',
+    alt: 'Clean sanitized residential bin ready for curbside trash pickup',
   },
   {
     id: 15,
@@ -135,6 +150,7 @@ const galleryImages = [
     height: 580,
     title: 'Steam Cleaning Method',
     category: 'process',
+    alt: 'Steam cleaning method for deep sanitization of garbage cans and recycling bins',
   },
   {
     id: 16,
@@ -142,6 +158,7 @@ const galleryImages = [
     height: 460,
     title: 'Office Complex Service',
     category: 'commercial',
+    alt: 'Office complex and commercial property trash can cleaning in Clearwater',
   },
   {
     id: 17,
@@ -149,6 +166,7 @@ const galleryImages = [
     height: 600,
     title: 'Dramatic Transformation',
     category: 'before-after',
+    alt: 'Dramatic before and after trash can cleaning transformation in Largo, FL',
   },
   {
     id: 18,
@@ -156,6 +174,7 @@ const galleryImages = [
     height: 540,
     title: 'Suburban Home Service',
     category: 'residential',
+    alt: 'Suburban home garbage can cleaning service in Pinellas Park and Safety Harbor',
   },
   {
     id: 19,
@@ -163,6 +182,7 @@ const galleryImages = [
     height: 560,
     title: 'Deodorizing Treatment',
     category: 'process',
+    alt: 'Professional deodorizing treatment eliminating trash can odors and smells',
   },
   {
     id: 20,
@@ -170,6 +190,7 @@ const galleryImages = [
     height: 500,
     title: 'Shopping Center Bins',
     category: 'commercial',
+    alt: 'Shopping center and retail location trash bin cleaning in Pinellas County',
   },
   {
     id: 21,
@@ -177,6 +198,7 @@ const galleryImages = [
     height: 620,
     title: 'Fresh & Clean Results',
     category: 'before-after',
+    alt: 'Fresh and clean garbage can after professional sanitization service',
   },
   {
     id: 22,
@@ -184,6 +206,7 @@ const galleryImages = [
     height: 520,
     title: 'Monthly Subscription',
     category: 'residential',
+    alt: 'Monthly trash can cleaning subscription service for Largo area residents',
   },
   {
     id: 23,
@@ -191,6 +214,7 @@ const galleryImages = [
     height: 580,
     title: 'Equipment Setup',
     category: 'process',
+    alt: 'Professional trash can cleaning equipment setup at customer location',
   },
   {
     id: 24,
@@ -198,6 +222,7 @@ const galleryImages = [
     height: 480,
     title: 'Industrial Cleaning',
     category: 'commercial',
+    alt: 'Industrial and large-scale garbage container cleaning for Florida businesses',
   },
 ]
 
@@ -363,7 +388,7 @@ const Lightbox = memo(function Lightbox({ images, currentIndex, isOpen, onClose,
               ) : (
                 <Image
                   src={currentImage.img}
-                  alt={currentImage.title}
+                  alt={currentImage.alt}
                   width={800}
                   height={1000}
                   onError={() => setImageError(true)}
@@ -475,7 +500,7 @@ const MobileGallery = memo(function MobileGallery({ images, onImageClick }: Mobi
           <div className="relative aspect-[4/5]">
             <Image
               src={image.img}
-              alt={image.title}
+              alt={image.alt}
               fill
               sizes="(max-width: 640px) 50vw, 33vw"
               className="object-cover"
@@ -871,12 +896,12 @@ export default function GalleryPageContent() {
               <p className="text-xs lg:text-base text-[var(--slate-gray)] mb-4 lg:mb-6">
                 Get your bins looking brand new today.
               </p>
-              <a
+              <Link
                 href="/contact"
                 className="inline-flex items-center justify-center h-12 px-6 bg-[var(--safety-orange)] text-white font-semibold rounded-xl active:scale-[0.98] transition-transform lg:hover:bg-[var(--safety-orange-dark)]"
               >
                 Get Free Quote
-              </a>
+              </Link>
             </div>
           </motion.div>
         </Container>

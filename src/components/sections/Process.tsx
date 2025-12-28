@@ -14,6 +14,7 @@ const steps = [
     description:
       'Pick a date and time that works for you. Same-day and next-day appointments available.',
     img: 'https://images.unsplash.com/photo-1506784983877-45594efa4cbe?q=90&w=800&auto=format&fit=crop',
+    alt: 'Schedule your trash can cleaning service online - easy booking for Largo and Pinellas County residents',
   },
   {
     icon: Truck,
@@ -22,6 +23,7 @@ const steps = [
     description:
       'Our team arrives at your location with our mobile cleaning unit. No water or power hookup needed.',
     img: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?q=90&w=800&auto=format&fit=crop',
+    alt: 'Professional trash can cleaning truck arrives at your Largo, Florida home',
   },
   {
     icon: Droplets,
@@ -30,6 +32,7 @@ const steps = [
     description:
       '190°F high-pressure wash eliminates 99.9% of bacteria, grease, and odors in minutes.',
     img: 'https://images.unsplash.com/photo-1585421514284-efb74c2b69ba?q=90&w=800&auto=format&fit=crop',
+    alt: 'High-pressure hot water cleaning eliminates bacteria and odors from garbage bins',
   },
   {
     icon: CheckCircle,
@@ -38,6 +41,7 @@ const steps = [
     description:
       'Your bins are returned clean, sanitized, and deodorized. We dispose of all wastewater...',
     img: 'https://images.unsplash.com/photo-1584568694244-14fbdf83bd30?q=90&w=800&auto=format&fit=crop',
+    alt: 'Clean sanitized residential garbage bin after professional cleaning service',
   },
 ]
 
@@ -166,7 +170,7 @@ const ProcessCard = memo(function ProcessCard({ step, index }: { step: typeof st
       <div className="absolute inset-0">
         <Image
           src={step.img}
-          alt={step.title}
+          alt={step.alt}
           fill
           sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
           className="object-cover object-center"

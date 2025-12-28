@@ -173,13 +173,13 @@ export default function Header() {
           {/* Logo */}
           <Link
             href="/"
-            className="flex items-center gap-1 group outline-none focus:outline-none focus-visible:outline-none"
-            aria-label={`${BUSINESS_INFO.name} - Home`}
+            className="flex items-center gap-1 group outline-none focus-visible:ring-2 focus-visible:ring-[var(--safety-orange)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--asphalt-dark)] rounded-lg"
+            aria-label={`${BUSINESS_INFO.name} - Go to homepage`}
           >
             <div className="relative w-14 h-14 sm:w-16 sm:h-16 transition-transform duration-300 group-hover:scale-105">
               <Image
                 src="/logo.png"
-                alt="Largo Can Cleaning Mascot"
+                alt="Largo Can Cleaning - Professional Trash Can Cleaning Service in Pinellas County, Florida"
                 fill
                 className="object-contain"
                 priority
@@ -196,7 +196,7 @@ export default function Header() {
           </Link>
 
           {/* Desktop Navigation */}
-          <div className="hidden lg:flex items-center gap-1">
+          <div className="hidden lg:flex items-center gap-1" role="list">
             {navLinks.map((link) => (
               <Link
                 key={link.href}
@@ -205,11 +205,12 @@ export default function Header() {
                   'px-4 py-2 text-sm font-medium',
                   'text-[var(--light-gray)] hover:text-white',
                   'transition-colors duration-200',
-                  'relative group outline-none focus:outline-none'
+                  'relative group outline-none focus-visible:ring-2 focus-visible:ring-[var(--safety-orange)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--asphalt-dark)] rounded'
                 )}
+                role="listitem"
               >
                 {link.label}
-                <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-[var(--safety-orange)] transition-all duration-300 group-hover:w-full" />
+                <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-0.5 bg-[var(--safety-orange)] transition-all duration-300 group-hover:w-full" aria-hidden="true" />
               </Link>
             ))}
           </div>
@@ -217,13 +218,16 @@ export default function Header() {
           {/* Desktop CTA */}
           <div className="hidden lg:flex items-center gap-4">
             <a
-              href={`tel:${BUSINESS_INFO.phone}`}
-              className="flex items-center gap-2 text-sm text-[var(--light-gray)] hover:text-[var(--safety-orange)] transition-colors outline-none focus:outline-none"
+              href={`tel:${BUSINESS_INFO.phoneRaw}`}
+              className="flex items-center gap-2 text-sm text-[var(--light-gray)] hover:text-[var(--safety-orange)] transition-colors outline-none focus-visible:ring-2 focus-visible:ring-[var(--safety-orange)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--asphalt-dark)] rounded"
+              aria-label={`Call us at ${BUSINESS_INFO.phone}`}
             >
-              <Phone className="w-4 h-4" />
+              <Phone className="w-4 h-4" aria-hidden="true" />
               <span className="font-medium">{BUSINESS_INFO.phone}</span>
             </a>
-            <Button size="sm">Get Quote</Button>
+            <Link href="/contact">
+              <Button size="sm" aria-label="Get a free quote">Get Quote</Button>
+            </Link>
           </div>
 
           {/* Mobile Menu Toggle */}
@@ -235,8 +239,8 @@ export default function Header() {
               e.preventDefault()
               setIsMenuOpen(prev => !prev)
             }}
-            className="lg:hidden relative z-10 p-3 -mr-1 text-white hover:text-[var(--safety-orange)] transition-colors pointer-events-auto touch-manipulation outline-none focus:outline-none focus-visible:outline-none"
-            aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
+            className="lg:hidden relative z-10 p-3 -mr-1 text-white hover:text-[var(--safety-orange)] transition-colors pointer-events-auto touch-manipulation outline-none focus-visible:ring-2 focus-visible:ring-[var(--safety-orange)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--asphalt-dark)] rounded-lg"
+            aria-label={isMenuOpen ? 'Close navigation menu' : 'Open navigation menu'}
             aria-expanded={isMenuOpen}
             aria-controls="mobile-menu"
           >
@@ -273,12 +277,13 @@ export default function Header() {
                 <Link
                   href="/"
                   onClick={closeMenu}
-                  className="flex items-center gap-1 outline-none focus:outline-none focus-visible:outline-none"
+                  className="flex items-center gap-1 outline-none focus-visible:ring-2 focus-visible:ring-[var(--safety-orange)] rounded-lg"
+                  aria-label="Go to homepage"
                 >
                   <div className="relative w-12 h-12">
                     <Image
                       src="/logo.png"
-                      alt="Largo Can Cleaning Mascot"
+                      alt="Largo Can Cleaning - Professional Trash Can Cleaning Service in Pinellas County, Florida"
                       fill
                       className="object-contain"
                     />
@@ -292,10 +297,10 @@ export default function Header() {
                 </Link>
                 <button
                   onClick={closeMenu}
-                  className="w-10 h-10 flex items-center justify-center rounded-full bg-[var(--concrete-gray)] text-[var(--light-gray)] outline-none focus:outline-none focus-visible:outline-none"
-                  aria-label="Close menu"
+                  className="w-10 h-10 flex items-center justify-center rounded-full bg-[var(--concrete-gray)] text-[var(--light-gray)] outline-none focus-visible:ring-2 focus-visible:ring-[var(--safety-orange)] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0D0D0D]"
+                  aria-label="Close navigation menu"
                 >
-                  <X className="w-5 h-5" />
+                  <X className="w-5 h-5" aria-hidden="true" />
                 </button>
               </div>
 
@@ -322,12 +327,12 @@ export default function Header() {
               </div>
 
               {/* Navigation Links */}
-              <nav className="flex-1 px-4 py-3">
-                <div className="space-y-2">
+              <nav className="flex-1 px-4 py-3" aria-label="Mobile navigation">
+                <ul className="space-y-2">
                   {navLinks.map((link, index) => {
                     const isActive = pathname === link.href
                     return (
-                      <motion.div
+                      <motion.li
                         key={link.href}
                         initial={{ opacity: 0, x: -10 }}
                         animate={{ opacity: 1, x: 0 }}
@@ -336,8 +341,9 @@ export default function Header() {
                         <Link
                           href={link.href}
                           onClick={closeMenu}
+                          aria-current={isActive ? 'page' : undefined}
                           className={cn(
-                            "flex items-center gap-3 px-3 py-3 rounded-xl transition-all group outline-none focus:outline-none",
+                            "flex items-center gap-3 px-3 py-3 rounded-xl transition-all group outline-none focus-visible:ring-2 focus-visible:ring-[var(--safety-orange)]",
                             "border",
                             isActive
                               ? "bg-[var(--safety-orange)]/10 border-[var(--safety-orange)]/30"
@@ -383,22 +389,26 @@ export default function Header() {
                             )}
                           />
                         </Link>
-                      </motion.div>
+                      </motion.li>
                     )
                   })}
-                </div>
+                </ul>
               </nav>
 
               {/* Contact & CTA Section */}
               <div className="px-4 pb-4 pt-2 border-t border-[var(--steel-gray)]/20 bg-gradient-to-t from-[var(--asphalt-black)] to-transparent">
                 {/* Contact Info Row */}
                 <div className="flex items-center justify-between mb-3 px-1">
-                  <a href={`tel:${BUSINESS_INFO.phone}`} className="flex items-center gap-2 text-[var(--light-gray)] outline-none focus:outline-none">
-                    <Phone className="w-4 h-4 text-[var(--safety-orange)]" />
+                  <a
+                    href={`tel:${BUSINESS_INFO.phoneRaw}`}
+                    className="flex items-center gap-2 text-[var(--light-gray)] outline-none focus-visible:ring-2 focus-visible:ring-[var(--safety-orange)] rounded"
+                    aria-label={`Call us at ${BUSINESS_INFO.phone}`}
+                  >
+                    <Phone className="w-4 h-4 text-[var(--safety-orange)]" aria-hidden="true" />
                     <span className="text-sm font-medium">{BUSINESS_INFO.phone}</span>
                   </a>
                   <div className="flex items-center gap-1.5 text-[var(--slate-gray)]">
-                    <MapPin className="w-4 h-4 text-[var(--safety-orange)]" />
+                    <MapPin className="w-4 h-4 text-[var(--safety-orange)]" aria-hidden="true" />
                     <span className="text-xs">Pinellas County</span>
                   </div>
                 </div>
@@ -406,19 +416,22 @@ export default function Header() {
                 {/* CTA Buttons */}
                 <div className="grid grid-cols-2 gap-2">
                   <a
-                    href={`tel:${BUSINESS_INFO.phone}`}
-                    className="flex items-center justify-center gap-2 py-3 text-sm font-semibold text-white bg-[var(--concrete-gray)] rounded-xl border border-[var(--steel-gray)]/30 outline-none focus:outline-none"
+                    href={`tel:${BUSINESS_INFO.phoneRaw}`}
+                    className="flex items-center justify-center gap-2 py-3 text-sm font-semibold text-white bg-[var(--concrete-gray)] rounded-xl border border-[var(--steel-gray)]/30 outline-none focus-visible:ring-2 focus-visible:ring-[var(--safety-orange)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--asphalt-black)]"
+                    aria-label={`Call us now at ${BUSINESS_INFO.phone}`}
                   >
-                    <Phone className="w-4 h-4" />
+                    <Phone className="w-4 h-4" aria-hidden="true" />
                     Call Now
                   </a>
-                  <Button
-                    className="w-full"
-                    size="md"
-                    onClick={closeMenu}
-                  >
-                    Get Quote
-                  </Button>
+                  <Link href="/contact" onClick={closeMenu} className="w-full">
+                    <Button
+                      className="w-full"
+                      size="md"
+                      aria-label="Get a free quote"
+                    >
+                      Get Quote
+                    </Button>
+                  </Link>
                 </div>
               </div>
             </motion.div>
