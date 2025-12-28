@@ -142,8 +142,10 @@ function RelatedPostCard({ post }: { post: RelatedPost }) {
 
   return (
     <article className="relative h-full rounded-xl overflow-hidden bg-[var(--concrete-gray)]/30 border border-[var(--steel-gray)]/20 hover:border-[var(--safety-orange)]/30 transition-all group">
-      {/* Overlay link for full card clickability - aria-hidden so anchor text comes from visible link */}
-      <Link href={`/blog/${post.slug}`} className="absolute inset-0 z-10" tabIndex={-1} aria-hidden="true" />
+      {/* Overlay link for full card clickability with SEO-friendly anchor text */}
+      <Link href={`/blog/${post.slug}`} className="absolute inset-0 z-10" tabIndex={-1}>
+        <span className="sr-only">{shortAnchor}</span>
+      </Link>
 
       <div className="aspect-[16/9] bg-gradient-to-br from-[var(--concrete-gray)]/60 to-[var(--concrete-gray)]/30 relative">
         <div className="absolute inset-0 flex items-center justify-center">

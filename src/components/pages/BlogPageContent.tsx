@@ -189,8 +189,10 @@ const FeaturedPostCard = memo(function FeaturedPostCard({ post, categories }: { 
     <article
       className="relative rounded-2xl overflow-hidden bg-gradient-to-br from-[var(--concrete-gray)]/60 to-[var(--concrete-gray)]/30 border border-[var(--steel-gray)]/20 transition-transform duration-200 hover:scale-[1.01] group"
     >
-      {/* Overlay link for full card clickability - aria-hidden so anchor text comes from visible link */}
-      <Link href={`/blog/${post.slug}`} className="absolute inset-0 z-10" tabIndex={-1} aria-hidden="true" />
+      {/* Overlay link for full card clickability with SEO-friendly anchor text */}
+      <Link href={`/blog/${post.slug}`} className="absolute inset-0 z-10" tabIndex={-1}>
+        <span className="sr-only">{post.linkText || 'Read: ' + post.title}</span>
+      </Link>
 
       {/* Image Placeholder */}
       <div className="aspect-[16/10] sm:aspect-[16/8] lg:aspect-[16/7] bg-gradient-to-br from-[var(--safety-orange)]/20 to-[var(--safety-orange)]/5 relative">
@@ -251,8 +253,10 @@ const PostCard = memo(function PostCard({ post, categories, index = 0 }: { post:
     <article
       className="relative h-full rounded-xl overflow-hidden bg-[var(--concrete-gray)]/30 border border-[var(--steel-gray)]/20 active:border-[var(--safety-orange)]/30 lg:hover:border-[var(--safety-orange)]/30 transition-all group"
     >
-      {/* Overlay link for full card clickability - aria-hidden so anchor text comes from visible link */}
-      <Link href={`/blog/${post.slug}`} className="absolute inset-0 z-10" tabIndex={-1} aria-hidden="true" />
+      {/* Overlay link for full card clickability with SEO-friendly anchor text */}
+      <Link href={`/blog/${post.slug}`} className="absolute inset-0 z-10" tabIndex={-1}>
+        <span className="sr-only">{post.linkText || 'Read: ' + post.title}</span>
+      </Link>
 
       {/* Image Placeholder - Shorter on mobile */}
       <div className="aspect-[4/3] lg:aspect-[16/9] bg-gradient-to-br from-[var(--concrete-gray)]/60 to-[var(--concrete-gray)]/30 relative">
@@ -428,8 +432,10 @@ const MobileTrendingCarousel = memo(function MobileTrendingCarousel({ posts, cat
               className="flex-shrink-0 w-[280px] group relative"
               draggable={false}
             >
-              {/* Overlay link for full card clickability */}
-              <Link href={`/blog/${post.slug}`} className="absolute inset-0 z-10" tabIndex={-1} aria-hidden="true" />
+              {/* Overlay link for full card clickability with SEO-friendly anchor text */}
+              <Link href={`/blog/${post.slug}`} className="absolute inset-0 z-10" tabIndex={-1}>
+                <span className="sr-only">{post.linkText || 'Read: ' + post.title}</span>
+              </Link>
 
               <div
                 className="relative rounded-xl overflow-hidden bg-gradient-to-br from-[var(--concrete-gray)]/60 to-[var(--concrete-gray)]/30 border border-[var(--steel-gray)]/20 active:border-[var(--safety-orange)]/40 transition-colors"
