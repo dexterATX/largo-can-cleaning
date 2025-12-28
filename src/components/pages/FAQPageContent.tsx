@@ -276,9 +276,19 @@ export default function FAQPageContent() {
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.35, delay: 0.1 }}
-              className="text-base sm:text-lg md:text-xl text-[var(--light-gray)] max-w-2xl mx-auto mb-8"
+              className="text-base sm:text-lg md:text-xl text-[var(--light-gray)] max-w-2xl mx-auto mb-4"
             >
               Answers to frequently asked questions about our professional trash can cleaning service
+            </motion.p>
+
+            {/* Additional descriptive content for SEO */}
+            <motion.p
+              initial={{ opacity: 0, y: 15 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.35, delay: 0.12 }}
+              className="text-sm text-[var(--slate-gray)] max-w-xl mx-auto mb-8 leading-relaxed"
+            >
+              Whether you're curious about our cleaning process, pricing options, service areas throughout Pinellas County, or scheduling details, we've compiled comprehensive answers to help you make an informed decision about professional bin sanitization.
             </motion.p>
 
             {/* Feature Pills */}
@@ -410,6 +420,41 @@ export default function FAQPageContent() {
               />
             ))}
           </div>
+        </Container>
+      </section>
+
+      {/* Additional Content Section for SEO */}
+      <section className="py-10 sm:py-16 bg-[var(--asphalt-black)] border-t border-[var(--steel-gray)]/10">
+        <Container>
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="max-w-3xl mx-auto text-center"
+          >
+            <h2 className="text-xl sm:text-2xl font-bold text-white mb-4">
+              Still Have Questions?
+            </h2>
+            <p className="text-sm sm:text-base text-[var(--slate-gray)] leading-relaxed mb-4">
+              We understand that choosing a professional trash can cleaning service is an important decision for your home or business. Our team at Largo Can Cleaning is committed to providing transparent information about our sanitization process, eco-friendly cleaning solutions, and flexible scheduling options. We proudly serve residential and commercial customers throughout Pinellas County, including Largo, Seminole, Clearwater, Pinellas Park, Safety Harbor, Dunedin, Palm Harbor, and Belleair.
+            </p>
+            <p className="text-sm sm:text-base text-[var(--slate-gray)] leading-relaxed mb-6">
+              Our professional bin cleaning service uses high-temperature, high-pressure water to eliminate 99.9% of bacteria, remove stubborn odors, and prevent pest infestations. With no contracts required and satisfaction guaranteed, there's no risk in trying our service. Contact us today for a free quote or call us directly to speak with a member of our team about your specific needs.
+            </p>
+            <div className="flex flex-col sm:flex-row items-center justify-center gap-4">
+              <Link href="/contact">
+                <Button size="lg" rightIcon={<ArrowRight className="w-5 h-5" />}>
+                  Get Free Quote
+                </Button>
+              </Link>
+              <a href={`tel:${BUSINESS_INFO.phoneRaw}`}>
+                <Button variant="outline" size="lg">
+                  <Phone className="w-4 h-4 mr-2" />
+                  {BUSINESS_INFO.phone}
+                </Button>
+              </a>
+            </div>
+          </motion.div>
         </Container>
       </section>
 

@@ -119,9 +119,19 @@ function HeroSection() {
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.35, delay: 0.15 }}
-            className="text-base sm:text-lg lg:text-xl text-[var(--slate-gray)] mb-6"
+            className="text-base sm:text-lg lg:text-xl text-[var(--slate-gray)] mb-3"
           >
             Ready for clean bins? Fill out the form or give us a call.
+          </motion.p>
+
+          {/* Additional descriptive text for SEO */}
+          <motion.p
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.35, delay: 0.17 }}
+            className="text-sm text-[var(--slate-gray)]/80 max-w-lg mx-auto mb-6"
+          >
+            Our professional trash can cleaning service eliminates 99.9% of bacteria, removes stubborn odors, and prevents pest infestations. Serving residential and commercial customers throughout Pinellas County with eco-friendly sanitization solutions.
           </motion.p>
 
           {/* Feature Pills */}
@@ -705,8 +715,11 @@ function AreasWeServeSection() {
           <h2 className="text-2xl sm:text-3xl font-bold text-white mb-3">
             Proudly Serving Pinellas County, Florida
           </h2>
-          <p className="text-[var(--slate-gray)] max-w-lg mx-auto">
+          <p className="text-[var(--slate-gray)] max-w-lg mx-auto mb-3">
             Professional trash can cleaning and sanitization services for residential and commercial customers throughout {BUSINESS_INFO.address.county}.
+          </p>
+          <p className="text-sm text-[var(--slate-gray)]/80 max-w-2xl mx-auto">
+            Our truck-mounted cleaning system brings high-pressure, high-temperature sanitization directly to your curb. We use eco-friendly, biodegradable cleaning solutions that are safe for children, pets, and the environment. All wastewater is captured and properly disposed of—nothing goes into storm drains or onto your property.
           </p>
         </motion.div>
 
@@ -740,8 +753,11 @@ function AreasWeServeSection() {
           viewport={{ once: true }}
           className="mt-8 text-center"
         >
-          <p className="text-sm text-[var(--slate-gray)] mb-4">
+          <p className="text-sm text-[var(--slate-gray)] mb-2">
             Don&apos;t see your area? Give us a call - we may still be able to serve you!
+          </p>
+          <p className="text-xs text-[var(--slate-gray)]/70 mb-4 max-w-md mx-auto">
+            We're continuously expanding our service coverage and offer special arrangements for customers just outside our regular service zones.
           </p>
           <a
             href={`tel:${BUSINESS_INFO.phoneRaw}`}
@@ -750,6 +766,21 @@ function AreasWeServeSection() {
             <Phone className="w-4 h-4" />
             Call {BUSINESS_INFO.phone}
           </a>
+        </motion.div>
+
+        {/* Additional content for SEO */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          className="mt-12 pt-8 border-t border-[var(--steel-gray)]/10"
+        >
+          <div className="max-w-2xl mx-auto text-center">
+            <h3 className="text-lg font-bold text-white mb-3">Why Choose Largo Can Cleaning?</h3>
+            <p className="text-sm text-[var(--slate-gray)] leading-relaxed">
+              As a locally-owned and operated business based in Seminole, Florida, we take pride in providing exceptional trash can cleaning services to our Pinellas County neighbors. Our commitment to customer satisfaction, eco-friendly practices, and professional-grade equipment sets us apart from DIY alternatives. We offer flexible scheduling, no contracts, and a 100% satisfaction guarantee on every cleaning. Whether you need residential curbside bin cleaning, commercial dumpster sanitization, or HOA community services, our team delivers consistent, reliable results you can count on.
+            </p>
+          </div>
         </motion.div>
       </Container>
     </section>

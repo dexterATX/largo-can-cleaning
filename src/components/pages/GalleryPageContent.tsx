@@ -754,8 +754,20 @@ export default function GalleryPageContent() {
               className="text-sm lg:text-lg text-[var(--light-gray)] max-w-md lg:max-w-xl mx-auto"
             >
               <span className="lg:hidden">Before & after photos of our cleaning results.</span>
-              <span className="hidden lg:inline">See the transformation. Before and after photos showcasing our professional cleaning results.</span>
+              <span className="hidden lg:inline">See the transformation. Before and after photos showcasing our professional trash can cleaning results throughout Pinellas County, Florida.</span>
             </motion.p>
+
+            {/* Additional descriptive content for SEO */}
+            <motion.div
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ delay: 0.25 }}
+              className="hidden lg:block mt-6 max-w-2xl mx-auto"
+            >
+              <p className="text-sm text-[var(--slate-gray)] leading-relaxed">
+                Browse our collection of real customer transformations from residential homes, commercial properties, and HOA communities across Largo, Seminole, Clearwater, and surrounding areas. Each image demonstrates the power of our high-pressure, high-temperature sanitization system that eliminates bacteria, removes stubborn grime, and leaves bins sparkling clean. Our professional trash can cleaning service has transformed hundreds of dirty, odor-filled bins into sanitized containers that look and smell fresh.
+              </p>
+            </motion.div>
 
             {/* Stats - Hidden on Mobile for Cleaner Look */}
             <motion.div
@@ -882,6 +894,24 @@ export default function GalleryPageContent() {
       {/* CTA Section - Simplified on Mobile */}
       <section className="pt-4 pb-8 lg:pt-10 lg:pb-14 bg-[var(--asphalt-dark)]">
         <Container>
+          {/* Additional content section for SEO */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="max-w-3xl mx-auto text-center mb-8 lg:mb-12"
+          >
+            <h2 className="text-xl lg:text-2xl font-bold text-white mb-4">
+              What Our Gallery Shows
+            </h2>
+            <p className="text-sm lg:text-base text-[var(--slate-gray)] leading-relaxed mb-4">
+              Every photo in our gallery represents a real transformation completed by our professional cleaning team. We use specialized equipment including truck-mounted systems with 190°F pressurized water that blasts away years of built-up residue, bacteria, and odors. Our before and after images demonstrate the dramatic difference between a neglected trash can and one that has been professionally sanitized.
+            </p>
+            <p className="text-sm lg:text-base text-[var(--slate-gray)] leading-relaxed">
+              From residential curbside bins to commercial dumpsters and HOA community containers, we handle all types of waste receptacles. Our gallery showcases the consistent quality results our customers in Largo, Seminole, Clearwater, Pinellas Park, Safety Harbor, and throughout Pinellas County have come to expect from our service.
+            </p>
+          </motion.div>
+
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -894,7 +924,7 @@ export default function GalleryPageContent() {
                 Ready for Your Transformation?
               </h2>
               <p className="text-xs lg:text-base text-[var(--slate-gray)] mb-4 lg:mb-6">
-                Get your bins looking brand new today.
+                Get your bins looking brand new today. Join hundreds of satisfied Pinellas County residents who trust us for professional trash can sanitization.
               </p>
               <Link
                 href="/contact"
