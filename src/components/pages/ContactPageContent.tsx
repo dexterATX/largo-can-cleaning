@@ -777,8 +777,14 @@ function AreasWeServeSection() {
         >
           <div className="max-w-2xl mx-auto text-center">
             <h3 className="text-lg font-bold text-white mb-3">Why Choose Largo Can Cleaning?</h3>
+            <p className="text-sm text-[var(--slate-gray)] leading-relaxed mb-3">
+              As a locally-owned and operated business based in Seminole, Florida, we take pride in providing exceptional trash can cleaning services to our Pinellas County neighbors. Our commitment to customer satisfaction, eco-friendly practices, and professional-grade equipment sets us apart from DIY alternatives. We offer flexible scheduling, no contracts, and a 100% satisfaction guarantee on every cleaning.
+            </p>
+            <p className="text-sm text-[var(--slate-gray)] leading-relaxed mb-3">
+              Whether you need residential curbside bin cleaning, commercial dumpster sanitization, or HOA community services, our team delivers consistent, reliable results you can count on. Our truck-mounted system uses 190°F pressurized water and EPA-approved sanitizing solutions to eliminate 99.9% of bacteria, remove foul odors, and prevent pest infestations that plague dirty trash cans in Florida's warm climate.
+            </p>
             <p className="text-sm text-[var(--slate-gray)] leading-relaxed">
-              As a locally-owned and operated business based in Seminole, Florida, we take pride in providing exceptional trash can cleaning services to our Pinellas County neighbors. Our commitment to customer satisfaction, eco-friendly practices, and professional-grade equipment sets us apart from DIY alternatives. We offer flexible scheduling, no contracts, and a 100% satisfaction guarantee on every cleaning. Whether you need residential curbside bin cleaning, commercial dumpster sanitization, or HOA community services, our team delivers consistent, reliable results you can count on.
+              Contact us today using the form above or call us directly for immediate assistance. We respond to all inquiries within 24 hours and can often schedule your first cleaning within days. Join hundreds of satisfied customers throughout Largo, Seminole, Clearwater, and surrounding communities who trust us for professional trash can sanitization services.
             </p>
           </div>
         </motion.div>
