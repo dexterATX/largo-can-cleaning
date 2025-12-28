@@ -1,10 +1,14 @@
 import type { Metadata, Viewport } from 'next'
 import { Inter, Geist_Mono } from 'next/font/google'
+import { GoogleAnalytics } from '@next/third-parties/google'
 import './globals.css'
 import { generateLocalBusinessSchema, BUSINESS_INFO } from '@/lib/schema'
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
 import AnalyticsTracker from '@/components/analytics/AnalyticsTracker'
+
+// Google Analytics Measurement ID - set in environment variables
+const GA_MEASUREMENT_ID = process.env.NEXT_PUBLIC_GA_MEASUREMENT_ID
 
 const inter = Inter({
   variable: '--font-inter',
@@ -28,7 +32,7 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL('https://largocancleaning.com'),
   title: {
-    default: 'Largo Can Cleaning | #1 Trash Can Cleaning in Pinellas County, FL',
+    default: 'Largo Can Cleaning | Trash Can Cleaning Pinellas FL',
     template: `%s | ${BUSINESS_INFO.name}`,
   },
   description: BUSINESS_INFO.description,
@@ -60,16 +64,15 @@ export const metadata: Metadata = {
     locale: 'en_US',
     url: BUSINESS_INFO.url,
     siteName: BUSINESS_INFO.name,
-    title: 'Largo Can Cleaning | #1 Trash Can Cleaning in Pinellas County, FL',
+    title: 'Largo Can Cleaning | Trash Can Cleaning Pinellas FL',
     description: BUSINESS_INFO.description,
     countryName: 'United States',
     images: [
       {
-        url: '/og-image.png',
+        url: '/opengraph-image',
         width: 1200,
         height: 630,
         alt: `${BUSINESS_INFO.name} - Professional Trash Can Cleaning Service in Largo, Florida`,
-        type: 'image/png',
       },
     ],
   },
@@ -79,7 +82,7 @@ export const metadata: Metadata = {
     description: BUSINESS_INFO.description,
     images: [
       {
-        url: '/og-image.png',
+        url: '/opengraph-image',
         width: 1200,
         height: 630,
         alt: `${BUSINESS_INFO.name} - Professional Trash Can Cleaning Service`,
@@ -106,7 +109,7 @@ export const metadata: Metadata = {
       { url: '/icon.svg', type: 'image/svg+xml' },
     ],
     apple: [
-      { url: '/apple-icon.png', sizes: '180x180', type: 'image/png' },
+      { url: '/apple-icon', sizes: '180x180', type: 'image/png' },
     ],
   },
   alternates: {
@@ -158,6 +161,9 @@ export default function RootLayout({
         <link rel="preconnect" href="https://fonts.gstatic.com" crossOrigin="anonymous" />
         <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
         <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
+        {/* Preconnect to Google Analytics for faster loading */}
+        <link rel="preconnect" href="https://www.googletagmanager.com" />
+        <link rel="dns-prefetch" href="https://www.googletagmanager.com" />
         <link rel="icon" href="/icon.svg" type="image/svg+xml" />
         <link rel="icon" href="/icon.svg" sizes="any" />
         <link rel="manifest" href="/manifest.json" />
@@ -181,6 +187,8 @@ export default function RootLayout({
         <main id="main-content" className="flex-1">{children}</main>
         <Footer />
         <AnalyticsTracker />
+        {/* Google Analytics - only loaded when measurement ID is configured */}
+        {GA_MEASUREMENT_ID && <GoogleAnalytics gaId={GA_MEASUREMENT_ID} />}
       </body>
     </html>
   )

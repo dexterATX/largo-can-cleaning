@@ -144,7 +144,7 @@ export default function WhyChooseUs() {
             id="why-choose-heading"
             className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4"
           >
-            Largo&apos;s Trusted Bin Cleaning Experts
+            Pinellas County&apos;s Trusted Bin Cleaning Service
           </h2>
           <p className="text-[var(--slate-gray)] max-w-2xl mx-auto text-sm sm:text-base">
             We combine industrial-grade equipment with eco-friendly practices to deliver the cleanest, most hygienic results for homes and businesses across Pinellas County.

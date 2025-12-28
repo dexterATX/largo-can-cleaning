@@ -234,7 +234,7 @@ export default function Process() {
             id="process-heading"
             className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4"
           >
-            Simple 4-Step Process
+            How Our Trash Can Cleaning Works
           </h2>
           <p className="text-[var(--slate-gray)] max-w-2xl mx-auto">
             We handle everything from start to finish. You never have to touch

@@ -79,7 +79,7 @@ export default function HomeFAQ() {
               id="faq-heading"
               className="text-2xl sm:text-3xl md:text-4xl font-bold text-white mb-4"
             >
-              Frequently Asked Questions
+              Trash Can Cleaning FAQs
             </h2>
             <p className="text-[var(--slate-gray)]">
               Quick answers to the questions we hear most from Pinellas County homeowners.

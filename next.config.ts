@@ -30,11 +30,11 @@ const securityHeaders = [
     key: 'Content-Security-Policy',
     value: [
       "default-src 'self'",
-      "script-src 'self' 'unsafe-inline' 'unsafe-eval'", // Required for Next.js
+      "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com", // Required for Next.js + GA
       "style-src 'self' 'unsafe-inline'", // Required for styled-jsx and inline styles
-      "img-src 'self' data: https://images.unsplash.com https://i.pravatar.cc blob:",
+      "img-src 'self' data: https://images.unsplash.com https://i.pravatar.cc https://www.google-analytics.com https://www.googletagmanager.com blob:",
       "font-src 'self' data:",
-      "connect-src 'self' https://*.supabase.co",
+      "connect-src 'self' https://*.supabase.co https://www.google-analytics.com https://analytics.google.com https://*.googletagmanager.com",
       "frame-ancestors 'self'",
       "base-uri 'self'",
       "form-action 'self'",
