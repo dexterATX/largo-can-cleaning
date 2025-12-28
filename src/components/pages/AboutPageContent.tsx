@@ -834,7 +834,7 @@ function ServiceAreasSection() {
             <span className="text-[10px] font-semibold uppercase tracking-wider text-[var(--safety-orange)]">Service Areas</span>
           </div>
           <h2 className="text-2xl sm:text-3xl font-bold text-white mb-3">
-            Proudly Serving Pinellas County, Florida
+            Our Local Service Coverage
           </h2>
           <p className="text-[var(--slate-gray)] max-w-lg mx-auto">
             Professional trash can cleaning services for residential and commercial customers.
@@ -923,7 +923,7 @@ function CTASection() {
               </div>
 
               <h2 className="text-xl font-bold text-white text-center mb-2">
-                Ready for Clean Bins?
+                Experience the Difference
               </h2>
               <p className="text-sm text-[var(--slate-gray)] text-center mb-6">
                 Join 500+ happy families in Pinellas County

@@ -1,10 +1,16 @@
 import dynamic from 'next/dynamic'
 import Hero from '@/components/sections/Hero'
-import Services from '@/components/sections/Services'
-import Process from '@/components/sections/Process'
 import { generateFAQSchema } from '@/lib/faqSchema'
 
-// Lazy load below-fold components for better mobile performance
+// Lazy load all below-fold components for better initial load performance
+const Services = dynamic(() => import('@/components/sections/Services'), {
+  loading: () => <div className="min-h-[500px] bg-[var(--asphalt-dark)]" />,
+})
+
+const Process = dynamic(() => import('@/components/sections/Process'), {
+  loading: () => <div className="min-h-[400px] bg-[var(--asphalt-dark)]" />,
+})
+
 const WhyChooseUs = dynamic(() => import('@/components/sections/WhyChooseUs'), {
   loading: () => <div className="min-h-[400px] bg-[var(--asphalt-black)]" />,
 })

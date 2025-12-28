@@ -273,6 +273,8 @@ const fallbackPosts: Record<string, {
 
       <h2>New Service Areas</h2>
       <p>In addition to our existing coverage in Seminole and surrounding areas, we now serve:</p>
+
+      <h3>Communities Now Served</h3>
       <ul>
         <li>Largo (Primary)</li>
         <li>Seminole</li>
@@ -287,6 +289,8 @@ const fallbackPosts: Record<string, {
 
       <h2>Same Great Service, More Locations</h2>
       <p>Our expansion brings the same high-quality service you've come to expect:</p>
+
+      <h3>What's Included in Every Service</h3>
       <ul>
         <li>360° high-temperature cleaning</li>
         <li>Eco-friendly sanitizing solutions</li>
@@ -294,15 +298,17 @@ const fallbackPosts: Record<string, {
         <li>Flexible scheduling options</li>
         <li>Satisfaction guaranteed</li>
       </ul>
+
+      <h3>Our Commitment to Quality</h3>
       <p>We've invested in additional equipment and trained more team members to ensure we can maintain our high standards while serving a larger area. Every customer, whether in Largo or Palm Harbor, receives the same thorough, professional cleaning.</p>
 
       <h2>Why We're Expanding</h2>
       <p>The response from our existing customers has been overwhelming. Word-of-mouth referrals and positive reviews have driven demand in neighboring communities. We've heard from residents across Pinellas County who wanted access to professional bin cleaning but were previously outside our service area. This expansion is our response to that demand.</p>
 
-      <h2>Expansion Celebration Special</h2>
+      <h3>Special Welcome Offer</h3>
       <p>To celebrate our growth, new customers in our expanded service areas can receive 20% off their first month of service. Use code WELCOME20 when booking online! This offer is our way of welcoming new communities to the Largo Can Cleaning family.</p>
 
-      <h2>Thank You</h2>
+      <h2>Thank You to Our Customers</h2>
       <p>This expansion wouldn't be possible without our amazing customers who have spread the word about our service. Thank you for your continued support and for helping us grow! We look forward to serving even more Pinellas County families and businesses with clean, sanitized trash cans.</p>
     `,
     category: 'news',
@@ -319,23 +325,32 @@ const fallbackPosts: Record<string, {
       <p>Why restaurants are switching to professional bin cleaning isn't a mystery—it's about health, safety, and smart business. Restaurants and food service businesses face unique challenges when it comes to waste management. High volumes of food waste, strict health codes, and customer perception all make bin cleanliness crucial for success in the competitive hospitality industry.</p>
 
       <h2>Health Code Compliance</h2>
-      <p>Health inspectors pay close attention to waste storage areas. Common violations include:</p>
+      <p>Health inspectors pay close attention to waste storage areas.</p>
+
+      <h3>Common Violations to Avoid</h3>
       <ul>
         <li>Dirty or foul-smelling dumpsters</li>
         <li>Visible pest activity around waste areas</li>
         <li>Improper waste containment</li>
         <li>Lack of regular cleaning documentation</li>
       </ul>
+
+      <h3>How Professional Cleaning Helps</h3>
       <p>Professional cleaning with documented service records helps demonstrate compliance and avoid costly violations. We provide cleaning logs and documentation that can be presented during health inspections, showing your commitment to maintaining sanitary conditions.</p>
 
       <h2>Customer Perception</h2>
       <p>Many customers pass by your waste area when entering or exiting. A foul smell or visible pests can impact their perception of your establishment's overall cleanliness—even if your kitchen is spotless. First impressions matter, and a clean, odor-free exterior contributes to a positive dining experience from the moment customers arrive.</p>
 
       <h2>Pest Prevention</h2>
-      <p>Commercial food waste is a magnet for pests. Regular professional cleaning breaks the cycle of attraction by eliminating food residue and the scent markers that draw pests to your location. For restaurants, pest issues can lead to health code violations, negative reviews, and even temporary closures. Prevention through regular cleaning is far more cost-effective than dealing with an infestation.</p>
+      <p>Commercial food waste is a magnet for pests. Regular professional cleaning breaks the cycle of attraction by eliminating food residue and the scent markers that draw pests to your location.</p>
+
+      <h3>The True Cost of Pest Problems</h3>
+      <p>For restaurants, pest issues can lead to health code violations, negative reviews, and even temporary closures. Prevention through regular cleaning is far more cost-effective than dealing with an infestation.</p>
 
       <h2>Cost-Effective Solution</h2>
-      <p>When you factor in:</p>
+      <p>When you factor in the hidden costs, professional cleaning pays for itself:</p>
+
+      <h3>Savings You'll See</h3>
       <ul>
         <li>Staff time spent on cleaning</li>
         <li>Potential health code violations</li>
@@ -345,7 +360,10 @@ const fallbackPosts: Record<string, {
       <p>Professional bin cleaning often pays for itself many times over. Your staff can focus on serving customers rather than scrubbing dumpsters, and you avoid the substantial costs associated with health violations or pest infestations.</p>
 
       <h2>Custom Commercial Plans</h2>
-      <p>We offer tailored cleaning schedules for commercial clients, from weekly service for high-volume restaurants to bi-weekly plans for smaller establishments. Our commercial team understands the unique demands of food service operations and works around your schedule to minimize disruption. Contact us to discuss your specific needs and receive a customized quote for your Pinellas County business.</p>
+      <p>We offer tailored cleaning schedules for commercial clients, from weekly service for high-volume restaurants to bi-weekly plans for smaller establishments.</p>
+
+      <h3>Getting Started</h3>
+      <p>Our commercial team understands the unique demands of food service operations and works around your schedule to minimize disruption. Contact us to discuss your specific needs and receive a customized quote for your Pinellas County business.</p>
     `,
     category: 'news',
     categoryLabel: 'Company News',

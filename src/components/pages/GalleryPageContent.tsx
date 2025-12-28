@@ -742,8 +742,8 @@ export default function GalleryPageContent() {
               transition={{ delay: 0.1 }}
               className="text-2xl lg:text-5xl font-bold tracking-tight mb-3 lg:mb-4"
             >
-              <span className="text-white">Our </span>
-              <span className="text-gradient-orange">Gallery</span>
+              <span className="text-white">Before & After </span>
+              <span className="text-gradient-orange">Trash Can Cleaning Gallery</span>
             </motion.h1>
 
             {/* Subtitle - Shorter on Mobile */}
@@ -921,7 +921,7 @@ export default function GalleryPageContent() {
             <div className="p-5 lg:p-10 rounded-2xl bg-gradient-to-br from-[var(--safety-orange)]/20 to-[var(--safety-orange)]/5 border border-[var(--safety-orange)]/20">
               <Sparkles className="w-6 h-6 lg:w-8 lg:h-8 text-[var(--safety-orange)] mx-auto mb-3 lg:mb-4" />
               <h2 className="text-lg lg:text-2xl font-bold text-white mb-1.5 lg:mb-2">
-                Ready for Your Transformation?
+                See Your Bins Shine Too
               </h2>
               <p className="text-xs lg:text-base text-[var(--slate-gray)] mb-4 lg:mb-6">
                 Get your bins looking brand new today. Join hundreds of satisfied Pinellas County residents who trust us for professional trash can sanitization.

@@ -1,6 +1,16 @@
 import type { Metadata } from 'next'
+import dynamic from 'next/dynamic'
 import { BUSINESS_INFO } from '@/lib/schema'
-import PricingPageContent from '@/components/pages/PricingPageContent'
+
+// Dynamic import with loading optimization
+const PricingPageContent = dynamic(
+  () => import('@/components/pages/PricingPageContent'),
+  {
+    loading: () => (
+      <div className="min-h-screen bg-[var(--asphalt-dark)] animate-pulse" />
+    )
+  }
+)
 
 export const metadata: Metadata = {
   title: 'Trash Can Cleaning Prices | Largo FL',

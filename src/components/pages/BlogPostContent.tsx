@@ -222,16 +222,6 @@ export default function BlogPostContent({ post, related }: BlogPostContentProps)
               {post.title}
             </motion.h1>
 
-            {/* Excerpt */}
-            <motion.p
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.3 }}
-              className="text-base sm:text-lg text-[var(--light-gray)] mb-6"
-            >
-              {post.excerpt}
-            </motion.p>
-
             {/* Meta */}
             <motion.div
               initial={{ opacity: 0, y: 20 }}
@@ -375,7 +365,7 @@ export default function BlogPostContent({ post, related }: BlogPostContentProps)
           <div className="max-w-2xl mx-auto text-center">
             <div className="p-6 sm:p-10 rounded-2xl bg-gradient-to-br from-[var(--safety-orange)]/20 to-[var(--safety-orange)]/5 border border-[var(--safety-orange)]/20">
               <h2 className="text-xl sm:text-2xl font-bold text-white mb-3">
-                Ready for Spotless Bins?
+                Try Professional Bin Cleaning
               </h2>
               <p className="text-sm sm:text-base text-[var(--slate-gray)] mb-6">
                 Get a free quote for professional trash can cleaning in Pinellas County.

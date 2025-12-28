@@ -113,7 +113,7 @@ function HeroSection() {
             transition={{ duration: 0.35, delay: 0.1 }}
             className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-4 lg:mb-3"
           >
-            Get Your <span className="text-gradient-orange">Free Quote</span>
+            Get Your Free <span className="text-gradient-orange">Trash Can Cleaning Quote</span>
           </motion.h1>
           <motion.p
             initial={{ opacity: 0, y: 15 }}
@@ -713,7 +713,7 @@ function AreasWeServeSection() {
             <span className="text-[10px] font-semibold uppercase tracking-wider text-[var(--safety-orange)]">Areas We Serve</span>
           </div>
           <h2 className="text-2xl sm:text-3xl font-bold text-white mb-3">
-            Proudly Serving Pinellas County, Florida
+            Find Us in Pinellas County, Florida
           </h2>
           <p className="text-[var(--slate-gray)] max-w-lg mx-auto mb-3">
             Professional trash can cleaning and sanitization services for residential and commercial customers throughout {BUSINESS_INFO.address.county}.

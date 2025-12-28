@@ -1686,9 +1686,9 @@ function ServiceAreasSection() {
                 <div className="w-1.5 h-1.5 rounded-full bg-[var(--success)] animate-pulse" />
                 <span className="text-[11px] text-[var(--light-gray)]">
                   {selectedCity ? (
-                    <>Viewing <strong className="text-white">{selectedCity}</strong></>
+                    <>Viewing <span className="text-white font-semibold">{selectedCity}</span></>
                   ) : (
-                    <>Servicing <strong className="text-white">8 cities</strong></>
+                    <>Servicing <span className="text-white font-semibold">8 cities</span></>
                   )}
                 </span>
               </div>
@@ -1757,11 +1757,11 @@ function ServiceAreasSection() {
             <div className="bg-[var(--asphalt-black)] px-4 py-3 flex items-center justify-between">
               <div className="flex items-center gap-2">
                 <div className="w-2 h-2 rounded-full bg-[var(--success)] animate-pulse" />
-                <span className="text-xs text-[var(--light-gray)]">
+                <span className="text-xs text-[var(--light-gray)] sr-only lg:not-sr-only">
                   {selectedCity ? (
-                    <>Viewing <strong className="text-white">{selectedCity}</strong></>
+                    <>Viewing <span className="text-white font-semibold">{selectedCity}</span></>
                   ) : (
-                    <>Servicing <strong className="text-white">8 cities</strong></>
+                    <>Servicing <span className="text-white font-semibold">8 cities</span></>
                   )}
                 </span>
               </div>
@@ -1870,7 +1870,7 @@ function FinalCTASection() {
 
             {/* Headline */}
             <h2 className="text-2xl sm:text-3xl font-bold text-white mb-3">
-              Ready for <span className="text-[var(--safety-orange)]">Clean Bins</span>?
+              Book Your <span className="text-[var(--safety-orange)]">Service Today</span>
             </h2>
             <p className="text-sm text-[var(--slate-gray)] mb-6 max-w-xs mx-auto">
               Join 500+ happy customers. Get your free quote in 60 seconds.
@@ -1938,7 +1938,7 @@ function FinalCTASection() {
           </div>
 
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-white mb-6">
-            Ready for Clean Bins?
+            Get Started with Professional Cleaning
           </h2>
           <p className="text-lg text-[var(--slate-gray)] mb-10 max-w-xl mx-auto">
             Join 500+ happy customers who never worry about dirty, smelly

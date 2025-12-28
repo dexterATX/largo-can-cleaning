@@ -21,7 +21,7 @@ export default function TermsPageContent() {
             className="max-w-3xl"
           >
             <h1 className="text-3xl sm:text-4xl font-bold text-white mb-4">
-              Terms of Service
+              Terms of Service | Largo Can Cleaning
             </h1>
             <p className="text-sm text-[var(--slate-gray)]">
               Last updated: {lastUpdated}

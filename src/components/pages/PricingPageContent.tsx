@@ -378,9 +378,9 @@ export default function PricingPageContent() {
               transition={{ delay: 0.1, duration: 0.6, ease: [0.25, 0.1, 0.25, 1] }}
               className="text-4xl sm:text-5xl lg:text-6xl font-bold text-white leading-[1.1] mb-5"
             >
-              Transparent{' '}
+              Trash Can Cleaning{' '}
               <span className="relative inline-block">
-                <span className="text-[var(--safety-orange)]">Pricing</span>
+                <span className="text-[var(--safety-orange)]">Prices</span>
                 <motion.svg
                   initial={{ pathLength: 0, opacity: 0 }}
                   animate={{ pathLength: 1, opacity: 1 }}
@@ -402,6 +402,7 @@ export default function PricingPageContent() {
                   />
                 </motion.svg>
               </span>
+              {' '}in Largo, FL
             </motion.h1>
 
             {/* Subtitle */}
@@ -753,8 +754,8 @@ export default function PricingPageContent() {
                   </div>
                 </div>
 
-                <h2 className="text-xl font-bold text-white text-center mb-2">
-                  Ready for Clean Bins?
+            <h2 className="text-xl font-bold text-white text-center mb-2">
+                  Start Fresh Today
                 </h2>
                 <p className="text-sm text-[var(--slate-gray)] text-center mb-5">
                   Join 500+ happy customers in Pinellas County

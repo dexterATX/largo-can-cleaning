@@ -586,8 +586,8 @@ export default function BlogPageContent() {
               transition={{ duration: 0.35, delay: 0.05 }}
               className="text-3xl sm:text-4xl lg:text-5xl font-bold tracking-tight mb-4"
             >
-              <span className="text-white">Our </span>
-              <span className="text-gradient-orange">Blog</span>
+              <span className="text-white">Trash Can Cleaning </span>
+              <span className="text-gradient-orange">Tips & Insights</span>
             </motion.h1>
 
             {/* Subtitle */}
@@ -729,7 +729,7 @@ export default function BlogPageContent() {
             <div className="p-6 sm:p-10 rounded-2xl bg-gradient-to-br from-[var(--safety-orange)]/20 to-[var(--safety-orange)]/5 border border-[var(--safety-orange)]/20">
               <Sparkles className="w-8 h-8 text-[var(--safety-orange)] mx-auto mb-4" />
               <h2 className="text-xl sm:text-2xl font-bold text-white mb-2">
-                Ready for Spotless Bins?
+                Get Your Free Cleaning Quote
               </h2>
               <p className="text-sm sm:text-base text-[var(--slate-gray)] mb-6">
                 Get a free quote for professional trash can cleaning in Pinellas County.
