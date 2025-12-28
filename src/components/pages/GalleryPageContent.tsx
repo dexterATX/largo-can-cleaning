@@ -90,7 +90,7 @@ const galleryImages = [
   },
   {
     id: 8,
-    img: 'https://images.unsplash.com/photo-1581578017093-cd30fce4ecd7?w=600&h=750&fit=crop',
+    img: 'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=600&h=750&fit=crop',
     height: 460,
     title: 'Restaurant Bin Cleaning',
     category: 'commercial',
@@ -122,7 +122,7 @@ const galleryImages = [
   },
   {
     id: 12,
-    img: 'https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=600&h=850&fit=crop',
+    img: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=600&h=850&fit=crop',
     height: 560,
     title: 'HOA Community Service',
     category: 'commercial',
@@ -218,7 +218,7 @@ const galleryImages = [
   },
   {
     id: 24,
-    img: 'https://images.unsplash.com/photo-1558618047-3c8c76ca7d13?w=600&h=750&fit=crop',
+    img: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=600&h=750&fit=crop',
     height: 480,
     title: 'Industrial Cleaning',
     category: 'commercial',
