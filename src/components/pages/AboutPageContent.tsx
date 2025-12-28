@@ -264,8 +264,9 @@ function HeroSection() {
             transition={{ delay: 0.1, duration: 0.5 }}
             className="text-base sm:text-lg text-[var(--slate-gray)] mb-8 max-w-2xl leading-relaxed"
           >
-            Family-owned and operated in Seminole, FL. We're your trusted provider of professional
-            trash can sanitization services to homes and businesses throughout{' '}
+            As Pinellas County's trusted trash can cleaning service, we're a family-owned and operated
+            business based in Seminole, FL. We provide professional trash can sanitization to homes
+            and businesses throughout{' '}
             <span className="text-white">Pinellas County</span>—eliminating 99.9% of bacteria,
             odors, and pests since 2023.
           </motion.p>
