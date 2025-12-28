@@ -1,6 +1,3 @@
-'use client'
-
-import { motion } from 'motion/react'
 import Link from 'next/link'
 import { Phone, ArrowRight, Calendar, Clock, Shield, FileCheck } from 'lucide-react'
 import Container from '@/components/ui/Container'
@@ -21,12 +18,8 @@ export default function CTA() {
       <Container className="relative z-10">
         <div className="max-w-5xl mx-auto">
           {/* Main Card */}
-          <motion.div
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ duration: 0.6 }}
-            className="relative rounded-2xl sm:rounded-3xl border border-[var(--steel-gray)]/30 bg-gradient-to-br from-[var(--concrete-gray)] to-[var(--asphalt-black)] p-5 sm:p-12 overflow-hidden"
+          <div
+            className="relative rounded-2xl sm:rounded-3xl border border-[var(--steel-gray)]/30 bg-gradient-to-br from-[var(--concrete-gray)] to-[var(--asphalt-black)] p-5 sm:p-12 overflow-hidden animate-fade-in-up"
           >
             {/* Accent Border */}
             <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-[var(--safety-orange)] to-transparent" />
@@ -117,13 +110,10 @@ export default function CTA() {
                     fullDesc: "Not happy? We'll re-clean for free or give you a full refund."
                   },
                 ].map((item, index) => (
-                  <motion.div
+                  <div
                     key={index}
-                    initial={{ opacity: 0, x: 20 }}
-                    whileInView={{ opacity: 1, x: 0 }}
-                    viewport={{ once: true }}
-                    transition={{ duration: 0.4, delay: index * 0.1 }}
-                    className="flex flex-row items-center gap-4 p-4 rounded-xl bg-[var(--asphalt-black)]/50 border border-[var(--steel-gray)]/20"
+                    className="flex flex-row items-center gap-4 p-4 rounded-xl bg-[var(--asphalt-black)]/50 border border-[var(--steel-gray)]/20 animate-fade-in-up"
+                    style={{ animationDelay: `${index * 100}ms` }}
                   >
                     <div className="w-12 h-12 rounded-xl bg-[var(--safety-orange)]/10 flex items-center justify-center flex-shrink-0">
                       <item.icon className="w-6 h-6 text-[var(--safety-orange)]" />
@@ -132,11 +122,11 @@ export default function CTA() {
                       <h3 className="text-base font-semibold text-white">{item.title}</h3>
                       <p className="text-xs text-[var(--slate-gray)]">{item.fullDesc}</p>
                     </div>
-                  </motion.div>
+                  </div>
                 ))}
               </div>
             </div>
-          </motion.div>
+          </div>
         </div>
       </Container>
     </section>

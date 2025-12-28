@@ -16,7 +16,6 @@ import {
   HelpCircle,
   Mail,
   MapPin,
-  Clock,
   Star,
   ChevronRight,
   Sparkles,
