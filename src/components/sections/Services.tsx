@@ -120,9 +120,9 @@ const ServiceCard = memo(function ServiceCard({ service }: { service: typeof ser
         <Link
           href="/services"
           className="flex items-center gap-1 text-sm font-medium text-[var(--light-gray)] hover:text-[var(--safety-orange)] transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--safety-orange)] rounded"
-          aria-label={`Learn more about ${service.title}`}
+          aria-label={`View ${service.title} service details`}
         >
-          Learn more
+          {service.title} Details
           <ArrowRight className="w-4 h-4" aria-hidden="true" />
         </Link>
       </div>

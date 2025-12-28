@@ -202,7 +202,7 @@ function Hero() {
             </Link>
             <Link href="/pricing">
               <Button variant="outline" size="lg">
-                View Pricing
+                See Our Prices
               </Button>
             </Link>
           </motion.div>

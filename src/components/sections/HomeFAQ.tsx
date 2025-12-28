@@ -118,7 +118,7 @@ export default function HomeFAQ() {
             <div className="flex flex-col sm:flex-row items-center justify-center gap-3">
               <Link href="/faq">
                 <Button variant="outline" rightIcon={<ArrowRight className="w-4 h-4" />}>
-                  View All FAQs
+                  Browse All Questions
                 </Button>
               </Link>
             </div>

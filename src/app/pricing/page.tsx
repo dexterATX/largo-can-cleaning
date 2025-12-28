@@ -3,7 +3,7 @@ import { BUSINESS_INFO } from '@/lib/schema'
 import PricingPageContent from '@/components/pages/PricingPageContent'
 
 export const metadata: Metadata = {
-  title: 'Pricing',
+  title: 'Trash Can Cleaning Prices | Largo FL',
   description: `Transparent trash can cleaning prices starting at $25. Monthly, bi-weekly, and one-time cleaning options in ${BUSINESS_INFO.address.city}, FL. No contracts, no hidden fees.`,
   keywords: [
     'trash can cleaning prices',

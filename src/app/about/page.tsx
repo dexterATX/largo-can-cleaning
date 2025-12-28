@@ -3,7 +3,7 @@ import { BUSINESS_INFO, generateAboutPageSchema, generateLocalBusinessSchema } f
 import AboutPageContent from '@/components/pages/AboutPageContent'
 
 export const metadata: Metadata = {
-  title: 'About Us',
+  title: 'About Us | Pinellas County Service',
   description: `Learn about ${BUSINESS_INFO.name} - your trusted trash can cleaning service in ${BUSINESS_INFO.address.city}, FL. Family-owned, eco-friendly, and committed to healthier communities.`,
   keywords: [
     'about Largo Can Cleaning',

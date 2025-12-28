@@ -365,9 +365,9 @@ export default function BlogPostContent({ post, related }: BlogPostContentProps)
         <Container>
           <div className="max-w-2xl mx-auto text-center">
             <div className="p-6 sm:p-10 rounded-2xl bg-gradient-to-br from-[var(--safety-orange)]/20 to-[var(--safety-orange)]/5 border border-[var(--safety-orange)]/20">
-              <h3 className="text-xl sm:text-2xl font-bold text-white mb-3">
+              <h2 className="text-xl sm:text-2xl font-bold text-white mb-3">
                 Ready for Spotless Bins?
-              </h3>
+              </h2>
               <p className="text-sm sm:text-base text-[var(--slate-gray)] mb-6">
                 Get a free quote for professional trash can cleaning in Pinellas County.
               </p>

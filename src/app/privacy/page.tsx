@@ -4,7 +4,7 @@ import PrivacyPageContent from '@/components/pages/PrivacyPageContent'
 
 export const metadata: Metadata = {
   title: 'Privacy Policy',
-  description: `${BUSINESS_INFO.name} privacy policy. Learn how we collect, use, and protect your personal information.`,
+  description: `${BUSINESS_INFO.name} privacy policy. Learn how we collect, use, and protect your personal information when you use our trash can cleaning services in Largo, FL.`,
   alternates: {
     canonical: `${BUSINESS_INFO.url}/privacy`,
   },

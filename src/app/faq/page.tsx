@@ -3,7 +3,7 @@ import { BUSINESS_INFO } from '@/lib/schema'
 import FAQPageContent from '@/components/pages/FAQPageContent'
 
 export const metadata: Metadata = {
-  title: 'Frequently Asked Questions',
+  title: 'Trash Can Cleaning FAQs | Largo FL',
   description: `Get answers to common questions about ${BUSINESS_INFO.name} trash can cleaning services. Learn about our process, pricing, scheduling, and more.`,
   keywords: [
     'trash can cleaning FAQ',

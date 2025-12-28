@@ -225,7 +225,7 @@ const FeaturedPostCard = memo(function FeaturedPostCard({ post, categories }: { 
               {formatDate(post.date)}
             </span>
             <span className="flex items-center gap-1 text-sm font-medium text-[var(--safety-orange)] group-hover:gap-2 transition-all">
-              Read Article
+              Read Full Article
               <ArrowRight className="w-4 h-4" />
             </span>
           </div>
@@ -705,9 +705,9 @@ export default function BlogPageContent() {
           <div className="max-w-2xl mx-auto text-center">
             <div className="p-6 sm:p-10 rounded-2xl bg-gradient-to-br from-[var(--safety-orange)]/20 to-[var(--safety-orange)]/5 border border-[var(--safety-orange)]/20">
               <Sparkles className="w-8 h-8 text-[var(--safety-orange)] mx-auto mb-4" />
-              <h3 className="text-xl sm:text-2xl font-bold text-white mb-2">
+              <h2 className="text-xl sm:text-2xl font-bold text-white mb-2">
                 Ready for Spotless Bins?
-              </h3>
+              </h2>
               <p className="text-sm sm:text-base text-[var(--slate-gray)] mb-6">
                 Get a free quote for professional trash can cleaning in Pinellas County.
               </p>

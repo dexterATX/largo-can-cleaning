@@ -4,7 +4,7 @@ import TermsPageContent from '@/components/pages/TermsPageContent'
 
 export const metadata: Metadata = {
   title: 'Terms of Service',
-  description: `${BUSINESS_INFO.name} terms of service. Read our service agreement, policies, and conditions.`,
+  description: `${BUSINESS_INFO.name} terms of service. Read our service agreement, scheduling policies, payment terms, and satisfaction guarantee for bin cleaning.`,
   alternates: {
     canonical: `${BUSINESS_INFO.url}/terms`,
   },

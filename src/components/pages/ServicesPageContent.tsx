@@ -331,7 +331,7 @@ function HeroSection() {
           >
             <a href="#services-section">
               <Button size="lg" rightIcon={<ArrowRight className="w-5 h-5" />}>
-                View Services
+                Explore All Services
               </Button>
             </a>
             <a

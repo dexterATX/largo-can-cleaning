@@ -17,7 +17,7 @@ const fallbackPosts: Record<string, {
   image: string
 }> = {
   'why-clean-trash-cans-matter': {
-    title: 'Why Clean Trash Cans Matter More Than You Think',
+    title: 'Why Clean Trash Cans Matter for Health',
     excerpt: 'Discover the hidden health risks lurking in your dirty bins and why regular cleaning is essential for your family\'s wellbeing.',
     content: `
       <h2>The Hidden Dangers in Your Trash Can</h2>
@@ -56,7 +56,7 @@ const fallbackPosts: Record<string, {
     image: '/images/blog/clean-bins.jpg',
   },
   'diy-vs-professional-cleaning': {
-    title: 'DIY vs Professional Bin Cleaning: What\'s the Real Difference?',
+    title: 'DIY vs Professional Bin Cleaning Compared',
     excerpt: 'We break down the costs, effectiveness, and time investment of both approaches to help you make the right choice.',
     content: `
       <h2>The DIY Approach</h2>
@@ -108,7 +108,7 @@ const fallbackPosts: Record<string, {
     image: '/images/blog/diy-vs-pro.jpg',
   },
   'prevent-pests-trash-bins': {
-    title: '5 Ways to Prevent Pests From Invading Your Trash Bins',
+    title: '5 Ways to Prevent Pests in Trash Bins',
     excerpt: 'Keep raccoons, flies, and rodents away with these proven prevention strategies that actually work.',
     content: `
       <h2>Understanding the Pest Problem</h2>
@@ -141,7 +141,7 @@ const fallbackPosts: Record<string, {
     image: '/images/blog/pest-prevention.jpg',
   },
   'bacteria-in-garbage-bins': {
-    title: 'The Shocking Truth About Bacteria in Your Garbage Bins',
+    title: 'Bacteria in Trash Cans: Lab Test Results',
     excerpt: 'Lab tests reveal what\'s really growing in the average household trash can—and it\'s not pretty.',
     content: `
       <h2>What the Lab Tests Revealed</h2>
@@ -180,7 +180,7 @@ const fallbackPosts: Record<string, {
     image: '/images/blog/bacteria.jpg',
   },
   'eco-friendly-bin-cleaning': {
-    title: 'How We Clean Your Bins Without Harming the Environment',
+    title: 'Eco-Friendly Bin Cleaning Process',
     excerpt: 'Learn about our sustainable cleaning process, biodegradable solutions, and zero-runoff water capture system.',
     content: `
       <h2>Our Commitment to Sustainability</h2>
@@ -216,7 +216,7 @@ const fallbackPosts: Record<string, {
     image: '/images/blog/eco-friendly.jpg',
   },
   'summer-bin-odor-tips': {
-    title: 'Beat the Heat: Summer Bin Odor Prevention Guide',
+    title: '7 Tips to Eliminate Summer Bin Odors',
     excerpt: 'Hot weather makes bin odors worse. Here\'s how to keep your outdoor area smelling fresh all summer long.',
     content: `
       <h2>Why Summer Makes Things Worse</h2>
@@ -249,7 +249,7 @@ const fallbackPosts: Record<string, {
     image: '/images/blog/summer-tips.jpg',
   },
   'cleancan-pro-expansion-2025': {
-    title: 'Largo Can Cleaning Expands Service to All of Pinellas County',
+    title: 'Now Serving All of Pinellas County',
     excerpt: 'We\'re excited to announce our expanded coverage area, now serving more communities across the region.',
     content: `
       <h2>Growing to Serve You Better</h2>
@@ -291,7 +291,7 @@ const fallbackPosts: Record<string, {
     image: '/images/blog/expansion.jpg',
   },
   'commercial-bin-cleaning-benefits': {
-    title: 'Why Restaurants Are Switching to Professional Bin Cleaning',
+    title: 'Commercial Bin Cleaning Benefits',
     excerpt: 'Health codes, customer perception, and pest control—discover why commercial cleaning pays for itself.',
     content: `
       <h2>The Commercial Challenge</h2>
@@ -408,8 +408,11 @@ export async function generateMetadata({ params }: PageProps): Promise<Metadata>
   const canonicalUrl = `${BASE_URL}/blog/${slug}`
   const imageUrl = post.image?.startsWith('http') ? post.image : `${BASE_URL}${post.image}`
 
+  // Create short title for SEO (under 60 chars to avoid truncation)
+  const shortTitle = (post.metaTitle || post.title).replace(/ \| .*$/, '').substring(0, 55)
+
   return {
-    title: post.metaTitle || `${post.title} | Largo Can Cleaning Blog`,
+    title: shortTitle,
     description: post.metaDescription || post.excerpt,
     keywords: post.metaKeywords?.join(', '),
     authors: [{ name: BUSINESS_INFO.name, url: BUSINESS_INFO.url }],

@@ -890,9 +890,9 @@ export default function GalleryPageContent() {
           >
             <div className="p-5 lg:p-10 rounded-2xl bg-gradient-to-br from-[var(--safety-orange)]/20 to-[var(--safety-orange)]/5 border border-[var(--safety-orange)]/20">
               <Sparkles className="w-6 h-6 lg:w-8 lg:h-8 text-[var(--safety-orange)] mx-auto mb-3 lg:mb-4" />
-              <h3 className="text-lg lg:text-2xl font-bold text-white mb-1.5 lg:mb-2">
+              <h2 className="text-lg lg:text-2xl font-bold text-white mb-1.5 lg:mb-2">
                 Ready for Your Transformation?
-              </h3>
+              </h2>
               <p className="text-xs lg:text-base text-[var(--slate-gray)] mb-4 lg:mb-6">
                 Get your bins looking brand new today.
               </p>

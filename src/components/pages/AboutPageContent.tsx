@@ -484,7 +484,7 @@ function StorySection() {
             <div className="mt-8">
               <Link href="/services">
                 <Button variant="outline" rightIcon={<ArrowRight className="w-4 h-4" />}>
-                  View Our Services
+                  Explore Cleaning Services
                 </Button>
               </Link>
             </div>

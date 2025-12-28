@@ -3,7 +3,7 @@ import { BUSINESS_INFO, generateContactPageSchema, generateLocalBusinessSchema }
 import ContactPageContent from '@/components/pages/ContactPageContent'
 
 export const metadata: Metadata = {
-  title: 'Contact Us',
+  title: 'Get a Free Quote | Largo FL',
   description: `Contact ${BUSINESS_INFO.name} for professional trash can cleaning in ${BUSINESS_INFO.address.city}, FL. Call ${BUSINESS_INFO.phone} or request a free quote online.`,
   keywords: [
     'contact Largo Can Cleaning',

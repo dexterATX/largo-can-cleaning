@@ -675,7 +675,7 @@ export default function PricingPageContent() {
                 href="/faq"
                 className="inline-flex items-center gap-2 text-sm font-medium text-[var(--safety-orange)]"
               >
-                View all FAQs
+                Browse Service FAQs
                 <ArrowRight className="w-4 h-4" />
               </a>
             </div>
@@ -696,7 +696,7 @@ export default function PricingPageContent() {
                   href="/faq"
                   className="px-4 py-2 text-sm font-medium text-[var(--light-gray)] hover:text-white transition-colors"
                 >
-                  View all FAQs
+                  Browse Service FAQs
                 </a>
                 <a
                   href="/contact"
