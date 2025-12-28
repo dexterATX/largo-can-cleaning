@@ -47,10 +47,28 @@ const nextConfig: NextConfig = {
   poweredByHeader: false,
   output: 'standalone',
   allowedDevOrigins: ['192.168.1.24'],
+
+  // Enable compression
+  compress: true,
+
+  // Remove console logs in production for smaller bundle
+  compiler: {
+    removeConsole: process.env.NODE_ENV === 'production',
+  },
+
   // Optimize package imports for better tree-shaking
   experimental: {
-    optimizePackageImports: ['motion', 'lucide-react'],
+    optimizePackageImports: [
+      'motion',
+      'lucide-react',
+      'date-fns',
+      'recharts',
+      '@tiptap/react',
+      '@tiptap/starter-kit',
+      '@supabase/supabase-js',
+    ],
   },
+
   images: {
     remotePatterns: [
       {
@@ -62,12 +80,36 @@ const nextConfig: NextConfig = {
         hostname: 'i.pravatar.cc',
       },
     ],
+    // Performance: Use modern formats and longer cache
+    formats: ['image/avif', 'image/webp'],
+    minimumCacheTTL: 60 * 60 * 24 * 30, // 30 days
   },
+
   async headers() {
     return [
       {
         source: '/:path*',
         headers: securityHeaders,
+      },
+      // Cache Next.js static assets (immutable)
+      {
+        source: '/_next/static/:path*',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=31536000, immutable',
+          },
+        ],
+      },
+      // Cache optimized images
+      {
+        source: '/_next/image/:path*',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=86400, stale-while-revalidate=604800',
+          },
+        ],
       },
     ]
   }

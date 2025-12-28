@@ -1,9 +1,13 @@
 'use client'
 
 import Image from 'next/image'
-import { Star } from 'lucide-react'
 import { cn } from '@/lib/utils'
 import { Marquee } from '@/components/ui/marquee'
+
+// CSS-only star component - saves ~80KB vs SVG icons
+function StarIcon({ size = 'sm' }: { size?: 'sm' | 'md' }) {
+  return <span className={`star-icon star-icon-${size}`} aria-hidden="true" />
+}
 
 const reviews = [
   {
@@ -89,7 +93,7 @@ function ReviewCard({
             width={20}
             height={20}
             className="rounded-full w-full h-full object-cover"
-            loading="eager"
+            loading="lazy"
             unoptimized
           />
         </div>
@@ -99,11 +103,7 @@ function ReviewCard({
           </figcaption>
           <div className="flex items-center gap-px" role="img" aria-label="5 star rating">
             {Array.from({ length: 5 }).map((_, i) => (
-              <Star
-                key={i}
-                className="w-2 h-2 text-[var(--safety-orange)] fill-[var(--safety-orange)]"
-                aria-hidden="true"
-              />
+              <StarIcon key={i} size="sm" />
             ))}
           </div>
         </div>
@@ -152,22 +152,22 @@ export default function Testimonials() {
               'translateX(-30px) translateY(0px) translateZ(-50px) rotateX(20deg) rotateY(-10deg) rotateZ(20deg)',
           }}
         >
-          <Marquee vertical repeat={3} className="[--duration:25s] [--gap:0.75rem] !p-0">
+          <Marquee vertical repeat={2} className="[--duration:25s] [--gap:0.75rem] !p-0">
             {firstRow.map((review) => (
               <ReviewCard key={review.name} {...review} />
             ))}
           </Marquee>
-          <Marquee vertical repeat={3} className="[--duration:25s] [--gap:0.75rem] !p-0 [&>div]:![animation-direction:reverse] [&>div]:![animation-delay:-5s]">
+          <Marquee vertical repeat={2} className="[--duration:25s] [--gap:0.75rem] !p-0 [&>div]:![animation-direction:reverse] [&>div]:![animation-delay:-5s]">
             {secondRow.map((review) => (
               <ReviewCard key={review.name} {...review} />
             ))}
           </Marquee>
-          <Marquee vertical repeat={3} className="[--duration:25s] [--gap:0.75rem] !p-0 [&>div]:![animation-delay:-10s]">
+          <Marquee vertical repeat={2} className="[--duration:25s] [--gap:0.75rem] !p-0 [&>div]:![animation-delay:-10s]">
             {thirdRow.map((review) => (
               <ReviewCard key={review.name} {...review} />
             ))}
           </Marquee>
-          <Marquee vertical repeat={3} className="[--duration:25s] [--gap:0.75rem] !p-0 [&>div]:![animation-direction:reverse] [&>div]:![animation-delay:-3s]">
+          <Marquee vertical repeat={2} className="[--duration:25s] [--gap:0.75rem] !p-0 [&>div]:![animation-direction:reverse] [&>div]:![animation-delay:-3s]">
             {fourthRow.map((review) => (
               <ReviewCard key={review.name} {...review} />
             ))}
@@ -186,11 +186,7 @@ export default function Testimonials() {
         <div className="inline-flex items-center gap-3 px-5 py-2.5 rounded-full bg-[var(--concrete-gray)]/50 border border-[var(--steel-gray)]/30">
           <div className="flex items-center gap-1" role="img" aria-label="5 out of 5 stars rating">
             {Array.from({ length: 5 }).map((_, i) => (
-              <Star
-                key={i}
-                className="w-4 h-4 text-[var(--safety-orange)] fill-[var(--safety-orange)]"
-                aria-hidden="true"
-              />
+              <StarIcon key={i} size="md" />
             ))}
           </div>
           <span className="text-sm text-[var(--light-gray)]">
