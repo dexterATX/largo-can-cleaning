@@ -312,13 +312,13 @@ function HeroSection() {
           </motion.h1>
 
           {/* Description */}
-          <motion.p 
+          <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3, duration: 0.6 }}
             className="text-base sm:text-lg text-[var(--slate-gray)] mb-8 max-w-xl leading-relaxed"
           >
-            Professional trash can cleaning that eliminates 99.9% of bacteria, 
+            Professional trash can cleaning for a healthy home—eliminating 99.9% of bacteria,
             odors, and pests. Choose the service that fits your needs.
           </motion.p>
 

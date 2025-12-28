@@ -278,7 +278,7 @@ export default function FAQPageContent() {
               transition={{ duration: 0.35, delay: 0.1 }}
               className="text-base sm:text-lg md:text-xl text-[var(--light-gray)] max-w-2xl mx-auto mb-8"
             >
-              Everything you need to know about our professional trash can cleaning service
+              Answers to frequently asked questions about our professional trash can cleaning service
             </motion.p>
 
             {/* Feature Pills */}

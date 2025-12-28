@@ -411,7 +411,7 @@ export default function PricingPageContent() {
               transition={{ delay: 0.15, duration: 0.5, ease: [0.25, 0.1, 0.25, 1] }}
               className="text-base sm:text-lg md:text-xl text-[var(--slate-gray)] max-w-xl mx-auto mb-8"
             >
-              No contracts. No hidden fees. Cancel anytime.
+              Transparent pricing with no contracts, no hidden fees. Cancel anytime.
             </motion.p>
 
             {/* Trust Indicators */}
