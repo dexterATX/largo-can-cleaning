@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useCallback, useEffect } from 'react'
+import { useState, useCallback } from 'react'
 import { motion } from 'motion/react'
 import Link from 'next/link'
 import {
@@ -58,12 +58,6 @@ const hearAboutUsOptions = [
 // ============================================
 
 function HeroSection() {
-  const [isMounted, setIsMounted] = useState(false)
-
-  useEffect(() => {
-    setIsMounted(true)
-  }, [])
-
   return (
     <section className="pt-28 pb-10 sm:pt-36 sm:pb-14 lg:pt-32 lg:pb-8 bg-gradient-dark relative overflow-hidden">
       {/* CONTACT PAGE: Connection & Communication Theme */}

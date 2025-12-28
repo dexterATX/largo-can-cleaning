@@ -1,19 +1,23 @@
-import { useEffect, useState } from 'react'
+'use client'
 
-export function useMediaQuery(query: string) {
-  const [value, setValue] = useState(false)
+import { useEffect, useState, useSyncExternalStore } from 'react'
 
-  useEffect(() => {
-    function onChange(event: MediaQueryListEvent) {
-      setValue(event.matches)
-    }
+/**
+ * Custom hook to track media query matches
+ * Uses useSyncExternalStore for better React 18+ compatibility and SSR safety
+ */
+export function useMediaQuery(query: string): boolean {
+  // For SSR, always return false to avoid hydration mismatch
+  const subscribe = (callback: () => void) => {
+    const mediaQuery = window.matchMedia(query)
+    mediaQuery.addEventListener('change', callback)
+    return () => mediaQuery.removeEventListener('change', callback)
+  }
 
-    const result = matchMedia(query)
-    result.addEventListener('change', onChange)
-    setValue(result.matches)
+  const getSnapshot = () => window.matchMedia(query).matches
 
-    return () => result.removeEventListener('change', onChange)
-  }, [query])
+  // Server snapshot always returns false for SSR safety
+  const getServerSnapshot = () => false
 
-  return value
+  return useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot)
 }

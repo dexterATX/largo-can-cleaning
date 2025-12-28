@@ -33,21 +33,31 @@ const WaterParticle = memo(function WaterParticle({ delay, x, size }: { delay: n
   )
 })
 
-// Generate particles arrays - full for desktop, reduced for mobile
-// Particles start with small delays to sync with content animation (starts at 0s)
-const desktopParticles = Array.from({ length: 35 }, (_, i) => ({
-  id: i,
-  delay: i * 0.1, // Staggered start synced with content appearing
-  x: Math.random() * 100,
-  size: 4 + Math.random() * 8,
-}))
+// Seeded random for consistent particle positions (avoids hydration mismatch)
+// Uses a simple mulberry32 PRNG for deterministic values
+function seededRandom(seed: number): () => number {
+  return function() {
+    let t = seed += 0x6D2B79F5
+    t = Math.imul(t ^ t >>> 15, t | 1)
+    t ^= t + Math.imul(t ^ t >>> 7, t | 61)
+    return ((t ^ t >>> 14) >>> 0) / 4294967296
+  }
+}
 
-const mobileParticles = Array.from({ length: 12 }, (_, i) => ({
-  id: i,
-  delay: i * 0.15, // Staggered start synced with content appearing
-  x: Math.random() * 100,
-  size: 4 + Math.random() * 6,
-}))
+// Generate particles with deterministic positions for SSR/hydration consistency
+function generateParticles(count: number, seed: number, delayMultiplier: number, sizeRange: [number, number]) {
+  const random = seededRandom(seed)
+  return Array.from({ length: count }, (_, i) => ({
+    id: i,
+    delay: i * delayMultiplier,
+    x: random() * 100,
+    size: sizeRange[0] + random() * (sizeRange[1] - sizeRange[0]),
+  }))
+}
+
+// Pre-generated particles with fixed seed for SSR consistency
+const desktopParticles = generateParticles(35, 12345, 0.1, [4, 12])
+const mobileParticles = generateParticles(12, 67890, 0.15, [4, 10])
 
 function Hero() {
   const containerRef = useRef<HTMLDivElement>(null)
@@ -68,12 +78,13 @@ function Hero() {
     return isMobile ? mobileParticles : desktopParticles
   }, [isMobile])
 
-  // Memoize heroFeatures to prevent recreation on each render
-  const heroFeatures = useMemo(() => [
+  // Static array - defined outside component would be cleaner but keeping inline for co-location
+  // No useMemo needed for static data that never changes
+  const heroFeatures = [
     { icon: Shield, text: '99.9% Bacteria Eliminated' },
     { icon: Droplets, text: 'Eco-Friendly Solutions' },
     { icon: Sparkles, text: 'Same-Day Service Available' },
-  ], [])
+  ] as const
 
   const { scrollYProgress } = useScroll({
     target: containerRef,
