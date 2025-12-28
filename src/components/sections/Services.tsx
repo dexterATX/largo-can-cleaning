@@ -12,7 +12,7 @@ const services = [
     icon: Home,
     title: 'Residential Cleaning',
     description:
-      'Transform your curbside bins into fresh, hygienic containers. Ideal for families seeking a cleaner, pest-free outdoor space.',
+      'Keep your home bins sanitized and smelling fresh. Our 190-degree pressure wash eliminates bacteria and odors that attract pests to your property.',
     features: ['Single or multiple cans', 'Driveway-safe cleaning', 'Eco-friendly products'],
     price: 'From $25',
     popular: false,
@@ -21,7 +21,7 @@ const services = [
     icon: Building2,
     title: 'Commercial Service',
     description:
-      'Industrial-strength sanitization for businesses, restaurants, and property managers with flexible scheduling and volume pricing.',
+      'Maintain health code compliance with scheduled bin cleaning for restaurants, offices, and multi-unit properties. Volume discounts available.',
     features: ['Bulk pricing', 'Scheduled pickups', 'Invoice billing'],
     price: 'Custom Quote',
     popular: false,
@@ -30,7 +30,7 @@ const services = [
     icon: CalendarClock,
     title: 'Recurring Service',
     description:
-      'Set it and forget it. We automatically clean your bins on a schedule that works for you.',
+      'Automatic monthly or bi-weekly cleaning so you never think about dirty bins again. Subscribers save 10 percent on every service.',
     features: ['Weekly, Bi-weekly, Monthly', 'Priority scheduling', '10% discount'],
     price: 'From $22',
     popular: true,
@@ -39,9 +39,9 @@ const services = [
     icon: Sparkles,
     title: 'Deep Clean',
     description:
-      'Our most thorough service. Industrial degreasing, sanitization, and protective coating application.',
+      'First-time customers or bins with heavy buildup start here. Includes industrial degreasing, extended sanitization, and protective coating.',
     features: ['Interior & exterior', 'Deodorizer treatment', 'Protective coating'],
-    price: '$77',
+    price: '$45',
     popular: false,
   },
 ]

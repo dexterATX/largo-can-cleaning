@@ -152,10 +152,20 @@ function Hero() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.5, delay: 0.2 }}
-            className="text-base sm:text-lg md:text-xl text-[var(--light-gray)] max-w-2xl mx-auto mb-8"
+            className="text-base sm:text-lg md:text-xl text-[var(--light-gray)] max-w-2xl mx-auto mb-4"
           >
             Eliminate bacteria, odors, and pests with our industrial-grade
             pressure washing system. Never touch a dirty bin again.
+          </motion.p>
+
+          {/* Problem/Solution Statement */}
+          <motion.p
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.25 }}
+            className="text-sm sm:text-base text-[var(--slate-gray)] max-w-2xl mx-auto mb-8"
+          >
+            Florida&apos;s heat and humidity turn garbage bins into breeding grounds for harmful bacteria, maggots, and rodents. Our 190-degree hot water system destroys these contaminants at the source, leaving your bins sanitized and deodorized after every cleaning.
           </motion.p>
 
           {/* Feature Pills */}
