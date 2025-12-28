@@ -28,7 +28,7 @@ export const viewport: Viewport = {
 export const metadata: Metadata = {
   metadataBase: new URL('https://largocancleaning.com'),
   title: {
-    default: `${BUSINESS_INFO.name} | Professional Trash Can Cleaning in Largo, FL`,
+    default: 'Trash Can Cleaning Largo, FL - Sanitize & Deodorize Bins',
     template: `%s | ${BUSINESS_INFO.name}`,
   },
   description: BUSINESS_INFO.description,
@@ -61,7 +61,7 @@ export const metadata: Metadata = {
     locale: 'en_US',
     url: BUSINESS_INFO.url,
     siteName: BUSINESS_INFO.name,
-    title: `${BUSINESS_INFO.name} | Professional Trash Can Cleaning in Largo, FL`,
+    title: 'Trash Can Cleaning Largo, FL - Sanitize & Deodorize Bins',
     description: BUSINESS_INFO.description,
     countryName: 'United States',
     images: [
@@ -101,6 +101,14 @@ export const metadata: Metadata = {
       'max-image-preview': 'large',
       'max-snippet': -1,
     },
+  },
+  icons: {
+    icon: [
+      { url: '/icon.svg', type: 'image/svg+xml' },
+    ],
+    apple: [
+      { url: '/apple-icon.png', sizes: '180x180', type: 'image/png' },
+    ],
   },
   alternates: {
     canonical: 'https://largocancleaning.com',

@@ -12,7 +12,7 @@ const services = [
     icon: Home,
     title: 'Residential Cleaning',
     description:
-      'Keep your home bins sanitized and odor-free. Perfect for families who want a healthier outdoor environment.',
+      'Transform your curbside bins into fresh, hygienic containers. Ideal for families seeking a cleaner, pest-free outdoor space.',
     features: ['Single or multiple cans', 'Driveway-safe cleaning', 'Eco-friendly products'],
     price: 'From $25',
     popular: false,
@@ -21,7 +21,7 @@ const services = [
     icon: Building2,
     title: 'Commercial Service',
     description:
-      'Professional-grade cleaning for businesses, restaurants, and property managers. Volume discounts available.',
+      'Industrial-strength sanitization for businesses, restaurants, and property managers with flexible scheduling and volume pricing.',
     features: ['Bulk pricing', 'Scheduled pickups', 'Invoice billing'],
     price: 'Custom Quote',
     popular: false,
