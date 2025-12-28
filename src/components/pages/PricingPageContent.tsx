@@ -476,7 +476,7 @@ export default function PricingPageContent() {
         <Container className="relative z-10">
           <div className="max-w-3xl mx-auto text-center mb-8">
             <p className="text-sm sm:text-base text-[var(--slate-gray)] leading-relaxed mb-4">
-              At Largo Can Cleaning, we believe professional trash can sanitization should be affordable and accessible to every Pinellas County household. Our pricing is straightforward with no hidden fees, surprise charges, or long-term commitments required. Whether you need a one-time deep clean or prefer the convenience of scheduled monthly service, we have a plan that fits your needs and budget.
+              At Largo Can Cleaning, we believe professional trash can sanitization should be affordable and accessible to every Pinellas County household. Our trash can cleaning prices in Largo FL are straightforward with no hidden fees, surprise charges, or long-term commitments required. Whether you need a one-time deep clean or prefer the convenience of scheduled monthly service, we have a plan that fits your needs and budget.
             </p>
             <p className="text-sm sm:text-base text-[var(--slate-gray)] leading-relaxed mb-4">
               Every cleaning includes our signature 190°F high-pressure sanitization that eliminates 99.9% of bacteria, removes stubborn odors, and prevents pest infestations. Our truck-mounted system captures all wastewater to protect your property and the environment. We use only EPA-approved, biodegradable cleaning solutions that are safe for children, pets, and plants.

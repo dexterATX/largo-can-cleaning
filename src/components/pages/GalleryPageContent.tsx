@@ -753,8 +753,8 @@ export default function GalleryPageContent() {
               transition={{ delay: 0.2 }}
               className="text-sm lg:text-lg text-[var(--light-gray)] max-w-md lg:max-w-xl mx-auto"
             >
-              <span className="lg:hidden">Before & after photos of our cleaning results.</span>
-              <span className="hidden lg:inline">See the transformation. Before and after photos showcasing our professional trash can cleaning results throughout Pinellas County, Florida.</span>
+              <span className="lg:hidden">Browse our work—before & after photos of our cleaning results.</span>
+              <span className="hidden lg:inline">See our work in action. Before and after photos showcasing Largo Can Cleaning's professional trash can cleaning results throughout Pinellas County, Florida.</span>
             </motion.p>
 
             {/* Additional descriptive content for SEO */}

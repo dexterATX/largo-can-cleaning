@@ -278,7 +278,7 @@ export default function FAQPageContent() {
               transition={{ duration: 0.35, delay: 0.1 }}
               className="text-base sm:text-lg md:text-xl text-[var(--light-gray)] max-w-2xl mx-auto mb-4"
             >
-              Answers to frequently asked questions about our professional trash can cleaning service
+              Browse our trash can cleaning FAQs—answers to common questions about Largo Can Cleaning's professional service in Largo FL
             </motion.p>
 
             {/* Additional descriptive content for SEO */}
