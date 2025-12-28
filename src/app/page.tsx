@@ -1,6 +1,23 @@
 import dynamic from 'next/dynamic'
-import Hero from '@/components/sections/Hero'
+import { Suspense } from 'react'
 import { generateFAQSchema } from '@/lib/faqSchema'
+
+// Lazy load Hero with priority loading - it's above the fold but still benefits from code splitting
+const Hero = dynamic(() => import('@/components/sections/Hero'), {
+  loading: () => (
+    <section className="min-h-[100svh] flex items-center bg-gradient-dark">
+      <div className="w-full max-w-4xl mx-auto text-center px-4 animate-pulse">
+        <div className="h-8 w-64 bg-[var(--concrete-gray)]/50 rounded-full mx-auto mb-6" />
+        <div className="h-16 w-full bg-[var(--concrete-gray)]/30 rounded-lg mb-4" />
+        <div className="h-12 w-3/4 bg-[var(--concrete-gray)]/30 rounded-lg mx-auto mb-8" />
+        <div className="flex justify-center gap-4">
+          <div className="h-12 w-40 bg-[var(--safety-orange)]/50 rounded-lg" />
+          <div className="h-12 w-40 bg-[var(--concrete-gray)]/50 rounded-lg" />
+        </div>
+      </div>
+    </section>
+  ),
+})
 
 // Lazy load all below-fold components for better initial load performance
 const Services = dynamic(() => import('@/components/sections/Services'), {

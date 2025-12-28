@@ -97,80 +97,79 @@ export const BUSINESS_INFO = {
 } as const
 
 /**
- * Generate opening hours specification for schema.org
+ * Opening hours specification - pre-generated at module level
  * Monday-Saturday: 06:00-20:00
  * Sunday: Closed
  */
-function generateOpeningHoursSpecification(): OpeningHoursSpec[] {
-  return [
-    {
-      '@type': 'OpeningHoursSpecification',
-      dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
-      opens: '06:00',
-      closes: '20:00',
-    },
-    {
-      '@type': 'OpeningHoursSpecification',
-      dayOfWeek: 'Sunday',
-      opens: '00:00',
-      closes: '00:00',
-    },
-  ]
-}
+const OPENING_HOURS_SPEC: OpeningHoursSpec[] = [
+  {
+    '@type': 'OpeningHoursSpecification',
+    dayOfWeek: ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday', 'Saturday'],
+    opens: '06:00',
+    closes: '20:00',
+  },
+  {
+    '@type': 'OpeningHoursSpecification',
+    dayOfWeek: 'Sunday',
+    opens: '00:00',
+    closes: '00:00',
+  },
+]
 
 /**
- * LocalBusiness Schema - Use on every page
+ * Pre-generated LocalBusiness Schema - computed once at module load
  * Enhanced for local SEO optimization in Largo, FL and Pinellas County
  */
-export function generateLocalBusinessSchema() {
-  return {
-    '@context': 'https://schema.org',
-    '@type': 'LocalBusiness',
-    '@id': `${BUSINESS_INFO.url}/#business`,
-    name: BUSINESS_INFO.name,
-    description: BUSINESS_INFO.description,
-    slogan: BUSINESS_INFO.slogan,
-    url: BUSINESS_INFO.url,
-    telephone: BUSINESS_INFO.phone,
-    email: BUSINESS_INFO.email,
-    priceRange: BUSINESS_INFO.priceRange,
-    paymentAccepted: BUSINESS_INFO.paymentAccepted,
-    currenciesAccepted: 'USD',
-    hasMap: BUSINESS_INFO.googleMapsUrl,
-    address: {
-      '@type': 'PostalAddress',
-      streetAddress: BUSINESS_INFO.address.street,
-      addressLocality: BUSINESS_INFO.address.city,
-      addressRegion: BUSINESS_INFO.address.state,
-      postalCode: BUSINESS_INFO.address.zip,
-      addressCountry: BUSINESS_INFO.address.country,
-    },
-    geo: {
-      '@type': 'GeoCoordinates',
-      latitude: BUSINESS_INFO.geo.latitude,
-      longitude: BUSINESS_INFO.geo.longitude,
-    },
-    areaServed: BUSINESS_INFO.areaServed.map((area) => ({
-      '@type': 'City',
-      name: area,
+const LOCAL_BUSINESS_SCHEMA = {
+  '@context': 'https://schema.org',
+  '@type': 'LocalBusiness',
+  '@id': `${BUSINESS_INFO.url}/#business`,
+  name: BUSINESS_INFO.name,
+  description: BUSINESS_INFO.description,
+  slogan: BUSINESS_INFO.slogan,
+  url: BUSINESS_INFO.url,
+  telephone: BUSINESS_INFO.phone,
+  email: BUSINESS_INFO.email,
+  priceRange: BUSINESS_INFO.priceRange,
+  paymentAccepted: BUSINESS_INFO.paymentAccepted,
+  currenciesAccepted: 'USD',
+  hasMap: BUSINESS_INFO.googleMapsUrl,
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: BUSINESS_INFO.address.street,
+    addressLocality: BUSINESS_INFO.address.city,
+    addressRegion: BUSINESS_INFO.address.state,
+    postalCode: BUSINESS_INFO.address.zip,
+    addressCountry: BUSINESS_INFO.address.country,
+  },
+  geo: {
+    '@type': 'GeoCoordinates',
+    latitude: BUSINESS_INFO.geo.latitude,
+    longitude: BUSINESS_INFO.geo.longitude,
+  },
+  areaServed: BUSINESS_INFO.areaServed.map((area) => ({
+    '@type': 'City',
+    name: area,
+    containedInPlace: {
+      '@type': 'AdministrativeArea',
+      name: BUSINESS_INFO.address.county,
       containedInPlace: {
-        '@type': 'AdministrativeArea',
-        name: BUSINESS_INFO.address.county,
-        containedInPlace: {
-          '@type': 'State',
-          name: BUSINESS_INFO.address.stateFull,
-        },
+        '@type': 'State',
+        name: BUSINESS_INFO.address.stateFull,
       },
-    })),
-    openingHoursSpecification: generateOpeningHoursSpecification(),
-    sameAs: [
-      // Add social media links when available
-      // 'https://facebook.com/largocancleaning',
-      // 'https://instagram.com/largocancleaning',
-    ],
-    image: `${BUSINESS_INFO.url}/images/og-image.jpg`,
-    logo: `${BUSINESS_INFO.url}/images/logo.png`,
-  }
+    },
+  })),
+  openingHoursSpecification: OPENING_HOURS_SPEC,
+  sameAs: [] as string[],
+  image: `${BUSINESS_INFO.url}/images/og-image.jpg`,
+  logo: `${BUSINESS_INFO.url}/images/logo.png`,
+} as const
+
+/**
+ * Get the pre-generated LocalBusiness Schema
+ */
+export function generateLocalBusinessSchema() {
+  return LOCAL_BUSINESS_SCHEMA
 }
 
 /**

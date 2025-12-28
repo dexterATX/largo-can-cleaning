@@ -1,4 +1,5 @@
 // FAQ Schema for homepage - separate from client component for SSR compatibility
+// Pre-generated at module level for optimal SSR performance
 
 const faqs = [
   {
@@ -19,19 +20,22 @@ const faqs = [
   },
 ]
 
+// Pre-generated FAQ schema - computed once at module load, not on each request
+const FAQ_SCHEMA = {
+  '@context': 'https://schema.org',
+  '@type': 'FAQPage',
+  mainEntity: faqs.map((faq) => ({
+    '@type': 'Question',
+    name: faq.question,
+    acceptedAnswer: {
+      '@type': 'Answer',
+      text: faq.answer,
+    },
+  })),
+} as const
+
 export function generateFAQSchema() {
-  return {
-    '@context': 'https://schema.org',
-    '@type': 'FAQPage',
-    mainEntity: faqs.map((faq) => ({
-      '@type': 'Question',
-      name: faq.question,
-      acceptedAnswer: {
-        '@type': 'Answer',
-        text: faq.answer,
-      },
-    })),
-  }
+  return FAQ_SCHEMA
 }
 
 export { faqs }
