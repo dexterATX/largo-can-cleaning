@@ -56,7 +56,7 @@ const fallbackPosts: Record<string, {
     categoryLabel: 'Health & Safety',
     readTime: 5,
     date: '2025-01-15',
-    image: '/images/blog/clean-bins.jpg',
+    image: '/opengraph-image',
   },
   'diy-vs-professional-cleaning': {
     title: 'DIY vs Pro Bin Cleaning Comparison',
@@ -111,7 +111,7 @@ const fallbackPosts: Record<string, {
     categoryLabel: 'Tips & How-To',
     readTime: 7,
     date: '2025-01-10',
-    image: '/images/blog/diy-vs-pro.jpg',
+    image: '/opengraph-image',
   },
   'prevent-pests-trash-bins': {
     title: '5 Ways to Keep Pests Out of Trash Bins',
@@ -147,7 +147,7 @@ const fallbackPosts: Record<string, {
     categoryLabel: 'Tips & How-To',
     readTime: 4,
     date: '2025-01-05',
-    image: '/images/blog/pest-prevention.jpg',
+    image: '/opengraph-image',
   },
   'bacteria-in-garbage-bins': {
     title: 'Bacteria in Your Trash Cans: The Facts',
@@ -189,7 +189,7 @@ const fallbackPosts: Record<string, {
     categoryLabel: 'Health & Safety',
     readTime: 6,
     date: '2024-12-28',
-    image: '/images/blog/bacteria.jpg',
+    image: '/opengraph-image',
   },
   'eco-friendly-bin-cleaning': {
     title: 'Eco-Friendly Bin Cleaning Explained',
@@ -229,7 +229,7 @@ const fallbackPosts: Record<string, {
     categoryLabel: 'Eco-Friendly',
     readTime: 5,
     date: '2024-12-20',
-    image: '/images/blog/eco-friendly.jpg',
+    image: '/opengraph-image',
   },
   'summer-bin-odor-tips': {
     title: 'Summer Bin Odor Prevention Tips',
@@ -262,7 +262,7 @@ const fallbackPosts: Record<string, {
     categoryLabel: 'Tips & How-To',
     readTime: 4,
     date: '2024-12-15',
-    image: '/images/blog/summer-tips.jpg',
+    image: '/opengraph-image',
   },
   'cleancan-pro-expansion-2025': {
     title: 'Now Serving All of Pinellas County',
@@ -315,7 +315,7 @@ const fallbackPosts: Record<string, {
     categoryLabel: 'Company News',
     readTime: 3,
     date: '2024-12-10',
-    image: '/images/blog/expansion.jpg',
+    image: '/opengraph-image',
   },
   'commercial-bin-cleaning-benefits': {
     title: 'Why Restaurants Choose Pro Bin Cleaning',
@@ -369,7 +369,7 @@ const fallbackPosts: Record<string, {
     categoryLabel: 'Company News',
     readTime: 6,
     date: '2024-12-05',
-    image: '/images/blog/commercial.jpg',
+    image: '/opengraph-image',
   },
 }
 

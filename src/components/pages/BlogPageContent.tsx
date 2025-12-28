@@ -66,7 +66,7 @@ const fallbackPosts: BlogPost[] = [
     readTime: 5,
     date: '2025-01-15',
     featured: true,
-    image: '/images/blog/clean-bins.jpg',
+    image: '/opengraph-image',
   },
   {
     id: 2,
@@ -79,7 +79,7 @@ const fallbackPosts: BlogPost[] = [
     readTime: 7,
     date: '2025-01-10',
     featured: true,
-    image: '/images/blog/diy-vs-pro.jpg',
+    image: '/opengraph-image',
   },
   {
     id: 3,
@@ -92,7 +92,7 @@ const fallbackPosts: BlogPost[] = [
     readTime: 4,
     date: '2025-01-05',
     featured: false,
-    image: '/images/blog/pest-prevention.jpg',
+    image: '/opengraph-image',
   },
   {
     id: 4,
@@ -105,7 +105,7 @@ const fallbackPosts: BlogPost[] = [
     readTime: 6,
     date: '2024-12-28',
     featured: false,
-    image: '/images/blog/bacteria.jpg',
+    image: '/opengraph-image',
   },
   {
     id: 5,
@@ -118,7 +118,7 @@ const fallbackPosts: BlogPost[] = [
     readTime: 5,
     date: '2024-12-20',
     featured: false,
-    image: '/images/blog/eco-friendly.jpg',
+    image: '/opengraph-image',
   },
   {
     id: 6,
@@ -131,7 +131,7 @@ const fallbackPosts: BlogPost[] = [
     readTime: 4,
     date: '2024-12-15',
     featured: false,
-    image: '/images/blog/summer-tips.jpg',
+    image: '/opengraph-image',
   },
   {
     id: 7,
@@ -144,7 +144,7 @@ const fallbackPosts: BlogPost[] = [
     readTime: 3,
     date: '2024-12-10',
     featured: false,
-    image: '/images/blog/expansion.jpg',
+    image: '/opengraph-image',
   },
   {
     id: 8,
@@ -157,7 +157,7 @@ const fallbackPosts: BlogPost[] = [
     readTime: 6,
     date: '2024-12-05',
     featured: false,
-    image: '/images/blog/commercial.jpg',
+    image: '/opengraph-image',
   },
 ]
 

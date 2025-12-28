@@ -1,6 +1,4 @@
 import dynamic from 'next/dynamic'
-import { Suspense } from 'react'
-import { generateFAQSchema } from '@/lib/faqSchema'
 
 // Lazy load Hero with priority loading - it's above the fold but still benefits from code splitting
 const Hero = dynamic(() => import('@/components/sections/Hero'), {
@@ -45,17 +43,8 @@ const CTA = dynamic(() => import('@/components/sections/CTA'), {
 })
 
 export default function HomePage() {
-  const faqSchema = generateFAQSchema()
-
   return (
     <>
-      {/* FAQ Schema for SEO */}
-      <script
-        type="application/ld+json"
-        dangerouslySetInnerHTML={{
-          __html: JSON.stringify(faqSchema),
-        }}
-      />
       <Hero />
       <Services />
       <WhyChooseUs />

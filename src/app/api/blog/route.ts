@@ -133,7 +133,7 @@ export async function GET(request: NextRequest) {
         readTime: post.read_time || 5,
         date: post.published_at,
         featured: post.featured,
-        image: post.featured_image_url || '/images/blog/default.jpg',
+        image: post.featured_image_url || '/opengraph-image',
         metaTitle: post.meta_title,
         metaDescription: post.meta_description,
       }

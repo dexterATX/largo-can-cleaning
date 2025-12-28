@@ -124,30 +124,22 @@ export const metadata: Metadata = {
     'geo.placename': 'Largo',
     'geo.position': '27.9092;-82.7873',
     'ICBM': '27.9092, -82.7873',
-    // Additional business meta tags
-    'business:contact_data:street_address': BUSINESS_INFO.address.street,
+    // Additional business meta tags (service-area business - no street address)
     'business:contact_data:locality': BUSINESS_INFO.address.city,
     'business:contact_data:region': BUSINESS_INFO.address.state,
     'business:contact_data:postal_code': BUSINESS_INFO.address.zip,
     'business:contact_data:country_name': 'United States',
-    'business:contact_data:phone_number': BUSINESS_INFO.phone,
+    'business:contact_data:phone_number': BUSINESS_INFO.phoneRaw,
     'business:contact_data:email': BUSINESS_INFO.email,
-    // Additional SEO meta tags
+    // Apple mobile web app tags
     'apple-mobile-web-app-capable': 'yes',
     'apple-mobile-web-app-status-bar-style': 'black-translucent',
     'apple-mobile-web-app-title': BUSINESS_INFO.name,
     'application-name': BUSINESS_INFO.name,
     'msapplication-TileColor': '#FF6B00',
-    'msapplication-config': '/browserconfig.xml',
-    // Rating and content info
-    'rating': 'General',
-    'distribution': 'global',
-    'revisit-after': '7 days',
-    'expires': 'never',
     // Local business specific
     'subject': 'Professional Trash Can Cleaning Services',
     'coverage': 'Largo, Seminole, Clearwater, Pinellas Park, Safety Harbor, Dunedin, Palm Harbor, Belleair, Pinellas County, Florida',
-    'target': 'all',
   },
 }
 

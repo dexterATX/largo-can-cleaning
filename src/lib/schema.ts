@@ -54,8 +54,8 @@ export const BUSINESS_INFO = {
   phone: '(352) 843-3425',
   phoneRaw: '+13528433425',
   email: 'support@largocancleaning.com',
+  // Service-area business (mobile only) - no physical storefront
   address: {
-    street: '123 Main Street',
     city: 'Largo',
     state: 'FL',
     stateFull: 'Florida',
@@ -128,15 +128,15 @@ const LOCAL_BUSINESS_SCHEMA = {
   description: BUSINESS_INFO.description,
   slogan: BUSINESS_INFO.slogan,
   url: BUSINESS_INFO.url,
-  telephone: BUSINESS_INFO.phone,
+  telephone: BUSINESS_INFO.phoneRaw, // Use E.164 format with country code per Google guidelines
   email: BUSINESS_INFO.email,
   priceRange: BUSINESS_INFO.priceRange,
   paymentAccepted: BUSINESS_INFO.paymentAccepted,
   currenciesAccepted: 'USD',
   hasMap: BUSINESS_INFO.googleMapsUrl,
+  // Service-area business - no street address, only city/region
   address: {
     '@type': 'PostalAddress',
-    streetAddress: BUSINESS_INFO.address.street,
     addressLocality: BUSINESS_INFO.address.city,
     addressRegion: BUSINESS_INFO.address.state,
     postalCode: BUSINESS_INFO.address.zip,
@@ -161,8 +161,8 @@ const LOCAL_BUSINESS_SCHEMA = {
   })),
   openingHoursSpecification: OPENING_HOURS_SPEC,
   sameAs: [] as string[],
-  image: `${BUSINESS_INFO.url}/images/og-image.jpg`,
-  logo: `${BUSINESS_INFO.url}/images/logo.png`,
+  image: `${BUSINESS_INFO.url}/opengraph-image`, // Next.js generated OG image
+  logo: `${BUSINESS_INFO.url}/logo.png`,
 } as const
 
 /**
@@ -187,7 +187,7 @@ export function generateServiceSchema(service: ServiceInput) {
       '@type': 'LocalBusiness',
       '@id': `${BUSINESS_INFO.url}/#business`,
       name: BUSINESS_INFO.name,
-      telephone: BUSINESS_INFO.phone,
+      telephone: BUSINESS_INFO.phoneRaw,
       address: {
         '@type': 'PostalAddress',
         addressLocality: BUSINESS_INFO.address.city,
@@ -347,7 +347,7 @@ export function generateArticleSchema(article: ArticleInput) {
     headline: article.title,
     description: article.description,
     url: article.url,
-    image: article.image || `${BUSINESS_INFO.url}/images/og-image.jpg`,
+    image: article.image || `${BUSINESS_INFO.url}/opengraph-image`,
     datePublished: article.datePublished,
     dateModified: article.dateModified,
     author: {
@@ -361,7 +361,7 @@ export function generateArticleSchema(article: ArticleInput) {
       url: BUSINESS_INFO.url,
       logo: {
         '@type': 'ImageObject',
-        url: `${BUSINESS_INFO.url}/images/logo.png`,
+        url: `${BUSINESS_INFO.url}/logo.png`,
       },
     },
     mainEntityOfPage: {
@@ -399,7 +399,7 @@ export function generateBlogPostingSchema(post: {
     url: post.url,
     image: {
       '@type': 'ImageObject',
-      url: post.image || `${BUSINESS_INFO.url}/images/og-image.jpg`,
+      url: post.image || `${BUSINESS_INFO.url}/opengraph-image`,
       width: 1200,
       height: 630,
     },
@@ -554,7 +554,6 @@ export function generateContactPageSchema() {
       email: BUSINESS_INFO.email,
       address: {
         '@type': 'PostalAddress',
-        streetAddress: BUSINESS_INFO.address.street,
         addressLocality: BUSINESS_INFO.address.city,
         addressRegion: BUSINESS_INFO.address.state,
         postalCode: BUSINESS_INFO.address.zip,
@@ -671,7 +670,6 @@ export function generateOrganizationSchema() {
     description: BUSINESS_INFO.description,
     address: {
       '@type': 'PostalAddress',
-      streetAddress: BUSINESS_INFO.address.street,
       addressLocality: BUSINESS_INFO.address.city,
       addressRegion: BUSINESS_INFO.address.state,
       postalCode: BUSINESS_INFO.address.zip,

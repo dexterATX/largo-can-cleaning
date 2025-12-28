@@ -8,66 +8,71 @@ const supabase = createClient(
 
 const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://largocancleaning.com'
 
+// Static date for pages that don't change frequently
+// Update this date when making significant content changes to static pages
+const SITE_LAST_UPDATED = new Date('2025-01-01')
+
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  // Static pages
+  // Static pages - use fixed lastModified date per Google guidelines
+  // Google ignores lastmod if it changes too frequently or isn't verifiably accurate
   const staticPages: MetadataRoute.Sitemap = [
     {
       url: BASE_URL,
-      lastModified: new Date(),
+      lastModified: SITE_LAST_UPDATED,
       changeFrequency: 'weekly',
       priority: 1,
     },
     {
       url: `${BASE_URL}/services`,
-      lastModified: new Date(),
+      lastModified: SITE_LAST_UPDATED,
       changeFrequency: 'monthly',
       priority: 0.9,
     },
     {
       url: `${BASE_URL}/pricing`,
-      lastModified: new Date(),
+      lastModified: SITE_LAST_UPDATED,
       changeFrequency: 'monthly',
       priority: 0.9,
     },
     {
       url: `${BASE_URL}/about`,
-      lastModified: new Date(),
+      lastModified: SITE_LAST_UPDATED,
       changeFrequency: 'monthly',
       priority: 0.8,
     },
     {
       url: `${BASE_URL}/contact`,
-      lastModified: new Date(),
+      lastModified: SITE_LAST_UPDATED,
       changeFrequency: 'monthly',
       priority: 0.8,
     },
     {
       url: `${BASE_URL}/faq`,
-      lastModified: new Date(),
+      lastModified: SITE_LAST_UPDATED,
       changeFrequency: 'monthly',
       priority: 0.7,
     },
     {
       url: `${BASE_URL}/blog`,
-      lastModified: new Date(),
+      lastModified: SITE_LAST_UPDATED,
       changeFrequency: 'daily',
       priority: 0.8,
     },
     {
       url: `${BASE_URL}/gallery`,
-      lastModified: new Date(),
+      lastModified: SITE_LAST_UPDATED,
       changeFrequency: 'weekly',
       priority: 0.6,
     },
     {
       url: `${BASE_URL}/privacy`,
-      lastModified: new Date(),
+      lastModified: SITE_LAST_UPDATED,
       changeFrequency: 'yearly',
       priority: 0.3,
     },
     {
       url: `${BASE_URL}/terms`,
-      lastModified: new Date(),
+      lastModified: SITE_LAST_UPDATED,
       changeFrequency: 'yearly',
       priority: 0.3,
     },
