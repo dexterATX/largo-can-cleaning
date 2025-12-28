@@ -10,21 +10,24 @@ import {
 const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://largocancleaning.com'
 
 export const metadata: Metadata = {
-  title: 'Blog | Tips & Insights',
+  title: 'Trash Can Cleaning Tips & Guides',
   description: 'Expert tips on trash can cleaning, home hygiene, pest prevention, and maintaining a clean outdoor space. Stay informed with Largo Can Cleaning.',
   keywords: [
-    'trash can cleaning tips',
-    'garbage bin hygiene',
-    'pest prevention',
-    'home cleaning tips',
-    'outdoor hygiene',
-    'bin sanitization',
+    // Informational/how-to keywords (Blog owns these)
+    'how to clean trash cans',
+    'trash can odor removal tips',
+    'prevent maggots in garbage cans',
+    'Florida outdoor bin hygiene',
+    'when to clean wheelie bins',
+    'trash can bacteria facts',
+    'DIY bin cleaning vs professional',
+    'summer trash can odor prevention',
   ],
   alternates: {
     canonical: `${BUSINESS_INFO.url}/blog`,
   },
   openGraph: {
-    title: `Blog | ${BUSINESS_INFO.name}`,
+    title: 'Trash Can Cleaning Tips & Guides',
     description: 'Expert tips on trash can cleaning, home hygiene, and pest prevention.',
     type: 'website',
     url: `${BUSINESS_INFO.url}/blog`,
@@ -41,7 +44,7 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: 'summary_large_image',
-    title: `Blog | ${BUSINESS_INFO.name}`,
+    title: 'Trash Can Cleaning Tips & Guides',
     description: 'Expert tips on trash can cleaning, home hygiene, and pest prevention.',
   },
 }

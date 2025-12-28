@@ -13,20 +13,24 @@ const PricingPageContent = dynamic(
 )
 
 export const metadata: Metadata = {
-  title: 'Trash Can Cleaning Prices - Pinellas County',
+  title: 'Trash Can Cleaning Cost & Pricing - Starting at $25',
   description: `Transparent trash can cleaning prices starting at $25. Monthly, bi-weekly, and one-time cleaning options in ${BUSINESS_INFO.address.city}, FL. No contracts, no hidden fees.`,
   keywords: [
-    'trash can cleaning prices',
-    'bin cleaning cost',
-    'garbage can cleaning rates',
-    'affordable bin cleaning',
-    'Seminole FL cleaning prices',
+    // Cost/price keywords (Pricing page owns these)
+    'trash can cleaning cost',
+    'how much does bin cleaning cost',
+    'bin cleaning price per can',
+    'affordable garbage can cleaning',
+    'monthly trash cleaning rates',
+    'cheap bin sanitization near me',
+    'trash can service pricing',
+    'bin cleaning subscription cost',
   ],
   alternates: {
     canonical: `${BUSINESS_INFO.url}/pricing`,
   },
   openGraph: {
-    title: `Pricing | ${BUSINESS_INFO.name}`,
+    title: 'Trash Can Cleaning Cost & Pricing - Starting at $25',
     description: `Simple, transparent pricing for professional trash can cleaning. Starting at $25 per cleaning.`,
     url: `${BUSINESS_INFO.url}/pricing`,
   },

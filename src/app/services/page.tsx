@@ -3,24 +3,25 @@ import { BUSINESS_INFO, generateServicesPageSchema, generateLocalBusinessSchema 
 import ServicesPageContent from '@/components/pages/ServicesPageContent'
 
 export const metadata: Metadata = {
-  title: 'Bin Sanitization Services - Pinellas County',
+  title: 'Trash Can Cleaning Services - Residential & Commercial',
   description: `Professional trash can sanitization in ${BUSINESS_INFO.address.city}, FL. Residential, commercial, recurring options. 99.9% bacteria elimination.`,
   keywords: [
-    'trash can cleaning services',
-    'bin cleaning Largo FL',
-    'garbage can sanitization',
-    'residential bin cleaning',
-    'commercial trash cleaning',
-    'recurring bin service',
-    'deep clean trash cans',
-    'Pinellas County trash cleaning',
+    // Service-type keywords (Services page owns these)
+    'residential trash can cleaning service',
+    'commercial bin sanitization',
+    'recurring bin cleaning subscription',
+    'deep clean garbage cans',
     'wheelie bin cleaning service',
+    'trash can disinfection service',
+    'one-time bin cleaning',
+    'scheduled trash can service',
+    'HOA bin cleaning services',
   ],
   alternates: {
     canonical: `${BUSINESS_INFO.url}/services`,
   },
   openGraph: {
-    title: 'Bin Sanitization Services - Pinellas County',
+    title: 'Trash Can Cleaning Services - Residential & Commercial',
     description: `Professional trash can cleaning and sanitization services in ${BUSINESS_INFO.address.city}, FL. Same-day service available.`,
     url: `${BUSINESS_INFO.url}/services`,
   },
