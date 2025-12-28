@@ -35,6 +35,24 @@ const serviceOptions = [
   { value: 'deep-clean', label: 'Deep Clean' },
 ]
 
+const binCountOptions = [
+  { value: '', label: 'How many bins?' },
+  { value: '1', label: '1 Bin' },
+  { value: '2', label: '2 Bins' },
+  { value: '3', label: '3 Bins' },
+  { value: '4+', label: '4+ Bins' },
+]
+
+const hearAboutUsOptions = [
+  { value: '', label: 'How did you hear about us?' },
+  { value: 'google', label: 'Google Search' },
+  { value: 'facebook', label: 'Facebook' },
+  { value: 'nextdoor', label: 'Nextdoor' },
+  { value: 'referral', label: 'Friend / Neighbor Referral' },
+  { value: 'flyer', label: 'Flyer / Door Hanger' },
+  { value: 'other', label: 'Other' },
+]
+
 // ============================================
 // HERO SECTION - Simple & Direct
 // ============================================
@@ -48,54 +66,23 @@ function HeroSection() {
 
   return (
     <section className="pt-28 pb-10 sm:pt-36 sm:pb-14 lg:pt-32 lg:pb-8 bg-gradient-dark relative overflow-hidden">
-      {/* Background Grid Pattern */}
-      <div className="absolute inset-0 bg-grid-pattern opacity-50" />
+      {/* CONTACT PAGE: Connection & Communication Theme */}
+
+      {/* Visible dot matrix pattern - communication signals */}
+      <div className="absolute inset-0 opacity-40 lg:opacity-50">
+        <div className="absolute inset-0" style={{
+          backgroundImage: `radial-gradient(circle at 1px 1px, var(--safety-orange) 1px, transparent 0)`,
+          backgroundSize: '32px 32px'
+        }} />
+      </div>
 
       {/* Gradient Orbs */}
-      <div className="absolute top-1/4 -left-32 w-64 h-64 sm:w-80 sm:h-80 lg:w-96 lg:h-96 bg-[var(--safety-orange)]/10 rounded-full blur-[100px]" />
-      <div className="absolute -top-20 right-0 w-72 h-72 sm:w-96 sm:h-96 lg:w-[500px] lg:h-[500px] bg-[var(--safety-orange)]/15 rounded-full blur-[120px]" />
-      <div className="absolute bottom-0 left-1/3 w-48 h-48 sm:w-64 sm:h-64 bg-[var(--safety-orange)]/5 rounded-full blur-[80px]" />
+      <div className="absolute top-1/4 -left-32 w-64 h-64 sm:w-80 sm:h-80 lg:w-96 lg:h-96 bg-[var(--safety-orange)]/20 rounded-full blur-[80px]" />
+      <div className="absolute -top-20 right-0 w-72 h-72 sm:w-96 sm:h-96 lg:w-[450px] lg:h-[450px] bg-amber-500/15 rounded-full blur-[100px]" />
+      <div className="absolute bottom-0 left-1/2 w-48 h-48 sm:w-64 sm:h-64 bg-[var(--safety-orange)]/15 rounded-full blur-[60px]" />
 
-      {/* Floating Decorative Elements */}
-      {isMounted && (
-        <div className="absolute inset-0 overflow-hidden pointer-events-none">
-          {/* Animated floating shapes */}
-          <motion.div
-            className="absolute top-20 left-[10%] w-2 h-2 rounded-full bg-[var(--safety-orange)]/30"
-            animate={{ y: [0, -20, 0], opacity: [0.3, 0.6, 0.3] }}
-            transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
-          />
-          <motion.div
-            className="absolute top-32 right-[15%] w-3 h-3 rounded-full bg-[var(--safety-orange)]/20"
-            animate={{ y: [0, 15, 0], opacity: [0.2, 0.5, 0.2] }}
-            transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut', delay: 1 }}
-          />
-          <motion.div
-            className="absolute bottom-32 left-[20%] w-1.5 h-1.5 rounded-full bg-[var(--safety-orange)]/40"
-            animate={{ y: [0, -15, 0], opacity: [0.4, 0.7, 0.4] }}
-            transition={{ duration: 3.5, repeat: Infinity, ease: 'easeInOut', delay: 0.5 }}
-          />
-          <motion.div
-            className="absolute top-1/2 right-[8%] w-2.5 h-2.5 rounded-full bg-[var(--safety-orange)]/25"
-            animate={{ y: [0, 20, 0], opacity: [0.25, 0.5, 0.25] }}
-            transition={{ duration: 4.5, repeat: Infinity, ease: 'easeInOut', delay: 2 }}
-          />
-
-          {/* Decorative lines */}
-          <div className="absolute top-1/3 left-0 w-32 h-px bg-gradient-to-r from-transparent via-[var(--safety-orange)]/20 to-transparent" />
-          <div className="absolute top-2/3 right-0 w-40 h-px bg-gradient-to-l from-transparent via-[var(--safety-orange)]/15 to-transparent" />
-
-          {/* Corner accent */}
-          <div className="absolute top-0 right-0 w-64 h-64 opacity-30">
-            <div className="absolute top-8 right-8 w-24 h-px bg-gradient-to-l from-[var(--safety-orange)]/40 to-transparent" />
-            <div className="absolute top-8 right-8 w-px h-24 bg-gradient-to-b from-[var(--safety-orange)]/40 to-transparent" />
-          </div>
-          <div className="absolute bottom-0 left-0 w-64 h-64 opacity-30">
-            <div className="absolute bottom-8 left-8 w-24 h-px bg-gradient-to-r from-[var(--safety-orange)]/40 to-transparent" />
-            <div className="absolute bottom-8 left-8 w-px h-24 bg-gradient-to-t from-[var(--safety-orange)]/40 to-transparent" />
-          </div>
-        </div>
-      )}
+      {/* Frosty dark overlay */}
+      <div className="absolute inset-0 bg-black/30 backdrop-blur-[2px]" />
 
       <Container className="relative z-10">
         <motion.div
@@ -241,12 +228,12 @@ function FormInput({
   const errorId = `${id}-error`
   return (
     <div className="group">
-      <label htmlFor={id} className="block text-[11px] lg:text-xs font-medium text-[var(--slate-gray)] uppercase tracking-wider mb-2 lg:mb-3">
+      <label htmlFor={id} className="block text-[10px] lg:text-[11px] font-semibold text-[var(--light-gray)] uppercase tracking-wider mb-1.5 lg:mb-2">
         {label} {required && <span className="text-[var(--safety-orange)]">*</span>}
       </label>
       <div className="relative">
         <div className="absolute left-3 lg:left-4 top-1/2 -translate-y-1/2 pointer-events-none">
-          <Icon className={`w-3.5 h-3.5 lg:w-[18px] lg:h-[18px] ${error ? 'text-red-400' : 'text-[var(--steel-gray)]'} group-focus-within:text-[var(--safety-orange)] transition-colors`} />
+          <Icon className={`w-4 h-4 ${error ? 'text-red-400' : 'text-[var(--steel-gray)]'} group-focus-within:text-[var(--safety-orange)] transition-colors`} />
         </div>
         <input
           type={type}
@@ -258,14 +245,59 @@ function FormInput({
           placeholder={placeholder}
           aria-invalid={error ? 'true' : undefined}
           aria-describedby={error ? errorId : undefined}
-          className={`w-full pl-9 lg:pl-12 pr-3 lg:pr-5 py-2.5 lg:py-4 text-sm lg:text-base bg-[var(--asphalt-black)]/50 lg:bg-[var(--asphalt-black)] border ${error ? 'border-red-400/50' : 'border-[var(--steel-gray)]/20 lg:border-[var(--steel-gray)]/30'} rounded-lg lg:rounded-xl text-white placeholder-[var(--steel-gray)]/60 focus:outline-none focus:border-[var(--safety-orange)]/50 focus:ring-2 lg:focus:ring-4 focus:ring-[var(--safety-orange)]/10 focus:bg-[var(--asphalt-black)] transition-all`}
+          className={`w-full pl-10 lg:pl-11 pr-3 lg:pr-4 py-3 lg:py-3.5 text-sm bg-[var(--asphalt-black)] border-2 ${error ? 'border-red-400/50' : 'border-[var(--steel-gray)]/30'} rounded-xl text-white placeholder-[var(--steel-gray)]/50 focus:outline-none focus:border-[var(--safety-orange)] focus:ring-4 focus:ring-[var(--safety-orange)]/15 transition-all`}
         />
       </div>
       {error && (
-        <p id={errorId} className="mt-1 text-xs text-red-400" role="alert">
+        <p id={errorId} className="mt-1 text-[11px] text-red-400" role="alert">
           {error}
         </p>
       )}
+    </div>
+  )
+}
+
+function FormSelect({
+  label,
+  id,
+  required = false,
+  value,
+  onChange,
+  options,
+}: {
+  label: string
+  id: string
+  required?: boolean
+  value: string
+  onChange: (e: React.ChangeEvent<HTMLSelectElement>) => void
+  options: { value: string; label: string }[]
+}) {
+  return (
+    <div className="group">
+      <label htmlFor={id} className="block text-[10px] lg:text-[11px] font-semibold text-[var(--light-gray)] uppercase tracking-wider mb-1.5 lg:mb-2">
+        {label} {required && <span className="text-[var(--safety-orange)]">*</span>}
+      </label>
+      <div className="relative">
+        <select
+          id={id}
+          name={id}
+          required={required}
+          value={value}
+          onChange={onChange}
+          className="w-full px-3 lg:px-4 py-3 lg:py-3.5 text-sm bg-[var(--asphalt-black)] border-2 border-[var(--steel-gray)]/30 rounded-xl text-white focus:outline-none focus:border-[var(--safety-orange)] focus:ring-4 focus:ring-[var(--safety-orange)]/15 transition-all appearance-none cursor-pointer"
+        >
+          {options.map((option) => (
+            <option key={option.value} value={option.value} className="bg-[var(--asphalt-black)]">
+              {option.label}
+            </option>
+          ))}
+        </select>
+        <div className="absolute right-3 lg:right-4 top-1/2 -translate-y-1/2 pointer-events-none">
+          <svg className="w-4 h-4 text-[var(--steel-gray)]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+          </svg>
+        </div>
+      </div>
     </div>
   )
 }
@@ -279,7 +311,10 @@ function ContactFormSection() {
     name: '',
     email: '',
     phone: '',
+    address: '',
     service: '',
+    binCount: '',
+    hearAboutUs: '',
     message: '',
   })
   const [submitted, setSubmitted] = useState(false)
@@ -320,7 +355,7 @@ function ContactFormSection() {
       // For now, simulate submission (replace with actual API when available)
       await new Promise(resolve => setTimeout(resolve, 1000))
       setSubmitted(true)
-      setFormData({ name: '', email: '', phone: '', service: '', message: '' })
+      setFormData({ name: '', email: '', phone: '', address: '', service: '', binCount: '', hearAboutUs: '', message: '' })
     } catch (err) {
       setError('Failed to send message. Please try again.')
     } finally {
@@ -374,26 +409,23 @@ function ContactFormSection() {
                     size="sm"
                     onClick={() => {
                       setSubmitted(false)
-                      setFormData({ name: '', email: '', phone: '', service: '', message: '' })
+                      setFormData({ name: '', email: '', phone: '', address: '', service: '', binCount: '', hearAboutUs: '', message: '' })
                     }}
                   >
                     Send Another
                   </Button>
                 </motion.div>
               ) : (
-                <form onSubmit={handleSubmit} className="space-y-3 lg:space-y-6">
+                <form onSubmit={handleSubmit} className="space-y-4 lg:space-y-6">
                   {/* Form Header */}
-                  <div className="mb-4 lg:mb-8">
-                    <div className="flex items-center gap-3 mb-2 lg:mb-3">
-                      <div className="w-10 h-10 lg:w-12 lg:h-12 rounded-xl bg-[var(--safety-orange)]/15 flex items-center justify-center">
-                        <Send className="w-5 h-5 lg:w-6 lg:h-6 text-[var(--safety-orange)]" />
-                      </div>
-                      <div>
-                        <h2 className="text-lg lg:text-2xl font-bold text-white">Request a Free Quote</h2>
-                        <p className="hidden lg:block text-sm text-[var(--slate-gray)]">We&apos;ll get back to you within 24 hours</p>
-                      </div>
+                  <div className="flex items-center gap-3 mb-2 lg:mb-4">
+                    <div className="w-10 h-10 lg:w-12 lg:h-12 rounded-xl bg-[var(--safety-orange)]/15 flex items-center justify-center">
+                      <Send className="w-5 h-5 lg:w-6 lg:h-6 text-[var(--safety-orange)]" />
                     </div>
-                    <p className="text-xs lg:hidden text-[var(--slate-gray)]">Fill out the form below for your free estimate.</p>
+                    <div>
+                      <h2 className="text-lg lg:text-xl font-bold text-white">Request a Free Quote</h2>
+                      <p className="text-xs lg:text-sm text-[var(--slate-gray)]">We respond within 24 hours</p>
+                    </div>
                   </div>
 
                   {/* Error Message */}
@@ -403,101 +435,122 @@ function ContactFormSection() {
                     </div>
                   )}
 
-                  {/* Row 1: Name & Phone */}
-                  <div className="grid grid-cols-2 gap-3 lg:gap-6">
-                    <FormInput
-                      icon={User}
-                      label="Full Name"
-                      id="name"
-                      required
-                      placeholder="John Doe"
-                      value={formData.name}
-                      onChange={handleInputChange}
-                      error={fieldErrors.name}
-                    />
-                    <FormInput
-                      icon={Phone}
-                      label="Phone Number"
-                      id="phone"
-                      type="tel"
-                      required
-                      placeholder="(555) 123-4567"
-                      value={formData.phone}
-                      onChange={handleInputChange}
-                      error={fieldErrors.phone}
-                    />
-                  </div>
-
-                  {/* Row 2: Email & Service */}
-                  <div className="grid grid-cols-2 gap-3 lg:gap-6">
-                    <FormInput
-                      icon={Mail}
-                      label="Email Address"
-                      id="email"
-                      type="email"
-                      required
-                      placeholder="john@example.com"
-                      value={formData.email}
-                      onChange={handleInputChange}
-                      error={fieldErrors.email}
-                    />
-                    <div className="group">
-                      <label htmlFor="service" className="block text-[11px] lg:text-xs font-medium text-[var(--slate-gray)] uppercase tracking-wider mb-2 lg:mb-3">
-                        Service Type
-                      </label>
-                      <div className="relative">
-                        <select
-                          id="service"
-                          name="service"
-                          value={formData.service}
-                          onChange={handleSelectChange}
-                          className="w-full px-3 lg:px-4 py-2.5 lg:py-4 text-sm lg:text-base bg-[var(--asphalt-black)]/50 lg:bg-[var(--asphalt-black)] border border-[var(--steel-gray)]/20 lg:border-[var(--steel-gray)]/30 rounded-lg lg:rounded-xl text-white focus:outline-none focus:border-[var(--safety-orange)]/50 focus:ring-2 lg:focus:ring-4 focus:ring-[var(--safety-orange)]/10 focus:bg-[var(--asphalt-black)] transition-all appearance-none cursor-pointer"
-                        >
-                          {serviceOptions.map((option) => (
-                            <option key={option.value} value={option.value} className="bg-[var(--asphalt-black)]">
-                              {option.label}
-                            </option>
-                          ))}
-                        </select>
-                        <div className="absolute right-3 lg:right-4 top-1/2 -translate-y-1/2 pointer-events-none">
-                          <svg className="w-3.5 h-3.5 lg:w-5 lg:h-5 text-[var(--steel-gray)]" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
-                          </svg>
-                        </div>
-                      </div>
+                  {/* Contact Info */}
+                  <div className="space-y-3 lg:space-y-4">
+                    <h3 className="text-xs font-semibold text-[var(--slate-gray)] uppercase tracking-wide">Contact Info</h3>
+                    <div className="grid grid-cols-2 gap-3 lg:gap-4">
+                      <FormInput
+                        icon={User}
+                        label="Name"
+                        id="name"
+                        required
+                        placeholder="John Doe"
+                        value={formData.name}
+                        onChange={handleInputChange}
+                        error={fieldErrors.name}
+                      />
+                      <FormInput
+                        icon={Phone}
+                        label="Phone"
+                        id="phone"
+                        type="tel"
+                        required
+                        placeholder="(555) 123-4567"
+                        value={formData.phone}
+                        onChange={handleInputChange}
+                        error={fieldErrors.phone}
+                      />
+                    </div>
+                    <div className="grid grid-cols-2 gap-3 lg:gap-4">
+                      <FormInput
+                        icon={Mail}
+                        label="Email"
+                        id="email"
+                        type="email"
+                        required
+                        placeholder="john@example.com"
+                        value={formData.email}
+                        onChange={handleInputChange}
+                        error={fieldErrors.email}
+                      />
+                      <FormInput
+                        icon={MapPin}
+                        label="Address"
+                        id="address"
+                        placeholder="123 Main St, Largo"
+                        value={formData.address}
+                        onChange={handleInputChange}
+                      />
                     </div>
                   </div>
 
-                  {/* Row 3: Message */}
-                  <div className="group">
-                    <label htmlFor="message" className="block text-[11px] lg:text-xs font-medium text-[var(--slate-gray)] uppercase tracking-wider mb-2 lg:mb-3">
-                      Additional Details <span className="text-[var(--steel-gray)] normal-case">(optional)</span>
-                    </label>
-                    <textarea
-                      id="message"
-                      name="message"
-                      rows={2}
-                      value={formData.message}
-                      onChange={handleTextareaChange}
-                      placeholder="Tell us about your needs, number of bins, special requests..."
-                      className="w-full px-3 lg:px-4 py-2.5 lg:py-4 text-sm lg:text-base bg-[var(--asphalt-black)]/50 lg:bg-[var(--asphalt-black)] border border-[var(--steel-gray)]/20 lg:border-[var(--steel-gray)]/30 rounded-lg lg:rounded-xl text-white placeholder-[var(--steel-gray)]/60 focus:outline-none focus:border-[var(--safety-orange)]/50 focus:ring-2 lg:focus:ring-4 focus:ring-[var(--safety-orange)]/10 focus:bg-[var(--asphalt-black)] transition-all resize-none lg:min-h-[120px]"
+                  {/* Service Details */}
+                  <div className="space-y-3 lg:space-y-4">
+                    <h3 className="text-xs font-semibold text-[var(--slate-gray)] uppercase tracking-wide">Service Details</h3>
+                    <div className="grid grid-cols-2 gap-3 lg:gap-4">
+                      <FormSelect
+                        label="Service"
+                        id="service"
+                        value={formData.service}
+                        onChange={handleSelectChange}
+                        options={serviceOptions}
+                      />
+                      <FormSelect
+                        label="Bins"
+                        id="binCount"
+                        value={formData.binCount}
+                        onChange={handleSelectChange}
+                        options={binCountOptions}
+                      />
+                    </div>
+                    <FormSelect
+                      label="How did you find us?"
+                      id="hearAboutUs"
+                      value={formData.hearAboutUs}
+                      onChange={handleSelectChange}
+                      options={hearAboutUsOptions}
                     />
                   </div>
 
-                  {/* Submit */}
-                  <div className="pt-2 lg:pt-4">
-                    <Button
-                      type="submit"
-                      className="w-full py-3 lg:py-4 text-base lg:text-lg font-semibold shadow-lg shadow-[var(--safety-orange)]/20 hover:shadow-xl hover:shadow-[var(--safety-orange)]/30 transition-shadow"
-                      rightIcon={isSubmitting ? <Loader2 className="w-5 h-5 lg:w-6 lg:h-6 animate-spin" /> : <ArrowRight className="w-5 h-5 lg:w-6 lg:h-6" />}
-                      disabled={isSubmitting}
-                    >
-                      {isSubmitting ? 'Sending...' : 'Get Your Free Quote'}
-                    </Button>
-                    <p className="text-center text-xs lg:text-sm text-[var(--slate-gray)] mt-3 lg:mt-4">
-                      No obligation · Response within 24 hours
+                  {/* Message */}
+                  <div className="space-y-3 lg:space-y-4">
+                    <h3 className="text-xs font-semibold text-[var(--slate-gray)] uppercase tracking-wide">Additional Info</h3>
+                    <div className="group">
+                      <label htmlFor="message" className="block text-[11px] lg:text-xs font-semibold text-[var(--light-gray)] uppercase tracking-wider mb-2">
+                        Message <span className="text-[var(--steel-gray)] normal-case font-normal">(optional)</span>
+                      </label>
+                      <textarea
+                        id="message"
+                        name="message"
+                        rows={3}
+                        value={formData.message}
+                        onChange={handleTextareaChange}
+                        placeholder="Gate codes, bin location, special requests..."
+                        className="w-full px-4 py-3 lg:py-4 text-sm bg-[var(--asphalt-black)] border-2 border-[var(--steel-gray)]/30 rounded-xl text-white placeholder-[var(--steel-gray)]/50 focus:outline-none focus:border-[var(--safety-orange)] focus:ring-4 focus:ring-[var(--safety-orange)]/15 transition-all resize-none"
+                      />
+                    </div>
+                  </div>
+
+                  {/* What Happens Next */}
+                  <div className="p-3 lg:p-4 rounded-lg bg-[var(--safety-orange)]/5 border border-[var(--safety-orange)]/15">
+                    <h4 className="text-xs font-semibold text-white mb-1.5">What happens next?</h4>
+                    <p className="text-xs text-[var(--slate-gray)] leading-relaxed">
+                      We&apos;ll review your request, prepare a custom quote, and contact you within 24 hours to schedule your first cleaning.
                     </p>
                   </div>
+
+                  {/* Submit */}
+                  <Button
+                    type="submit"
+                    className="w-full py-3.5 lg:py-4 text-base font-semibold shadow-lg shadow-[var(--safety-orange)]/20"
+                    rightIcon={isSubmitting ? <Loader2 className="w-5 h-5 animate-spin" /> : <ArrowRight className="w-5 h-5" />}
+                    disabled={isSubmitting}
+                  >
+                    {isSubmitting ? 'Sending...' : 'Get Free Quote'}
+                  </Button>
+                  <p className="text-center text-[11px] lg:text-xs text-[var(--slate-gray)]">
+                    No obligation · Free estimate · 24hr response
+                  </p>
                 </form>
               )}
             </div>

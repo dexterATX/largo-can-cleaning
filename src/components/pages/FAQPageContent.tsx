@@ -218,12 +218,29 @@ export default function FAQPageContent() {
 
       {/* Hero */}
       <section className="relative pt-28 pb-12 sm:pt-36 sm:pb-16 lg:pb-20 overflow-hidden bg-gradient-dark">
-        {/* Background Grid Pattern */}
-        <div className="absolute inset-0 bg-grid-pattern opacity-50" />
+        {/* FAQ PAGE: Knowledge & Clarity Theme */}
+
+        {/* Soft radial dots - MORE VISIBLE with orange */}
+        <div className="absolute inset-0 opacity-35 lg:opacity-45">
+          <svg className="absolute inset-0 w-full h-full" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <pattern id="clarityDots" x="0" y="0" width="50" height="50" patternUnits="userSpaceOnUse">
+                <circle cx="25" cy="25" r="2" fill="var(--safety-orange)" opacity="0.5" />
+                <circle cx="0" cy="0" r="1.5" fill="var(--safety-orange)" opacity="0.35" />
+                <circle cx="50" cy="50" r="1.5" fill="var(--safety-orange)" opacity="0.35" />
+              </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#clarityDots)" />
+          </svg>
+        </div>
 
         {/* Gradient Orbs */}
-        <div className="absolute top-1/4 -left-32 w-64 h-64 sm:w-96 sm:h-96 bg-[var(--safety-orange)]/10 rounded-full blur-[100px]" />
-        <div className="absolute bottom-1/4 -right-32 w-64 h-64 sm:w-96 sm:h-96 bg-[var(--safety-orange)]/5 rounded-full blur-[100px]" />
+        <div className="absolute top-1/4 -left-16 md:-left-32 w-64 h-64 sm:w-80 sm:h-80 lg:w-96 lg:h-96 bg-amber-400/15 rounded-full blur-[60px] md:blur-[80px]" />
+        <div className="absolute -top-20 right-0 w-72 h-72 sm:w-96 sm:h-96 lg:w-[450px] lg:h-[450px] bg-[var(--safety-orange)]/20 rounded-full blur-[80px] md:blur-[100px]" />
+        <div className="absolute bottom-0 left-1/3 w-48 h-48 sm:w-64 sm:h-64 bg-yellow-400/12 rounded-full blur-[50px] md:blur-[60px]" />
+
+        {/* Frosty dark overlay */}
+        <div className="absolute inset-0 bg-black/30 backdrop-blur-[2px]" />
 
         <Container className="relative z-10">
           <div className="max-w-3xl mx-auto text-center">

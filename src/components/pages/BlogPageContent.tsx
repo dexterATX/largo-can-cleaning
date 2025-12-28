@@ -528,10 +528,15 @@ export default function BlogPageContent() {
     <div className="relative bg-[var(--asphalt-dark)] min-h-screen overflow-hidden">
       {/* Hero Section */}
       <section className="relative pt-28 pb-8 sm:pt-36 sm:pb-12 overflow-hidden bg-gradient-dark">
-        {/* Background */}
-        <div className="absolute inset-0 bg-grid-pattern opacity-50" />
-        <div className="absolute top-1/4 -left-32 w-64 h-64 sm:w-96 sm:h-96 bg-[var(--safety-orange)]/10 rounded-full blur-[100px]" />
-        <div className="absolute bottom-1/4 -right-32 w-64 h-64 sm:w-96 sm:h-96 bg-[var(--safety-orange)]/5 rounded-full blur-[100px]" />
+        {/* BLOG PAGE: Clean gradient background */}
+
+        {/* Gradient Orbs */}
+        <div className="absolute top-1/4 -left-16 md:-left-32 w-64 h-64 sm:w-80 sm:h-80 lg:w-96 lg:h-96 bg-rose-500/12 rounded-full blur-[60px] md:blur-[80px]" />
+        <div className="absolute -top-20 right-0 w-72 h-72 sm:w-96 sm:h-96 lg:w-[450px] lg:h-[450px] bg-[var(--safety-orange)]/20 rounded-full blur-[80px] md:blur-[100px]" />
+        <div className="absolute bottom-0 left-1/3 w-48 h-48 sm:w-64 sm:h-64 bg-amber-500/12 rounded-full blur-[50px] md:blur-[60px]" />
+
+        {/* Dark frosty overlay */}
+        <div className="absolute inset-0 bg-black/15 backdrop-blur-[1px]" />
 
         <Container className="relative z-10">
           <div className="max-w-3xl mx-auto text-center">

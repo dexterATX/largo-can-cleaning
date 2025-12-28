@@ -183,31 +183,28 @@ function AnimatedCounter({ value, suffix }: { value: string; suffix: string }) {
 
 function HeroSection() {
   return (
-    <section className="relative min-h-[100svh] flex items-center bg-[var(--asphalt-black)] overflow-hidden">
-      {/* Background Elements */}
-      <div className="absolute inset-0">
-        <div className="absolute inset-0 bg-gradient-to-br from-[var(--asphalt-black)] via-[var(--asphalt-black)] to-[var(--concrete-gray)]/30" />
-        <div className="absolute inset-0 bg-grid-pattern opacity-30" />
-        {/* Hide expensive blur effects on mobile for performance */}
-        <div className="hidden md:block absolute top-1/4 -right-20 w-[500px] h-[500px] bg-[var(--safety-orange)]/10 rounded-full blur-[100px]" />
-        <div className="hidden md:block absolute bottom-1/4 -left-20 w-[400px] h-[400px] bg-[var(--safety-orange)]/5 rounded-full blur-[80px]" />
-      </div>
+    <section className="relative min-h-[100svh] flex items-center bg-gradient-dark overflow-hidden">
+      {/* ABOUT PAGE: Subtle horizontal lines */}
 
-      {/* Accent Lines - hidden on mobile, reduced delays */}
-      <div className="hidden md:block absolute inset-0 overflow-hidden pointer-events-none">
-        <motion.div
-          initial={{ scaleX: 0 }}
-          animate={{ scaleX: 1 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="absolute top-[30%] right-0 w-1/3 h-px bg-gradient-to-l from-[var(--safety-orange)]/40 to-transparent origin-right"
-        />
-        <motion.div
-          initial={{ scaleY: 0 }}
-          animate={{ scaleY: 1 }}
-          transition={{ duration: 0.8, delay: 0.3 }}
-          className="absolute top-0 right-[20%] w-px h-1/3 bg-gradient-to-b from-[var(--safety-orange)]/30 to-transparent origin-top"
-        />
-      </div>
+      {/* Horizontal line pattern */}
+      <div
+        className="absolute inset-0"
+        style={{
+          backgroundImage: `
+            linear-gradient(0deg, transparent 0%, transparent 49%, rgba(255, 107, 0, 0.12) 50%, transparent 51%, transparent 100%)
+          `,
+          backgroundSize: '100% 80px'
+        }}
+      />
+
+      {/* Glass overlay */}
+      <div className="absolute inset-0 bg-white/[0.02] backdrop-blur-[2px]" />
+
+      {/* Subtle gradient top to bottom - orange to dark */}
+      <div className="absolute inset-0 bg-gradient-to-b from-[rgba(255,107,0,0.1)] via-transparent to-[var(--asphalt-dark)]/50" />
+
+      {/* Dark overlay for depth */}
+      <div className="absolute inset-0 bg-[var(--asphalt-dark)]/25" />
 
       <Container className="relative z-10">
         <div className="flex flex-col items-center text-center pt-24 pb-16 sm:pt-32 sm:pb-20">
@@ -284,16 +281,13 @@ function HeroSection() {
               { icon: Leaf, label: 'Eco-Friendly', color: '#22C55E' },
               { icon: Star, label: '5.0 Google Rating', color: '#FBBF24' },
             ].map((item, i) => (
-              <motion.div
+              <div
                 key={i}
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: 0.2 + i * 0.05 }}
                 className="flex items-center gap-2 px-3 py-2 rounded-full bg-[var(--concrete-gray)]/60 border border-[var(--steel-gray)]/30"
               >
                 <item.icon className="w-4 h-4" style={{ color: item.color }} />
                 <span className="text-xs font-medium text-[var(--light-gray)]">{item.label}</span>
-              </motion.div>
+              </div>
             ))}
           </motion.div>
 
@@ -326,11 +320,8 @@ function HeroSection() {
             {/* Mobile: 2x2 Grid */}
             <div className="sm:hidden grid grid-cols-2 gap-3">
               {stats.map((stat, index) => (
-                <motion.div
+                <div
                   key={index}
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: 0.3 + index * 0.05 }}
                   className="p-4 rounded-xl bg-[var(--concrete-gray)]/40 border border-[var(--steel-gray)]/20 text-center"
                 >
                   <div className="w-10 h-10 rounded-lg mx-auto mb-2 flex items-center justify-center" style={{ backgroundColor: `${stat.color}15` }}>
@@ -340,7 +331,7 @@ function HeroSection() {
                     <AnimatedCounter value={stat.value} suffix={stat.suffix} />
                   </div>
                   <div className="text-[11px] text-[var(--slate-gray)]">{stat.label}</div>
-                </motion.div>
+                </div>
               ))}
             </div>
 
@@ -392,8 +383,8 @@ function HeroSection() {
 function MissionSection() {
   return (
     <section className="py-12 sm:py-20 bg-[var(--asphalt-dark)] relative overflow-hidden">
-      {/* Hide expensive blur on mobile */}
-      <div className="hidden md:block absolute top-0 left-1/2 -translate-x-1/2 w-[600px] h-[300px] bg-[var(--safety-orange)]/5 rounded-full blur-[100px]" />
+      {/* Gradient Orb */}
+      <div className="absolute top-0 left-1/2 -translate-x-1/2 w-64 md:w-[600px] h-32 md:h-[300px] bg-[var(--safety-orange)]/5 rounded-full blur-[40px] md:blur-[100px]" />
 
       <Container className="relative z-10">
         <motion.div
@@ -447,8 +438,8 @@ function MissionSection() {
 function StorySection() {
   return (
     <section className="py-12 sm:py-20 bg-[var(--asphalt-black)] relative overflow-hidden">
-      {/* Hide expensive blur on mobile */}
-      <div className="hidden md:block absolute top-1/2 -left-[200px] w-[400px] h-[400px] bg-[var(--safety-orange)]/5 rounded-full blur-[80px] -translate-y-1/2" />
+      {/* Gradient Orb */}
+      <div className="absolute top-1/2 -left-16 md:-left-[200px] w-48 md:w-[400px] h-48 md:h-[400px] bg-[var(--safety-orange)]/5 rounded-full blur-[40px] md:blur-[80px] -translate-y-1/2" />
 
       <Container className="relative z-10">
         <div className="grid lg:grid-cols-2 gap-10 lg:gap-16 items-center">
@@ -555,14 +546,16 @@ function WhyChooseUsSection() {
         </motion.div>
 
         {/* Mobile: 2 Column Grid */}
-        <div className="sm:hidden grid grid-cols-2 gap-3">
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.4 }}
+          className="sm:hidden grid grid-cols-2 gap-3"
+        >
           {whyChooseUs.map((item, index) => (
-            <motion.div
+            <div
               key={index}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.05 }}
               className="p-4 rounded-xl bg-[var(--concrete-gray)]/30 border border-[var(--steel-gray)]/20"
             >
               <div className="w-10 h-10 rounded-lg bg-[var(--safety-orange)]/10 flex items-center justify-center mb-3">
@@ -570,19 +563,21 @@ function WhyChooseUsSection() {
               </div>
               <h3 className="text-sm font-semibold text-white mb-1">{item.title}</h3>
               <p className="text-[11px] text-[var(--slate-gray)]">{item.desc}</p>
-            </motion.div>
+            </div>
           ))}
-        </div>
+        </motion.div>
 
         {/* Desktop: 3 Column Grid */}
-        <div className="hidden sm:grid grid-cols-3 gap-4">
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.4 }}
+          className="hidden sm:grid grid-cols-3 gap-4"
+        >
           {whyChooseUs.map((item, index) => (
-            <motion.div
+            <div
               key={index}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.08 }}
               className="group p-5 rounded-xl bg-[var(--concrete-gray)]/30 border border-[var(--steel-gray)]/20 hover:border-[var(--safety-orange)]/30 transition-all"
             >
               <div className="w-12 h-12 rounded-xl bg-[var(--safety-orange)]/10 flex items-center justify-center mb-4 group-hover:scale-110 transition-transform">
@@ -590,9 +585,9 @@ function WhyChooseUsSection() {
               </div>
               <h3 className="text-base font-semibold text-white mb-1 group-hover:text-[var(--safety-orange)] transition-colors">{item.title}</h3>
               <p className="text-sm text-[var(--slate-gray)]">{item.desc}</p>
-            </motion.div>
+            </div>
           ))}
-        </div>
+        </motion.div>
       </Container>
     </section>
   )
@@ -624,14 +619,16 @@ function ValuesSection() {
           </p>
         </motion.div>
 
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4">
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.4 }}
+          className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4"
+        >
           {values.map((value, index) => (
-            <motion.div
+            <div
               key={index}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
               className="group p-4 sm:p-5 rounded-xl bg-[var(--concrete-gray)]/30 border border-[var(--steel-gray)]/20 hover:border-[var(--steel-gray)]/40 transition-all"
             >
               <div
@@ -642,9 +639,9 @@ function ValuesSection() {
               </div>
               <h3 className="text-sm sm:text-base font-semibold text-white mb-1 sm:mb-2">{value.title}</h3>
               <p className="text-[11px] sm:text-sm text-[var(--slate-gray)] leading-relaxed">{value.description}</p>
-            </motion.div>
+            </div>
           ))}
-        </div>
+        </motion.div>
       </Container>
     </section>
   )
@@ -657,8 +654,8 @@ function ValuesSection() {
 function TimelineSection() {
   return (
     <section className="py-12 sm:py-20 bg-[var(--asphalt-dark)] relative overflow-hidden">
-      {/* Hide expensive blur on mobile */}
-      <div className="hidden md:block absolute top-1/2 -right-[200px] w-[400px] h-[400px] bg-[var(--safety-orange)]/5 rounded-full blur-[80px] -translate-y-1/2" />
+      {/* Gradient Orb */}
+      <div className="absolute top-1/2 -right-16 md:-right-[200px] w-48 md:w-[400px] h-48 md:h-[400px] bg-[var(--safety-orange)]/5 rounded-full blur-[40px] md:blur-[80px] -translate-y-1/2" />
 
       <Container className="relative z-10">
         <motion.div
@@ -676,17 +673,19 @@ function TimelineSection() {
         </motion.div>
 
         {/* Mobile Timeline */}
-        <div className="sm:hidden relative">
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.4 }}
+          className="sm:hidden relative"
+        >
           <div className="absolute top-0 bottom-0 left-5 w-0.5 bg-gradient-to-b from-[var(--safety-orange)] via-[var(--safety-orange)]/50 to-transparent" />
 
           <div className="space-y-6">
             {milestones.map((milestone, index) => (
-              <motion.div
+              <div
                 key={index}
-                initial={{ opacity: 0, x: -20 }}
-                whileInView={{ opacity: 1, x: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
                 className="relative flex gap-4 pl-2"
               >
                 <div className="relative z-10 w-7 h-7 rounded-full bg-[var(--safety-orange)] flex items-center justify-center flex-shrink-0 shadow-lg shadow-[var(--safety-orange)]/30">
@@ -699,23 +698,25 @@ function TimelineSection() {
                   <h3 className="text-base font-semibold text-white">{milestone.title}</h3>
                   <p className="text-sm text-[var(--slate-gray)]">{milestone.desc}</p>
                 </div>
-              </motion.div>
+              </div>
             ))}
           </div>
-        </div>
+        </motion.div>
 
         {/* Desktop Timeline */}
-        <div className="hidden sm:block relative max-w-4xl mx-auto">
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.4 }}
+          className="hidden sm:block relative max-w-4xl mx-auto"
+        >
           <div className="absolute top-10 left-0 right-0 h-0.5 bg-gradient-to-r from-transparent via-[var(--safety-orange)]/40 to-transparent" />
 
           <div className="grid grid-cols-4 gap-6">
             {milestones.map((milestone, index) => (
-              <motion.div
+              <div
                 key={index}
-                initial={{ opacity: 0, y: 20 }}
-                whileInView={{ opacity: 1, y: 0 }}
-                viewport={{ once: true }}
-                transition={{ delay: index * 0.1 }}
                 className="relative pt-16 text-center"
               >
                 <div className="absolute top-6 left-1/2 -translate-x-1/2 w-8 h-8 rounded-full bg-[var(--asphalt-dark)] border-2 border-[var(--safety-orange)] flex items-center justify-center z-10">
@@ -726,10 +727,10 @@ function TimelineSection() {
                 </span>
                 <h3 className="text-base font-semibold text-white mb-1">{milestone.title}</h3>
                 <p className="text-sm text-[var(--slate-gray)]">{milestone.desc}</p>
-              </motion.div>
+              </div>
             ))}
           </div>
-        </div>
+        </motion.div>
       </Container>
     </section>
   )
@@ -761,14 +762,16 @@ function TestimonialsSection() {
           </p>
         </motion.div>
 
-        <div className="grid md:grid-cols-3 gap-4">
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.4 }}
+          className="grid md:grid-cols-3 gap-4"
+        >
           {testimonials.map((testimonial, index) => (
-            <motion.div
+            <div
               key={index}
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.1 }}
               className="p-5 rounded-xl bg-[var(--concrete-gray)]/30 border border-[var(--steel-gray)]/20"
             >
               {/* Stars */}
@@ -798,9 +801,9 @@ function TestimonialsSection() {
                   {testimonial.service}
                 </span>
               </div>
-            </motion.div>
+            </div>
           ))}
-        </div>
+        </motion.div>
       </Container>
     </section>
   )
@@ -832,21 +835,23 @@ function ServiceAreasSection() {
           </p>
         </motion.div>
 
-        <div className="flex flex-wrap justify-center gap-2 sm:gap-3 max-w-2xl mx-auto">
+        <motion.div
+          initial={{ opacity: 0 }}
+          whileInView={{ opacity: 1 }}
+          viewport={{ once: true }}
+          transition={{ duration: 0.4 }}
+          className="flex flex-wrap justify-center gap-2 sm:gap-3 max-w-2xl mx-auto"
+        >
           {BUSINESS_INFO.areaServed.map((area, index) => (
-            <motion.span
+            <span
               key={index}
-              initial={{ opacity: 0, scale: 0.9 }}
-              whileInView={{ opacity: 1, scale: 1 }}
-              viewport={{ once: true }}
-              transition={{ delay: index * 0.05 }}
               className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-[var(--concrete-gray)]/30 border border-[var(--steel-gray)]/20 text-sm font-medium text-[var(--light-gray)] hover:border-[var(--safety-orange)]/30 hover:text-white transition-all"
             >
               <MapPin className="w-3.5 h-3.5 text-[var(--safety-orange)]" />
               {area}, FL
-            </motion.span>
+            </span>
           ))}
-        </div>
+        </motion.div>
 
         {/* Contact Info - NAP for SEO */}
         <motion.div
@@ -890,9 +895,9 @@ function CTASection() {
       {/* Top accent line */}
       <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[var(--safety-orange)]/40 to-transparent" />
 
-      {/* Hide expensive blurs on mobile */}
-      <div className="hidden md:block absolute top-0 right-0 w-[400px] h-[400px] bg-[var(--safety-orange)]/5 rounded-full blur-[100px]" />
-      <div className="hidden md:block absolute bottom-0 left-0 w-[300px] h-[300px] bg-[var(--safety-orange)]/5 rounded-full blur-[80px]" />
+      {/* Gradient Orbs */}
+      <div className="absolute top-0 right-0 w-48 md:w-[400px] h-48 md:h-[400px] bg-[var(--safety-orange)]/5 rounded-full blur-[40px] md:blur-[100px]" />
+      <div className="absolute bottom-0 left-0 w-32 md:w-[300px] h-32 md:h-[300px] bg-[var(--safety-orange)]/5 rounded-full blur-[30px] md:blur-[80px]" />
 
       <Container className="relative z-10">
         {/* Mobile CTA */}

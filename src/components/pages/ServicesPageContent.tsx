@@ -227,48 +227,35 @@ function AnimatedNumber({ value, suffix }: { value: string; suffix: string }) {
 
 function HeroSection() {
   return (
-    <section className="relative min-h-[100svh] flex items-center bg-[var(--asphalt-black)] overflow-hidden">
-      {/* Subtle Gradient Background */}
-      <div className="absolute inset-0">
-        <div className="absolute inset-0 bg-gradient-to-br from-[var(--asphalt-black)] via-[var(--asphalt-black)] to-[var(--concrete-gray)]/30" />
-        {/* Soft glow - hidden on mobile for performance */}
-        <div className="hidden md:block absolute top-1/2 -right-32 w-[500px] h-[500px] bg-[var(--safety-orange)]/8 rounded-full blur-[60px] -translate-y-1/2" />
-        <div className="hidden md:block absolute bottom-0 left-1/4 w-[400px] h-[400px] bg-[var(--safety-orange)]/5 rounded-full blur-[60px]" />
-      </div>
+    <section className="relative min-h-[100svh] flex items-center bg-gradient-dark overflow-hidden">
+      {/* SERVICES PAGE: Action & Motion Theme */}
 
-      {/* Subtle Grid Pattern */}
-      <div className="absolute inset-0 bg-grid-pattern opacity-30" />
+      {/* Layered premium gradients */}
+      {/* Base radial gradient - warm center glow */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_80%_50%_at_50%_-20%,rgba(255,107,0,0.25),transparent_50%)]" />
 
-      {/* Floating Accent Lines - Subtle & Professional */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        {/* Horizontal accent line */}
-        <motion.div
-          initial={{ scaleX: 0, opacity: 0 }}
-          animate={{ scaleX: 1, opacity: 1 }}
-          transition={{ duration: 1.2, delay: 0.5 }}
-          className="absolute top-[30%] right-0 w-1/3 h-px bg-gradient-to-l from-[var(--safety-orange)]/40 to-transparent origin-right"
-        />
-        {/* Vertical accent line */}
-        <motion.div
-          initial={{ scaleY: 0, opacity: 0 }}
-          animate={{ scaleY: 1, opacity: 1 }}
-          transition={{ duration: 1.2, delay: 0.7 }}
-          className="absolute top-0 right-[20%] w-px h-1/3 bg-gradient-to-b from-[var(--safety-orange)]/30 to-transparent origin-top"
-        />
-        {/* Small accent dot */}
-        <motion.div
-          initial={{ scale: 0 }}
-          animate={{ scale: 1 }}
-          transition={{ duration: 0.5, delay: 1.2 }}
-          className="absolute top-[30%] right-[20%] w-2 h-2 bg-[var(--safety-orange)] rounded-full"
-        />
-        {/* Corner bracket accent */}
-        <motion.div
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          transition={{ duration: 0.8, delay: 0.9 }}
-          className="absolute bottom-[25%] right-[10%] w-16 h-16 border-r-2 border-b-2 border-[var(--safety-orange)]/20 rounded-br-xl"
-        />
+      {/* Secondary gradient - bottom corner accent */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_60%_40%_at_100%_100%,rgba(255,107,0,0.15),transparent_50%)]" />
+
+      {/* Subtle blue undertone for depth */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_100%_100%_at_0%_50%,rgba(59,130,246,0.1),transparent_40%)]" />
+
+      {/* Left side orange accent */}
+      <div className="absolute inset-0 bg-[radial-gradient(ellipse_50%_60%_at_0%_30%,rgba(255,107,0,0.12),transparent_50%)]" />
+
+      {/* Top to bottom fade for depth */}
+      <div className="absolute inset-0 bg-gradient-to-b from-transparent via-[var(--asphalt-dark)]/20 to-[var(--asphalt-dark)]/50" />
+
+      {/* Dynamic diagonal lines pattern */}
+      <div className="absolute inset-0 opacity-35 lg:opacity-45">
+        <svg className="absolute inset-0 w-full h-full" xmlns="http://www.w3.org/2000/svg">
+          <defs>
+            <pattern id="diagonalLines" x="0" y="0" width="40" height="40" patternUnits="userSpaceOnUse" patternTransform="rotate(-45)">
+              <line x1="0" y1="0" x2="0" y2="40" stroke="var(--safety-orange)" strokeWidth="0.8" opacity="0.6" />
+            </pattern>
+          </defs>
+          <rect width="100%" height="100%" fill="url(#diagonalLines)" />
+        </svg>
       </div>
 
       <Container className="relative z-10">

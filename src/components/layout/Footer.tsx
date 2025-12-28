@@ -44,10 +44,10 @@ function FooterDropdown({
   const [isOpen, setIsOpen] = useState(defaultOpen)
 
   return (
-    <div className="border-b border-[var(--steel-gray)]/10 last:border-b-0">
+    <div className="border-b border-[var(--steel-gray)]/10">
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="w-full flex items-center justify-between py-3.5 text-left"
+        className="w-full flex items-center justify-between py-3 text-left"
       >
         <div className="flex items-center gap-3">
           <div className="w-8 h-8 rounded-lg bg-[var(--safety-orange)]/10 flex items-center justify-center">
@@ -72,7 +72,7 @@ function FooterDropdown({
             transition={{ duration: 0.2 }}
             className="overflow-hidden"
           >
-            <div className="pb-4 pl-11">
+            <div className="pb-3 pl-11">
               {children}
             </div>
           </motion.div>
@@ -87,7 +87,7 @@ export default function Footer() {
 
   return (
     <footer
-      className="bg-[var(--asphalt-black)] border-t border-[var(--steel-gray)]/20"
+      className="bg-[var(--asphalt-black)] border-t-2 border-[var(--safety-orange)]/40"
       role="contentinfo"
     >
       <Container>
@@ -165,9 +165,9 @@ export default function Footer() {
               </FooterDropdown>
 
               <FooterDropdown title="Service Areas" icon={MapPin}>
-                <div className="flex flex-wrap gap-2">
+                <div className="flex flex-wrap gap-1.5">
                   {BUSINESS_INFO.areaServed.map((area) => (
-                    <span key={area} className="px-2.5 py-1 text-xs text-[var(--light-gray)] bg-[var(--steel-gray)]/10 rounded-lg">
+                    <span key={area} className="px-2 py-0.5 text-xs text-[var(--light-gray)] bg-[var(--steel-gray)]/10 rounded-md">
                       {area}
                     </span>
                   ))}

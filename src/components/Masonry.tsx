@@ -285,7 +285,7 @@ const Masonry = ({
       className="masonry-list"
       style={{ height: containerHeight > 0 ? containerHeight + 20 : 400 }}
     >
-      {grid.map(item => {
+      {grid.map((item, index) => {
         return (
           <div
             key={item.id}
@@ -312,6 +312,29 @@ const Masonry = ({
                   }}
                 />
               )}
+              {/* Number Badge */}
+              <div
+                style={{
+                  position: 'absolute',
+                  top: '12px',
+                  right: '12px',
+                  width: '28px',
+                  height: '28px',
+                  borderRadius: '50%',
+                  backgroundColor: 'rgba(0, 0, 0, 0.6)',
+                  backdropFilter: 'blur(8px)',
+                  border: '1px solid rgba(255, 255, 255, 0.15)',
+                  display: 'flex',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  fontSize: '11px',
+                  fontWeight: '600',
+                  color: 'rgba(255, 255, 255, 0.9)',
+                  zIndex: 10,
+                }}
+              >
+                {String(index + 1).padStart(2, '0')}
+              </div>
               {/* Overlay with title */}
               {item.title && (
                 <div className="masonry-item-overlay">

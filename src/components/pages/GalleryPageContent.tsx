@@ -287,22 +287,22 @@ const Lightbox = memo(function Lightbox({ images, currentIndex, isOpen, onClose,
           className="fixed inset-0 z-50 flex flex-col bg-black"
           ref={constraintsRef}
         >
-          {/* Mobile Header */}
-          <div className="flex items-center justify-between p-4 lg:p-6">
+          {/* Header */}
+          <div className="flex items-center justify-between px-4 py-3 lg:px-6 lg:py-4 z-20">
             {/* Image Counter */}
             <div className="flex items-center gap-2">
-              <span className="text-white/90 text-sm font-medium">
+              <span className="text-white/90 text-xs lg:text-sm font-medium">
                 {currentIndex + 1} / {images.length}
               </span>
             </div>
 
-            {/* Close Button - 48x48 touch target */}
+            {/* Close Button */}
             <button
               onClick={onClose}
-              className="w-12 h-12 flex items-center justify-center rounded-full bg-white/10 text-white active:bg-white/20 transition-colors"
+              className="w-11 h-11 lg:w-12 lg:h-12 flex items-center justify-center rounded-full bg-white/10 text-white active:bg-white/20 transition-colors"
               aria-label="Close lightbox"
             >
-              <X className="w-6 h-6" />
+              <X className="w-5 h-5 lg:w-6 lg:h-6" />
             </button>
           </div>
 
@@ -353,7 +353,7 @@ const Lightbox = memo(function Lightbox({ images, currentIndex, isOpen, onClose,
               dragElastic={0.2}
               onDrag={handleDrag}
               onDragEnd={handleDragEnd}
-              className="w-full h-full flex items-center justify-center px-4 lg:px-20 cursor-grab active:cursor-grabbing"
+              className="w-full h-full flex items-center justify-center px-4 lg:px-20 pb-32 lg:pb-28 cursor-grab active:cursor-grabbing"
             >
               {imageError ? (
                 <div className="flex items-center justify-center text-[var(--slate-gray)]">
@@ -375,71 +375,72 @@ const Lightbox = memo(function Lightbox({ images, currentIndex, isOpen, onClose,
             </motion.div>
           </div>
 
-          {/* Mobile Caption Footer */}
-          <div className="p-4 lg:p-6 bg-gradient-to-t from-black via-black/80 to-transparent">
-            <div className="max-w-xl mx-auto text-center">
-              <span className="inline-block px-3 py-1 mb-2 text-[10px] font-semibold uppercase tracking-wider text-[var(--safety-orange)] bg-[var(--safety-orange)]/10 rounded-full">
+          {/* Info Section - Positioned above bottom */}
+          <div className="absolute bottom-6 lg:bottom-8 left-0 right-0 px-4 lg:px-6">
+            {/* Caption */}
+            <div className="max-w-xl mx-auto text-center mb-3">
+              <span className="inline-block px-2.5 py-0.5 mb-1 text-[9px] lg:text-[10px] font-semibold uppercase tracking-wider text-[var(--safety-orange)] bg-[var(--safety-orange)]/10 rounded-full">
                 {categories.find(c => c.id === currentImage.category)?.label || currentImage.category}
               </span>
-              <h3 className="text-white font-semibold text-lg">{currentImage.title}</h3>
+              <h3 className="text-white font-semibold text-base lg:text-lg">{currentImage.title}</h3>
+            </div>
+
+            {/* Progress Indicator - Tick Style */}
+            <div className="flex justify-center mb-2">
+              <div className="flex flex-col items-center gap-1">
+                {/* Tick Track */}
+                <div className="flex items-center gap-1">
+                  {images.map((_, index) => (
+                    <button
+                      key={index}
+                      onClick={() => onGoToIndex(index)}
+                      className="group relative flex items-center justify-center py-1"
+                      aria-label={`Go to image ${index + 1}`}
+                    >
+                      {/* Tick Mark */}
+                      <motion.div
+                        initial={false}
+                        animate={{
+                          height: currentIndex === index ? 12 : 6,
+                          width: currentIndex === index ? 3 : 2,
+                          backgroundColor: currentIndex === index
+                            ? 'var(--safety-orange)'
+                            : index < currentIndex
+                              ? 'rgba(255, 107, 0, 0.5)'
+                              : 'rgba(255, 255, 255, 0.2)',
+                        }}
+                        transition={{ duration: 0.2, ease: 'easeOut' }}
+                        className="rounded-full"
+                      />
+                      {/* Active Glow */}
+                      {currentIndex === index && (
+                        <motion.div
+                          layoutId="tick-glow"
+                          className="absolute inset-0 -m-1 rounded-full bg-[var(--safety-orange)]/20 blur-sm"
+                          transition={{ duration: 0.2 }}
+                        />
+                      )}
+                    </button>
+                  ))}
+                </div>
+                {/* Counter Text */}
+                <div className="flex items-center gap-1.5 text-[9px] font-medium">
+                  <span className="text-[var(--safety-orange)]">
+                    {String(currentIndex + 1).padStart(2, '0')}
+                  </span>
+                  <span className="text-white/30">/</span>
+                  <span className="text-white/40">
+                    {String(images.length).padStart(2, '0')}
+                  </span>
+                </div>
+              </div>
             </div>
 
             {/* Swipe Hint - Mobile Only */}
-            <div className="flex items-center justify-center gap-2 mt-4 lg:hidden">
-              <ChevronLeft className="w-4 h-4 text-white/40" />
-              <span className="text-xs text-white/40">Swipe to navigate</span>
-              <ChevronRight className="w-4 h-4 text-white/40" />
-            </div>
-          </div>
-
-          {/* Image Progress Indicator - Tick Style */}
-          <div className="absolute bottom-28 lg:bottom-24 left-0 right-0 flex justify-center px-6">
-            <div className="flex flex-col items-center gap-3">
-              {/* Tick Track */}
-              <div className="flex items-center gap-1">
-                {images.map((_, index) => (
-                  <button
-                    key={index}
-                    onClick={() => onGoToIndex(index)}
-                    className="group relative flex items-center justify-center py-2"
-                    aria-label={`Go to image ${index + 1}`}
-                  >
-                    {/* Tick Mark */}
-                    <motion.div
-                      initial={false}
-                      animate={{
-                        height: currentIndex === index ? 16 : 8,
-                        width: currentIndex === index ? 3 : 2,
-                        backgroundColor: currentIndex === index
-                          ? 'var(--safety-orange)'
-                          : index < currentIndex
-                            ? 'rgba(255, 107, 0, 0.5)'
-                            : 'rgba(255, 255, 255, 0.2)',
-                      }}
-                      transition={{ duration: 0.2, ease: 'easeOut' }}
-                      className="rounded-full"
-                    />
-                    {/* Active Glow */}
-                    {currentIndex === index && (
-                      <motion.div
-                        layoutId="tick-glow"
-                        className="absolute inset-0 -m-1 rounded-full bg-[var(--safety-orange)]/20 blur-sm"
-                        transition={{ duration: 0.2 }}
-                      />
-                    )}
-                  </button>
-                ))}
-              </div>
-              {/* Counter Text */}
-              <div className="flex items-center gap-2 text-[10px] font-medium">
-                <span className="text-[var(--safety-orange)]">
-                  {String(currentIndex + 1).padStart(2, '0')}
-                </span>
-                <span className="text-white/30">/</span>
-                <span className="text-white/40">
-                  {String(images.length).padStart(2, '0')}
-                </span>
-              </div>
+            <div className="flex items-center justify-center gap-2 lg:hidden">
+              <ChevronLeft className="w-3.5 h-3.5 text-white/40" />
+              <span className="text-[10px] text-white/40">Swipe to navigate</span>
+              <ChevronRight className="w-3.5 h-3.5 text-white/40" />
             </div>
           </div>
         </motion.div>
@@ -484,10 +485,12 @@ const MobileGallery = memo(function MobileGallery({ images, onImageClick }: Mobi
             {/* Gradient for text readability */}
             <div className="absolute inset-x-0 bottom-0 h-28 bg-gradient-to-t from-black via-black/70 to-transparent" />
 
-            {/* Index - top right */}
-            <span className="absolute top-2 right-2 text-[10px] font-semibold text-white/70 tabular-nums drop-shadow-sm">
-              {String(index + 1).padStart(2, '0')}
-            </span>
+            {/* Number Badge - circular */}
+            <div className="absolute top-2 right-2 w-6 h-6 rounded-full bg-black/60 backdrop-blur-sm border border-white/15 flex items-center justify-center">
+              <span className="text-[10px] font-semibold text-white/90 tabular-nums">
+                {String(index + 1).padStart(2, '0')}
+              </span>
+            </div>
 
             {/* Bottom info */}
             <div className="absolute bottom-0 left-0 right-0 px-2.5 pb-2.5">
@@ -666,11 +669,32 @@ export default function GalleryPageContent() {
 
   return (
     <div className="relative bg-[var(--asphalt-dark)] min-h-screen overflow-hidden">
-      {/* Hero Section - Compact on Mobile */}
-      <section className="relative pt-24 pb-6 lg:pt-36 lg:pb-12 overflow-hidden bg-gradient-dark">
-        {/* Background */}
-        <div className="absolute inset-0 bg-grid-pattern opacity-30 lg:opacity-50" />
-        <div className="absolute top-1/4 -left-32 w-48 h-48 lg:w-96 lg:h-96 bg-[var(--safety-orange)]/10 rounded-full blur-[80px] lg:blur-[100px]" />
+      {/* Hero Section - Compact */}
+      <section className="relative pt-20 pb-12 lg:pt-24 lg:pb-14 overflow-hidden bg-gradient-dark">
+        {/* GALLERY PAGE: Visual Showcase Theme - Clean */}
+
+        {/* Dark blur overlay */}
+        <div className="absolute inset-0 bg-black/70 backdrop-blur-sm" />
+
+        {/* Photo grid pattern */}
+        <div className="absolute inset-0 opacity-35 lg:opacity-45">
+          <svg className="absolute inset-0 w-full h-full" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <pattern id="photoGrid" x="0" y="0" width="80" height="80" patternUnits="userSpaceOnUse">
+                <rect x="4" y="4" width="32" height="32" fill="none" stroke="var(--safety-orange)" strokeWidth="0.8" rx="2" opacity="0.5" />
+                <rect x="44" y="4" width="32" height="20" fill="none" stroke="var(--safety-orange)" strokeWidth="0.6" rx="2" opacity="0.4" />
+                <rect x="44" y="32" width="32" height="44" fill="none" stroke="var(--safety-orange)" strokeWidth="0.6" rx="2" opacity="0.45" />
+                <rect x="4" y="44" width="32" height="32" fill="none" stroke="var(--safety-orange)" strokeWidth="0.6" rx="2" opacity="0.4" />
+              </pattern>
+            </defs>
+            <rect width="100%" height="100%" fill="url(#photoGrid)" />
+          </svg>
+        </div>
+
+        {/* Gradient Orbs */}
+        <div className="absolute top-1/4 -left-16 md:-left-32 w-64 h-64 sm:w-80 sm:h-80 lg:w-96 lg:h-96 bg-violet-500/15 rounded-full blur-[60px] md:blur-[80px]" />
+        <div className="absolute -top-20 right-0 w-72 h-72 sm:w-96 sm:h-96 lg:w-[450px] lg:h-[450px] bg-[var(--safety-orange)]/20 rounded-full blur-[80px] md:blur-[100px]" />
+        <div className="absolute bottom-0 left-1/3 w-48 h-48 sm:w-64 sm:h-64 bg-purple-500/12 rounded-full blur-[50px] md:blur-[60px]" />
 
         <Container className="relative z-10">
           <div className="max-w-3xl mx-auto text-center">

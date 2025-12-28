@@ -332,24 +332,23 @@ export default function PricingPageContent() {
   return (
     <>
       {/* Hero Section - Matching other pages */}
-      <section className="relative min-h-[60svh] sm:min-h-[70svh] flex items-center bg-gradient-to-b from-[var(--asphalt-dark)] to-[var(--asphalt-black)] overflow-hidden">
-        {/* Gradient Background */}
-        <div className="absolute inset-0 bg-gradient-to-br from-[var(--asphalt-black)] via-[var(--concrete-gray)]/20 to-[var(--asphalt-dark)]" />
+      <section className="relative min-h-[60svh] sm:min-h-[70svh] flex items-center bg-gradient-dark overflow-hidden">
+        {/* PRICING PAGE: Value & Structure Theme */}
 
-        {/* Subtle Grid Pattern */}
-        <div className="absolute inset-0 bg-grid-pattern opacity-30" />
+        {/* Grid pattern - stronger lines */}
+        <div
+          className="absolute inset-0"
+          style={{
+            backgroundImage: `
+              linear-gradient(rgba(255, 107, 0, 0.15) 1px, transparent 1px),
+              linear-gradient(90deg, rgba(255, 107, 0, 0.15) 1px, transparent 1px)
+            `,
+            backgroundSize: '50px 50px'
+          }}
+        />
 
-        {/* Orange glows - visible on all screens */}
-        <div className="absolute top-1/3 -right-10 sm:-right-32 w-[200px] sm:w-[500px] h-[200px] sm:h-[500px] bg-[var(--safety-orange)]/10 rounded-full blur-[60px] sm:blur-[100px]" />
-        <div className="absolute bottom-0 -left-10 sm:left-1/4 w-[150px] sm:w-[400px] h-[150px] sm:h-[400px] bg-[var(--safety-orange)]/8 rounded-full blur-[50px] sm:blur-[80px]" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] sm:w-[600px] h-[300px] sm:h-[600px] bg-[var(--safety-orange)]/5 rounded-full blur-[80px] sm:blur-[120px]" />
-
-        {/* Floating Accent Lines - desktop only */}
-        <div className="hidden md:block absolute inset-0 overflow-hidden pointer-events-none">
-          <div className="absolute top-[30%] right-0 w-1/3 h-px bg-gradient-to-l from-[var(--safety-orange)]/40 to-transparent" />
-          <div className="absolute top-0 right-[20%] w-px h-1/3 bg-gradient-to-b from-[var(--safety-orange)]/30 to-transparent" />
-          <div className="absolute top-[30%] right-[20%] w-2 h-2 bg-[var(--safety-orange)] rounded-full" />
-        </div>
+        {/* Dark overlay to push grid into background */}
+        <div className="absolute inset-0 bg-[var(--asphalt-dark)]/60" />
 
         <Container className="relative z-10">
           <div className="flex flex-col items-center text-center pt-28 pb-16 sm:pt-36 sm:pb-20">
@@ -470,10 +469,9 @@ export default function PricingPageContent() {
       </section>
 
       {/* Pricing Cards */}
-      <section className="py-8 sm:py-12 bg-gradient-to-b from-[var(--asphalt-black)] to-[var(--asphalt-dark)] relative overflow-hidden">
-        {/* Background elements */}
-        <div className="absolute inset-0 bg-grid-pattern opacity-30" />
-        <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[300px] sm:w-[600px] h-[300px] sm:h-[600px] bg-[var(--safety-orange)]/5 rounded-full blur-[80px] sm:blur-[120px]" />
+      <section className="py-8 sm:py-12 bg-[var(--asphalt-black)] relative overflow-hidden">
+        {/* Subtle grid continuation */}
+        <div className="absolute inset-0 bg-grid-pattern opacity-40" />
 
         {/* Mobile & Tablet: Drag Carousel */}
         <motion.div
@@ -501,13 +499,11 @@ export default function PricingPageContent() {
       </section>
 
       {/* Trust & Add-ons Combined Section */}
-      <section
-        className="py-8 sm:py-12 bg-gradient-to-b from-[var(--asphalt-dark)] to-[var(--asphalt-black)] relative overflow-hidden"
-      >
-        {/* Background accents */}
-        <div className="absolute inset-0 bg-grid-pattern opacity-20" />
-        <div className="absolute -top-10 -right-10 sm:-top-20 sm:-right-20 w-[200px] sm:w-[400px] h-[200px] sm:h-[400px] bg-[var(--safety-orange)]/5 rounded-full blur-[60px] sm:blur-[100px]" />
-        <div className="absolute -bottom-10 -left-10 sm:-bottom-20 sm:-left-20 w-[150px] sm:w-[300px] h-[150px] sm:h-[300px] bg-[var(--safety-orange)]/5 rounded-full blur-[50px] sm:blur-[80px]" />
+      <section className="py-8 sm:py-12 bg-[var(--asphalt-dark)] relative overflow-hidden">
+        {/* Divider line at top */}
+        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[var(--steel-gray)]/30 to-transparent" />
+        {/* Subtle grid */}
+        <div className="absolute inset-0 bg-grid-pattern opacity-30" />
 
         <Container className="relative z-10">
           {/* Trust Badges - Horizontal Scroll on Mobile */}
@@ -611,15 +607,11 @@ export default function PricingPageContent() {
       </section>
 
       {/* FAQ Accordion - Modern Design */}
-      <section className="py-10 sm:py-16 bg-gradient-to-b from-[var(--asphalt-black)] via-[var(--asphalt-dark)] to-[var(--asphalt-black)] relative overflow-hidden">
-        {/* Background elements */}
-        <div className="absolute inset-0 bg-grid-pattern opacity-25" />
-        <div className="absolute top-1/2 -left-10 sm:-left-20 w-[200px] sm:w-[400px] h-[200px] sm:h-[400px] bg-[var(--safety-orange)]/5 rounded-full blur-[80px] sm:blur-[120px] -translate-y-1/2" />
-        <div className="absolute top-1/4 -right-10 sm:-right-20 w-[150px] sm:w-[300px] h-[150px] sm:h-[300px] bg-[var(--safety-orange)]/5 rounded-full blur-[60px] sm:blur-[100px]" />
-
-        {/* Accent lines - desktop only */}
-        <div className="hidden md:block absolute top-[20%] left-0 w-1/4 h-px bg-gradient-to-r from-[var(--safety-orange)]/20 to-transparent" />
-        <div className="hidden md:block absolute bottom-[30%] right-0 w-1/5 h-px bg-gradient-to-l from-[var(--safety-orange)]/15 to-transparent" />
+      <section className="py-10 sm:py-16 bg-[var(--asphalt-black)] relative overflow-hidden">
+        {/* Divider line at top */}
+        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[var(--steel-gray)]/30 to-transparent" />
+        {/* Subtle grid */}
+        <div className="absolute inset-0 bg-grid-pattern opacity-35" />
 
         <Container className="relative z-10">
           {/* Header */}
@@ -716,15 +708,11 @@ export default function PricingPageContent() {
       </section>
 
       {/* Final CTA - Modern Design */}
-      <section className="py-10 sm:py-16 bg-gradient-to-b from-[var(--asphalt-dark)] to-[var(--asphalt-black)] relative overflow-hidden">
-        {/* Background elements */}
-        <div className="absolute inset-0 bg-grid-pattern opacity-20" />
-        <div className="absolute top-0 right-0 w-[250px] sm:w-[500px] h-[250px] sm:h-[500px] bg-[var(--safety-orange)]/8 rounded-full blur-[100px] sm:blur-[150px]" />
-        <div className="absolute bottom-0 left-0 w-[200px] sm:w-[400px] h-[200px] sm:h-[400px] bg-[var(--safety-orange)]/5 rounded-full blur-[80px] sm:blur-[120px]" />
-
-        {/* Accent elements - desktop only */}
-        <div className="hidden md:block absolute top-1/2 right-[10%] w-24 h-24 border border-[var(--safety-orange)]/10 rounded-full -translate-y-1/2" />
-        <div className="hidden md:block absolute bottom-[20%] left-[15%] w-16 h-16 border border-[var(--safety-orange)]/10 rounded-full" />
+      <section className="py-10 sm:py-16 bg-[var(--asphalt-dark)] relative overflow-hidden">
+        {/* Divider line at top */}
+        <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-[var(--steel-gray)]/30 to-transparent" />
+        {/* Subtle grid */}
+        <div className="absolute inset-0 bg-grid-pattern opacity-30" />
 
         <Container className="relative z-10">
           {/* Mobile CTA Card */}

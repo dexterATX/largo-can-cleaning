@@ -173,7 +173,7 @@ export default function Header() {
           {/* Logo */}
           <Link
             href="/"
-            className="flex items-center gap-1 group outline-none focus:outline-none focus-visible:ring-0"
+            className="flex items-center gap-1 group outline-none focus:outline-none focus-visible:outline-none"
             aria-label={`${BUSINESS_INFO.name} - Home`}
           >
             <div className="relative w-14 h-14 sm:w-16 sm:h-16 transition-transform duration-300 group-hover:scale-105">
@@ -235,7 +235,7 @@ export default function Header() {
               e.preventDefault()
               setIsMenuOpen(prev => !prev)
             }}
-            className="lg:hidden relative z-10 p-3 -mr-1 text-white hover:text-[var(--safety-orange)] transition-colors pointer-events-auto touch-manipulation outline-none focus:outline-none focus-visible:ring-0"
+            className="lg:hidden relative z-10 p-3 -mr-1 text-white hover:text-[var(--safety-orange)] transition-colors pointer-events-auto touch-manipulation outline-none focus:outline-none focus-visible:outline-none"
             aria-label={isMenuOpen ? 'Close menu' : 'Open menu'}
             aria-expanded={isMenuOpen}
             aria-controls="mobile-menu"
@@ -273,7 +273,7 @@ export default function Header() {
                 <Link
                   href="/"
                   onClick={closeMenu}
-                  className="flex items-center gap-1 outline-none focus:outline-none"
+                  className="flex items-center gap-1 outline-none focus:outline-none focus-visible:outline-none"
                 >
                   <div className="relative w-12 h-12">
                     <Image
@@ -292,7 +292,7 @@ export default function Header() {
                 </Link>
                 <button
                   onClick={closeMenu}
-                  className="w-10 h-10 flex items-center justify-center rounded-full bg-[var(--concrete-gray)] text-[var(--light-gray)] outline-none focus:outline-none"
+                  className="w-10 h-10 flex items-center justify-center rounded-full bg-[var(--concrete-gray)] text-[var(--light-gray)] outline-none focus:outline-none focus-visible:outline-none"
                   aria-label="Close menu"
                 >
                   <X className="w-5 h-5" />
