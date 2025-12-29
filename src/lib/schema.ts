@@ -54,8 +54,9 @@ export const BUSINESS_INFO = {
   phone: '(352) 843-3425',
   phoneRaw: '+13528433425',
   email: 'support@largocancleaning.com',
-  // Service-area business (mobile only) - no physical storefront
+  // Business address
   address: {
+    street: '13721 94th Ave N',
     city: 'Largo',
     state: 'FL',
     stateFull: 'Florida',
@@ -134,10 +135,10 @@ const LOCAL_BUSINESS_SCHEMA = {
   paymentAccepted: BUSINESS_INFO.paymentAccepted,
   currenciesAccepted: 'USD',
   hasMap: BUSINESS_INFO.googleMapsUrl,
-  // Service-area business - use city as streetAddress for Google compliance
+  // Business address for Google structured data
   address: {
     '@type': 'PostalAddress',
-    streetAddress: `${BUSINESS_INFO.address.city}, ${BUSINESS_INFO.address.stateFull}`,
+    streetAddress: BUSINESS_INFO.address.street,
     addressLocality: BUSINESS_INFO.address.city,
     addressRegion: BUSINESS_INFO.address.state,
     postalCode: BUSINESS_INFO.address.zip,
@@ -191,7 +192,7 @@ export function generateServiceSchema(service: ServiceInput) {
       telephone: BUSINESS_INFO.phoneRaw,
       address: {
         '@type': 'PostalAddress',
-        streetAddress: `${BUSINESS_INFO.address.city}, ${BUSINESS_INFO.address.stateFull}`,
+        streetAddress: BUSINESS_INFO.address.street,
         addressLocality: BUSINESS_INFO.address.city,
         addressRegion: BUSINESS_INFO.address.state,
         postalCode: BUSINESS_INFO.address.zip,
@@ -556,7 +557,7 @@ export function generateContactPageSchema() {
       email: BUSINESS_INFO.email,
       address: {
         '@type': 'PostalAddress',
-        streetAddress: `${BUSINESS_INFO.address.city}, ${BUSINESS_INFO.address.stateFull}`,
+        streetAddress: BUSINESS_INFO.address.street,
         addressLocality: BUSINESS_INFO.address.city,
         addressRegion: BUSINESS_INFO.address.state,
         postalCode: BUSINESS_INFO.address.zip,
@@ -627,7 +628,7 @@ export function generateServicesPageSchema(services: ServiceInput[]) {
             name: BUSINESS_INFO.name,
             address: {
               '@type': 'PostalAddress',
-              streetAddress: `${BUSINESS_INFO.address.city}, ${BUSINESS_INFO.address.stateFull}`,
+              streetAddress: BUSINESS_INFO.address.street,
               addressLocality: BUSINESS_INFO.address.city,
               addressRegion: BUSINESS_INFO.address.state,
               postalCode: BUSINESS_INFO.address.zip,
@@ -681,7 +682,7 @@ export function generateOrganizationSchema() {
     description: BUSINESS_INFO.description,
     address: {
       '@type': 'PostalAddress',
-      streetAddress: `${BUSINESS_INFO.address.city}, ${BUSINESS_INFO.address.stateFull}`,
+      streetAddress: BUSINESS_INFO.address.street,
       addressLocality: BUSINESS_INFO.address.city,
       addressRegion: BUSINESS_INFO.address.state,
       postalCode: BUSINESS_INFO.address.zip,
