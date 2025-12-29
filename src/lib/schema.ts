@@ -134,9 +134,10 @@ const LOCAL_BUSINESS_SCHEMA = {
   paymentAccepted: BUSINESS_INFO.paymentAccepted,
   currenciesAccepted: 'USD',
   hasMap: BUSINESS_INFO.googleMapsUrl,
-  // Service-area business - no street address, only city/region
+  // Service-area business - use city as streetAddress for Google compliance
   address: {
     '@type': 'PostalAddress',
+    streetAddress: `${BUSINESS_INFO.address.city}, ${BUSINESS_INFO.address.stateFull}`,
     addressLocality: BUSINESS_INFO.address.city,
     addressRegion: BUSINESS_INFO.address.state,
     postalCode: BUSINESS_INFO.address.zip,
@@ -160,7 +161,7 @@ const LOCAL_BUSINESS_SCHEMA = {
     },
   })),
   openingHoursSpecification: OPENING_HOURS_SPEC,
-  sameAs: [] as string[],
+  // Note: Add sameAs with social profile URLs when available (Facebook, Instagram, etc.)
   image: `${BUSINESS_INFO.url}/opengraph-image`, // Next.js generated OG image
   logo: `${BUSINESS_INFO.url}/logo.png`,
 } as const
@@ -190,6 +191,7 @@ export function generateServiceSchema(service: ServiceInput) {
       telephone: BUSINESS_INFO.phoneRaw,
       address: {
         '@type': 'PostalAddress',
+        streetAddress: `${BUSINESS_INFO.address.city}, ${BUSINESS_INFO.address.stateFull}`,
         addressLocality: BUSINESS_INFO.address.city,
         addressRegion: BUSINESS_INFO.address.state,
         postalCode: BUSINESS_INFO.address.zip,
@@ -554,6 +556,7 @@ export function generateContactPageSchema() {
       email: BUSINESS_INFO.email,
       address: {
         '@type': 'PostalAddress',
+        streetAddress: `${BUSINESS_INFO.address.city}, ${BUSINESS_INFO.address.stateFull}`,
         addressLocality: BUSINESS_INFO.address.city,
         addressRegion: BUSINESS_INFO.address.state,
         postalCode: BUSINESS_INFO.address.zip,
@@ -622,6 +625,14 @@ export function generateServicesPageSchema(services: ServiceInput[]) {
             '@type': 'LocalBusiness',
             '@id': `${BUSINESS_INFO.url}/#business`,
             name: BUSINESS_INFO.name,
+            address: {
+              '@type': 'PostalAddress',
+              streetAddress: `${BUSINESS_INFO.address.city}, ${BUSINESS_INFO.address.stateFull}`,
+              addressLocality: BUSINESS_INFO.address.city,
+              addressRegion: BUSINESS_INFO.address.state,
+              postalCode: BUSINESS_INFO.address.zip,
+              addressCountry: BUSINESS_INFO.address.country,
+            },
           },
           areaServed: BUSINESS_INFO.areaServed.map((area) => ({
             '@type': 'City',
@@ -670,6 +681,7 @@ export function generateOrganizationSchema() {
     description: BUSINESS_INFO.description,
     address: {
       '@type': 'PostalAddress',
+      streetAddress: `${BUSINESS_INFO.address.city}, ${BUSINESS_INFO.address.stateFull}`,
       addressLocality: BUSINESS_INFO.address.city,
       addressRegion: BUSINESS_INFO.address.state,
       postalCode: BUSINESS_INFO.address.zip,
