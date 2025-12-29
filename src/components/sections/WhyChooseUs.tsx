@@ -146,8 +146,14 @@ export default function WhyChooseUs() {
           >
             Pinellas County&apos;s Trusted Bin Cleaning Service
           </h2>
-          <p className="text-[var(--slate-gray)] max-w-2xl mx-auto text-sm sm:text-base">
+          <p className="text-[var(--slate-gray)] max-w-2xl mx-auto text-sm sm:text-base mb-4">
             We combine industrial-grade equipment with eco-friendly practices to deliver the cleanest, most hygienic results for homes and businesses across Pinellas County.
+          </p>
+          <p className="text-sm text-[var(--slate-gray)]/80 max-w-3xl mx-auto">
+            Unlike DIY methods or garden hose spraying, professional bin cleaning eliminates the source of odors and contamination.
+            Our truck-mounted hot water pressure washing system reaches temperatures that destroy 99.9% of bacteria, viruses, and mold spores.
+            We serve residential customers, HOAs, apartment complexes, restaurants, medical facilities, and commercial properties throughout
+            Largo, Seminole, Clearwater, St. Petersburg, and all Pinellas County communities.
           </p>
         </motion.div>
 

@@ -214,9 +214,15 @@ export default function Services() {
           >
             Professional Cleaning Solutions
           </h2>
-          <p className="text-[var(--slate-gray)] max-w-2xl mx-auto">
+          <p className="text-[var(--slate-gray)] max-w-2xl mx-auto mb-4">
             From one-time deep cleans to recurring maintenance plans, we have
             the right service for your needs.
+          </p>
+          <p className="text-sm text-[var(--slate-gray)]/80 max-w-3xl mx-auto">
+            Living in Florida means dealing with extreme heat, humidity, and the bacteria, mold, and pests that thrive in our climate.
+            Your trash cans become breeding grounds for harmful pathogens within days of your weekly pickup. Our professional trash can
+            cleaning service in Largo and throughout Pinellas County uses commercial-grade equipment to sanitize your bins, protecting
+            your family from E. coli, Salmonella, Listeria, and other dangerous bacteria that regular hosing simply cannot eliminate.
           </p>
         </motion.div>
 
