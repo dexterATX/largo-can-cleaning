@@ -691,7 +691,8 @@ export function generateOrganizationSchema() {
 
 /**
  * WebSite Schema - For site-wide SEO
- * Helps search engines understand site structure and enables sitelinks search box
+ * Helps search engines understand site structure
+ * Note: SearchAction removed - no site search functionality exists
  */
 export function generateWebSiteSchema() {
   return {
@@ -704,11 +705,6 @@ export function generateWebSiteSchema() {
     publisher: {
       '@type': 'Organization',
       '@id': `${BUSINESS_INFO.url}/#organization`,
-    },
-    potentialAction: {
-      '@type': 'SearchAction',
-      target: `${BUSINESS_INFO.url}/search?q={search_term_string}`,
-      'query-input': 'required name=search_term_string',
     },
     inLanguage: 'en-US',
   }
