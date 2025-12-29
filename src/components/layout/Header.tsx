@@ -4,7 +4,6 @@ import { useState, useEffect, useLayoutEffect, useRef, useCallback, startTransit
 import Link from 'next/link'
 import Image from 'next/image'
 import { usePathname } from 'next/navigation'
-import { motion, AnimatePresence } from 'motion/react'
 import {
   Menu,
   X,
@@ -254,191 +253,175 @@ export default function Header() {
       </Container>
     </header>
 
-      {/* Mobile Menu - Full Screen Overlay - OUTSIDE header to avoid backdrop-filter stacking context issues */}
-      <AnimatePresence mode="wait">
-        {isMenuOpen && (
-          <motion.div
-            id="mobile-menu"
-            initial={{ opacity: 1 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.15 }}
-            className="fixed inset-0 z-[100] lg:hidden bg-[#0D0D0D] overflow-hidden"
-          >
-            {/* Menu Content */}
-            <motion.div
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.2 }}
-              className="relative flex flex-col h-full overflow-y-auto scrollbar-none [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none]">
-              {/* Menu Header with Logo */}
-              <div className="flex items-center justify-between px-4 py-3 border-b border-[var(--steel-gray)]/30">
-                <Link
-                  href="/"
-                  onClick={closeMenu}
-                  className="flex items-center gap-1 outline-none focus-visible:ring-2 focus-visible:ring-[var(--safety-orange)] rounded-lg"
-                  aria-label="Go to homepage"
-                >
-                  <div className="relative w-12 h-12">
-                    <Image
-                      src="/logo.png"
-                      alt="Largo Can Cleaning - Professional Trash Can Cleaning Service in Pinellas County, Florida"
-                      fill
-                      sizes="48px"
-                      className="object-contain"
-                    />
-                  </div>
-                  <div className="flex flex-col">
-                    <span className="text-lg font-bold text-white leading-none">LargoCan</span>
-                    <span className="text-[9px] font-semibold text-[var(--safety-orange)] uppercase tracking-widest">
-                      Cleaning
-                    </span>
-                  </div>
-                </Link>
-                <button
-                  onClick={closeMenu}
-                  className="w-10 h-10 flex items-center justify-center rounded-full bg-[var(--concrete-gray)] text-[var(--light-gray)] outline-none focus-visible:ring-2 focus-visible:ring-[var(--safety-orange)] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0D0D0D]"
-                  aria-label="Close navigation menu"
-                >
-                  <X className="w-5 h-5" aria-hidden="true" />
-                </button>
-              </div>
+      {/* Mobile Menu - Full Screen Overlay - CSS animations for better INP */}
+      {isMenuOpen && (
+        <div
+          id="mobile-menu"
+          className="fixed inset-0 z-[100] lg:hidden bg-[#0D0D0D] overflow-hidden"
+        >
+          {/* Menu Content - CSS animation */}
+          <div className="relative flex flex-col h-full overflow-y-auto scrollbar-none [&::-webkit-scrollbar]:hidden [-ms-overflow-style:none] animate-menu-in">
+            {/* Menu Header with Logo */}
+            <div className="flex items-center justify-between px-4 py-3 border-b border-[var(--steel-gray)]/30">
+              <Link
+                href="/"
+                onClick={closeMenu}
+                className="flex items-center gap-1 outline-none focus-visible:ring-2 focus-visible:ring-[var(--safety-orange)] rounded-lg"
+                aria-label="Go to homepage"
+              >
+                <div className="relative w-12 h-12">
+                  <Image
+                    src="/logo.png"
+                    alt="Largo Can Cleaning - Professional Trash Can Cleaning Service in Pinellas County, Florida"
+                    fill
+                    sizes="48px"
+                    className="object-contain"
+                  />
+                </div>
+                <div className="flex flex-col">
+                  <span className="text-lg font-bold text-white leading-none">LargoCan</span>
+                  <span className="text-[9px] font-semibold text-[var(--safety-orange)] uppercase tracking-widest">
+                    Cleaning
+                  </span>
+                </div>
+              </Link>
+              <button
+                onClick={closeMenu}
+                className="w-10 h-10 flex items-center justify-center rounded-full bg-[var(--concrete-gray)] text-[var(--light-gray)] outline-none focus-visible:ring-2 focus-visible:ring-[var(--safety-orange)] focus-visible:ring-offset-2 focus-visible:ring-offset-[#0D0D0D]"
+                aria-label="Close navigation menu"
+              >
+                <X className="w-5 h-5" aria-hidden="true" />
+              </button>
+            </div>
 
-              {/* Trust Bar */}
-              <div className="flex items-center justify-center gap-6 px-4 py-2.5 bg-gradient-to-r from-[var(--safety-orange)]/5 via-[var(--safety-orange)]/10 to-[var(--safety-orange)]/5 border-b border-[var(--steel-gray)]/20">
-                <div className="flex items-center gap-1.5">
-                  <div className="flex">
-                    {[...Array(5)].map((_, i) => (
-                      <Star key={i} className="w-3 h-3 text-[var(--safety-orange)] fill-[var(--safety-orange)]" />
-                    ))}
-                  </div>
-                  <span className="text-xs text-white font-medium">5.0</span>
+            {/* Trust Bar */}
+            <div className="flex items-center justify-center gap-6 px-4 py-2.5 bg-gradient-to-r from-[var(--safety-orange)]/5 via-[var(--safety-orange)]/10 to-[var(--safety-orange)]/5 border-b border-[var(--steel-gray)]/20">
+              <div className="flex items-center gap-1.5">
+                <div className="flex">
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} className="w-3 h-3 text-[var(--safety-orange)] fill-[var(--safety-orange)]" />
+                  ))}
                 </div>
-                <div className="w-px h-4 bg-[var(--steel-gray)]/30" />
-                <div className="flex items-center gap-1.5">
-                  <Shield className="w-3.5 h-3.5 text-[var(--success)]" />
-                  <span className="text-xs text-[var(--light-gray)]">Licensed</span>
-                </div>
-                <div className="w-px h-4 bg-[var(--steel-gray)]/30" />
-                <div className="flex items-center gap-1.5">
-                  <Zap className="w-3.5 h-3.5 text-[var(--safety-orange)]" />
-                  <span className="text-xs text-[var(--light-gray)]">Same Day</span>
-                </div>
+                <span className="text-xs text-white font-medium">5.0</span>
               </div>
+              <div className="w-px h-4 bg-[var(--steel-gray)]/30" />
+              <div className="flex items-center gap-1.5">
+                <Shield className="w-3.5 h-3.5 text-[var(--success)]" />
+                <span className="text-xs text-[var(--light-gray)]">Licensed</span>
+              </div>
+              <div className="w-px h-4 bg-[var(--steel-gray)]/30" />
+              <div className="flex items-center gap-1.5">
+                <Zap className="w-3.5 h-3.5 text-[var(--safety-orange)]" />
+                <span className="text-xs text-[var(--light-gray)]">Same Day</span>
+              </div>
+            </div>
 
-              {/* Navigation Links */}
-              <nav className="flex-1 px-4 py-3" aria-label="Mobile navigation">
-                <ul className="space-y-2">
-                  {navLinks.map((link, index) => {
-                    const isActive = pathname === link.href
-                    return (
-                      <motion.li
-                        key={link.href}
-                        initial={{ opacity: 0, x: -10 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ delay: 0.02 + index * 0.03 }}
+            {/* Navigation Links - CSS staggered animation */}
+            <nav className="flex-1 px-4 py-3" aria-label="Mobile navigation">
+              <ul className="space-y-2 menu-item-stagger">
+                {navLinks.map((link) => {
+                  const isActive = pathname === link.href
+                  return (
+                    <li key={link.href} className="animate-menu-item">
+                      <Link
+                        href={link.href}
+                        onClick={closeMenu}
+                        aria-current={isActive ? 'page' : undefined}
+                        className={cn(
+                          "flex items-center gap-3 px-3 py-3 rounded-xl transition-all group outline-none focus-visible:ring-2 focus-visible:ring-[var(--safety-orange)]",
+                          "border",
+                          isActive
+                            ? "bg-[var(--safety-orange)]/10 border-[var(--safety-orange)]/30"
+                            : "bg-[var(--concrete-gray)] border-[var(--steel-gray)]/20"
+                        )}
                       >
-                        <Link
-                          href={link.href}
-                          onClick={closeMenu}
-                          aria-current={isActive ? 'page' : undefined}
+                        <div
                           className={cn(
-                            "flex items-center gap-3 px-3 py-3 rounded-xl transition-all group outline-none focus-visible:ring-2 focus-visible:ring-[var(--safety-orange)]",
-                            "border",
+                            "w-10 h-10 rounded-lg flex items-center justify-center transition-colors",
                             isActive
-                              ? "bg-[var(--safety-orange)]/10 border-[var(--safety-orange)]/30"
-                              : "bg-[var(--concrete-gray)] border-[var(--steel-gray)]/20"
+                              ? "bg-[var(--safety-orange)]"
+                              : "bg-[var(--steel-gray)]/30"
                           )}
                         >
-                          <div
+                          <link.icon
                             className={cn(
-                              "w-10 h-10 rounded-lg flex items-center justify-center transition-colors",
+                              "w-5 h-5 transition-colors",
                               isActive
-                                ? "bg-[var(--safety-orange)]"
-                                : "bg-[var(--steel-gray)]/30"
-                            )}
-                          >
-                            <link.icon
-                              className={cn(
-                                "w-5 h-5 transition-colors",
-                                isActive
-                                  ? "text-white"
-                                  : "text-[var(--light-gray)] group-hover:text-[var(--safety-orange)]"
-                              )}
-                            />
-                          </div>
-                          <div className="flex-1">
-                            <span
-                              className={cn(
-                                "block text-sm font-semibold",
-                                isActive ? "text-[var(--safety-orange)]" : "text-white"
-                              )}
-                            >
-                              {link.label}
-                            </span>
-                            <span className="block text-[11px] text-[var(--slate-gray)]">
-                              {link.desc}
-                            </span>
-                          </div>
-                          <ChevronRight
-                            className={cn(
-                              "w-4 h-4 transition-colors",
-                              isActive
-                                ? "text-[var(--safety-orange)]"
-                                : "text-[var(--steel-gray)] group-hover:text-[var(--safety-orange)]"
+                                ? "text-white"
+                                : "text-[var(--light-gray)] group-hover:text-[var(--safety-orange)]"
                             )}
                           />
-                        </Link>
-                      </motion.li>
-                    )
-                  })}
-                </ul>
-              </nav>
+                        </div>
+                        <div className="flex-1">
+                          <span
+                            className={cn(
+                              "block text-sm font-semibold",
+                              isActive ? "text-[var(--safety-orange)]" : "text-white"
+                            )}
+                          >
+                            {link.label}
+                          </span>
+                          <span className="block text-[11px] text-[var(--slate-gray)]">
+                            {link.desc}
+                          </span>
+                        </div>
+                        <ChevronRight
+                          className={cn(
+                            "w-4 h-4 transition-colors",
+                            isActive
+                              ? "text-[var(--safety-orange)]"
+                              : "text-[var(--steel-gray)] group-hover:text-[var(--safety-orange)]"
+                          )}
+                        />
+                      </Link>
+                    </li>
+                  )
+                })}
+              </ul>
+            </nav>
 
-              {/* Contact & CTA Section */}
-              <div className="px-4 pb-4 pt-2 border-t border-[var(--steel-gray)]/20 bg-gradient-to-t from-[var(--asphalt-black)] to-transparent">
-                {/* Contact Info Row */}
-                <div className="flex items-center justify-between mb-3 px-1">
-                  <a
-                    href={`tel:${BUSINESS_INFO.phoneRaw}`}
-                    className="flex items-center gap-2 text-[var(--light-gray)] outline-none focus-visible:ring-2 focus-visible:ring-[var(--safety-orange)] rounded"
-                    aria-label={`Call us at ${BUSINESS_INFO.phone}`}
-                  >
-                    <Phone className="w-4 h-4 text-[var(--safety-orange)]" aria-hidden="true" />
-                    <span className="text-sm font-medium">{BUSINESS_INFO.phone}</span>
-                  </a>
-                  <div className="flex items-center gap-1.5 text-[var(--slate-gray)]">
-                    <MapPin className="w-4 h-4 text-[var(--safety-orange)]" aria-hidden="true" />
-                    <span className="text-xs">Pinellas County</span>
-                  </div>
-                </div>
-
-                {/* CTA Buttons */}
-                <div className="grid grid-cols-2 gap-2">
-                  <a
-                    href={`tel:${BUSINESS_INFO.phoneRaw}`}
-                    className="flex items-center justify-center gap-2 py-3 text-sm font-semibold text-white bg-[var(--concrete-gray)] rounded-xl border border-[var(--steel-gray)]/30 outline-none focus-visible:ring-2 focus-visible:ring-[var(--safety-orange)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--asphalt-black)]"
-                    aria-label={`Call us now at ${BUSINESS_INFO.phone}`}
-                  >
-                    <Phone className="w-4 h-4" aria-hidden="true" />
-                    Call Now
-                  </a>
-                  <Link href="/contact" onClick={closeMenu} className="w-full">
-                    <Button
-                      className="w-full"
-                      size="md"
-                      aria-label="Get a free quote"
-                    >
-                      Get Quote
-                    </Button>
-                  </Link>
+            {/* Contact & CTA Section */}
+            <div className="px-4 pb-4 pt-2 border-t border-[var(--steel-gray)]/20 bg-gradient-to-t from-[var(--asphalt-black)] to-transparent">
+              {/* Contact Info Row */}
+              <div className="flex items-center justify-between mb-3 px-1">
+                <a
+                  href={`tel:${BUSINESS_INFO.phoneRaw}`}
+                  className="flex items-center gap-2 text-[var(--light-gray)] outline-none focus-visible:ring-2 focus-visible:ring-[var(--safety-orange)] rounded"
+                  aria-label={`Call us at ${BUSINESS_INFO.phone}`}
+                >
+                  <Phone className="w-4 h-4 text-[var(--safety-orange)]" aria-hidden="true" />
+                  <span className="text-sm font-medium">{BUSINESS_INFO.phone}</span>
+                </a>
+                <div className="flex items-center gap-1.5 text-[var(--slate-gray)]">
+                  <MapPin className="w-4 h-4 text-[var(--safety-orange)]" aria-hidden="true" />
+                  <span className="text-xs">Pinellas County</span>
                 </div>
               </div>
-            </motion.div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+
+              {/* CTA Buttons */}
+              <div className="grid grid-cols-2 gap-2">
+                <a
+                  href={`tel:${BUSINESS_INFO.phoneRaw}`}
+                  className="flex items-center justify-center gap-2 py-3 text-sm font-semibold text-white bg-[var(--concrete-gray)] rounded-xl border border-[var(--steel-gray)]/30 outline-none focus-visible:ring-2 focus-visible:ring-[var(--safety-orange)] focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--asphalt-black)]"
+                  aria-label={`Call us now at ${BUSINESS_INFO.phone}`}
+                >
+                  <Phone className="w-4 h-4" aria-hidden="true" />
+                  Call Now
+                </a>
+                <Link href="/contact" onClick={closeMenu} className="w-full">
+                  <Button
+                    className="w-full"
+                    size="md"
+                    aria-label="Get a free quote"
+                  >
+                    Get Quote
+                  </Button>
+                </Link>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
     </>
   )
 }

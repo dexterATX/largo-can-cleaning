@@ -4,7 +4,6 @@ import { useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
 import { Phone, Mail, MapPin, Clock, Trash2, ChevronDown } from 'lucide-react'
-import { motion, AnimatePresence } from 'motion/react'
 import Container from '@/components/ui/Container'
 import { BUSINESS_INFO } from '@/lib/schema'
 
@@ -29,7 +28,7 @@ const footerLinks = {
   ],
 }
 
-// Dropdown Component for Mobile
+// Dropdown Component for Mobile - CSS transitions only (no motion)
 function FooterDropdown({
   title,
   icon: Icon,
@@ -57,29 +56,22 @@ function FooterDropdown({
           </div>
           <span className="text-sm font-medium text-white">{title}</span>
         </div>
-        <motion.div
-          animate={{ rotate: isOpen ? 180 : 0 }}
-          transition={{ duration: 0.2 }}
-          className="w-6 h-6 rounded-full bg-[var(--steel-gray)]/10 flex items-center justify-center"
+        {/* CSS-only chevron rotation */}
+        <div
+          className="accordion-chevron w-6 h-6 rounded-full bg-[var(--steel-gray)]/10 flex items-center justify-center"
+          data-open={isOpen}
         >
           <ChevronDown className="w-3.5 h-3.5 text-[var(--slate-gray)]" />
-        </motion.div>
+        </div>
       </button>
-      <AnimatePresence>
-        {isOpen && (
-          <motion.div
-            initial={{ height: 0, opacity: 0 }}
-            animate={{ height: 'auto', opacity: 1 }}
-            exit={{ height: 0, opacity: 0 }}
-            transition={{ duration: 0.2 }}
-            className="overflow-hidden"
-          >
-            <div className="pb-3 pl-11">
-              {children}
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+      {/* CSS grid transition for smooth expand/collapse */}
+      <div className="accordion-content" data-open={isOpen}>
+        <div className="accordion-inner">
+          <div className="pb-3 pl-11">
+            {children}
+          </div>
+        </div>
+      </div>
     </div>
   )
 }

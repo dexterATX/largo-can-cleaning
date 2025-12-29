@@ -1,13 +1,74 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { createAdminClient } from '@/lib/supabase/admin'
+import { createAnonClient } from '@/lib/supabase/anon'
 import crypto from 'crypto'
 
-// Generate a cryptographically secure session ID
+// ============================================
+// RATE LIMITING (stricter for analytics)
+// ============================================
+
+const analyticsRequests = new Map<string, { count: number; resetTime: number }>()
+const WINDOW_MS = 60 * 1000 // 1 minute
+const MAX_REQUESTS_PER_MINUTE = 10 // Very strict: 10 requests per minute per IP
+
+function checkRateLimit(ip: string): boolean {
+  const now = Date.now()
+  const record = analyticsRequests.get(ip)
+
+  if (!record || now > record.resetTime) {
+    analyticsRequests.set(ip, { count: 1, resetTime: now + WINDOW_MS })
+    return true
+  }
+
+  if (record.count >= MAX_REQUESTS_PER_MINUTE) {
+    return false
+  }
+
+  record.count++
+  return true
+}
+
+// Cleanup old entries every minute
+if (typeof setInterval !== 'undefined') {
+  setInterval(() => {
+    const now = Date.now()
+    for (const [ip, record] of analyticsRequests.entries()) {
+      if (now > record.resetTime) {
+        analyticsRequests.delete(ip)
+      }
+    }
+  }, 60000)
+}
+
+// ============================================
+// BOT DETECTION
+// ============================================
+
+const BOT_PATTERNS = [
+  /bot/i, /crawl/i, /spider/i, /slurp/i, /mediapartners/i,
+  /googlebot/i, /bingbot/i, /yandex/i, /baiduspider/i,
+  /facebookexternalhit/i, /twitterbot/i, /linkedinbot/i,
+  /whatsapp/i, /telegrambot/i, /discordbot/i,
+  /pinterest/i, /redditbot/i, /semrush/i, /ahrefs/i,
+  /mj12bot/i, /dotbot/i, /petalbot/i, /bytespider/i,
+  /gptbot/i, /claudebot/i, /ccbot/i, /applebot/i,
+  /headless/i, /phantom/i, /selenium/i, /puppeteer/i,
+  /curl/i, /wget/i, /python-requests/i, /axios/i, /node-fetch/i,
+  /scrapy/i, /httpclient/i, /java\//i, /libwww/i,
+]
+
+function isBot(userAgent: string): boolean {
+  if (!userAgent || userAgent.length < 10) return true
+  return BOT_PATTERNS.some(pattern => pattern.test(userAgent))
+}
+
+// ============================================
+// HELPERS
+// ============================================
+
 function generateSessionId(): string {
   return crypto.randomUUID()
 }
 
-// Detect device type from user agent
 function getDeviceType(userAgent: string): 'mobile' | 'tablet' | 'desktop' {
   const ua = userAgent.toLowerCase()
   if (/mobile|android|iphone|ipod|blackberry|windows phone/.test(ua)) {
@@ -19,7 +80,6 @@ function getDeviceType(userAgent: string): 'mobile' | 'tablet' | 'desktop' {
   return 'desktop'
 }
 
-// Extract browser from user agent
 function getBrowser(userAgent: string): string {
   const ua = userAgent.toLowerCase()
   if (ua.includes('firefox')) return 'Firefox'
@@ -30,15 +90,51 @@ function getBrowser(userAgent: string): string {
   return 'Other'
 }
 
-// Constants for input validation
-const MAX_PATH_LENGTH = 2048
-const MAX_REFERRER_LENGTH = 2048
-const MAX_SESSION_ID_LENGTH = 100
-const MAX_READ_TIME = 86400 // 24 hours in seconds
-const MAX_SCROLL_DEPTH = 100 // percentage
+function getClientIp(request: NextRequest): string {
+  return (
+    request.headers.get('x-forwarded-for')?.split(',')[0]?.trim() ||
+    request.headers.get('x-real-ip') ||
+    'unknown'
+  )
+}
+
+// ============================================
+// VALIDATION CONSTANTS
+// ============================================
+
+const MAX_PATH_LENGTH = 500 // Reduced from 2048
+const MAX_REFERRER_LENGTH = 500
+const MAX_SESSION_ID_LENGTH = 64
+const MAX_READ_TIME = 3600 // 1 hour max (reduced from 24h)
+const MAX_SCROLL_DEPTH = 100
+
+// Valid page paths (whitelist approach)
+const VALID_PATH_PATTERN = /^\/[a-zA-Z0-9\-_\/]*$/
+
+// ============================================
+// ROUTE HANDLERS
+// ============================================
 
 export async function POST(request: NextRequest) {
   try {
+    // Get client IP for rate limiting
+    const clientIp = getClientIp(request)
+
+    // Rate limit check
+    if (!checkRateLimit(clientIp)) {
+      return NextResponse.json(
+        { success: false, error: 'Too many requests' },
+        { status: 429 }
+      )
+    }
+
+    // Bot detection
+    const userAgent = request.headers.get('user-agent') || ''
+    if (isBot(userAgent)) {
+      // Silently accept but don't track bots
+      return NextResponse.json({ success: true, session_id: 'bot' })
+    }
+
     const body = await request.json()
     const {
       page_path,
@@ -48,7 +144,7 @@ export async function POST(request: NextRequest) {
       scroll_depth,
     } = body
 
-    // Input validation
+    // Validate page_path
     if (!page_path || typeof page_path !== 'string') {
       return NextResponse.json(
         { success: false, error: 'Invalid page path' },
@@ -56,73 +152,65 @@ export async function POST(request: NextRequest) {
       )
     }
 
-    if (page_path.length > MAX_PATH_LENGTH) {
+    const trimmedPath = page_path.substring(0, MAX_PATH_LENGTH)
+
+    // Whitelist validation for paths
+    if (!VALID_PATH_PATTERN.test(trimmedPath)) {
       return NextResponse.json(
-        { success: false, error: 'Page path too long' },
+        { success: false, error: 'Invalid page path format' },
         { status: 400 }
       )
     }
 
-    // Validate read_time if provided
+    // Validate read_time
+    let validReadTime: number | null = null
     if (read_time !== undefined && read_time !== null) {
       const readTimeNum = Number(read_time)
-      if (isNaN(readTimeNum) || readTimeNum < 0 || readTimeNum > MAX_READ_TIME) {
-        return NextResponse.json(
-          { success: false, error: 'Invalid read time' },
-          { status: 400 }
-        )
+      if (!isNaN(readTimeNum) && readTimeNum >= 0 && readTimeNum <= MAX_READ_TIME) {
+        validReadTime = Math.floor(readTimeNum)
       }
     }
 
-    // Validate scroll_depth if provided
+    // Validate scroll_depth
+    let validScrollDepth: number | null = null
     if (scroll_depth !== undefined && scroll_depth !== null) {
       const scrollDepthNum = Number(scroll_depth)
-      if (isNaN(scrollDepthNum) || scrollDepthNum < 0 || scrollDepthNum > MAX_SCROLL_DEPTH) {
-        return NextResponse.json(
-          { success: false, error: 'Invalid scroll depth' },
-          { status: 400 }
-        )
+      if (!isNaN(scrollDepthNum) && scrollDepthNum >= 0 && scrollDepthNum <= MAX_SCROLL_DEPTH) {
+        validScrollDepth = Math.floor(scrollDepthNum)
       }
     }
 
-    // Sanitize referrer
-    const sanitizedReferrer = referrer && typeof referrer === 'string'
+    // Sanitize optional fields
+    const sanitizedReferrer = (referrer && typeof referrer === 'string')
       ? referrer.substring(0, MAX_REFERRER_LENGTH)
       : null
 
-    // Sanitize session_id
-    const sanitizedSessionId = session_id && typeof session_id === 'string'
+    const sanitizedSessionId = (session_id && typeof session_id === 'string')
       ? session_id.substring(0, MAX_SESSION_ID_LENGTH)
       : null
-
-    // Get user agent
-    const userAgent = request.headers.get('user-agent') || ''
 
     // Detect device and browser
     const device_type = getDeviceType(userAgent)
     const browser = getBrowser(userAgent)
-
-    // Use provided session_id or generate new one
     const finalSessionId = sanitizedSessionId || generateSessionId()
 
-    // Insert page view record (using only columns that exist in the original schema)
-    const supabase = createAdminClient()
+    // Insert using anon client (respects RLS)
+    const supabase = createAnonClient()
     const { error } = await supabase.from('page_views').insert({
-      page_path: page_path.substring(0, MAX_PATH_LENGTH),
+      page_path: trimmedPath,
       referrer: sanitizedReferrer,
       device_type,
       browser,
       session_id: finalSessionId,
-      read_time: read_time ? Math.min(Number(read_time), MAX_READ_TIME) : null,
-      scroll_depth: scroll_depth ? Math.min(Number(scroll_depth), MAX_SCROLL_DEPTH) : null,
+      read_time: validReadTime,
+      scroll_depth: validScrollDepth,
     })
 
     if (error) {
-      console.error('Analytics insert error:', error)
-      return NextResponse.json(
-        { success: false, error: error.message },
-        { status: 500 }
-      )
+      // Log but don't expose internal errors
+      console.error('Analytics insert error:', error.message)
+      // Return success anyway to not leak info about DB state
+      return NextResponse.json({ success: true, session_id: finalSessionId })
     }
 
     return NextResponse.json({
@@ -131,25 +219,35 @@ export async function POST(request: NextRequest) {
     })
   } catch (error) {
     console.error('Analytics tracking error:', error)
-    return NextResponse.json(
-      { success: false, error: 'Failed to track analytics' },
-      { status: 500 }
-    )
+    // Return success to not leak error info
+    return NextResponse.json({ success: true, session_id: 'error' })
   }
 }
 
-// Also support GET for simple pixel tracking
+// GET for pixel tracking (1x1 transparent GIF)
 export async function GET(request: NextRequest) {
-  // Return 1x1 transparent GIF header regardless of tracking success
+  // Always return the GIF regardless of tracking result
   const gif = Buffer.from('R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7', 'base64')
   const headers = {
     'Content-Type': 'image/gif',
     'Cache-Control': 'no-store, no-cache, must-revalidate',
   }
 
+  const clientIp = getClientIp(request)
+
+  // Rate limit check
+  if (!checkRateLimit(clientIp)) {
+    return new NextResponse(gif, { headers })
+  }
+
+  // Bot detection
+  const userAgent = request.headers.get('user-agent') || ''
+  if (isBot(userAgent)) {
+    return new NextResponse(gif, { headers })
+  }
+
   const searchParams = request.nextUrl.searchParams
   const rawPath = searchParams.get('path')
-  const rawReferrer = searchParams.get('ref')
 
   // Validate path
   if (!rawPath || rawPath.length > MAX_PATH_LENGTH) {
@@ -157,26 +255,29 @@ export async function GET(request: NextRequest) {
   }
 
   const page_path = rawPath.substring(0, MAX_PATH_LENGTH)
+
+  // Whitelist validation
+  if (!VALID_PATH_PATTERN.test(page_path)) {
+    return new NextResponse(gif, { headers })
+  }
+
+  const rawReferrer = searchParams.get('ref')
   const referrer = rawReferrer ? rawReferrer.substring(0, MAX_REFERRER_LENGTH) : null
 
-  const userAgent = request.headers.get('user-agent') || ''
   const device_type = getDeviceType(userAgent)
   const browser = getBrowser(userAgent)
 
   try {
-    const supabase = createAdminClient()
-    const { error } = await supabase.from('page_views').insert({
+    const supabase = createAnonClient()
+    await supabase.from('page_views').insert({
       page_path,
       referrer,
       device_type,
       browser,
       session_id: generateSessionId(),
     })
-
-    if (error) {
-      console.error('Pixel tracking database error:', error)
-    }
   } catch (error) {
+    // Silently fail - don't block the GIF response
     console.error('Pixel tracking error:', error)
   }
 

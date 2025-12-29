@@ -295,6 +295,70 @@ h1, h2, h3, h4, h5, h6 {
   animation: fade-in-up 0.5s ease-out both;
 }
 
+/* Mobile menu animations - CSS-only for better INP */
+@keyframes menu-slide-in {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes menu-item-in {
+  from {
+    opacity: 0;
+    transform: translateX(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+.animate-menu-in {
+  animation: menu-slide-in 0.15s ease-out both;
+}
+
+.animate-menu-item {
+  animation: menu-item-in 0.2s ease-out both;
+}
+
+/* Staggered menu items using CSS custom properties */
+.menu-item-stagger > *:nth-child(1) { animation-delay: 20ms; }
+.menu-item-stagger > *:nth-child(2) { animation-delay: 40ms; }
+.menu-item-stagger > *:nth-child(3) { animation-delay: 60ms; }
+.menu-item-stagger > *:nth-child(4) { animation-delay: 80ms; }
+.menu-item-stagger > *:nth-child(5) { animation-delay: 100ms; }
+.menu-item-stagger > *:nth-child(6) { animation-delay: 120ms; }
+.menu-item-stagger > *:nth-child(7) { animation-delay: 140ms; }
+.menu-item-stagger > *:nth-child(8) { animation-delay: 160ms; }
+
+/* Footer accordion - CSS transitions */
+.accordion-content {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.2s ease-out;
+}
+
+.accordion-content[data-open="true"] {
+  grid-template-rows: 1fr;
+}
+
+.accordion-inner {
+  overflow: hidden;
+}
+
+.accordion-chevron {
+  transition: transform 0.2s ease-out;
+}
+
+.accordion-chevron[data-open="true"] {
+  transform: rotate(180deg);
+}
+
 .animate-pulse-glow {
   animation: pulse-glow 2s ease-in-out infinite;
   will-change: transform, opacity;

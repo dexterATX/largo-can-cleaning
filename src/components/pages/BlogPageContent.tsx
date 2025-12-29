@@ -1,6 +1,6 @@
 'use client'
 
-import { useState, useRef, useEffect, useMemo, memo } from 'react'
+import { useState, useRef, useMemo, memo, useEffect } from 'react'
 import { motion } from 'motion/react'
 import Link from 'next/link'
 import {
@@ -43,123 +43,11 @@ interface Category {
   count: number
 }
 
-// ============================================
-// FALLBACK DATA (used when Supabase is not configured)
-// ============================================
-
-const fallbackCategories = [
-  { id: 'tips', label: 'Tips & How-To', count: 3 },
-  { id: 'health', label: 'Health & Safety', count: 2 },
-  { id: 'news', label: 'Company News', count: 2 },
-  { id: 'sustainability', label: 'Eco-Friendly', count: 1 },
-]
-
-const fallbackPosts: BlogPost[] = [
-  {
-    id: 1,
-    slug: 'why-clean-trash-cans-matter',
-    title: 'Why Clean Trash Cans Matter More Than You Think',
-    linkText: 'Why Clean Bins Matter',
-    excerpt: 'Discover the hidden health risks lurking in your dirty bins and why regular cleaning is essential for your family\'s wellbeing.',
-    category: 'health',
-    categoryLabel: 'Health & Safety',
-    readTime: 5,
-    date: '2025-01-15',
-    featured: true,
-    image: '/opengraph-image',
-  },
-  {
-    id: 2,
-    slug: 'diy-vs-professional-cleaning',
-    title: 'DIY vs Pro Bin Cleaning Comparison',
-    linkText: 'DIY vs Pro Cleaning',
-    excerpt: 'We break down the costs, effectiveness, and time investment of both approaches to help you make the right choice.',
-    category: 'tips',
-    categoryLabel: 'Tips & How-To',
-    readTime: 7,
-    date: '2025-01-10',
-    featured: true,
-    image: '/opengraph-image',
-  },
-  {
-    id: 3,
-    slug: 'prevent-pests-trash-bins',
-    title: '5 Ways to Keep Pests Out of Trash Bins',
-    linkText: 'Prevent Trash Bin Pests',
-    excerpt: 'Keep raccoons, flies, and rodents away with these proven prevention strategies that actually work.',
-    category: 'tips',
-    categoryLabel: 'Tips & How-To',
-    readTime: 4,
-    date: '2025-01-05',
-    featured: false,
-    image: '/opengraph-image',
-  },
-  {
-    id: 4,
-    slug: 'bacteria-in-garbage-bins',
-    title: 'Bacteria in Your Trash Cans: The Facts',
-    linkText: 'Bin Bacteria Facts',
-    excerpt: 'Lab tests reveal what\'s really growing in the average household trash can—and it\'s not pretty.',
-    category: 'health',
-    categoryLabel: 'Health & Safety',
-    readTime: 6,
-    date: '2024-12-28',
-    featured: false,
-    image: '/opengraph-image',
-  },
-  {
-    id: 5,
-    slug: 'eco-friendly-bin-cleaning',
-    title: 'Eco-Friendly Bin Cleaning Explained',
-    linkText: 'Eco-Friendly Cleaning',
-    excerpt: 'Learn about our sustainable cleaning process, biodegradable solutions, and zero-runoff water capture system.',
-    category: 'sustainability',
-    categoryLabel: 'Eco-Friendly',
-    readTime: 5,
-    date: '2024-12-20',
-    featured: false,
-    image: '/opengraph-image',
-  },
-  {
-    id: 6,
-    slug: 'summer-bin-odor-tips',
-    title: 'Summer Bin Odor Prevention Tips',
-    linkText: 'Summer Odor Prevention',
-    excerpt: 'Hot weather makes bin odors worse. Here\'s how to keep your outdoor area smelling fresh all summer long.',
-    category: 'tips',
-    categoryLabel: 'Tips & How-To',
-    readTime: 4,
-    date: '2024-12-15',
-    featured: false,
-    image: '/opengraph-image',
-  },
-  {
-    id: 7,
-    slug: 'cleancan-pro-expansion-2025',
-    title: 'Largo Can Cleaning Expands Service to All of Pinellas County',
-    linkText: 'Pinellas County Expansion',
-    excerpt: 'We\'re excited to announce our expanded coverage area, now serving more communities across the region.',
-    category: 'news',
-    categoryLabel: 'Company News',
-    readTime: 3,
-    date: '2024-12-10',
-    featured: false,
-    image: '/opengraph-image',
-  },
-  {
-    id: 8,
-    slug: 'commercial-bin-cleaning-benefits',
-    title: 'Why Restaurants Choose Pro Bin Cleaning',
-    linkText: 'Commercial Bin Cleaning',
-    excerpt: 'Health codes, customer perception, and pest control—discover why commercial cleaning pays for itself.',
-    category: 'news',
-    categoryLabel: 'Company News',
-    readTime: 6,
-    date: '2024-12-05',
-    featured: false,
-    image: '/opengraph-image',
-  },
-]
+interface BlogPageContentProps {
+  initialPosts: BlogPost[]
+  initialCategories: Category[]
+  initialTotal: number
+}
 
 // ============================================
 // HELPER FUNCTIONS
@@ -496,46 +384,19 @@ const MobileTrendingCarousel = memo(function MobileTrendingCarousel({ posts, cat
 // MAIN COMPONENT
 // ============================================
 
-export default function BlogPageContent() {
+export default function BlogPageContent({
+  initialPosts,
+  initialCategories,
+  initialTotal,
+}: BlogPageContentProps) {
   const [activeCategory, setActiveCategory] = useState('all')
   const [searchQuery, setSearchQuery] = useState('')
-  const [blogPosts, setBlogPosts] = useState<BlogPost[]>(fallbackPosts)
-  const [categories, setCategories] = useState<Category[]>(fallbackCategories)
-  const [totalPosts, setTotalPosts] = useState(fallbackPosts.length)
 
-  // Fetch posts from API - no loading state to avoid flicker, fallback data shows immediately
-  useEffect(() => {
-    let isMounted = true
-    const controller = new AbortController()
-
-    async function fetchPosts() {
-      try {
-        const res = await fetch('/api/blog', { signal: controller.signal })
-        if (isMounted && res.ok) {
-          const data = await res.json()
-          if (isMounted && data.posts && data.posts.length > 0) {
-            setBlogPosts(data.posts)
-            setTotalPosts(data.total || data.posts.length)
-            if (data.categories && data.categories.length > 0) {
-              setCategories(data.categories)
-            }
-          }
-        }
-      } catch (error) {
-        if (error instanceof Error && error.name === 'AbortError') {
-          return // Component unmounted, ignore
-        }
-        // Use fallback data if API fails - already set as initial state
-      }
-    }
-
-    fetchPosts()
-
-    return () => {
-      isMounted = false
-      controller.abort()
-    }
-  }, [])
+  // Use SSR data directly - no client-side fetching needed
+  // Data is fetched server-side and passed as props for SEO
+  const blogPosts = initialPosts
+  const categories = initialCategories
+  const totalPosts = initialTotal || initialPosts.length
 
   // Filter posts - memoized for performance
   const filteredPosts = useMemo(() => {

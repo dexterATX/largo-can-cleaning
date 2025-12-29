@@ -4,23 +4,11 @@ const BASE_URL = process.env.NEXT_PUBLIC_SITE_URL || 'https://largocancleaning.c
 
 export default function robots(): MetadataRoute.Robots {
   return {
-    rules: [
-      {
-        userAgent: '*',
-        allow: '/',
-        disallow: ['/admin/', '/api/admin/'],
-      },
-      // Block AI training bots
-      { userAgent: 'GPTBot', disallow: '/' },
-      { userAgent: 'ChatGPT-User', disallow: '/' },
-      { userAgent: 'CCBot', disallow: '/' },
-      { userAgent: 'Google-Extended', disallow: '/' },
-      { userAgent: 'ClaudeBot', disallow: '/' },
-      { userAgent: 'Bytespider', disallow: '/' },
-      { userAgent: 'Amazonbot', disallow: '/' },
-      { userAgent: 'Applebot-Extended', disallow: '/' },
-      { userAgent: 'meta-externalagent', disallow: '/' },
-    ],
+    rules: {
+      userAgent: '*',
+      allow: '/',
+      disallow: ['/admin/', '/api/admin/'],
+    },
     sitemap: `${BASE_URL}/sitemap.xml`,
   }
 }
