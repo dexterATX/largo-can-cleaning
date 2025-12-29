@@ -10,6 +10,16 @@ export default function robots(): MetadataRoute.Robots {
         allow: '/',
         disallow: ['/admin/', '/api/admin/'],
       },
+      // Block AI training bots
+      { userAgent: 'GPTBot', disallow: '/' },
+      { userAgent: 'ChatGPT-User', disallow: '/' },
+      { userAgent: 'CCBot', disallow: '/' },
+      { userAgent: 'Google-Extended', disallow: '/' },
+      { userAgent: 'ClaudeBot', disallow: '/' },
+      { userAgent: 'Bytespider', disallow: '/' },
+      { userAgent: 'Amazonbot', disallow: '/' },
+      { userAgent: 'Applebot-Extended', disallow: '/' },
+      { userAgent: 'meta-externalagent', disallow: '/' },
     ],
     sitemap: `${BASE_URL}/sitemap.xml`,
   }
