@@ -3,7 +3,7 @@
 import { useState } from 'react'
 import Link from 'next/link'
 import Image from 'next/image'
-import { Phone, Mail, MapPin, Clock, Trash2, ChevronDown } from 'lucide-react'
+import { Phone, Mail, MapPin, Clock, Trash2, ChevronDown, Facebook, Instagram } from 'lucide-react'
 import Container from '@/components/ui/Container'
 import { BUSINESS_INFO } from '@/lib/schema'
 
@@ -114,14 +114,35 @@ export default function Footer() {
                   <span className="text-[8px] font-semibold text-[var(--safety-orange)] uppercase tracking-widest">Cleaning</span>
                 </div>
               </Link>
-              <a
-                href={`tel:${BUSINESS_INFO.phoneRaw}`}
-                className="flex items-center gap-2 px-4 py-2.5 bg-[var(--safety-orange)] text-white text-sm font-semibold rounded-xl focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--safety-orange)]"
-                aria-label={`Call us at ${BUSINESS_INFO.phone}`}
-              >
-                <Phone className="w-4 h-4" aria-hidden="true" />
-                Call Now
-              </a>
+              <div className="flex items-center gap-2">
+                {/* Social Icons - Mobile */}
+                <a
+                  href={BUSINESS_INFO.social.facebook}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-10 h-10 flex items-center justify-center rounded-xl bg-[var(--steel-gray)]/10 text-[var(--slate-gray)] hover:bg-[var(--safety-orange)] hover:text-white transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--safety-orange)]"
+                  aria-label="Follow us on Facebook"
+                >
+                  <Facebook className="w-5 h-5" aria-hidden="true" />
+                </a>
+                <a
+                  href={BUSINESS_INFO.social.instagram}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-10 h-10 flex items-center justify-center rounded-xl bg-[var(--steel-gray)]/10 text-[var(--slate-gray)] hover:bg-[var(--safety-orange)] hover:text-white transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--safety-orange)]"
+                  aria-label="Follow us on Instagram"
+                >
+                  <Instagram className="w-5 h-5" aria-hidden="true" />
+                </a>
+                <a
+                  href={`tel:${BUSINESS_INFO.phoneRaw}`}
+                  className="flex items-center gap-2 px-4 py-2.5 bg-[var(--safety-orange)] text-white text-sm font-semibold rounded-xl focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-offset-2 focus-visible:ring-offset-[var(--safety-orange)]"
+                  aria-label={`Call us at ${BUSINESS_INFO.phone}`}
+                >
+                  <Phone className="w-4 h-4" aria-hidden="true" />
+                  Call Now
+                </a>
+              </div>
             </div>
 
             {/* Dropdown Sections */}
@@ -243,6 +264,29 @@ export default function Footer() {
                   <span itemProp="email">{BUSINESS_INFO.email}</span>
                 </a>
               </address>
+              {/* Social Icons - Desktop */}
+              <div className="flex items-center gap-3 mt-5">
+                <a
+                  href={BUSINESS_INFO.social.facebook}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-10 h-10 flex items-center justify-center rounded-xl bg-[var(--steel-gray)]/10 text-[var(--slate-gray)] hover:bg-[var(--safety-orange)] hover:text-white transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--safety-orange)]"
+                  aria-label="Follow us on Facebook"
+                  itemProp="sameAs"
+                >
+                  <Facebook className="w-5 h-5" aria-hidden="true" />
+                </a>
+                <a
+                  href={BUSINESS_INFO.social.instagram}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-10 h-10 flex items-center justify-center rounded-xl bg-[var(--steel-gray)]/10 text-[var(--slate-gray)] hover:bg-[var(--safety-orange)] hover:text-white transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--safety-orange)]"
+                  aria-label="Follow us on Instagram"
+                  itemProp="sameAs"
+                >
+                  <Instagram className="w-5 h-5" aria-hidden="true" />
+                </a>
+              </div>
             </div>
 
             {/* Services Column */}

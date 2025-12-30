@@ -73,6 +73,11 @@ export const BUSINESS_INFO = {
   paymentAccepted: 'Cash, Credit Card',
   googleMapsUrl: 'https://www.google.com/maps/place/Largo,+FL+33770',
   serviceType: 'Trash Can Cleaning and Sanitization',
+  // Social media profiles
+  social: {
+    facebook: 'https://www.facebook.com/profile.php?id=61585587732088',
+    instagram: 'https://www.instagram.com/largocancleaning/',
+  },
   // Service areas in Pinellas County, Florida
   areaServed: [
     'Largo',
@@ -162,7 +167,11 @@ const LOCAL_BUSINESS_SCHEMA = {
     },
   })),
   openingHoursSpecification: OPENING_HOURS_SPEC,
-  // Note: Add sameAs with social profile URLs when available (Facebook, Instagram, etc.)
+  // Social profiles for SEO - helps Google associate profiles with business
+  sameAs: [
+    BUSINESS_INFO.social.facebook,
+    BUSINESS_INFO.social.instagram,
+  ],
   image: `${BUSINESS_INFO.url}/opengraph-image`, // Next.js generated OG image
   logo: `${BUSINESS_INFO.url}/logo.png`,
 } as const
@@ -699,6 +708,10 @@ export function generateOrganizationSchema() {
       '@type': 'AdministrativeArea',
       name: BUSINESS_INFO.address.county,
     },
+    sameAs: [
+      BUSINESS_INFO.social.facebook,
+      BUSINESS_INFO.social.instagram,
+    ],
   }
 }
 
