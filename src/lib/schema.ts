@@ -75,7 +75,7 @@ export const BUSINESS_INFO = {
   serviceType: 'Trash Can Cleaning and Sanitization',
   // Social media profiles
   social: {
-    facebook: 'https://www.facebook.com/profile.php?id=61585587732088',
+    facebook: 'https://www.facebook.com/profile.php?id=61586019230893',
     instagram: 'https://www.instagram.com/largocancleaning/',
   },
   // Service areas in Pinellas County, Florida
