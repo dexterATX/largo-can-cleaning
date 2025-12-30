@@ -13,7 +13,7 @@ const steps = [
     title: 'Schedule Service',
     description:
       'Pick a date and time that works for you. Same-day and next-day appointments available.',
-    img: '/curbside-trash-can-residential-home.jpg',
+    img: '/card_01_schedule_graphic.png',
     alt: 'Schedule trash can cleaning service for your Largo Florida home - easy online booking',
   },
   {
@@ -22,7 +22,7 @@ const steps = [
     title: 'We Arrive',
     description:
       'Our team arrives at your location with our mobile cleaning unit. No water or power hookup needed.',
-    img: '/trash-can-cleaning-technician-at-work.jpg',
+    img: '/card_02_arrive_graphic.png',
     alt: 'Largo Can Cleaning technician arrives with professional cleaning equipment at your home',
   },
   {
@@ -31,7 +31,7 @@ const steps = [
     title: 'High-Pressure Wash',
     description:
       '190°F high-pressure wash eliminates 99.9% of bacteria, grease, and odors in minutes.',
-    img: '/sanitized-trash-can-interior-clean.jpg',
+    img: '/card_03_wash_graphic.png',
     alt: 'High-pressure 190 degree hot water sanitizes trash can interior eliminating bacteria',
   },
   {
@@ -40,7 +40,7 @@ const steps = [
     title: 'Sparkling Results',
     description:
       'Your bins are returned clean, sanitized, and deodorized. We dispose of all wastewater...',
-    img: '/clean-trash-can-interior-after-service.jpg',
+    img: '/card_04_results_graphic.png',
     alt: 'Sparkling clean sanitized trash can interior after professional Largo Can Cleaning service',
   },
 ]
