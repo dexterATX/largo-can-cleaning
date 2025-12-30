@@ -683,210 +683,182 @@ function ContactFormSection() {
 }
 
 // ============================================
-// AREAS WE SERVE SECTION - BENTO GRID
+// AREAS WE SERVE SECTION - HORIZONTAL STRIPS
 // ============================================
 
 function AreasWeServeSection() {
   return (
-    <section className="py-10 sm:py-16 bg-[var(--asphalt-black)] border-t border-[var(--steel-gray)]/10">
+    <section className="py-10 sm:py-16 bg-[var(--asphalt-black)] border-t border-[var(--steel-gray)]/10 overflow-hidden">
+      {/* Scrolling Cities Marquee */}
+      <div className="relative mb-10 sm:mb-14">
+        <div className="absolute inset-y-0 left-0 w-20 sm:w-32 bg-gradient-to-r from-[var(--asphalt-black)] to-transparent z-10" />
+        <div className="absolute inset-y-0 right-0 w-20 sm:w-32 bg-gradient-to-l from-[var(--asphalt-black)] to-transparent z-10" />
+
+        <div className="flex animate-marquee whitespace-nowrap py-4">
+          {[...BUSINESS_INFO.areaServed, ...BUSINESS_INFO.areaServed].map((area, index) => (
+            <span
+              key={index}
+              className="mx-3 sm:mx-4 inline-flex items-center gap-2 px-4 sm:px-5 py-2 sm:py-2.5 rounded-full bg-[var(--concrete-gray)]/40 border border-[var(--steel-gray)]/30 text-sm sm:text-base font-medium text-white"
+            >
+              <MapPin className="w-3.5 h-3.5 sm:w-4 sm:h-4 text-[var(--safety-orange)]" />
+              {area}, FL
+            </span>
+          ))}
+        </div>
+      </div>
+
       <Container>
         {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-8 sm:mb-12"
+          className="text-center mb-10 sm:mb-14"
         >
-          <div className="inline-flex items-center gap-2 px-3 py-1.5 mb-4 rounded-full bg-[var(--safety-orange)]/10 border border-[var(--safety-orange)]/20">
-            <MapPin className="w-3.5 h-3.5 text-[var(--safety-orange)]" />
-            <span className="text-[10px] font-semibold uppercase tracking-wider text-[var(--safety-orange)]">Areas We Serve</span>
-          </div>
-          <h2 className="text-2xl sm:text-3xl font-bold text-white mb-3">
-            Proudly Serving Pinellas County
+          <h2 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-3">
+            We Come to <span className="text-[var(--safety-orange)]">You</span>
           </h2>
-          <p className="text-[var(--slate-gray)] max-w-lg mx-auto">
-            Professional trash can cleaning for residential and commercial customers throughout {BUSINESS_INFO.address.county}.
+          <p className="text-[var(--slate-gray)] max-w-xl mx-auto">
+            Our mobile cleaning truck brings professional sanitization directly to your curb throughout Pinellas County.
           </p>
         </motion.div>
 
-        {/* Bento Grid */}
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-4 max-w-6xl mx-auto">
+        {/* Horizontal Feature Strips */}
+        <div className="space-y-4 sm:space-y-6 max-w-4xl mx-auto">
 
-          {/* Service Areas Card - Large */}
+          {/* Strip 1 - Local & Trusted */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
-            className="sm:col-span-2 lg:col-span-7 p-5 sm:p-6 rounded-2xl bg-gradient-to-br from-[var(--concrete-gray)] to-[var(--asphalt-dark)] border border-[var(--steel-gray)]/30"
+            className="flex items-center gap-4 sm:gap-6 p-4 sm:p-6 rounded-2xl bg-gradient-to-r from-[var(--concrete-gray)]/60 to-transparent border-l-4 border-[var(--safety-orange)]"
           >
-            <div className="flex items-center gap-3 mb-4">
-              <div className="w-10 h-10 rounded-xl bg-[var(--safety-orange)]/10 flex items-center justify-center">
-                <MapPin className="w-5 h-5 text-[var(--safety-orange)]" />
-              </div>
-              <h3 className="text-lg font-bold text-white">Cities We Serve</h3>
+            <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-[var(--safety-orange)]/15 flex items-center justify-center flex-shrink-0">
+              <Users className="w-7 h-7 sm:w-8 sm:h-8 text-[var(--safety-orange)]" />
             </div>
-            <div className="flex flex-wrap gap-2 mb-4">
-              {BUSINESS_INFO.areaServed.map((area, index) => (
-                <span
-                  key={index}
-                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[var(--asphalt-black)]/50 border border-[var(--steel-gray)]/20 text-sm font-medium text-[var(--light-gray)]"
-                >
-                  <MapPin className="w-3 h-3 text-[var(--safety-orange)]" />
-                  {area}
-                </span>
-              ))}
-            </div>
-            <p className="text-sm text-[var(--slate-gray)] leading-relaxed">
-              Don&apos;t see your area? Give us a call—we&apos;re continuously expanding our coverage and may still be able to serve you with special arrangements.
-            </p>
-          </motion.div>
-
-          {/* Stats Card */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.05 }}
-            className="lg:col-span-5 p-5 sm:p-6 rounded-2xl bg-[var(--safety-orange)]/10 border border-[var(--safety-orange)]/20"
-          >
-            <div className="flex items-center gap-3 mb-4">
-              <div className="w-10 h-10 rounded-xl bg-[var(--safety-orange)]/20 flex items-center justify-center">
-                <ThermometerSun className="w-5 h-5 text-[var(--safety-orange)]" />
-              </div>
-              <h3 className="text-lg font-bold text-white">Our Process</h3>
-            </div>
-            <div className="grid grid-cols-2 gap-4">
-              <div className="text-center p-3 rounded-xl bg-[var(--asphalt-black)]/30">
-                <div className="text-2xl font-bold text-[var(--safety-orange)]">190°F</div>
-                <div className="text-xs text-[var(--slate-gray)]">Hot Water</div>
-              </div>
-              <div className="text-center p-3 rounded-xl bg-[var(--asphalt-black)]/30">
-                <div className="text-2xl font-bold text-[var(--safety-orange)]">99.9%</div>
-                <div className="text-xs text-[var(--slate-gray)]">Bacteria Killed</div>
-              </div>
-              <div className="text-center p-3 rounded-xl bg-[var(--asphalt-black)]/30">
-                <div className="text-2xl font-bold text-[var(--safety-orange)]">3-5</div>
-                <div className="text-xs text-[var(--slate-gray)]">Min Per Bin</div>
-              </div>
-              <div className="text-center p-3 rounded-xl bg-[var(--asphalt-black)]/30">
-                <div className="text-2xl font-bold text-[var(--safety-orange)]">100%</div>
-                <div className="text-xs text-[var(--slate-gray)]">Eco-Friendly</div>
-              </div>
+            <div>
+              <h3 className="text-lg sm:text-xl font-bold text-white mb-1">Locally Owned & Operated</h3>
+              <p className="text-sm text-[var(--slate-gray)]">
+                Seminole-based business serving our Pinellas County neighbors. When you call, you speak directly with the owner.
+              </p>
             </div>
           </motion.div>
 
-          {/* Why Choose Us Card */}
+          {/* Strip 2 - Professional Equipment */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="lg:col-span-5 p-5 sm:p-6 rounded-2xl bg-gradient-to-br from-[var(--concrete-gray)] to-[var(--asphalt-dark)] border border-[var(--steel-gray)]/30"
+            className="flex items-center gap-4 sm:gap-6 p-4 sm:p-6 rounded-2xl bg-gradient-to-l from-[var(--concrete-gray)]/60 to-transparent border-r-4 border-[var(--safety-orange)] sm:flex-row-reverse sm:text-right"
           >
-            <div className="flex items-center gap-3 mb-4">
-              <div className="w-10 h-10 rounded-xl bg-[var(--safety-orange)]/10 flex items-center justify-center">
-                <Award className="w-5 h-5 text-[var(--safety-orange)]" />
-              </div>
-              <h3 className="text-lg font-bold text-white">Why Choose Us</h3>
+            <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-[var(--safety-orange)]/15 flex items-center justify-center flex-shrink-0">
+              <ThermometerSun className="w-7 h-7 sm:w-8 sm:h-8 text-[var(--safety-orange)]" />
             </div>
-            <ul className="space-y-2.5">
-              <li className="flex items-start gap-2.5">
-                <CheckCircle className="w-4 h-4 text-[var(--success)] mt-0.5 flex-shrink-0" />
-                <span className="text-sm text-[var(--slate-gray)]">Locally owned & operated in Seminole, FL</span>
-              </li>
-              <li className="flex items-start gap-2.5">
-                <CheckCircle className="w-4 h-4 text-[var(--success)] mt-0.5 flex-shrink-0" />
-                <span className="text-sm text-[var(--slate-gray)]">Professional-grade truck-mounted equipment</span>
-              </li>
-              <li className="flex items-start gap-2.5">
-                <CheckCircle className="w-4 h-4 text-[var(--success)] mt-0.5 flex-shrink-0" />
-                <span className="text-sm text-[var(--slate-gray)]">EPA-approved sanitizing solutions</span>
-              </li>
-              <li className="flex items-start gap-2.5">
-                <CheckCircle className="w-4 h-4 text-[var(--success)] mt-0.5 flex-shrink-0" />
-                <span className="text-sm text-[var(--slate-gray)]">Flexible scheduling, no long-term contracts</span>
-              </li>
-            </ul>
+            <div>
+              <h3 className="text-lg sm:text-xl font-bold text-white mb-1">190°F Professional Cleaning</h3>
+              <p className="text-sm text-[var(--slate-gray)]">
+                Truck-mounted system with high-pressure, high-temperature water eliminates 99.9% of bacteria in minutes.
+              </p>
+            </div>
           </motion.div>
 
-          {/* Eco-Friendly Card */}
+          {/* Strip 3 - Eco-Friendly */}
           <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            viewport={{ once: true }}
-            transition={{ delay: 0.15 }}
-            className="lg:col-span-4 p-5 sm:p-6 rounded-2xl bg-gradient-to-br from-emerald-500/10 to-emerald-600/5 border border-emerald-500/20"
-          >
-            <div className="flex items-center gap-3 mb-3">
-              <div className="w-10 h-10 rounded-xl bg-emerald-500/20 flex items-center justify-center">
-                <Leaf className="w-5 h-5 text-emerald-400" />
-              </div>
-              <h3 className="text-lg font-bold text-white">Eco-Friendly</h3>
-            </div>
-            <p className="text-sm text-[var(--slate-gray)] leading-relaxed">
-              Biodegradable cleaning solutions safe for children, pets, and landscaping. All wastewater is captured and properly disposed—nothing enters storm drains.
-            </p>
-          </motion.div>
-
-          {/* Local Business Card */}
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            whileInView={{ opacity: 1, y: 0 }}
+            initial={{ opacity: 0, x: -30 }}
+            whileInView={{ opacity: 1, x: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.2 }}
-            className="lg:col-span-3 p-5 sm:p-6 rounded-2xl bg-gradient-to-br from-[var(--concrete-gray)] to-[var(--asphalt-dark)] border border-[var(--steel-gray)]/30"
+            className="flex items-center gap-4 sm:gap-6 p-4 sm:p-6 rounded-2xl bg-gradient-to-r from-emerald-500/10 to-transparent border-l-4 border-emerald-500"
           >
-            <div className="flex items-center gap-3 mb-3">
-              <div className="w-10 h-10 rounded-xl bg-[var(--safety-orange)]/10 flex items-center justify-center">
-                <Users className="w-5 h-5 text-[var(--safety-orange)]" />
-              </div>
-              <h3 className="text-lg font-bold text-white">Local Team</h3>
+            <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-emerald-500/15 flex items-center justify-center flex-shrink-0">
+              <Leaf className="w-7 h-7 sm:w-8 sm:h-8 text-emerald-400" />
             </div>
-            <p className="text-sm text-[var(--slate-gray)] leading-relaxed">
-              Pinellas County residents serving our neighbors. When you call, you speak directly with the owner.
-            </p>
+            <div>
+              <h3 className="text-lg sm:text-xl font-bold text-white mb-1">100% Eco-Friendly</h3>
+              <p className="text-sm text-[var(--slate-gray)]">
+                Biodegradable solutions safe for kids, pets, and landscaping. All wastewater captured—nothing enters storm drains.
+              </p>
+            </div>
+          </motion.div>
+
+          {/* Strip 4 - Satisfaction Guarantee */}
+          <motion.div
+            initial={{ opacity: 0, x: 30 }}
+            whileInView={{ opacity: 1, x: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.3 }}
+            className="flex items-center gap-4 sm:gap-6 p-4 sm:p-6 rounded-2xl bg-gradient-to-l from-[var(--concrete-gray)]/60 to-transparent border-r-4 border-[var(--safety-orange)] sm:flex-row-reverse sm:text-right"
+          >
+            <div className="w-14 h-14 sm:w-16 sm:h-16 rounded-2xl bg-[var(--safety-orange)]/15 flex items-center justify-center flex-shrink-0">
+              <Award className="w-7 h-7 sm:w-8 sm:h-8 text-[var(--safety-orange)]" />
+            </div>
+            <div>
+              <h3 className="text-lg sm:text-xl font-bold text-white mb-1">100% Satisfaction Guaranteed</h3>
+              <p className="text-sm text-[var(--slate-gray)]">
+                Not happy? We&apos;ll re-clean for free or provide a full refund. No contracts, no hassles, just clean bins.
+              </p>
+            </div>
           </motion.div>
 
         </div>
 
-        {/* Bottom CTA Bar */}
+        {/* Trust Badges Strip */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          transition={{ delay: 0.25 }}
-          className="mt-8 p-5 sm:p-6 rounded-2xl bg-gradient-to-r from-[var(--safety-orange)]/20 via-[var(--safety-orange)]/10 to-[var(--safety-orange)]/20 border border-[var(--safety-orange)]/30 max-w-6xl mx-auto"
+          transition={{ delay: 0.4 }}
+          className="mt-10 sm:mt-14 flex flex-wrap items-center justify-center gap-3 sm:gap-4"
         >
-          <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
-            <div className="text-center sm:text-left">
-              <h3 className="text-lg font-bold text-white mb-1">Ready for Cleaner, Healthier Bins?</h3>
-              <p className="text-sm text-[var(--slate-gray)]">
-                Join hundreds of satisfied customers across Pinellas County. We respond within 24 hours.
-              </p>
-            </div>
-            <a
-              href={`tel:${BUSINESS_INFO.phoneRaw}`}
-              className="inline-flex items-center gap-2 px-6 py-3 bg-[var(--safety-orange)] text-white font-semibold rounded-xl hover:bg-[var(--safety-orange-dark)] transition-colors shadow-lg shadow-[var(--safety-orange)]/20 whitespace-nowrap"
+          {[
+            { icon: Shield, text: 'Licensed & Insured' },
+            { icon: CheckCircle, text: 'Free Estimates' },
+            { icon: Clock, text: '24hr Response' },
+            { icon: Zap, text: 'Same-Day Available' },
+          ].map((badge, index) => (
+            <div
+              key={index}
+              className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-[var(--concrete-gray)]/30 border border-[var(--steel-gray)]/20"
             >
-              <Phone className="w-4 h-4" />
-              Call {BUSINESS_INFO.phone}
-            </a>
-          </div>
+              <badge.icon className="w-4 h-4 text-[var(--safety-orange)]" />
+              <span className="text-xs sm:text-sm font-medium text-[var(--light-gray)]">{badge.text}</span>
+            </div>
+          ))}
         </motion.div>
 
-        {/* SEO Content - Compact */}
+        {/* CTA */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.5 }}
+          className="mt-10 sm:mt-14 text-center"
+        >
+          <p className="text-sm text-[var(--slate-gray)] mb-4">
+            Don&apos;t see your area in our list? Give us a call—we&apos;re always expanding!
+          </p>
+          <a
+            href={`tel:${BUSINESS_INFO.phoneRaw}`}
+            className="inline-flex items-center gap-2 px-6 py-3.5 bg-[var(--safety-orange)] text-white font-semibold rounded-xl hover:bg-[var(--safety-orange-dark)] transition-colors shadow-lg shadow-[var(--safety-orange)]/20"
+          >
+            <Phone className="w-5 h-5" />
+            Call {BUSINESS_INFO.phone}
+          </a>
+        </motion.div>
+
+        {/* SEO Content */}
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          className="mt-10 pt-8 border-t border-[var(--steel-gray)]/10 max-w-4xl mx-auto"
+          className="mt-12 pt-8 border-t border-[var(--steel-gray)]/10 max-w-3xl mx-auto"
         >
-          <p className="text-sm text-[var(--slate-gray)]/80 text-center leading-relaxed">
-            Largo Can Cleaning provides professional trash can sanitization services throughout Pinellas County, Florida.
-            Whether you need residential curbside bin cleaning, commercial dumpster sanitization, or HOA community services,
-            our truck-mounted system uses 190°F pressurized water to eliminate 99.9% of bacteria, remove foul odors, and
-            prevent pest infestations. Serving Largo, Seminole, Clearwater, Pinellas Park, Safety Harbor, Dunedin, Palm Harbor,
-            Belleair, and surrounding communities with eco-friendly, professional-grade cleaning solutions.
+          <p className="text-sm text-[var(--slate-gray)]/70 text-center leading-relaxed">
+            Largo Can Cleaning provides professional trash can sanitization throughout Pinellas County, Florida.
+            Our truck-mounted system uses 190°F pressurized water to eliminate 99.9% of bacteria, remove odors,
+            and prevent pest infestations. Serving Largo, Seminole, Clearwater, Pinellas Park, Safety Harbor,
+            Dunedin, Palm Harbor, Belleair, and surrounding communities with eco-friendly cleaning solutions.
           </p>
         </motion.div>
       </Container>
