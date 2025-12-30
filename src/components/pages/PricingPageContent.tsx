@@ -471,25 +471,8 @@ export default function PricingPageContent() {
         <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-[var(--asphalt-black)] to-transparent" />
       </section>
 
-      {/* Pricing Introduction - SEO Content */}
-      <section className="py-8 sm:py-12 bg-[var(--asphalt-black)] relative overflow-hidden">
-        <Container className="relative z-10">
-          <div className="max-w-3xl mx-auto text-center mb-8">
-            <p className="text-sm sm:text-base text-[var(--slate-gray)] leading-relaxed mb-4">
-              At Largo Can Cleaning, we believe professional trash can sanitization should be affordable and accessible to every Pinellas County household. Our trash can cleaning prices in Largo FL are straightforward with no hidden fees, surprise charges, or long-term commitments required. Whether you need a one-time deep clean or prefer the convenience of scheduled monthly service, we have a plan that fits your needs and budget.
-            </p>
-            <p className="text-sm sm:text-base text-[var(--slate-gray)] leading-relaxed mb-4">
-              Every cleaning includes our signature 190°F high-pressure sanitization that eliminates 99.9% of bacteria, removes stubborn odors, and prevents pest infestations. Our truck-mounted system captures all wastewater to protect your property and the environment. We use only EPA-approved, biodegradable cleaning solutions that are safe for children, pets, and plants.
-            </p>
-            <p className="text-sm sm:text-base text-[var(--slate-gray)] leading-relaxed">
-              Choose from our three service options below. Monthly subscribers enjoy a 12% discount and priority scheduling, while our deep clean option is perfect for bins that need extra attention with industrial degreasing and protective coating treatments.
-            </p>
-          </div>
-        </Container>
-      </section>
-
-      {/* Pricing Cards */}
-      <section className="py-8 sm:py-12 bg-[var(--asphalt-black)] relative overflow-hidden">
+      {/* Pricing Cards - Immediately after hero */}
+      <section className="py-8 sm:py-12 bg-[var(--asphalt-black)] relative overflow-hidden -mt-16 sm:-mt-20">
         {/* Subtle grid continuation */}
         <div className="absolute inset-0 bg-grid-pattern opacity-40" />
 
@@ -515,6 +498,232 @@ export default function PricingPageContent() {
               <PlanCard key={plan.id} plan={plan} />
             ))}
           </motion.div>
+        </Container>
+      </section>
+
+      {/* Pricing Introduction - Bento Grid */}
+      <section className="py-10 sm:py-16 bg-[var(--asphalt-black)] relative overflow-hidden">
+        <div className="absolute inset-0 bg-grid-pattern opacity-20" />
+
+        <Container className="relative z-10">
+          {/* Mobile: Stacked cards */}
+          <div className="sm:hidden space-y-3 px-1">
+            {/* Main value prop */}
+            <div className="p-5 rounded-2xl bg-gradient-to-br from-[var(--safety-orange)]/10 to-transparent border border-[var(--safety-orange)]/20">
+              <div className="flex items-center gap-3 mb-3">
+                <div className="w-10 h-10 rounded-xl bg-[var(--safety-orange)]/20 flex items-center justify-center">
+                  <BadgeCheck className="w-5 h-5 text-[var(--safety-orange)]" />
+                </div>
+                <h3 className="text-base font-bold text-white">Transparent Pricing</h3>
+              </div>
+              <p className="text-sm text-[var(--slate-gray)] leading-relaxed">
+                No hidden fees, surprise charges, or contracts. Our trash can cleaning prices are straightforward—what you see is what you pay.
+              </p>
+            </div>
+
+            {/* Two column row */}
+            <div className="grid grid-cols-2 gap-3">
+              <div className="p-4 rounded-xl bg-[var(--concrete-gray)]/30 border border-[var(--steel-gray)]/20">
+                <div className="w-8 h-8 rounded-lg bg-red-500/10 flex items-center justify-center mb-2">
+                  <Zap className="w-4 h-4 text-red-400" />
+                </div>
+                <p className="text-2xl font-bold text-white mb-1">190°F</p>
+                <p className="text-[11px] text-[var(--slate-gray)]">High-pressure sanitization</p>
+              </div>
+              <div className="p-4 rounded-xl bg-[var(--concrete-gray)]/30 border border-[var(--steel-gray)]/20">
+                <div className="w-8 h-8 rounded-lg bg-emerald-500/10 flex items-center justify-center mb-2">
+                  <Leaf className="w-4 h-4 text-emerald-400" />
+                </div>
+                <p className="text-2xl font-bold text-white mb-1">100%</p>
+                <p className="text-[11px] text-[var(--slate-gray)]">Eco-friendly & safe</p>
+              </div>
+            </div>
+
+            {/* What's included */}
+            <div className="p-5 rounded-2xl bg-[var(--concrete-gray)]/20 border border-[var(--steel-gray)]/20">
+              <h3 className="text-sm font-bold text-white mb-3">Every Clean Includes</h3>
+              <div className="grid grid-cols-2 gap-2">
+                {['99.9% bacteria killed', 'Odor elimination', 'Pest prevention', 'Wastewater captured'].map((item, i) => (
+                  <div key={i} className="flex items-center gap-2">
+                    <Check className="w-3.5 h-3.5 text-[var(--safety-orange)]" />
+                    <span className="text-xs text-[var(--light-gray)]">{item}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Why Professional - Mobile */}
+            <div className="p-5 rounded-2xl bg-[var(--concrete-gray)]/20 border border-[var(--steel-gray)]/20">
+              <h3 className="text-sm font-bold text-white mb-3">Why Professional Cleaning?</h3>
+              <p className="text-xs text-[var(--slate-gray)] leading-relaxed mb-3">
+                Garden hoses and DIY scrubbing only remove surface grime. Our truck-mounted system reaches temperatures that destroy bacteria, viruses, and mold spores at the source.
+              </p>
+              <div className="space-y-2">
+                {['Eliminates health hazards', 'Prevents recurring odors', 'Extends bin lifespan'].map((item, i) => (
+                  <div key={i} className="flex items-center gap-2">
+                    <Check className="w-3.5 h-3.5 text-emerald-400" />
+                    <span className="text-xs text-[var(--light-gray)]">{item}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Service options hint - Mobile */}
+            <div className="p-4 rounded-xl bg-gradient-to-r from-blue-500/10 to-purple-500/10 border border-blue-500/20">
+              <p className="text-xs text-[var(--slate-gray)] leading-relaxed">
+                <span className="text-white font-medium">Choose your plan below:</span> One-time cleans start at $25. Monthly subscribers save 12% with priority scheduling. Deep cleans include industrial degreasing for neglected bins.
+              </p>
+            </div>
+          </div>
+
+          {/* Desktop: Bento Grid */}
+          <div className="hidden sm:grid grid-cols-12 gap-4 max-w-5xl mx-auto">
+            {/* Large card - Main value prop */}
+            <div className="col-span-7 p-6 lg:p-8 rounded-2xl bg-gradient-to-br from-[var(--safety-orange)]/10 via-[var(--safety-orange)]/5 to-transparent border border-[var(--safety-orange)]/20 relative overflow-hidden">
+              <div className="absolute top-0 right-0 w-32 h-32 bg-[var(--safety-orange)]/10 rounded-full blur-[60px] translate-x-1/2 -translate-y-1/2" />
+              <div className="relative">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className="w-12 h-12 rounded-xl bg-[var(--safety-orange)]/20 flex items-center justify-center">
+                    <BadgeCheck className="w-6 h-6 text-[var(--safety-orange)]" />
+                  </div>
+                  <div>
+                    <h3 className="text-xl font-bold text-white">Transparent Pricing</h3>
+                    <p className="text-xs text-[var(--safety-orange)]">No surprises, ever</p>
+                  </div>
+                </div>
+                <p className="text-sm lg:text-base text-[var(--slate-gray)] leading-relaxed mb-4">
+                  At Largo Can Cleaning, we believe professional trash can sanitization should be affordable for every Pinellas County household. Our prices are straightforward with no hidden fees, surprise charges, or long-term commitments. Whether you need a single deep clean or prefer the convenience of scheduled monthly service, we have a plan designed to fit your needs and budget.
+                </p>
+                <div className="flex flex-wrap gap-2">
+                  {['No contracts', 'No hidden fees', 'Cancel anytime', 'Free estimates'].map((tag, i) => (
+                    <span key={i} className="px-3 py-1 text-xs font-medium text-[var(--safety-orange)] bg-[var(--safety-orange)]/10 rounded-full border border-[var(--safety-orange)]/20">
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* Stats stack */}
+            <div className="col-span-5 grid grid-rows-2 gap-4">
+              {/* 190°F card */}
+              <div className="p-5 rounded-2xl bg-gradient-to-br from-red-500/10 to-transparent border border-red-500/20 flex items-center gap-4">
+                <div className="w-14 h-14 rounded-xl bg-red-500/10 flex items-center justify-center flex-shrink-0">
+                  <Zap className="w-7 h-7 text-red-400" />
+                </div>
+                <div>
+                  <p className="text-3xl font-bold text-white">190°F</p>
+                  <p className="text-sm text-[var(--slate-gray)]">High-pressure sanitization kills 99.9% of bacteria, viruses, and mold</p>
+                </div>
+              </div>
+
+              {/* Eco card */}
+              <div className="p-5 rounded-2xl bg-gradient-to-br from-emerald-500/10 to-transparent border border-emerald-500/20 flex items-center gap-4">
+                <div className="w-14 h-14 rounded-xl bg-emerald-500/10 flex items-center justify-center flex-shrink-0">
+                  <Leaf className="w-7 h-7 text-emerald-400" />
+                </div>
+                <div>
+                  <p className="text-3xl font-bold text-white">100%</p>
+                  <p className="text-sm text-[var(--slate-gray)]">EPA-approved, biodegradable solutions safe for family and pets</p>
+                </div>
+              </div>
+            </div>
+
+            {/* What's included - full width */}
+            <div className="col-span-12 p-6 rounded-2xl bg-[var(--concrete-gray)]/20 border border-[var(--steel-gray)]/20">
+              <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4">
+                <div>
+                  <h3 className="text-lg font-bold text-white mb-1">Every Cleaning Includes</h3>
+                  <p className="text-sm text-[var(--slate-gray)]">Our signature process for spotless, sanitized bins</p>
+                </div>
+                <div className="flex flex-wrap gap-x-6 gap-y-2">
+                  {[
+                    '99.9% bacteria elimination',
+                    'Complete odor removal',
+                    'Pest prevention treatment',
+                    'Eco-safe wastewater capture'
+                  ].map((item, i) => (
+                    <div key={i} className="flex items-center gap-2">
+                      <div className="w-5 h-5 rounded-full bg-[var(--safety-orange)]/10 flex items-center justify-center">
+                        <Check className="w-3 h-3 text-[var(--safety-orange)]" />
+                      </div>
+                      <span className="text-sm text-[var(--light-gray)]">{item}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </div>
+
+            {/* NEW ROW: Why Professional + Service Breakdown */}
+            {/* Why Professional Cleaning */}
+            <div className="col-span-6 p-6 rounded-2xl bg-[var(--concrete-gray)]/20 border border-[var(--steel-gray)]/20">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-10 h-10 rounded-xl bg-blue-500/10 flex items-center justify-center">
+                  <Shield className="w-5 h-5 text-blue-400" />
+                </div>
+                <h3 className="text-lg font-bold text-white">Why Professional Cleaning?</h3>
+              </div>
+              <p className="text-sm text-[var(--slate-gray)] leading-relaxed mb-4">
+                Garden hoses and DIY scrubbing only remove surface grime—leaving behind the bacteria, grease, and organic matter that cause persistent odors and attract pests. Our truck-mounted system reaches temperatures that destroy harmful pathogens at the source, something no amount of household cleaning can achieve.
+              </p>
+              <div className="grid grid-cols-2 gap-2">
+                {[
+                  'Eliminates health hazards',
+                  'Prevents recurring odors',
+                  'Deters raccoons & pests',
+                  'Extends bin lifespan'
+                ].map((item, i) => (
+                  <div key={i} className="flex items-center gap-2">
+                    <Check className="w-4 h-4 text-blue-400" />
+                    <span className="text-sm text-[var(--light-gray)]">{item}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            {/* Service Options Breakdown */}
+            <div className="col-span-6 p-6 rounded-2xl bg-gradient-to-br from-purple-500/10 to-blue-500/5 border border-purple-500/20">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-10 h-10 rounded-xl bg-purple-500/10 flex items-center justify-center">
+                  <Sparkles className="w-5 h-5 text-purple-400" />
+                </div>
+                <h3 className="text-lg font-bold text-white">Choose Your Plan</h3>
+              </div>
+              <div className="space-y-3">
+                <div className="flex items-start gap-3">
+                  <div className="w-6 h-6 rounded-full bg-blue-500/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                    <span className="text-xs font-bold text-blue-400">1</span>
+                  </div>
+                  <p className="text-sm text-[var(--slate-gray)]">
+                    <span className="text-white font-medium">One-Time Clean ($25/can)</span> — Perfect for trying our service or occasional deep cleans before events or seasons.
+                  </p>
+                </div>
+                <div className="flex items-start gap-3">
+                  <div className="w-6 h-6 rounded-full bg-[var(--safety-orange)]/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                    <span className="text-xs font-bold text-[var(--safety-orange)]">2</span>
+                  </div>
+                  <p className="text-sm text-[var(--slate-gray)]">
+                    <span className="text-white font-medium">Monthly Service ($22/can)</span> — Save 12% with recurring cleans. Priority scheduling and never think about dirty bins again.
+                  </p>
+                </div>
+                <div className="flex items-start gap-3">
+                  <div className="w-6 h-6 rounded-full bg-emerald-500/20 flex items-center justify-center flex-shrink-0 mt-0.5">
+                    <span className="text-xs font-bold text-emerald-400">3</span>
+                  </div>
+                  <p className="text-sm text-[var(--slate-gray)]">
+                    <span className="text-white font-medium">Deep Clean ($45/can)</span> — Industrial degreasing, protective coating, and interior detailing for neglected or heavily soiled bins.
+                  </p>
+                </div>
+              </div>
+            </div>
+
+            {/* Bottom SEO text bar */}
+            <div className="col-span-12 p-5 rounded-2xl bg-[var(--asphalt-dark)]/50 border border-[var(--steel-gray)]/10">
+              <p className="text-sm text-[var(--slate-gray)] leading-relaxed text-center max-w-4xl mx-auto">
+                Serving residential customers, HOAs, apartment complexes, restaurants, and commercial properties throughout Largo, Seminole, Clearwater, Pinellas Park, Safety Harbor, Dunedin, Palm Harbor, Belleair, and all Pinellas County communities. Our mobile cleaning trucks bring professional-grade sanitization directly to your curb—no water or power hookup needed from you.
+              </p>
+            </div>
+          </div>
         </Container>
       </section>
 

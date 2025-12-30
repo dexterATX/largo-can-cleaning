@@ -16,6 +16,10 @@ import {
   Zap,
   CalendarCheck,
   MessageCircle,
+  ThermometerSun,
+  Leaf,
+  Award,
+  Users,
 } from 'lucide-react'
 import Container from '@/components/ui/Container'
 import Button from '@/components/ui/Button'
@@ -383,7 +387,7 @@ function ContactFormSection() {
   }, [])
 
   return (
-    <section className="py-10 sm:py-16 lg:py-20 bg-[var(--asphalt-dark)]">
+    <section className="py-10 sm:py-16 lg:py-20 bg-[var(--asphalt-dark)] -mt-12 sm:-mt-16 relative z-10">
       <Container>
         <div className="grid lg:grid-cols-3 gap-8 lg:gap-12 max-w-5xl lg:max-w-6xl mx-auto">
           {/* Form */}
@@ -679,92 +683,211 @@ function ContactFormSection() {
 }
 
 // ============================================
-// AREAS WE SERVE SECTION
+// AREAS WE SERVE SECTION - BENTO GRID
 // ============================================
 
 function AreasWeServeSection() {
   return (
     <section className="py-10 sm:py-16 bg-[var(--asphalt-black)] border-t border-[var(--steel-gray)]/10">
       <Container>
+        {/* Header */}
         <motion.div
           initial={{ opacity: 0, y: 20 }}
           whileInView={{ opacity: 1, y: 0 }}
           viewport={{ once: true }}
-          className="text-center mb-8"
+          className="text-center mb-8 sm:mb-12"
         >
           <div className="inline-flex items-center gap-2 px-3 py-1.5 mb-4 rounded-full bg-[var(--safety-orange)]/10 border border-[var(--safety-orange)]/20">
             <MapPin className="w-3.5 h-3.5 text-[var(--safety-orange)]" />
             <span className="text-[10px] font-semibold uppercase tracking-wider text-[var(--safety-orange)]">Areas We Serve</span>
           </div>
           <h2 className="text-2xl sm:text-3xl font-bold text-white mb-3">
-            Find Us in Pinellas County, Florida
+            Proudly Serving Pinellas County
           </h2>
-          <p className="text-[var(--slate-gray)] max-w-lg mx-auto mb-3">
-            Professional trash can cleaning and sanitization services for residential and commercial customers throughout {BUSINESS_INFO.address.county}.
-          </p>
-          <p className="text-sm text-[var(--slate-gray)]/80 max-w-2xl mx-auto">
-            Our truck-mounted cleaning system brings high-pressure, high-temperature sanitization directly to your curb. We use eco-friendly, biodegradable cleaning solutions that are safe for children, pets, and the environment. All wastewater is captured and properly disposed of—nothing goes into storm drains or onto your property.
+          <p className="text-[var(--slate-gray)] max-w-lg mx-auto">
+            Professional trash can cleaning for residential and commercial customers throughout {BUSINESS_INFO.address.county}.
           </p>
         </motion.div>
 
+        {/* Bento Grid */}
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-4 max-w-6xl mx-auto">
+
+          {/* Service Areas Card - Large */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            className="sm:col-span-2 lg:col-span-7 p-5 sm:p-6 rounded-2xl bg-gradient-to-br from-[var(--concrete-gray)] to-[var(--asphalt-dark)] border border-[var(--steel-gray)]/30"
+          >
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-10 h-10 rounded-xl bg-[var(--safety-orange)]/10 flex items-center justify-center">
+                <MapPin className="w-5 h-5 text-[var(--safety-orange)]" />
+              </div>
+              <h3 className="text-lg font-bold text-white">Cities We Serve</h3>
+            </div>
+            <div className="flex flex-wrap gap-2 mb-4">
+              {BUSINESS_INFO.areaServed.map((area, index) => (
+                <span
+                  key={index}
+                  className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full bg-[var(--asphalt-black)]/50 border border-[var(--steel-gray)]/20 text-sm font-medium text-[var(--light-gray)]"
+                >
+                  <MapPin className="w-3 h-3 text-[var(--safety-orange)]" />
+                  {area}
+                </span>
+              ))}
+            </div>
+            <p className="text-sm text-[var(--slate-gray)] leading-relaxed">
+              Don&apos;t see your area? Give us a call—we&apos;re continuously expanding our coverage and may still be able to serve you with special arrangements.
+            </p>
+          </motion.div>
+
+          {/* Stats Card */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.05 }}
+            className="lg:col-span-5 p-5 sm:p-6 rounded-2xl bg-[var(--safety-orange)]/10 border border-[var(--safety-orange)]/20"
+          >
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-10 h-10 rounded-xl bg-[var(--safety-orange)]/20 flex items-center justify-center">
+                <ThermometerSun className="w-5 h-5 text-[var(--safety-orange)]" />
+              </div>
+              <h3 className="text-lg font-bold text-white">Our Process</h3>
+            </div>
+            <div className="grid grid-cols-2 gap-4">
+              <div className="text-center p-3 rounded-xl bg-[var(--asphalt-black)]/30">
+                <div className="text-2xl font-bold text-[var(--safety-orange)]">190°F</div>
+                <div className="text-xs text-[var(--slate-gray)]">Hot Water</div>
+              </div>
+              <div className="text-center p-3 rounded-xl bg-[var(--asphalt-black)]/30">
+                <div className="text-2xl font-bold text-[var(--safety-orange)]">99.9%</div>
+                <div className="text-xs text-[var(--slate-gray)]">Bacteria Killed</div>
+              </div>
+              <div className="text-center p-3 rounded-xl bg-[var(--asphalt-black)]/30">
+                <div className="text-2xl font-bold text-[var(--safety-orange)]">3-5</div>
+                <div className="text-xs text-[var(--slate-gray)]">Min Per Bin</div>
+              </div>
+              <div className="text-center p-3 rounded-xl bg-[var(--asphalt-black)]/30">
+                <div className="text-2xl font-bold text-[var(--safety-orange)]">100%</div>
+                <div className="text-xs text-[var(--slate-gray)]">Eco-Friendly</div>
+              </div>
+            </div>
+          </motion.div>
+
+          {/* Why Choose Us Card */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.1 }}
+            className="lg:col-span-5 p-5 sm:p-6 rounded-2xl bg-gradient-to-br from-[var(--concrete-gray)] to-[var(--asphalt-dark)] border border-[var(--steel-gray)]/30"
+          >
+            <div className="flex items-center gap-3 mb-4">
+              <div className="w-10 h-10 rounded-xl bg-[var(--safety-orange)]/10 flex items-center justify-center">
+                <Award className="w-5 h-5 text-[var(--safety-orange)]" />
+              </div>
+              <h3 className="text-lg font-bold text-white">Why Choose Us</h3>
+            </div>
+            <ul className="space-y-2.5">
+              <li className="flex items-start gap-2.5">
+                <CheckCircle className="w-4 h-4 text-[var(--success)] mt-0.5 flex-shrink-0" />
+                <span className="text-sm text-[var(--slate-gray)]">Locally owned & operated in Seminole, FL</span>
+              </li>
+              <li className="flex items-start gap-2.5">
+                <CheckCircle className="w-4 h-4 text-[var(--success)] mt-0.5 flex-shrink-0" />
+                <span className="text-sm text-[var(--slate-gray)]">Professional-grade truck-mounted equipment</span>
+              </li>
+              <li className="flex items-start gap-2.5">
+                <CheckCircle className="w-4 h-4 text-[var(--success)] mt-0.5 flex-shrink-0" />
+                <span className="text-sm text-[var(--slate-gray)]">EPA-approved sanitizing solutions</span>
+              </li>
+              <li className="flex items-start gap-2.5">
+                <CheckCircle className="w-4 h-4 text-[var(--success)] mt-0.5 flex-shrink-0" />
+                <span className="text-sm text-[var(--slate-gray)]">Flexible scheduling, no long-term contracts</span>
+              </li>
+            </ul>
+          </motion.div>
+
+          {/* Eco-Friendly Card */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.15 }}
+            className="lg:col-span-4 p-5 sm:p-6 rounded-2xl bg-gradient-to-br from-emerald-500/10 to-emerald-600/5 border border-emerald-500/20"
+          >
+            <div className="flex items-center gap-3 mb-3">
+              <div className="w-10 h-10 rounded-xl bg-emerald-500/20 flex items-center justify-center">
+                <Leaf className="w-5 h-5 text-emerald-400" />
+              </div>
+              <h3 className="text-lg font-bold text-white">Eco-Friendly</h3>
+            </div>
+            <p className="text-sm text-[var(--slate-gray)] leading-relaxed">
+              Biodegradable cleaning solutions safe for children, pets, and landscaping. All wastewater is captured and properly disposed—nothing enters storm drains.
+            </p>
+          </motion.div>
+
+          {/* Local Business Card */}
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true }}
+            transition={{ delay: 0.2 }}
+            className="lg:col-span-3 p-5 sm:p-6 rounded-2xl bg-gradient-to-br from-[var(--concrete-gray)] to-[var(--asphalt-dark)] border border-[var(--steel-gray)]/30"
+          >
+            <div className="flex items-center gap-3 mb-3">
+              <div className="w-10 h-10 rounded-xl bg-[var(--safety-orange)]/10 flex items-center justify-center">
+                <Users className="w-5 h-5 text-[var(--safety-orange)]" />
+              </div>
+              <h3 className="text-lg font-bold text-white">Local Team</h3>
+            </div>
+            <p className="text-sm text-[var(--slate-gray)] leading-relaxed">
+              Pinellas County residents serving our neighbors. When you call, you speak directly with the owner.
+            </p>
+          </motion.div>
+
+        </div>
+
+        {/* Bottom CTA Bar */}
+        <motion.div
+          initial={{ opacity: 0, y: 20 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true }}
+          transition={{ delay: 0.25 }}
+          className="mt-8 p-5 sm:p-6 rounded-2xl bg-gradient-to-r from-[var(--safety-orange)]/20 via-[var(--safety-orange)]/10 to-[var(--safety-orange)]/20 border border-[var(--safety-orange)]/30 max-w-6xl mx-auto"
+        >
+          <div className="flex flex-col sm:flex-row items-center justify-between gap-4">
+            <div className="text-center sm:text-left">
+              <h3 className="text-lg font-bold text-white mb-1">Ready for Cleaner, Healthier Bins?</h3>
+              <p className="text-sm text-[var(--slate-gray)]">
+                Join hundreds of satisfied customers across Pinellas County. We respond within 24 hours.
+              </p>
+            </div>
+            <a
+              href={`tel:${BUSINESS_INFO.phoneRaw}`}
+              className="inline-flex items-center gap-2 px-6 py-3 bg-[var(--safety-orange)] text-white font-semibold rounded-xl hover:bg-[var(--safety-orange-dark)] transition-colors shadow-lg shadow-[var(--safety-orange)]/20 whitespace-nowrap"
+            >
+              <Phone className="w-4 h-4" />
+              Call {BUSINESS_INFO.phone}
+            </a>
+          </div>
+        </motion.div>
+
+        {/* SEO Content - Compact */}
         <motion.div
           initial={{ opacity: 0 }}
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
-          className="flex flex-wrap justify-center gap-2 sm:gap-3 max-w-3xl mx-auto"
+          className="mt-10 pt-8 border-t border-[var(--steel-gray)]/10 max-w-4xl mx-auto"
         >
-          {BUSINESS_INFO.areaServed.map((area, index) => (
-            <span
-              key={index}
-              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-[var(--concrete-gray)]/30 border border-[var(--steel-gray)]/20 text-sm font-medium text-[var(--light-gray)] hover:border-[var(--safety-orange)]/30 hover:text-white transition-all"
-            >
-              <MapPin className="w-3.5 h-3.5 text-[var(--safety-orange)]" />
-              <span>{area}</span>, FL
-            </span>
-          ))}
-        </motion.div>
-
-        {/* CTA */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="mt-8 text-center"
-        >
-          <p className="text-sm text-[var(--slate-gray)] mb-2">
-            Don&apos;t see your area? Give us a call - we may still be able to serve you!
+          <p className="text-sm text-[var(--slate-gray)]/80 text-center leading-relaxed">
+            Largo Can Cleaning provides professional trash can sanitization services throughout Pinellas County, Florida.
+            Whether you need residential curbside bin cleaning, commercial dumpster sanitization, or HOA community services,
+            our truck-mounted system uses 190°F pressurized water to eliminate 99.9% of bacteria, remove foul odors, and
+            prevent pest infestations. Serving Largo, Seminole, Clearwater, Pinellas Park, Safety Harbor, Dunedin, Palm Harbor,
+            Belleair, and surrounding communities with eco-friendly, professional-grade cleaning solutions.
           </p>
-          <p className="text-xs text-[var(--slate-gray)]/70 mb-4 max-w-md mx-auto">
-            We&apos;re continuously expanding our service coverage and offer special arrangements for customers just outside our regular service zones.
-          </p>
-          <a
-            href={`tel:${BUSINESS_INFO.phoneRaw}`}
-            className="inline-flex items-center gap-2 px-5 py-2.5 bg-[var(--safety-orange)] text-white font-semibold rounded-xl hover:bg-[var(--safety-orange-dark)] transition-colors shadow-lg shadow-[var(--safety-orange)]/20"
-          >
-            <Phone className="w-4 h-4" />
-            Call {BUSINESS_INFO.phone}
-          </a>
-        </motion.div>
-
-        {/* Additional content for SEO */}
-        <motion.div
-          initial={{ opacity: 0, y: 20 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true }}
-          className="mt-12 pt-8 border-t border-[var(--steel-gray)]/10"
-        >
-          <div className="max-w-2xl mx-auto text-center">
-            <h3 className="text-lg font-bold text-white mb-3">Why Choose Largo Can Cleaning?</h3>
-            <p className="text-sm text-[var(--slate-gray)] leading-relaxed mb-3">
-              As a locally-owned and operated business based in Seminole, Florida, we take pride in providing exceptional trash can cleaning services to our Pinellas County neighbors. Our commitment to customer satisfaction, eco-friendly practices, and professional-grade equipment sets us apart from DIY alternatives. We offer flexible scheduling, no contracts, and a 100% satisfaction guarantee on every cleaning.
-            </p>
-            <p className="text-sm text-[var(--slate-gray)] leading-relaxed mb-3">
-              Whether you need residential curbside bin cleaning, commercial dumpster sanitization, or HOA community services, our team delivers consistent, reliable results you can count on. Our truck-mounted system uses 190°F pressurized water and EPA-approved sanitizing solutions to eliminate 99.9% of bacteria, remove foul odors, and prevent pest infestations that plague dirty trash cans in Florida&apos;s warm climate.
-            </p>
-            <p className="text-sm text-[var(--slate-gray)] leading-relaxed">
-              Contact us today using the form above or call us directly for immediate assistance. We respond to all inquiries within 24 hours and can often schedule your first cleaning within days. Join hundreds of satisfied customers throughout Largo, Seminole, Clearwater, and surrounding communities who trust us for professional trash can sanitization services.
-            </p>
-          </div>
         </motion.div>
       </Container>
     </section>
