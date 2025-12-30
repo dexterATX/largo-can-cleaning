@@ -13,8 +13,8 @@ const steps = [
     title: 'Schedule Service',
     description:
       'Pick a date and time that works for you. Same-day and next-day appointments available.',
-    img: 'https://images.unsplash.com/photo-1506784983877-45594efa4cbe?q=90&w=800&auto=format&fit=crop',
-    alt: 'Schedule your trash can cleaning service online - easy booking for Largo and Pinellas County residents',
+    img: '/curbside-trash-can-residential-home.jpg',
+    alt: 'Schedule trash can cleaning service for your Largo Florida home - easy online booking',
   },
   {
     icon: Truck,
@@ -22,8 +22,8 @@ const steps = [
     title: 'We Arrive',
     description:
       'Our team arrives at your location with our mobile cleaning unit. No water or power hookup needed.',
-    img: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?q=90&w=800&auto=format&fit=crop',
-    alt: 'Professional trash can cleaning truck arrives at your Largo, Florida home',
+    img: '/trash-can-cleaning-technician-at-work.jpg',
+    alt: 'Largo Can Cleaning technician arrives with professional cleaning equipment at your home',
   },
   {
     icon: Droplets,
@@ -31,8 +31,8 @@ const steps = [
     title: 'High-Pressure Wash',
     description:
       '190°F high-pressure wash eliminates 99.9% of bacteria, grease, and odors in minutes.',
-    img: 'https://images.unsplash.com/photo-1585421514284-efb74c2b69ba?q=90&w=800&auto=format&fit=crop',
-    alt: 'High-pressure hot water cleaning eliminates bacteria and odors from garbage bins',
+    img: '/sanitized-trash-can-interior-clean.jpg',
+    alt: 'High-pressure 190 degree hot water sanitizes trash can interior eliminating bacteria',
   },
   {
     icon: CheckCircle,
@@ -40,8 +40,8 @@ const steps = [
     title: 'Sparkling Results',
     description:
       'Your bins are returned clean, sanitized, and deodorized. We dispose of all wastewater...',
-    img: 'https://images.unsplash.com/photo-1584568694244-14fbdf83bd30?q=90&w=800&auto=format&fit=crop',
-    alt: 'Clean sanitized residential garbage bin after professional cleaning service',
+    img: '/clean-trash-can-interior-after-service.jpg',
+    alt: 'Sparkling clean sanitized trash can interior after professional Largo Can Cleaning service',
   },
 ]
 

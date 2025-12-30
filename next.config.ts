@@ -32,7 +32,7 @@ const securityHeaders = [
       "default-src 'self'",
       "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com", // Required for Next.js + GA
       "style-src 'self' 'unsafe-inline'", // Required for styled-jsx and inline styles
-      "img-src 'self' data: https://images.unsplash.com https://i.pravatar.cc https://www.google-analytics.com https://www.googletagmanager.com blob:",
+      "img-src 'self' data: https://i.pravatar.cc https://www.google-analytics.com https://www.googletagmanager.com blob:",
       "font-src 'self' data:",
       "connect-src 'self' https://*.supabase.co https://www.google-analytics.com https://analytics.google.com https://*.googletagmanager.com",
       "frame-ancestors 'self'",
@@ -73,11 +73,7 @@ const nextConfig: NextConfig = {
     remotePatterns: [
       {
         protocol: 'https',
-        hostname: 'images.unsplash.com',
-      },
-      {
-        protocol: 'https',
-        hostname: 'i.pravatar.cc',
+        hostname: 'i.pravatar.cc', // Used for testimonial avatars
       },
     ],
     // Performance: Use modern formats and longer cache
