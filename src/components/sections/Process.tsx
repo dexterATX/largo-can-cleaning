@@ -211,7 +211,7 @@ const ProcessCard = memo(function ProcessCard({ step, index }: { step: typeof st
 export default function Process() {
   return (
     <section
-      className="pb-16 sm:pb-24 bg-[var(--asphalt-black)] relative overflow-hidden"
+      className="py-16 sm:py-24 bg-[var(--asphalt-black)] relative overflow-hidden"
       aria-labelledby="process-heading"
     >
       {/* Decorative Elements - Hidden on mobile, reduced blur for performance */}

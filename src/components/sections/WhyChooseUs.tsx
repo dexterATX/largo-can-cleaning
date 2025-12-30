@@ -120,7 +120,7 @@ function MobileSlider() {
 export default function WhyChooseUs() {
   return (
     <section
-      className="pt-16 sm:pt-24 bg-[var(--asphalt-black)] relative overflow-hidden"
+      className="py-16 sm:py-24 bg-[var(--asphalt-black)] relative overflow-hidden"
       aria-labelledby="why-choose-heading"
     >
       {/* Background Elements - pointer-events-none so they don't block clicks */}
@@ -200,11 +200,6 @@ export default function WhyChooseUs() {
           </p>
         </motion.div>
       </Container>
-
-      {/* Bottom Divider - Centered between sections */}
-      <div className="w-full py-10 sm:py-12 flex items-center justify-center" aria-hidden="true">
-        <div className="w-64 sm:w-80 h-px bg-gradient-to-r from-transparent via-[var(--safety-orange)]/60 to-transparent" />
-      </div>
     </section>
   )
 }
