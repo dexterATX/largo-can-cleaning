@@ -13,7 +13,7 @@ const steps = [
     title: 'Schedule Service',
     description:
       'Pick a date and time that works for you. Same-day and next-day appointments available.',
-    img: '/card_01_schedule_graphic.png',
+    img: '/card_final_01_schedule_edited.png',
     alt: 'Schedule trash can cleaning service for your Largo Florida home - easy online booking',
   },
   {
@@ -22,7 +22,7 @@ const steps = [
     title: 'We Arrive',
     description:
       'Our team arrives at your location with our mobile cleaning unit. No water or power hookup needed.',
-    img: '/card_02_arrive_graphic.png',
+    img: '/card_final_02_arrive.png',
     alt: 'Largo Can Cleaning technician arrives with professional cleaning equipment at your home',
   },
   {
@@ -31,7 +31,7 @@ const steps = [
     title: 'High-Pressure Wash',
     description:
       '190°F high-pressure wash eliminates 99.9% of bacteria, grease, and odors in minutes.',
-    img: '/card_03_wash_graphic.png',
+    img: '/card_stylized_03_wash.png',
     alt: 'High-pressure 190 degree hot water sanitizes trash can interior eliminating bacteria',
   },
   {
@@ -40,7 +40,7 @@ const steps = [
     title: 'Sparkling Results',
     description:
       'Your bins are returned clean, sanitized, and deodorized. We dispose of all wastewater...',
-    img: '/card_04_results_graphic.png',
+    img: '/card_final_04_results_simple.png',
     alt: 'Sparkling clean sanitized trash can interior after professional Largo Can Cleaning service',
   },
 ]
@@ -165,7 +165,7 @@ function ProcessCarousel() {
 // Memoized ProcessCard
 const ProcessCard = memo(function ProcessCard({ step, index }: { step: typeof steps[0]; index: number }) {
   return (
-    <article className="relative h-[400px] sm:h-[420px] rounded-2xl overflow-hidden group select-none">
+    <article className="relative h-[400px] sm:h-[420px] rounded-2xl overflow-hidden group select-none shadow-[0_0_40px_rgba(0,0,0,0.4),inset_0_0_60px_rgba(0,0,0,0.3)] ring-1 ring-white/10">
       {/* Background Image */}
       <div className="absolute inset-0">
         <Image

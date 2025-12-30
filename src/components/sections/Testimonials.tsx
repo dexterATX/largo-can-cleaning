@@ -58,10 +58,11 @@ const reviews = [
   },
 ]
 
-const firstRow = reviews.slice(0, 2)
-const secondRow = reviews.slice(2, 4)
-const thirdRow = reviews.slice(4, 6)
-const fourthRow = reviews.slice(6, 8)
+// Use all reviews in each row but offset them for variety
+const firstRow = [...reviews.slice(0, 4), ...reviews.slice(4, 8)]
+const secondRow = [...reviews.slice(2, 6), ...reviews.slice(6, 8), ...reviews.slice(0, 2)]
+const thirdRow = [...reviews.slice(4, 8), ...reviews.slice(0, 4)]
+const fourthRow = [...reviews.slice(6, 8), ...reviews.slice(0, 6)]
 
 function ReviewCard({
   img,
@@ -77,9 +78,9 @@ function ReviewCard({
   return (
     <figure
       className={cn(
-        'relative cursor-pointer overflow-hidden rounded-xl p-2.5',
+        'relative overflow-hidden rounded-xl p-2.5',
         'w-28 backdrop-blur-sm',
-        'bg-white/5 hover:bg-white/10 transition-colors'
+        'bg-white/5'
       )}
     >
       {/* Author at top */}
@@ -150,24 +151,24 @@ export default function Testimonials() {
               'translateX(-30px) translateY(0px) translateZ(-50px) rotateX(20deg) rotateY(-10deg) rotateZ(20deg)',
           }}
         >
-          <Marquee vertical repeat={2} className="[--duration:25s] [--gap:0.75rem] !p-0">
-            {firstRow.map((review) => (
-              <ReviewCard key={review.name} {...review} />
+          <Marquee vertical repeat={4} className="[--duration:40s] [--gap:0.75rem] !p-0">
+            {firstRow.map((review, idx) => (
+              <ReviewCard key={`${review.name}-${idx}`} {...review} />
             ))}
           </Marquee>
-          <Marquee vertical repeat={2} className="[--duration:25s] [--gap:0.75rem] !p-0 [&>div]:![animation-direction:reverse] [&>div]:![animation-delay:-5s]">
-            {secondRow.map((review) => (
-              <ReviewCard key={review.name} {...review} />
+          <Marquee vertical repeat={4} className="[--duration:40s] [--gap:0.75rem] !p-0 [&>div]:![animation-direction:reverse] [&>div]:![animation-delay:-8s]">
+            {secondRow.map((review, idx) => (
+              <ReviewCard key={`${review.name}-${idx}`} {...review} />
             ))}
           </Marquee>
-          <Marquee vertical repeat={2} className="[--duration:25s] [--gap:0.75rem] !p-0 [&>div]:![animation-delay:-10s]">
-            {thirdRow.map((review) => (
-              <ReviewCard key={review.name} {...review} />
+          <Marquee vertical repeat={4} className="[--duration:40s] [--gap:0.75rem] !p-0 [&>div]:![animation-delay:-16s]">
+            {thirdRow.map((review, idx) => (
+              <ReviewCard key={`${review.name}-${idx}`} {...review} />
             ))}
           </Marquee>
-          <Marquee vertical repeat={2} className="[--duration:25s] [--gap:0.75rem] !p-0 [&>div]:![animation-direction:reverse] [&>div]:![animation-delay:-3s]">
-            {fourthRow.map((review) => (
-              <ReviewCard key={review.name} {...review} />
+          <Marquee vertical repeat={4} className="[--duration:40s] [--gap:0.75rem] !p-0 [&>div]:![animation-direction:reverse] [&>div]:![animation-delay:-4s]">
+            {fourthRow.map((review, idx) => (
+              <ReviewCard key={`${review.name}-${idx}`} {...review} />
             ))}
           </Marquee>
         </div>
