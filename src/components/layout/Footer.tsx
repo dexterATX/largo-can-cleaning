@@ -83,15 +83,7 @@ export default function Footer() {
     <footer
       className="bg-[var(--asphalt-black)] border-t-2 border-[var(--safety-orange)]/40"
       role="contentinfo"
-      itemScope
-      itemType="https://schema.org/LocalBusiness"
     >
-      {/* Hidden structured data for SEO */}
-      <meta itemProp="name" content={BUSINESS_INFO.name} />
-      <meta itemProp="telephone" content={BUSINESS_INFO.phoneRaw} />
-      <meta itemProp="email" content={BUSINESS_INFO.email} />
-      <meta itemProp="priceRange" content={BUSINESS_INFO.priceRange} />
-      <link itemProp="url" href={BUSINESS_INFO.url} />
       <Container>
         {/* Main Footer Content */}
         <div className="py-6 lg:py-10">
@@ -172,18 +164,16 @@ export default function Footer() {
               </FooterDropdown>
 
               <FooterDropdown title="Contact & Hours" icon={Clock}>
-                <div className="space-y-3" itemProp="address" itemScope itemType="https://schema.org/PostalAddress">
+                <div className="space-y-3">
                   <div className="flex items-center gap-2 text-sm text-[var(--light-gray)]">
                     <MapPin className="w-3.5 h-3.5 text-[var(--safety-orange)]" />
                     <span>
-                      <span itemProp="addressLocality">{BUSINESS_INFO.address.city}</span>,{' '}
-                      <span itemProp="addressRegion">{BUSINESS_INFO.address.state}</span>{' '}
-                      <span itemProp="postalCode">{BUSINESS_INFO.address.zip}</span>
+                      {BUSINESS_INFO.address.city}, {BUSINESS_INFO.address.state} {BUSINESS_INFO.address.zip}
                     </span>
                   </div>
                   <a href={`tel:${BUSINESS_INFO.phoneRaw}`} className="flex items-center gap-2 text-sm text-[var(--light-gray)] hover:text-[var(--safety-orange)] transition-colors">
                     <Phone className="w-3.5 h-3.5 text-[var(--safety-orange)]" />
-                    <span itemProp="telephone">{BUSINESS_INFO.phone}</span>
+                    <span>{BUSINESS_INFO.phone}</span>
                   </a>
                   <a href={`mailto:${BUSINESS_INFO.email}`} className="flex items-center gap-2 text-sm text-[var(--light-gray)] hover:text-[var(--safety-orange)] transition-colors">
                     <Mail className="w-3.5 h-3.5 text-[var(--safety-orange)]" />
@@ -203,11 +193,8 @@ export default function Footer() {
                     <span
                       key={area}
                       className="px-2 py-0.5 text-xs text-[var(--light-gray)] bg-[var(--steel-gray)]/10 rounded-md"
-                      itemProp="areaServed"
-                      itemScope
-                      itemType="https://schema.org/City"
                     >
-                      <span itemProp="name">{area}</span>
+                      {area}
                     </span>
                   ))}
                 </div>
@@ -237,14 +224,12 @@ export default function Footer() {
               <p className="text-sm text-[var(--slate-gray)] mb-5 max-w-xs">
                 Professional trash can cleaning & sanitization. Eliminating 99.9% of bacteria, odors, and pests.
               </p>
-              {/* Contact Info - NAP with Schema */}
-              <address className="space-y-2 not-italic" itemProp="address" itemScope itemType="https://schema.org/PostalAddress">
+              {/* Contact Info */}
+              <address className="space-y-2 not-italic">
                 <div className="flex items-center gap-2.5 text-sm text-[var(--light-gray)]">
                   <MapPin className="w-4 h-4 text-[var(--safety-orange)]" aria-hidden="true" />
                   <span>
-                    <span itemProp="addressLocality">{BUSINESS_INFO.address.city}</span>,{' '}
-                    <span itemProp="addressRegion">{BUSINESS_INFO.address.state}</span>{' '}
-                    <span itemProp="postalCode">{BUSINESS_INFO.address.zip}</span>
+                    {BUSINESS_INFO.address.city}, {BUSINESS_INFO.address.state} {BUSINESS_INFO.address.zip}
                   </span>
                 </div>
                 <a
@@ -253,7 +238,7 @@ export default function Footer() {
                   aria-label={`Call us at ${BUSINESS_INFO.phone}`}
                 >
                   <Phone className="w-4 h-4 text-[var(--safety-orange)]" aria-hidden="true" />
-                  <span itemProp="telephone">{BUSINESS_INFO.phone}</span>
+                  <span>{BUSINESS_INFO.phone}</span>
                 </a>
                 <a
                   href={`mailto:${BUSINESS_INFO.email}`}
@@ -261,7 +246,7 @@ export default function Footer() {
                   aria-label={`Email us at ${BUSINESS_INFO.email}`}
                 >
                   <Mail className="w-4 h-4 text-[var(--safety-orange)]" aria-hidden="true" />
-                  <span itemProp="email">{BUSINESS_INFO.email}</span>
+                  <span>{BUSINESS_INFO.email}</span>
                 </a>
               </address>
               {/* Social Icons - Desktop */}
@@ -272,7 +257,6 @@ export default function Footer() {
                   rel="noopener noreferrer"
                   className="w-10 h-10 flex items-center justify-center rounded-xl bg-[var(--steel-gray)]/10 text-[var(--slate-gray)] hover:bg-[var(--safety-orange)] hover:text-white transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--safety-orange)]"
                   aria-label="Follow us on Facebook"
-                  itemProp="sameAs"
                 >
                   <Facebook className="w-5 h-5" aria-hidden="true" />
                 </a>
@@ -282,7 +266,6 @@ export default function Footer() {
                   rel="noopener noreferrer"
                   className="w-10 h-10 flex items-center justify-center rounded-xl bg-[var(--steel-gray)]/10 text-[var(--slate-gray)] hover:bg-[var(--safety-orange)] hover:text-white transition-colors focus:outline-none focus-visible:ring-2 focus-visible:ring-[var(--safety-orange)]"
                   aria-label="Follow us on Instagram"
-                  itemProp="sameAs"
                 >
                   <Instagram className="w-5 h-5" aria-hidden="true" />
                 </a>

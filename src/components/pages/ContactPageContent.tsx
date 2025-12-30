@@ -632,36 +632,27 @@ function ContactFormSection() {
             <a
               href={`tel:${BUSINESS_INFO.phoneRaw}`}
               className="flex items-center justify-between p-4 lg:p-5 rounded-lg lg:rounded-xl bg-[var(--concrete-gray)]/30 border border-[var(--steel-gray)]/20 hover:border-[var(--safety-orange)]/30 transition-colors group"
-              itemScope
-              itemType="https://schema.org/LocalBusiness"
             >
               <div>
                 <p className="text-[10px] lg:text-xs text-[var(--slate-gray)] uppercase tracking-wide">Call us directly</p>
-                <p className="text-sm lg:text-lg font-bold text-[var(--safety-orange)]" itemProp="telephone">{BUSINESS_INFO.phone}</p>
+                <p className="text-sm lg:text-lg font-bold text-[var(--safety-orange)]">{BUSINESS_INFO.phone}</p>
               </div>
               <Phone className="w-4 h-4 lg:w-5 lg:h-5 text-[var(--steel-gray)] group-hover:text-[var(--safety-orange)] transition-colors" />
             </a>
 
-            {/* NAP Section with Microdata */}
-            <div
-              className="p-4 lg:p-5 rounded-lg lg:rounded-xl bg-[var(--concrete-gray)]/30 border border-[var(--steel-gray)]/20"
-              itemScope
-              itemType="https://schema.org/LocalBusiness"
-            >
-              <meta itemProp="name" content={BUSINESS_INFO.name} />
+            {/* NAP Section */}
+            <div className="p-4 lg:p-5 rounded-lg lg:rounded-xl bg-[var(--concrete-gray)]/30 border border-[var(--steel-gray)]/20">
               <div className="flex items-center gap-2 mb-2 lg:mb-3">
                 <div className="w-8 h-8 rounded-lg bg-[var(--safety-orange)]/10 flex items-center justify-center">
                   <MapPin className="w-4 h-4 text-[var(--safety-orange)]" />
                 </div>
                 <h3 className="text-xs lg:text-sm font-semibold text-white">Contact Information</h3>
               </div>
-              <div className="space-y-2 text-xs lg:text-sm" itemProp="address" itemScope itemType="https://schema.org/PostalAddress">
+              <div className="space-y-2 text-xs lg:text-sm">
                 <div className="flex items-start gap-2">
                   <MapPin className="w-3.5 h-3.5 text-[var(--safety-orange)] mt-0.5 flex-shrink-0" />
                   <div className="text-[var(--slate-gray)]">
-                    <span itemProp="addressLocality">{BUSINESS_INFO.address.city}</span>,{' '}
-                    <span itemProp="addressRegion">{BUSINESS_INFO.address.state}</span>{' '}
-                    <span itemProp="postalCode">{BUSINESS_INFO.address.zip}</span>
+                    {BUSINESS_INFO.address.city}, {BUSINESS_INFO.address.state} {BUSINESS_INFO.address.zip}
                   </div>
                 </div>
                 <a
@@ -669,14 +660,14 @@ function ContactFormSection() {
                   className="flex items-center gap-2 text-[var(--light-gray)] hover:text-[var(--safety-orange)] transition-colors"
                 >
                   <Phone className="w-3.5 h-3.5 text-[var(--safety-orange)]" />
-                  <span itemProp="telephone">{BUSINESS_INFO.phone}</span>
+                  <span>{BUSINESS_INFO.phone}</span>
                 </a>
                 <a
                   href={`mailto:${BUSINESS_INFO.email}`}
                   className="flex items-center gap-2 text-[var(--light-gray)] hover:text-[var(--safety-orange)] transition-colors"
                 >
                   <Mail className="w-3.5 h-3.5 text-[var(--safety-orange)]" />
-                  <span itemProp="email">{BUSINESS_INFO.email}</span>
+                  <span>{BUSINESS_INFO.email}</span>
                 </a>
               </div>
             </div>
@@ -721,20 +712,14 @@ function AreasWeServeSection() {
           whileInView={{ opacity: 1 }}
           viewport={{ once: true }}
           className="flex flex-wrap justify-center gap-2 sm:gap-3 max-w-3xl mx-auto"
-          itemScope
-          itemType="https://schema.org/LocalBusiness"
         >
-          <meta itemProp="name" content={BUSINESS_INFO.name} />
           {BUSINESS_INFO.areaServed.map((area, index) => (
             <span
               key={index}
               className="inline-flex items-center gap-1.5 px-4 py-2 rounded-full bg-[var(--concrete-gray)]/30 border border-[var(--steel-gray)]/20 text-sm font-medium text-[var(--light-gray)] hover:border-[var(--safety-orange)]/30 hover:text-white transition-all"
-              itemProp="areaServed"
-              itemScope
-              itemType="https://schema.org/City"
             >
               <MapPin className="w-3.5 h-3.5 text-[var(--safety-orange)]" />
-              <span itemProp="name">{area}</span>, FL
+              <span>{area}</span>, FL
             </span>
           ))}
         </motion.div>
