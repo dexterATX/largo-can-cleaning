@@ -44,7 +44,7 @@ const CTA = dynamic(() => import('@/components/sections/CTA'), {
 
 export default function HomePage() {
   return (
-    <>
+    <div className="relative">
       <Hero />
       <Services />
       <WhyChooseUs />
@@ -52,6 +52,6 @@ export default function HomePage() {
       <Testimonials />
       <HomeFAQ />
       <CTA />
-    </>
+    </div>
   )
 }

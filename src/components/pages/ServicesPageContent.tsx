@@ -1285,18 +1285,23 @@ function TimelineProcessSection() {
             className="mb-6"
           >
             <div className="relative rounded-2xl overflow-hidden bg-[var(--concrete-gray)] aspect-[16/10]">
-              {/* Video thumbnail gradient overlay */}
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
+              {/* Actual Video */}
+              <video
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="auto"
+                className="absolute inset-0 w-full h-full object-cover"
+                aria-label="Professional trash can cleaning process - high-pressure 190 degree sanitization in Largo, Florida"
+                title="Largo Can Cleaning - Trash Can Sanitization Process"
+              >
+                <source src="/trash-can-cleaning-process-largo-florida.mp4" type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
 
-              {/* Play button */}
-              <div className="absolute inset-0 flex items-center justify-center">
-                <motion.button
-                  whileTap={{ scale: 0.95 }}
-                  className="w-14 h-14 rounded-full bg-[var(--safety-orange)] flex items-center justify-center shadow-lg shadow-[var(--safety-orange)]/30"
-                >
-                  <Play className="w-6 h-6 text-white ml-0.5" />
-                </motion.button>
-              </div>
+              {/* Subtle gradient overlay at bottom for text readability */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
 
               {/* Video info */}
               <div className="absolute bottom-0 left-0 right-0 p-3">
@@ -1306,8 +1311,8 @@ function TimelineProcessSection() {
                       <Play className="w-3.5 h-3.5 text-white" />
                     </div>
                     <div>
-                      <p className="text-xs font-medium text-white">Watch Process</p>
-                      <p className="text-[10px] text-white/60">60 seconds</p>
+                      <p className="text-xs font-medium text-white">Our Cleaning Process</p>
+                      <p className="text-[10px] text-white/60">190°F Sanitization</p>
                     </div>
                   </div>
                   <span className="text-[10px] text-white/60 bg-white/10 backdrop-blur-sm px-2 py-1 rounded-full">
@@ -1363,20 +1368,34 @@ function TimelineProcessSection() {
             </p>
 
             {/* Video Card */}
-            <div className="relative rounded-2xl overflow-hidden bg-[var(--concrete-gray)] aspect-video mb-8 group cursor-pointer">
-              <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent" />
-              <div className="absolute inset-0 flex items-center justify-center">
-                <motion.div
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.95 }}
-                  className="w-20 h-20 rounded-full bg-[var(--safety-orange)] flex items-center justify-center shadow-lg shadow-[var(--safety-orange)]/30 group-hover:shadow-[var(--safety-orange)]/50 transition-shadow"
-                >
-                  <Play className="w-8 h-8 text-white ml-1" />
-                </motion.div>
-              </div>
+            <div className="relative rounded-2xl overflow-hidden bg-[var(--concrete-gray)] aspect-video mb-8 group">
+              {/* Actual Video */}
+              <video
+                autoPlay
+                muted
+                loop
+                playsInline
+                preload="auto"
+                className="absolute inset-0 w-full h-full object-cover"
+                aria-label="Professional trash can cleaning process - high-pressure 190 degree sanitization in Largo, Florida"
+                title="Largo Can Cleaning - Trash Can Sanitization Process"
+              >
+                <source src="/trash-can-cleaning-process-largo-florida.mp4" type="video/mp4" />
+                Your browser does not support the video tag.
+              </video>
+
+              {/* Subtle gradient overlay at bottom for text readability */}
+              <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent pointer-events-none" />
+
+              {/* Video info overlay */}
               <div className="absolute bottom-4 left-4 right-4">
                 <div className="bg-black/50 backdrop-blur-sm rounded-xl px-4 py-3 flex items-center justify-between">
-                  <p className="text-sm text-white font-medium">Watch our 60-second process video</p>
+                  <div className="flex items-center gap-3">
+                    <div className="w-10 h-10 rounded-full bg-[var(--safety-orange)]/80 flex items-center justify-center">
+                      <Play className="w-5 h-5 text-white" />
+                    </div>
+                    <p className="text-sm text-white font-medium">Our 190°F Sanitization Process</p>
+                  </div>
                   <span className="text-xs text-white/60 bg-white/10 px-2 py-1 rounded-full">HD</span>
                 </div>
               </div>

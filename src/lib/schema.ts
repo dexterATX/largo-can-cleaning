@@ -735,3 +735,97 @@ export function generateWebSiteSchema() {
     inLanguage: 'en-US',
   }
 }
+
+/**
+ * VideoObject Schema - For video SEO
+ * Helps search engines index and display video content in search results
+ */
+export function generateVideoSchema(video: {
+  name: string
+  description: string
+  thumbnailUrl?: string
+  contentUrl: string
+  duration?: string // ISO 8601 duration format (e.g., "PT1M30S" for 1 min 30 sec)
+  uploadDate?: string
+}) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'VideoObject',
+    name: video.name,
+    description: video.description,
+    thumbnailUrl: video.thumbnailUrl || `${BUSINESS_INFO.url}/opengraph-image`,
+    contentUrl: video.contentUrl,
+    uploadDate: video.uploadDate || new Date().toISOString().split('T')[0],
+    ...(video.duration && { duration: video.duration }),
+    publisher: {
+      '@type': 'Organization',
+      '@id': `${BUSINESS_INFO.url}/#organization`,
+      name: BUSINESS_INFO.name,
+      logo: {
+        '@type': 'ImageObject',
+        url: `${BUSINESS_INFO.url}/logo.png`,
+      },
+    },
+    potentialAction: {
+      '@type': 'WatchAction',
+      target: `${BUSINESS_INFO.url}/#how-it-works`,
+    },
+    inLanguage: 'en-US',
+  }
+}
+
+/**
+ * HowTo Schema with Video - For process/tutorial content
+ * Combines HowTo and VideoObject for rich snippets
+ */
+export function generateHowToWithVideoSchema(howTo: {
+  name: string
+  description: string
+  totalTime?: string // ISO 8601 duration
+  video: {
+    name: string
+    description: string
+    contentUrl: string
+    thumbnailUrl?: string
+    duration?: string
+  }
+  steps: Array<{
+    name: string
+    text: string
+    image?: string
+  }>
+}) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'HowTo',
+    name: howTo.name,
+    description: howTo.description,
+    ...(howTo.totalTime && { totalTime: howTo.totalTime }),
+    video: {
+      '@type': 'VideoObject',
+      name: howTo.video.name,
+      description: howTo.video.description,
+      thumbnailUrl: howTo.video.thumbnailUrl || `${BUSINESS_INFO.url}/opengraph-image`,
+      contentUrl: howTo.video.contentUrl,
+      uploadDate: new Date().toISOString().split('T')[0],
+      ...(howTo.video.duration && { duration: howTo.video.duration }),
+    },
+    step: howTo.steps.map((step, index) => ({
+      '@type': 'HowToStep',
+      position: index + 1,
+      name: step.name,
+      text: step.text,
+      ...(step.image && {
+        image: {
+          '@type': 'ImageObject',
+          url: step.image,
+        },
+      }),
+    })),
+    provider: {
+      '@type': 'LocalBusiness',
+      '@id': `${BUSINESS_INFO.url}/#business`,
+      name: BUSINESS_INFO.name,
+    },
+  }
+}

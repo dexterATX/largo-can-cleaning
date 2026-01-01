@@ -32,9 +32,10 @@ const securityHeaders = [
       "default-src 'self'",
       "script-src 'self' 'unsafe-inline' 'unsafe-eval' https://www.googletagmanager.com https://www.google-analytics.com", // Required for Next.js + GA
       "style-src 'self' 'unsafe-inline'", // Required for styled-jsx and inline styles
-      "img-src 'self' data: https://i.pravatar.cc https://www.google-analytics.com https://www.googletagmanager.com blob:",
+      "img-src 'self' data: https://i.pravatar.cc https://www.google-analytics.com https://www.googletagmanager.com https://*.googleapis.com https://*.gstatic.com blob:",
       "font-src 'self' data:",
       "connect-src 'self' https://*.supabase.co https://www.google-analytics.com https://analytics.google.com https://*.googletagmanager.com",
+      "frame-src 'self' https://www.google.com https://maps.google.com", // Allow Google Maps embeds
       "frame-ancestors 'self'",
       "base-uri 'self'",
       "form-action 'self'",

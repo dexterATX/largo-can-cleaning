@@ -3,6 +3,7 @@
 import { useState, useRef, useMemo, memo, useEffect } from 'react'
 import { motion } from 'motion/react'
 import Link from 'next/link'
+import Image from 'next/image'
 import {
   Clock,
   Calendar,
@@ -16,6 +17,31 @@ import {
 } from 'lucide-react'
 import Container from '@/components/ui/Container'
 import { cn } from '@/lib/utils'
+
+// Default blog images for cards without custom images
+const defaultBlogImages = [
+  '/blog-clean-trash-can-interior-closeup.jpg',
+  '/blog-pressure-washing-closeup.jpg',
+  '/blog-suburban-neighborhood-florida.jpg',
+  '/blog-clean-driveway-residential.jpg',
+  '/blog-abstract-water-background.jpg',
+]
+
+// Get a consistent default image based on post id (deterministic hash for SSR)
+function getDefaultImage(postId: string | number, index?: number): string {
+  // Use index if provided (most reliable for SSR)
+  if (typeof index === 'number') {
+    return defaultBlogImages[index % defaultBlogImages.length]
+  }
+  // Fallback: simple character sum for consistent hash
+  const str = String(postId)
+  let hash = 0
+  for (let i = 0; i < str.length; i++) {
+    hash = ((hash << 5) - hash) + str.charCodeAt(i)
+    hash = hash & hash // Convert to 32bit integer
+  }
+  return defaultBlogImages[Math.abs(hash) % defaultBlogImages.length]
+}
 
 // ============================================
 // TYPES
@@ -90,14 +116,21 @@ const FeaturedPostCard = memo(function FeaturedPostCard({ post, categories }: { 
         <span className="sr-only">{getAnchorText(post)}</span>
       </Link>
 
-      {/* Image Placeholder */}
-      <div className="aspect-[16/10] sm:aspect-[16/8] lg:aspect-[16/7] bg-gradient-to-br from-[var(--safety-orange)]/20 to-[var(--safety-orange)]/5 relative">
-        <div className="absolute inset-0 flex items-center justify-center">
-          <BookOpen className="w-12 h-12 sm:w-16 sm:h-16 text-[var(--safety-orange)]/30" />
-        </div>
+      {/* Image */}
+      <div className="aspect-[16/10] sm:aspect-[16/8] lg:aspect-[16/7] relative overflow-hidden">
+        <Image
+          src={post.image && post.image !== '/opengraph-image' ? post.image : getDefaultImage(post.id)}
+          alt={post.title}
+          fill
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 80vw, 70vw"
+          className="object-cover transition-transform duration-300 group-hover:scale-105"
+          priority
+        />
+        {/* Dark overlay for text readability */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-black/20" />
         {/* Featured Badge */}
         <div className="absolute top-3 left-3 sm:top-4 sm:left-4">
-          <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[var(--safety-orange)] text-white text-[10px] sm:text-xs font-semibold">
+          <span className="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-[var(--safety-orange)] text-white text-[10px] sm:text-xs font-semibold shadow-lg">
             <TrendingUp className="w-3 h-3" />
             Featured
           </span>
@@ -154,11 +187,18 @@ const PostCard = memo(function PostCard({ post, categories }: { post: BlogPost; 
         <span className="sr-only">{getAnchorText(post)}</span>
       </Link>
 
-      {/* Image Placeholder - Shorter on mobile */}
-      <div className="aspect-[4/3] lg:aspect-[16/9] bg-gradient-to-br from-[var(--concrete-gray)]/60 to-[var(--concrete-gray)]/30 relative">
-        <div className="absolute inset-0 flex items-center justify-center">
-          <BookOpen className="w-6 h-6 lg:w-8 lg:h-8 text-[var(--steel-gray)]/50" />
-        </div>
+      {/* Image */}
+      <div className="aspect-[4/3] lg:aspect-[16/9] relative overflow-hidden">
+        <Image
+          src={post.image && post.image !== '/opengraph-image' ? post.image : getDefaultImage(post.id)}
+          alt={post.title}
+          fill
+          sizes="(max-width: 640px) 50vw, (max-width: 1024px) 33vw, 25vw"
+          className="object-cover transition-transform duration-300 group-hover:scale-105"
+          loading="lazy"
+        />
+        {/* Dark overlay for text readability */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-transparent to-transparent" />
         {/* Category Badge - On image for mobile */}
         <div className="absolute bottom-2 left-2 lg:hidden">
           <span className="px-1.5 py-0.5 rounded bg-black/60 backdrop-blur-sm text-[var(--safety-orange)] text-[8px] font-medium">
